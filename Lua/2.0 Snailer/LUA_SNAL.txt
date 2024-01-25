@@ -1,0 +1,31 @@
+// Old Snailer - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_OLDSNAILER",
+	"S_SNAILER2",
+	"SPR_OSNL"
+)
+
+mobjinfo[MT_OLDSNAILER] = {
+	//$Name Old Snailer
+	//$Sprite OSNLA1
+	//$Category Retro Enemies
+	doomednum = 139,
+	spawnstate = S_SNAILER2,
+	spawnhealth = 1,
+	reactiontime = 2,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = FRACUNIT,
+	radius = 24*FRACUNIT,
+	height = 48*FRACUNIT,
+	flags = MF_SLIDEME|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+
+states[S_SNAILER2] =	{SPR_OSNL,	A,	1,	A_SnailerThink,	0,	0,	S_SNAILER2}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OLDSNAILER] = 5    // Makes MT_OLDSNAILER give Spark

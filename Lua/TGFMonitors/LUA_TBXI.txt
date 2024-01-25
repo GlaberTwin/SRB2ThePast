@@ -1,0 +1,42 @@
+-- TGF Invincibility Power-Up - "Ported" by MIDIMan
+-- Use with LUA_TBOX
+
+freeslot(
+	"SPR_TBXI",
+	"MT_TGFBOX_INVIN_SPECIAL",
+	"S_TGFBOX_INVIN_SPECIAL_IDLE",
+	"S_TGFBOX_INVIN_SPECIAL_DEATH"
+)
+
+local function RM_TGFInvincibility(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	RM_TGFMonitorGiveAbility(actor, A_Invincibility)
+end
+
+addHook("MapThingSpawn", RM_TGFPowerUpSetup, MT_TGFBOX_INVIN_SPECIAL)
+addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_INVIN_SPECIAL)
+addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_INVIN_SPECIAL)
+
+mobjinfo[MT_TGFBOX_INVIN_SPECIAL] = {
+	//$Name TGF Invincibility (Power-Up)
+	//$Sprite TBXIA0
+	//$Category Monitors
+	//$Flags8Text Float
+	--$Arg0 Float?
+	--$Arg0Tooltip "This raises the object by 24 fracunits."
+	--$Arg0Type 11
+	--$Arg0Enum yesno
+	doomednum = 516,
+	spawnstate = S_TGFBOX_INVIN_SPECIAL_IDLE,
+	spawnhealth = 1,
+	reactiontime = 5,
+	painstate = S_TGFBOX_INVIN_SPECIAL_IDLE,
+	deathstate = S_TGFBOX_INVIN_SPECIAL_DEATH,
+	deathsound = sfx_s1ca,
+	radius = 14*FRACUNIT,
+	height = 26*FRACUNIT,
+	flags = MF_SPECIAL|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_TGFBOX_INVIN_SPECIAL_IDLE] =	{SPR_TBXI,	A,	-1,	nil,					0,	0,	S_NULL}
+states[S_TGFBOX_INVIN_SPECIAL_DEATH] =	{SPR_NULL,	A,	-1,	RM_TGFInvincibility,	0,	0,	S_NULL}

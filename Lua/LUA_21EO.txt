@@ -1,0 +1,525 @@
+-- 2.1 Sea Egg - Ported from 2.1.25
+-- PLEASE LOAD LUA_CMMN AND LUA_EOCM BEFORE THIS
+
+freeslot(
+	-- Sprites
+	"SPR_OFAK",
+	-- Objects
+	"MT_21EGGMOBILE3",
+	"MT_OLDFAKEMOBILE",
+	"MT_OLDTORPEDO2",
+	-- States
+	"S_OLDFAKEMOBILE_INIT",
+	"S_OLDFAKEMOBILE",
+	"S_OLDFAKEMOBILE_ATK1",
+	"S_OLDFAKEMOBILE_ATK2",
+	"S_OLDFAKEMOBILE_ATK3A",
+	"S_OLDFAKEMOBILE_ATK3B",
+	"S_OLDFAKEMOBILE_ATK3C",
+	"S_OLDFAKEMOBILE_ATK3D",
+	"S_OLDFAKEMOBILE_ATK4",
+	"S_OLDFAKEMOBILE_ATK5"
+)
+
+-- Relevant ported functions
+
+-- A_Boss3Path ported from 2.1.25's p_enemy.c
+function A_21Boss3Path(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	if actor.tracer and actor.tracer.valid and actor.tracer.health and actor.tracer.movecount then
+		actor.movecount = $|1
+	elseif (actor.movecount & 1) then
+		actor.movecount = 0
+	end
+	
+	if (actor.movecount & 2) then -- We've reached a firing point?
+		-- Wait here and pretend to be angry or something.
+		actor.momx = 0
+		actor.momy = 0
+		actor.momz = 0
+		actor.target = actor.tracer.target
+		A_FaceTarget(actor, 0, 0)
+		if actor.tracer.state == actor.tracer.info.missilestate then
+			actor.state = actor.info.missilestate
+		end
+		return
+	elseif actor.threshold >= 0 then -- Traveling mode
+		local dist, dist2
+		local speed
+		
+		actor.target = nil
+		
+		-- scan the thinkers
+		-- to find a point that matches
+		-- the number
+		for th in mobjs.iterate() do
+			if not (th and th.valid) then continue end
+			if th.type == MT_BOSS3WAYPOINT and th.spawnpoint and th.spawnpoint.valid
+			and ((not udmf and th.spawnpoint.angle == actor.threshold)
+			or (udmf and th.spawnpoint.args[0] == actor.threshold)) then
+				actor.target = th
+				break
+			end
+		end
+		
+		if not (actor.target and actor.target.valid) then -- Should NEVER happen
+			print("Error: Boss 3 Dummy was unable to find specified waypoint: " + actor.thresold)
+			return
+		end
+		
+		dist = FixedHypot(FixedHypot(actor.target.x - actor.x, actor.target.y - actor.y), actor.target.z - actor.z)
+		
+		if dist < 1 then dist = 1 end
+		
+		if actor.tracer and actor.tracer.valid and (actor.tracer.movedir
+		or actor.tracer.health <= actor.tracer.info.damage) then
+			speed = actor.info.speed * 2
+		else
+			speed = actor.info.speed
+		end
+		
+		actor.momx = FixedMul(FixedDiv(actor.target.x - actor.x, dist), speed)
+		actor.momy = FixedMul(FixedDiv(actor.target.y - actor.y, dist), speed)
+		actor.momz = FixedMul(FixedDiv(actor.target.z - actor.z, dist), speed)
+		
+		if actor.momx ~= 0 or actor.momy ~= 0 then
+			actor.angle = R_PointToAngle2(0, 0, actor.momx, actor.momy)
+		end
+		
+		dist2 = FixedHypot(FixedHypot(actor.target.x - (actor.x + actor.momx), actor.target.y - (actor.y + actor.momy)), actor.target.z - (actor.z + actor.momz))
+		
+		if dist2 < 1 then dist2 = 1 end
+		
+		if dist / (2^FRACBITS) <= dist2 / (2^FRACBITS) then
+			-- If further away, set XYZ of mo to waypoint location
+			P_MoveOrigin(actor, actor.target.x, actor.target.y, actor.target.z)
+			actor.momx = 0
+			actor.momy = 0
+			actor.momz = 0
+			
+			if actor.threshold == 0 then
+				P_RemoveMobj(actor) -- Cycle completed. Dummy removed.
+				return
+			end
+			
+			-- Set to next waypoint in sequence
+			if actor.target.spawnpoint and actor.target.spawnpoint.valid then
+				-- From the center point, choose one of the five paths
+				if (not udmf and actor.target.spawnpoint.angle == 0)
+				or (udmf and actor.target.spawnpoint.args[0] == 0) then
+					P_RemoveMobj(actor) -- Cycle completed. Dummy removed.
+					return
+				else
+					if not udmf then
+						actor.threshold = actor.target.spawnpoint.extrainfo
+					else
+						actor.threshold = actor.target.spawnpoint.tag
+					end
+				end
+				
+				-- If the deaf flag is set, go into firing mode
+				if ((not udmf and (actor.target.spawnpoint.options & MTF_AMBUSH))
+				or (udmf and actor.target.spawnpoint.args[9])) then
+					actor.movecount = $|2
+				end
+			else -- This should never happen, as well
+				print("Error: Boss 3 Dummy waypoint has no spawnpoint associated with it.")
+			end
+		end
+	end
+end
+
+-- 2.1 Sea Egg
+
+-- Ported BossThinker behavior for 2.1 Sea Egg from 2.1.25
+addHook("BossThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.state == mo.info.spawnstate then mo.flags2 = $ & ~MF2_FRET end
+	if (mo.flags2 & MF2_FRET) then
+		mo.movedir = 1
+	end
+	if not (mo.tracer and mo.tracer.valid) then A_OldSeaEggPropeller(mo, 0, 0) end
+	
+	if mo.health <= 0 then
+		mo.movecount = 0
+		mo.reactiontime = 0
+		
+		if mo.state < mo.info.xdeathstate then return end
+
+		if mo.threshold == -1 then
+			mo.momz = mo.info.speed
+			return
+		end
+	end
+	
+	if mo.reactiontime then -- Shock mode
+		local i
+		
+		if mo.state ~= mo.info.spawnstate then mo.state = mo.info.spawnstate end
+		
+		mo.reactiontime = $-1
+		if not mo.reactiontime then
+			-- Shock the water
+			for player in players.iterate do
+				if not player.valid or player.spectator then continue end
+				if not (player.mo and player.mo.valid) then continue end
+				if player.mo.health <= 0 then continue end
+				
+				if (player.mo.eflags & MFE_UNDERWATER) then
+					P_DamageMobj(player.mo, mo, mo, 1)
+				end
+			end
+			
+			-- Make the water flash
+			for sector in sectors.iterate do
+				if not sector.ffloors() then continue end
+				
+				for rover in sector.ffloors() do
+					if not (rover.flags & FF_EXISTS) then continue end
+					if not (rover.flags & FF_SWIMMABLE) then continue end
+					
+					P_SpawnLightningFlash(rover.master.frontsector)
+					break
+				end
+			end
+			
+			if mo.extravalue1 + TICRATE*2 < leveltime then
+				mo.extravalue1 = leveltime
+				S_StartSound(nil, sfx_buzz1)
+			end
+			
+			-- If in the center, check to make sure
+			-- none of the players are in the water
+			for player in players.iterate do
+				if not player.valid or player.spectator then continue end
+				if not (player.mo and player.mo.valid) or player.bot then continue end
+				if player.mo.health <= 0 then continue end
+				
+				if player.mo.eflags & MFE_UNDERWATER then
+				-- Stay put
+					mo.reactiontime = 2*TICRATE
+					return
+				end
+			end
+		end
+		
+		if not mo.reactiontime and mo.health <= mo.info.damage then
+		-- Spawn pinch dummies from the center when we're leaving it.
+			local dummy
+			local way = mo.threshold - 1 -- 0 through 4
+			local way2
+			
+			i = 0 -- reset i to 0 so we can check how many clones we've removed
+			
+			-- scan the thinkers to make sure all the old pinch dummies are gone before making new ones
+			-- this can happen if the boss was hurt earlier than expected
+			for th in mobjs.iterate() do
+				if not (th and th.valid) then continue end
+				if th.type == mo.info.mass and (th.tracer and th.tracer.valid) and th.tracer == mo
+					P_RemoveMobj(th)
+					i = $+1
+				end
+				if i == 2 then -- we've already removed 2 of these, let's stop now
+					break
+				end
+			end
+			
+			way = (way + P_RandomRange(1,3)) % 5 -- dummy 1 at one of the first three options after eggmobile
+			dummy = P_SpawnMobj(mo.x, mo.y, mo.z, mo.info.mass)
+			dummy.angle = mo.angle
+			dummy.threshold = way + 1
+			dummy.tracer = mo
+			
+			repeat
+				way2 = (way + P_RandomRange(1,3)) % 5 -- dummy 2 has to be careful,
+			until not (way2 == mo.threshold - 1) -- to make sure it doesn't try to go the Eggman Way if dummy 1 rolled high.
+			dummy = P_SpawnMobj(mo.x, mo.y, mo.z, mo.info.mass)
+			dummy.angle = mo.angle
+			dummy.threshold = way2 + 1
+			dummy.tracer = mo
+			
+-- 			CONS_Debug(DBG_GAMELOGIC, "Eggman path %d - Dummy selected paths %d and %d\n", mo.threshold, way + 1, dummy threshold)
+			local pinchtag = LE_PINCHPHASE
+			if udmf and mo.spawnpoint and mo.spawnpoint.valid then pinchtag = mo.spawnpoint.args[4] end
+			P_LinedefExecute(pinchtag, mo, nil)
+		end
+	elseif mo.movecount then -- Firing mode
+		local i
+		
+		-- Look for a new target
+		P_BossTargetPlayer(mo, false)
+		
+		if not (mo.target and mo.target.valid
+		and mo.target.player and mo.target.player.valid)then
+			return
+		end
+		
+		-- Are there any players underwater? If so, shock them!
+		for player in players.iterate do
+			if not player.valid or player.spectator then continue end
+			if not (player.mo and player.mo.valid) or player.bot then continue end
+			
+			if (player.mo.eflags & MFE_UNDERWATER) then
+				mo.movecount = 0
+				mo.state = mo.info.spawnstate
+				return
+			end
+		end
+		
+		-- Always face your target
+		A_FaceTarget(mo)
+		
+		-- Check if the attack animation is running. If not, play it.
+		if mo.state < mo.info.missilestate or mo.state > mo.info.raisestate then
+			if mo.health <= mo.info.damage then -- pinch phase
+				mo.movecount = $-1 -- limited number of shots before diving again
+			end
+			if mo.movecount then
+				mo.state = mo.info.missilestate
+			end
+		end
+	elseif mo.threshold >= 0 then -- Traveling mode
+		local th
+		local mo2
+		local dist, dist2
+		local speed
+		
+		mo.target = nil
+		
+		if mo.state ~= mo.info.spawnstate and mo.health > 0
+		and not (mo.flags2 & MF2_FRET) then
+			mo.state = mo.info.spawnstate
+		end
+		
+		-- scan the thinkers
+		-- to find a point that matches
+		-- the number
+		for th in mobjs.iterate()
+			if not (th and th.valid) then continue end
+			
+			if th.type == MT_BOSS3WAYPOINT and th.spawnpoint and th.spawnpoint.valid
+			and ((not udmf and th.spawnpoint.angle == mo.threshold)
+			or (udmf and th.spawnpoint.args[0] == mo.threshold)) then
+				mo.target = th
+				break
+			end
+		end
+		
+		if not (mo.target and mo.target.valid) then -- Should NEVER happen
+			print("Error: Boss 3 was unable to find specified waypoint: " + mo.threshold)
+			return
+		end
+		
+		dist = FixedHypot(FixedHypot(mo.target.x - mo.x, mo.target.y - mo.y), mo.target.z - mo.z)
+		
+		if dist < 1 then dist = 1 end
+		
+		if mo.movedir or mo.health <= mo.info.damage then
+			speed = mo.info.speed * 2
+		else
+			speed = mo.info.speed
+		end
+		
+		mo.momx = FixedMul(FixedDiv(mo.target.x - mo.x, dist), speed)
+		mo.momy = FixedMul(FixedDiv(mo.target.y - mo.y, dist), speed)
+		mo.momz = FixedMul(FixedDiv(mo.target.z - mo.z, dist), speed)
+		
+		if mo.momx ~= 0 or mo.momy ~= 0 then
+			mo.angle = R_PointToAngle2(0, 0, mo.momx, mo.momy)
+		end
+		
+		dist2 = FixedHypot(FixedHypot(mo.target.x - (mo.x + mo.momx), mo.target.y - (mo.y + mo.momy)), mo.target.z - (mo.z + mo.momz))
+		
+		if dist2 < 1 then dist2 = 1 end
+		
+		if dist / (2^FRACBITS) <= dist2 / (2^FRACBITS) then
+			P_MoveOrigin(mo, mo.target.x, mo.target.y, mo.target.z)
+			mo.momx = 0
+			mo.momy = 0
+			mo.momz = 0
+			
+			if mo.threshold == 0 then
+				mo.reactiontime = 1 -- Bzzt! Shock the water!
+				mo.movedir = 0
+				
+				if mo.health <= 0 then
+					mo.flags = $|MF_NOGRAVITY|MF_NOCLIP
+					mo.flags = $|MF_NOCLIPHEIGHT
+					mo.threshold = -1
+					return
+				end
+			end
+			
+			-- Set to next waypoint in sequence
+			if mo.target.spawnpoint and mo.target.spawnpoint.valid then
+				-- From the center point, choose one of the five paths
+				if ((not udmf and mo.target.spawnpoint.angle == 0)
+				or (udmf and mo.target.spawnpoint.args[0] == 0)) then
+					mo.threshold = P_RandomRange(1,5)
+				else
+					if not udmf then
+						mo.threshold = mo.target.spawnpoint.extrainfo
+					else
+						mo.threshold = mo.target.spawnpoint.tag
+					end
+				end
+				
+				-- If the deaf flag is set, go into firing mode
+				if ((not udmf and (mo.target.spawnpoint.options & MTF_AMBUSH))
+				or (udmf and mo.target.spawnpoint.args[9])) then
+					mo.movecount = mo.health+1
+				end
+			else -- This should never happen, as well
+				--CONS_Debug(DBG_GAMELOGIC, "Error: Boss 3 waypoint has no spawnpoint associated with it.\n")
+			end
+		end
+	end
+	
+	return true
+end, MT_21EGGMOBILE3)
+
+addHook("MobjDeath", function(target)
+	if not (target and target.valid) then return end
+	
+	local i = 0 -- to check how many clones we've removed
+	
+	-- scan the thinkers to make sure all the old pinch dummies are gone on death
+	-- this can happen if the boss was hurt earlier than expected
+	for th in mobjs.iterate()
+		if not (th and th.valid) then return end
+		
+		if th.type == target.info.mass and (th.tracer and th.tracer.valid) and th.tracer == target
+			P_RemoveMobj(th)
+			i = $+1
+		end
+		if i == 2 then -- we've already removed 2 of these, let's stop now
+			break
+		end
+	end
+end, MT_21EGGMOBILE3)
+
+addHook("BossDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	A_21BossDeath(mo)
+	return true
+end, MT_21EGGMOBILE3)
+
+mobjinfo[MT_21EGGMOBILE3] = {
+	--$Name 2.1 Sea Egg
+	--$Sprite OEGOA1
+	--$Category Bosses
+	--$Flags4Text End level on death
+	--$Arg0 Boss ID
+	--$Arg1 End level on death?
+	--$Arg1Type 11
+	--$Arg1Enum noyes
+	--$Arg2 Death trigger tag
+	--$Arg2Type 15
+	--$Arg3 Victory trigger tag
+	--$Arg3Type 15
+	--$Arg4 Pinch trigger tag
+	--$Arg4Type 15
+	doomednum = 231,
+	spawnstate = S_21EGGMOBILE3_STND,
+	spawnhealth = 8,
+	painstate = S_21EGGMOBILE3_PAIN,
+	painchance = MT_PROPELLER,
+	painsound = sfx_dmpain,
+	missilestate = S_21EGGMOBILE3_ATK1,
+	deathstate = S_21EGGMOBILE3_DIE1,
+	xdeathstate = S_21EGGMOBILE3_FLEE1,
+	deathsound = sfx_cybdth,
+	speed = 8*FRACUNIT,
+	radius = 32*FRACUNIT,
+	height = 116*FRACUNIT,
+	mass = MT_OLDFAKEMOBILE,
+	damage = 3,
+	activesound = sfx_telept,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY|MF_BOSS|MF_NOCLIPHEIGHT,
+	raisestate = S_21EGGMOBILE3_LAUGH20
+}
+
+-- States are in LUA_EOCM
+
+-- 2.1 Fake Mobile
+
+addHook("TouchSpecial", function(special, toucher)
+	if not (special and special.valid
+	and toucher and toucher.valid) then
+		return
+	end
+	
+	local touchx, touchy, touchspeed
+	local angle
+	
+	if FixedHypot(toucher.x-special.x, toucher.y-special.y) >
+	FixedHypot((toucher.x-toucher.momx)-special.x, (toucher.y-toucher.momy)-special.y) then
+		touchx = toucher.x + toucher.momx
+		touchy = toucher.y + toucher.momy
+	else
+		touchx = toucher.x
+		touchy = toucher.y
+	end
+	
+	angle = R_PointToAngle2(special.x, special.y, touchx, touchy)
+	touchspeed = FixedHypot(toucher.momx, toucher.momy)
+	
+	toucher.momx = P_ReturnThrustX(special, angle, touchspeed)
+	toucher.momy = P_ReturnThrustY(special, angle, touchspeed)
+	toucher.momz = -toucher.momz
+	if (toucher.player.pflags & PF_GLIDING) then
+		toucher.player.pflags = $ & ~(PF_GLIDING|PF_JUMPED)
+		toucher.state = S_PLAY_FALL
+	end
+	
+	-- Play a bounce sound?
+	S_StartSound(toucher, special.info.painsound)
+	
+	return true
+end, MT_OLDFAKEMOBILE)
+
+mobjinfo[MT_OLDFAKEMOBILE] = {
+	doomednum = -1,
+	spawnstate = S_OLDFAKEMOBILE_INIT,
+	spawnhealth = 1000,
+	painchance = MT_PROPELLER,
+	painsound = sfx_s3k7b,
+	missilestate = S_OLDFAKEMOBILE_ATK1,
+	deathstate = S_XPLD1, -- Replace with an old explosion, if necessary
+	deathsound = sfx_pop,
+	speed = 8*FRACUNIT,
+	radius = 32*FRACUNIT,
+	height = 116*FRACUNIT,
+	damage = 3,
+	flags = MF_SPECIAL|MF_NOGRAVITY|MF_RUNSPAWNFUNC|MF_NOCLIPHEIGHT
+}
+
+states[S_OLDFAKEMOBILE_INIT] =	{SPR_OFAK,	A,	1,	A_OldSeaEggPropeller,	0,	0,	S_OLDFAKEMOBILE}
+states[S_OLDFAKEMOBILE] =		{SPR_OFAK,	A,	1,	A_21Boss3Path,			0,	0,	S_OLDFAKEMOBILE}
+
+states[S_OLDFAKEMOBILE_ATK1] =	{SPR_OFAK,	A,	2,	nil,			0,				0,	S_OLDFAKEMOBILE_ATK2}
+states[S_OLDFAKEMOBILE_ATK2] =	{SPR_OFAK,	A,	2,	nil,			0,				0,	S_OLDFAKEMOBILE_ATK3A}
+states[S_OLDFAKEMOBILE_ATK3A] =	{SPR_OFAK,	A,	2,	A_BossFireShot,	MT_OLDTORPEDO2,	2,	S_OLDFAKEMOBILE_ATK3B}
+states[S_OLDFAKEMOBILE_ATK3B] =	{SPR_OFAK,	A,	2,	A_BossFireShot,	MT_OLDTORPEDO2,	4,	S_OLDFAKEMOBILE_ATK3C}
+states[S_OLDFAKEMOBILE_ATK3C] =	{SPR_OFAK,	A,	2,	A_BossFireShot,	MT_OLDTORPEDO2,	3,	S_OLDFAKEMOBILE_ATK3D}
+states[S_OLDFAKEMOBILE_ATK3D] =	{SPR_OFAK,	A,	2,	A_BossFireShot,	MT_OLDTORPEDO2,	5,	S_OLDFAKEMOBILE_ATK4}
+states[S_OLDFAKEMOBILE_ATK4] =	{SPR_OFAK,	A,	2,	nil,			0,				0,	S_OLDFAKEMOBILE_ATK5}
+states[S_OLDFAKEMOBILE_ATK5] =	{SPR_OFAK,	A,	2,	nil,			0,				0,	S_OLDFAKEMOBILE}
+
+-- 2.1 Torpedo
+
+mobjinfo[MT_OLDTORPEDO2] = {
+	doomednum = -1,
+	spawnstate = S_OLDTORPEDO,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	deathstate = S_MINE_BOOM1, -- Make this a 2.1 variant if it changes in the future
+	deathsound = sfx_cybdth,
+	speed = 20*FRACUNIT,
+	radius = 11*FRACUNIT,
+	height = 8*FRACUNIT,
+	damage = 20,
+	flags = MF_NOBLOCKMAP|MF_MISSILE|MF_NOGRAVITY
+}

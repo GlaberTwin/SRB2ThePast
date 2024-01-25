@@ -1,0 +1,62 @@
+// Red Crawla Classic - Ported by Glaber (original SOC) and MIDIMan (fixes and conversion to Lua)
+
+freeslot(
+	"MT_REDCRAWLACLASSIC",
+	"S_RCRW_STND",
+	"S_RCRW_RUN",
+	"S_RCRW_RUN2",
+	"S_RCRW_RUN3",
+	"S_RCRW_RUN4",
+	"S_RCRW_RUN5",
+	"S_RCRW_RUN6",
+	"S_RCRW_RUN7",
+	"S_RCRW_RUN8",
+	"S_RCRW_RUN9",
+	"S_RCRW_RUN10",
+	"S_RCRW_RUN11",
+	"S_RCRW_RUN12",
+	"S_RCRW_RUN13",
+	"S_RCRW_RUN14",
+	"S_RCRW_RUN15",
+	"S_RCRW_RUN16",
+	"S_RCRW_RUN17",
+	"SPR_RCRW"
+)
+
+mobjinfo[MT_REDCRAWLACLASSIC] = {
+	//$Name Final Demo Red Crawla
+	//$Sprite RCRWA1
+	//$Category Retro Enemies
+	doomednum = 4017,
+	spawnstate = S_RCRW_STND,
+	spawnhealth = 1,
+	seestate = S_RCRW_RUN,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 24*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+
+states[S_RCRW_STND] =	{SPR_RCRW,	A,	5,	A_Look,	0,	0,	S_RCRW_STND}
+
+states[S_RCRW_RUN] =	{SPR_RCRW,	A,	1,	A_Chase,	0,	0,	S_RCRW_RUN2}
+states[S_RCRW_RUN2] =	{SPR_RCRW,	B,	1,	A_Chase,	0,	0,	S_RCRW_RUN3}
+states[S_RCRW_RUN3] =	{SPR_RCRW,	C,	1,	A_Chase,	0,	0,	S_RCRW_RUN4}
+states[S_RCRW_RUN4] =	{SPR_RCRW,	D,	1,	A_Chase,	0,	0,	S_RCRW_RUN5}
+states[S_RCRW_RUN5] =	{SPR_RCRW,	E,	1,	A_Chase,	0,	0,	S_RCRW_RUN6}
+states[S_RCRW_RUN6] =	{SPR_RCRW,	F,	1,	A_Chase,	0,	0,	S_RCRW_RUN7}
+states[S_RCRW_RUN7] =	{SPR_RCRW,	G,	1,	A_Chase,	0,	0,	S_RCRW_RUN8}
+states[S_RCRW_RUN8] =	{SPR_RCRW,	H,	1,	A_Chase,	0,	0,	S_RCRW_RUN9}
+states[S_RCRW_RUN9] =	{SPR_RCRW,	I,	1,	A_Chase,	0,	0,	S_RCRW_RUN10}
+states[S_RCRW_RUN10] =	{SPR_RCRW,	J,	1,	A_Chase,	0,	0,	S_RCRW_RUN11}
+states[S_RCRW_RUN11] =	{SPR_RCRW,	K,	1,	A_Chase,	0,	0,	S_RCRW_RUN12}
+states[S_RCRW_RUN12] =	{SPR_RCRW,	L,	1,	A_Chase,	0,	0,	S_RCRW_RUN13}
+states[S_RCRW_RUN13] =	{SPR_RCRW,	M,	1,	A_Chase,	0,	0,	S_RCRW_RUN14}
+states[S_RCRW_RUN14] =	{SPR_RCRW,	N,	1,	A_Chase,	0,	0,	S_RCRW_RUN15}
+states[S_RCRW_RUN15] =	{SPR_RCRW,	O,	1,	A_Chase,	0,	0,	S_RCRW_RUN16}
+states[S_RCRW_RUN16] =	{SPR_RCRW,	P,	1,	A_Chase,	0,	0,	S_RCRW_RUN17}
+states[S_RCRW_RUN17] =	{SPR_RCRW,	Q,	1,	A_Chase,	0,	0,	S_RCRW_RUN}

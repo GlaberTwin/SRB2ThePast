@@ -1,0 +1,13 @@
+local function fixSS(mapnum)
+    if (gametype == GT_COOP) then
+        if (mapnum > 49 and mapnum < 70) then
+            COM_BufInsertText(server, "friendlyfire on")
+        else
+            COM_BufInsertText(server, "friendlyfire off")
+        end
+    end
+end
+
+addHook("MapLoad", fixSS)
+
+//Special Thanks to Cosmo for making the code and to Cassie for shareing it

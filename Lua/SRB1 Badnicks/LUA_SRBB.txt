@@ -1,0 +1,34 @@
+// SRB1 Guard Robo - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_BAT",
+	"S_SRB1_BAT1",
+	"S_SRB1_BAT2",
+	"S_SRB1_BAT3",
+	"S_SRB1_BAT4",
+	"SPR_SRBB"
+)
+
+mobjinfo[MT_SRB1_BAT] = {
+	//$Name GuardRobo
+	//$Sprite SRBBA1
+	//$Category SRB1 Enemies
+	doomednum = 4001,
+	spawnstate = S_SRB1_BAT1,
+	spawnhealth = 1,
+	seestate = S_SRB1_BAT3,
+	reactiontime = 2,
+	painchance = 3072,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 4*FRACUNIT,
+	radius = 17*FRACUNIT,
+	height = 40*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_SLIDEME
+}
+
+states[S_SRB1_BAT1] =	{SPR_SRBB,	A,	2,	A_Look,	0,	0,	S_SRB1_BAT2}
+states[S_SRB1_BAT2] =	{SPR_SRBB,	B,	2,	A_Look,	0,	0,	S_SRB1_BAT1}
+
+states[S_SRB1_BAT3] =	{SPR_SRBB,	A,	2,	A_BuzzFly,	0,	0,	S_SRB1_BAT4}
+states[S_SRB1_BAT4] =	{SPR_SRBB,	B,	2,	A_BuzzFly,	0,	0,	S_SRB1_BAT3}

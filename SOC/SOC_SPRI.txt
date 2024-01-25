@@ -1,0 +1,436 @@
+#Invisable spring
+FREESLOT
+MT_INVSPRING
+S_INVSPRING
+S_INVSPRING1
+S_INVSPRING2
+S_INVSPRING3
+S_INVSPRING4
+
+Thing MT_INVSPRING
+MAPTHINGNUM = 4027
+SPAWNSTATE = S_INVSPRING
+SPAWNHEALTH = 1000
+SEESTATE = 0
+SEESOUND = 0
+REACTIONTIME = 0
+ATTACKSOUND = 0
+PAINSTATE = 0
+PAINCHANCE = 0
+PAINSOUND = 0
+MELEESTATE = 0
+MISSILESTATE = 0
+DEATHSTATE = 0
+DEATHSOUND = 0
+XDEATHSTATE = 0
+SPEED = 1310720
+RADIUS = 1310720
+HEIGHT = 1048576
+MASS = 1376256
+DAMAGE = 0
+ACTIVESOUND = 0
+RAISESTATE = S_INVSPRING1
+FLAGS = MF_SOLID|MF_SPRING|MF2_DONTDRAW
+
+FRAME S_INVSPRING
+SPRITENUMBER = INVS
+SPRITESUBNUMBER = 0
+DURATION = -1
+NEXT = 0
+ACTION None
+VAR1 = 0
+VAR2 = 0
+
+FRAME S_INVSPRING1
+SPRITENUMBER = INVS
+SPRITESUBNUMBER = 0
+DURATION = 4
+NEXT = S_INVSPRING2
+ACTION A_Pain
+VAR1 = 0
+VAR2 = 0
+
+FRAME S_INVSPRING2
+SPRITENUMBER = INVS
+SPRITESUBNUMBER = 0
+DURATION = 1
+NEXT = S_INVSPRING3
+ACTION None
+VAR1 = 0
+VAR2 = 0
+
+FRAME S_INVSPRING3
+SPRITENUMBER = INVS
+SPRITESUBNUMBER = 0
+DURATION = 1
+NEXT = S_INVSPRING4
+ACTION None
+VAR1 = 0
+VAR2 = 0
+
+FRAME S_INVSPRING4
+SPRITENUMBER = INVS
+SPRITESUBNUMBER = 0
+DURATION = 1
+NEXT = S_INVSPRING
+ACTION None
+VAR1 = 0
+VAR2 = 0
+
+#Weak yellow spring
+FREESLOT
+MT_WYS
+S_WYS
+S_WYS2
+S_WYS3
+S_WYS4
+S_WYS5
+SPR_SPNY
+
+Object MT_WYS
+#$Name Weak yellow spring
+#$Sprite SPNYA0
+MapThingNum = 546
+SpawnState = S_WYS
+SpawnHealth = 1
+SeeState = S_NULL
+SeeSound = sfx_None
+ReactionTime = 0
+AttackSound = sfx_None
+PainState = S_NULL
+PainChance = S_NULL
+PainSound = sfx_spring
+MeleeState = S_NULL
+MissileState = S_NULL
+DeathState = S_NULL
+DeathSound = sfx_None
+XDeathState = S_NULL
+Speed = 0
+Radius = 20*FRACUNIT
+Height = 16*FRACUNIT
+Mass = 18*FRACUNIT
+Damage = 0
+ActiveSound = sfx_None
+RaiseState = S_WYS2
+Flags = MF_SPRING
+
+State S_WYS
+SpriteName = SPR_SPNY
+SpriteFrame = A
+Duration = -1
+Next = S_WYS
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_WYS2
+SpriteName = SPR_SPNY
+SpriteFrame = E
+Duration = 1
+Next = S_WYS3
+Action A_Pain
+Var1 = 0
+Var2 = 0
+
+State S_WYS3
+SpriteName = SPR_SPNY
+SpriteFrame = D
+Duration = 1
+Next = S_WYS4
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_WYS4
+SpriteName = SPR_SPNY
+SpriteFrame = C
+Duration = 1
+Next = S_WYS5
+Action = None
+Var1 = 0
+Var2 = 0
+
+State S_WYS5
+SpriteName = SPR_SPNY
+SpriteFrame = B
+Duration = 1
+Next = S_WYS
+Action = None
+Var1 = 0
+Var2 = 0
+
+#Weak red spring
+FREESLOT
+MT_WRS
+S_WRS
+S_WRS2
+S_WRS3
+S_WRS4
+S_WRS5
+SPR_SPNR
+
+Object MT_WRS
+#$Name Weak red spring
+#$Sprite SPNRA0
+MapThingNum = 547
+SpawnState = S_WRS
+SpawnHealth = 1
+SeeState = S_NULL
+SeeSound = sfx_None
+ReactionTime = 0
+AttackSound = sfx_None
+PainState = S_NULL
+PainChance = S_NULL
+PainSound = sfx_spring
+MeleeState = S_NULL
+MissileState = S_NULL
+DeathState = S_NULL
+DeathSound = sfx_None
+XDeathState = S_NULL
+Speed = 0
+Radius = 20*FRACUNIT
+Height = 16*FRACUNIT
+Mass = 30*FRACUNIT
+Damage = 0
+ActiveSound = sfx_None
+RaiseState = S_WRS2
+Flags = MF_SPRING
+
+State S_WRS
+SpriteName = SPR_SPNR
+SpriteFrame = A
+Duration = -1
+Next = S_WRS
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_WRS2
+SpriteName = SPR_SPNR
+SpriteFrame = E
+Duration = 1
+Next = S_WRS3
+Action A_Pain
+Var1 = 0
+Var2 = 0
+
+State S_WRS3
+SpriteName = SPR_SPNR
+SpriteFrame = D
+Duration = 1
+Next = S_WRS4
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_WRS4
+SpriteName = SPR_SPNR
+SpriteFrame = C
+Duration = 1
+Next = S_WRS5
+Action = None
+Var1 = 0
+Var2 = 0
+
+State S_WRS5
+SpriteName = SPR_SPNR
+SpriteFrame = B
+Duration = 1
+Next = S_WRS
+Action = None
+Var1 = 0
+Var2 = 0
+
+#Weak red spring
+FREESLOT
+MT_SRS
+S_SRS
+S_SRS2
+S_SRS3
+S_SRS4
+S_SRS5
+
+
+Object MT_SRS
+#$Name STRONG red spring
+#$Sprite SPNRA0
+MapThingNum = 549
+SpawnState = S_SRS
+SpawnHealth = 1
+SeeState = S_NULL
+SeeSound = sfx_None
+ReactionTime = 0
+AttackSound = sfx_None
+PainState = S_NULL
+PainChance = S_NULL
+PainSound = sfx_spring
+MeleeState = S_NULL
+MissileState = S_NULL
+DeathState = S_NULL
+DeathSound = sfx_None
+XDeathState = S_NULL
+Speed = 0
+Radius = 20*FRACUNIT
+Height = 16*FRACUNIT
+Mass = 54*FRACUNIT
+Damage = 0
+ActiveSound = sfx_None
+RaiseState = S_SRS2
+Flags = MF_SPRING
+
+State S_SRS
+SpriteName = SPR_SPNR
+SpriteFrame = A
+Duration = -1
+Next = S_SRS
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_SRS2
+SpriteName = SPR_SPNR
+SpriteFrame = E
+Duration = 1
+Next = S_SRS3
+Action A_Pain
+Var1 = 0
+Var2 = 0
+
+State S_SRS3
+SpriteName = SPR_SPNR
+SpriteFrame = D
+Duration = 1
+Next = S_SRS4
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_SRS4
+SpriteName = SPR_SPNR
+SpriteFrame = C
+Duration = 1
+Next = S_SRS5
+Action = None
+Var1 = 0
+Var2 = 0
+
+State S_SRS5
+SpriteName = SPR_SPNR
+SpriteFrame = B
+Duration = 1
+Next = S_SRS
+Action = None
+Var1 = 0
+Var2 = 0
+
+#Weak Diagonal yellow spring
+FREESLOT
+MT_YSPN
+S_YSPN
+S_YSPN2
+S_YSPN3
+S_YSPN4
+S_YSPN5
+S_YSPN6
+S_YSPN7
+S_YSPN8
+SPR_YSPN
+
+Object MT_YSPN
+#$Name Weak Diagonal yellow spring
+#$Sprite YSPNC2
+MapThingNum = 548
+SpawnState = S_YSPN
+SpawnHealth = 1
+SeeState = S_NULL
+SeeSound = sfx_None
+ReactionTime = 0
+AttackSound = sfx_None
+PainState = S_NULL
+PainChance = S_NULL
+PainSound = sfx_spring
+MeleeState = S_NULL
+MissileState = S_NULL
+DeathState = S_NULL
+DeathSound = sfx_None
+XDeathState = S_NULL
+Speed = 0
+Radius = 16*FRACUNIT
+Height = 16*FRACUNIT
+Mass = 18*FRACUNIT
+Damage = 30*FRACUNIT
+ActiveSound = sfx_None
+RaiseState = S_YSPN2
+Flags = MF_SPRING
+
+State S_YSPN
+SpriteName = SPR_YSPN
+SpriteFrame = A
+Duration = -1
+Next = S_YSPN
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_YSPN2
+SpriteName = SPR_YSPN
+SpriteFrame = B
+Duration = 1
+Next = S_YSPN3
+Action = A_Pain
+Var1 = 0
+Var2 = 0
+
+State S_YSPN3
+SpriteName = SPR_YSPN
+SpriteFrame = C
+Duration = 1
+Next = S_YSPN4
+Action = None
+Var1 = 0
+Var2 = 0
+
+State S_YSPN4
+SpriteName = SPR_YSPN
+SpriteFrame = D
+Duration = 1
+Next = S_YSPN5
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_YSPN5
+SpriteName = SPR_YSPN
+SpriteFrame = E
+Duration = 1
+Next = S_YSPN6
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_YSPN6
+SpriteName = SPR_YSPN
+SpriteFrame = D
+Duration = 1
+Next = S_YSPN7
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_YSPN7
+SpriteName = SPR_YSPN
+SpriteFrame = C
+Duration = 1
+Next = S_YSPN8
+Action = None
+Var1 = 0
+Var2 = 0
+
+State S_YSPN8
+SpriteName = SPR_YSPN
+SpriteFrame = B
+Duration = 1
+Next = S_YSPN
+Action = None
+Var1 = 0
+Var2 = 0

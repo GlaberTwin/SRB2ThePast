@@ -1,0 +1,78 @@
+freeslot(
+	"MT_HYPERRINGBOX",
+	"MT_HYPERRINGICON",
+	"S_HYPERRINGBOX",
+	"S_HYPERRINGBOX1",
+	"S_HYPERRINGBOX2",
+	"S_HYPERRINGBOX3",
+	"SPR_SILR",
+	"S_HYPERRINGICON",
+	"S_HYPERRINGICON2"
+)
+
+local function AddSomeRings(mobj)
+	for i = 0,24
+		local ring = P_SpawnMobj(mobj.x, mobj.y, mobj.z, MT_RING)
+		ring.flags2 = $1|MF2_DONTRESPAWN
+		P_RemoveMobj(ring)
+	end
+end
+
+addHook("MobjSpawn", AddSomeRings, MT_HYPERRINGBOX)
+
+
+//The Silver Ring box
+mobjinfo[MT_HYPERRINGBOX] = {
+		//$Name "Hyper Ring (25 Rings)"
+		//$Sprite SILRA0
+		//$Category Monitors
+        doomednum = 4032,
+        spawnstate = S_HYPERRINGBOX,
+        spawnhealth = 1,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_HYPERRINGBOX,
+        painchance = 0,
+        painsound = sfx_None,
+		missilestate = S_NULL,
+        deathstate = S_BOX_POP1,
+        deathsound = sfx_pop,
+        speed = 1,
+        radius = 18*FRACUNIT,
+        height = 40*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = MT_HYPERRINGICON,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR
+}
+
+states[S_HYPERRINGBOX] = {SPR_SILR, A, 2, nil, 0, 0, S_HYPERRINGBOX1}
+states[S_HYPERRINGBOX1] = {SPR_MSTV, A, 1, nil, 0, 0, S_HYPERRINGBOX}
+states[S_HYPERRINGBOX2] = {SPR_SILR, B, 18, A_MonitorPop, 0, 0, S_HYPERRINGBOX3}
+states[S_HYPERRINGBOX3] = {SPR_SILR, B, 18, A_RingBox, 0, 0, S_NULL}
+
+mobjinfo[MT_HYPERRINGICON] = {
+	doomednum = -1,
+	spawnstate = S_HYPERRINGICON,
+	spawnhealth = 1,
+	seesound = sfx_itemup,
+	seestate = S_NULL,
+	painsound = sfx_None,
+	painstate = S_NULL,
+	deathstate = S_NULL,
+	deathsound =  sfx_pop,
+	reactiontime = 25,
+    mass = 100,
+    damage = 62*FRACUNIT,
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOGRAVITY|MF_NOCLIP|MF_BOXICON|MF_SCENERY
+}
+
+states[S_HYPERRINGICON] = {SPR_SILR, B|FF_ANIMATE, 18, nil, 3, 4, S_HYPERRINGICON2}
+states[S_HYPERRINGICON2] = {SPR_SILR, B, 18, A_RingBox, 0, 0, S_NULL}

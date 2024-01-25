@@ -1,0 +1,1246 @@
+# HARD LIMIT 291
+
+PROMPT 1
+NumPages 2
+PAGE 1
+Tag = ADVEX
+Lines = 5
+PageText = Adventure Example: v1.01-1.09.4
+The Adventure Example stage was built to show off Adventure mode, the stage worked by using analog mode and giving the player the Homing Attack and Light Dash.
+#
+PAGE 2
+Lines = 5
+PageText = The mode has since been remade and expanded as a reusable addon allowing the level to now be played.
+The level was also unlocked by beating Spring Hill.
+#
+
+PROMPT 2
+NumPages 1
+PAGE 1
+Tag = MARIO
+Lines = 6
+PageText = Mario Goomba Blast: Demo 4
+Mario Goomba Blast was a single stage unlockable that first appeared in Demo 4. It was early for the mode as ? blocks don't work yet, and Fire Flowers haven't been implemented either.
+#
+
+PROMPT 3
+NumPages 1
+PAGE 1
+Tag = LUIGI
+Lines = 5
+PageText = Mario Koopa Blast: v1.01-2.0.7
+Mario Koopa Blast finished what Goomba Blast started and brought 2 more stages with it, the 2 new stages also helped to show off the new 2d mode!
+#
+
+PROMPT 4
+NumPages 2
+PAGE 1
+Tag = NEOAG
+Lines = 6
+PageText = Neo Aerial Garden: v2.0-2.0.7
+This zone originated long ago in the year 2002. From there, the level would continue to grow and develop in the mod "Mystic Realm" before finally becoming a part of SRB2 itself and testing the limits
+#
+PAGE 2
+Lines = 5
+PageText = of the game.
+Due to the size of this stage, it has caused various visual bugs. 
+These bugs have unfortunately existed since version 2.0 with no fix in sight.
+#
+
+PROMPT 5
+NumPages 1
+PAGE 1
+Tag = AGARD
+Lines = 6
+PageText = Aerial Garden: v2.1-2.1.25
+Losing the Neo prefix, Aerial Garden would continue to grow and change. Several rooms were remodeled and made harder. BASH bots from Arid Canyon were added in alongside Emblems too.
+#
+
+PROMPT 6
+NumPages 1
+PAGE 1
+Tag = AZURE
+Lines = 6
+PageText = Azure Temple: v2.1-2.1.25
+Also known as “The Phantasm” ^0, Azure Temple is the gauntlet of water stages.
+Unlike other stages of its time, this stage would feature a bubble variant of the Buzz and be entirely underwater.
+#
+
+PROMPT 7
+NumPages 2
+PAGE 1
+Tag = XHUNT
+Lines = 6
+PageText = Christmas Hunt: Demo 4 - v1.09.4
+Premiering in Demo 4, Christmas Hunt was the first of the Emerald Hunt levels. In Demo 4, completing it would reward you with the Snowball Shooter. In Final Demo it was just a standard emerald hunt stage.
+#
+PAGE 2
+Lines = 1
+PageText = The version included here is from Final Demo 1.09.4.
+#
+
+
+PROMPT 8
+NumPages 1
+PAGE 1
+Tag = SPRING
+Lines = 8
+PageText = Springin' Around: Christmas v0.90-0.96
+Back in 1999, SRB2 was still getting it's bearings. Versions 0.90 to 0.94 were very buggy and still are. Springin' Around wound up being the first playable level of the Xmas series. It brought with it the first use of springs and the Crawlas. This was also the first reappearance of Minus.
+#
+
+PROMPT 9
+NumPages 1
+PAGE 1
+Tag = BLUST
+Lines = 6
+PageText = Blustery Day: Christmas v0.90-0.96
+Blustery Day was the second level of the Christmas Demo series. This level brought with it the first use of fans to propel the player upwards. This level was also the first to show off the normal shield.
+      #
+
+PROMPT 10
+NumPages 1
+PAGE 1
+Tag = SMOUNT
+Lines = 5
+PageText = Snow Mountain: Christmas v0.90-0.96
+Snow Mountain is a level that has little land to run on. The level looked like it was supposed to be on the peaks of the mountains.
+      #
+
+PROMPT 11
+NumPages 1
+PAGE 1
+Tag = GLACIER
+Lines = 4
+PageText = Gleaming Glacier: Christmas v0.90-0.96
+This level was designed around the idea of slipping around, this level also introduced us to the Elemental Shield.
+#
+
+PROMPT 12
+NumPages 1
+PAGE 1
+Tag = EBASE
+Lines = 7
+PageText = Egg Base: Christmas v0.90-0.96
+Egg Base is the kind of level that was not compatible with co-op mode. The reason lies with a trigger on the left path that causes the start to be smashed, we changed this so that this only happens in singleplayer mode now.
+#
+
+PROMPT 13
+NumPages 1
+PAGE 1
+Tag = EARENA
+Lines = 5
+PageText = Havin' Fun?/Egg Arena: Christmas v0.90-0.96
+This level was the first boss level on the new Doom Legacy engine. It's simple in design and only contained the boss, 5 rings, and the player.
+      #
+
+PROMPT 14
+NumPages 1
+PAGE 1
+Tag = CCORNER
+Lines = 5
+PageText = Close Corners: Christmas v0.96
+Close Corners was the first level added in Christmas version 0.96 of SRB2. This level was the first to use moving floors that weren't buttons.
+#
+
+PROMPT 15
+NumPages 1
+PAGE 1
+Tag = XFACT
+Lines = 4
+PageText = Christmas Factory: Christmas v0.96
+This level was the first to use Techno Hill's Christmas texture set and constantly moving floors near the end.
+#
+
+PROMPT 16
+NumPages 1
+PAGE 1
+Tag = SVALLY
+Lines = 4
+PageText = Snow Valley: Christmas v0.96
+Snow Valley is designed more like a canyon. This level zigs and zags and even has a hidden exit to a tropical beach!
+#
+
+PROMPT 17
+NumPages 1
+PAGE 1
+Tag = FBOSS
+Lines = 6
+PageText = Final Boss: Christmas v0.96
+This level made heavy use of the Red Crawlas and Minuses. Since development on the bosses was still very early, the battlefield was filed with both Red Crawlas and Minuses.
+#
+
+PROMPT 18
+NumPages 1
+PAGE 1
+Tag = ECOAST
+Lines = 8
+PageText = Emerald Coast: Christmas v0.96
+Emerald Coast was the second ever secret level publicly released in SRB2 history. The first being the early version of Greenflower in 0.93. This is also the very first completed ported level for SRB2. The source for this level being Sonic Adventure on the Dreamcast.
+#
+
+PROMPT 19
+NumPages 1
+PAGE 1
+Tag = NMARE
+Lines = 8
+PageText = Sonic's Nightmare: Christmas v0.96
+Abandon hope all ye who play this level! Heed my word for this level lives up to the name "Sonic's Nightmare". The level was intended to give Sonic players the hardest time possible and it does just that, provided you didn't bring a fox with you.
+#
+
+PROMPT 20
+NumPages 1
+PAGE 1
+Tag = DEVN
+Lines = 8
+PageText = NiGHTS Dev
+During the development of NiGHTS mode, this map was created. According to SSNTails, you were supposed to fly around the flower.
+While the map itself lacked anyway to do this, it has been modified to work as stated and was given a way to complete it.
+#
+
+PROMPT 21
+NumPages 1
+PAGE 1
+Tag = SH101
+Lines = 7
+PageText = Spring Hill: v1.01-1.04
+This is the premiere version of Spring Hill. It was the first NiGHTS map publicly released and as such was missing quite a few things that would come in later updates.
+Things like bumpers and bonus items.
+#
+
+PROMPT 22
+NumPages 1
+PAGE 1
+Tag = SH108
+Lines = 6
+PageText = Spring Hill: v1.08
+In this edition of the stage, NiGHTS bonus items were brought online for the first time. You could find a helper, Refill your drill dash, extend your paraloop's reach, or even get extra time!
+#
+
+PROMPT 23
+NumPages 1
+PAGE 1
+Tag = SH1094
+Lines = 7
+PageText = Spring Hill: v1.09.4-2.0.7
+Welcome to Spring Hill, chances are that this will be the first version you play thanks to its low emblem requirement. In 1.09.4, this stage would only require 10 emblems, and in 2.0 it would require more. Despite this, the stage remained the same.
+
+This stage was also the first to introduce the bumpers.
+#
+
+PROMPT 24
+NumPages 1
+PAGE 1
+Tag = SH21
+Lines = 7
+PageText = Spring Hill: v2.1-2.1.25
+This version of the stage received the most changes. With nothing new to introduce to NiGHTS game play, this time the stage itself was modified for on foot exploration. New emblems were also placed in several spots in the map.
+#
+
+PROMPT 25
+NumPages 1
+PAGE 1
+Tag = FLFIELD
+Lines = 5
+PageText = Floral Field: v2.1-2.1.25
+The first Special Stage of the 2.1 era. Floral Field was simple in design, but hid within it an intent to let you explore on foot, this intent was never realized.
+#
+
+PROMPT 26
+NumPages 1
+PAGE 1
+Tag = TOXPLAT
+Lines = 5
+PageText = Toxic Plateau: v2.1-2.1.25
+Special Stage 2 of 2.1 was THZ themed. Unlike the stage today, a lot of pipes were missing and the emblem was not in plain sight.
+#
+
+PROMPT 27
+NumPages 1
+PAGE 1
+Tag = FLODCOVE
+Lines = 7
+PageText = Flooded Cove: v2.1-2.1.25
+Special Stage 3 of 2.1. Themed after Deep Sea, this stage too hid the designs that indicated you were once meant to be able to explore on foot. Unlike the other Special Stages, this one is the only one to have an Emerald Token hidden in it.
+#
+
+PROMPT 28
+NumPages 1
+PAGE 1
+Tag = CAVEFORT
+Lines = 7
+PageText = Cavern Fortress: v2.1-2.1.25
+Special Stage 4 for 2.1 wound up being mostly a reskin of the racetrack Slumber Circuit with the addition of more hazards from Castle Eggman. Unlike Slumber Circuit, Cavern Fortress was much more organized.
+#
+
+PROMPT 29
+NumPages 1
+PAGE 1
+Tag = DUSTWAST
+Lines = 5
+PageText = Dusty Wasteland: v2.1-2.1.25
+Special Stage 5 at first may look like a reskin of Spring Hill, but it's also a cut down version of the track with a tighter time limit and a retheme to Arid Canyon.
+#
+
+PROMPT 30
+NumPages 1
+PAGE 1
+Tag = MAGCAVE
+Lines = 5
+PageText = Magma Caves: v2.1-2.1.25
+Special Stage 6 wouldn't see much change from the 2.1 era to now. However, if you weren't careful, you could hit the wrong bumper and get detached from the track.
+#
+
+PROMPT 31
+NumPages 1
+PAGE 1
+Tag = EGGSAT
+Lines = 7
+PageText = Egg Satellite: v2.1-2.1.25
+Special Stage 7 received just a few changes between 2.1 and now. Back then, parts were longer, the yoku 
+block section existed, and some of the laser traps at the end didn't exist yet.
+(This version of the stage has its emblem)
+#
+
+PROMPT 32
+NumPages 1
+PAGE 1
+Tag = SCIRCUIT
+Lines = 8
+PageText = Slumber Circuit: v1.09.4-2.0.7
+Slumber Circuit was not accessible in Singleplayer, but it did provide the base for a stage that was. This stage was actually a Circuit mode NiGHTS track. Unfortunately this stage doesn't work all 
+that well for a race due to how NiGHTS mode plays.
+#
+
+PROMPT 33
+NumPages 1
+PAGE 1
+Tag = BLCKHOLE
+Lines = 8
+PageText = Black Hole: v2.1-2.1.25
+If you thought Sonic's Nightmare was bad, this stage is the REAL Nightmare. If you could obtain all A's on all 7 NiGHTS Special Stages, you would unlock this stage.
+Back then, it only had 1 emblem. Today it has 2, and several other changes.
+#
+
+PROMPT 34
+NumPages 1
+PAGE 1
+Tag = XSPNGHLL
+Lines = 7
+PageText = Spring Hill: v1.09.4 Christmas
+Welcome to Christmas Chime! Wait... 1.09.4? Oh right, this is Spring Hill in Christmas mode. Spring Hill's Christmas mode variant appeared in the Final Demos, but would resurface in 2.2 as Christmas Chime.
+#
+
+PROMPT 35
+NumPages 1
+PAGE 1
+Tag = DARK1
+Lines = 5
+PageText = Dark City act 1: Development 98
+An early concept of the stage. Act 1 shows off various ideas for the city including dark interiors, and a part with lava, be careful with the crushers.
+#
+
+PROMPT 36
+NumPages 2
+PAGE 1
+Tag = DARK2
+Lines = 7
+PageText = Dark City act 2: Development 98
+Still pretty much a concept at this stage, Dark City act 2 takes you to the sewers. At one spot it was intended for you to run into flamethrowers down there. However, flamethrowers would not show up until much later.
+#
+PAGE 2
+Lines = 2
+PageText = This map was modified to allow the stage to be completed.
+#
+
+PROMPT 37
+NumPages 1
+PAGE 1
+Tag = DARK3
+Lines = 5
+PageText = Dark City act 3: Development 98
+Like Red Volcano, this boss throws you in without any rings. Unlike Red Volcano, this map actually had a boss placed on it in development, and places to hide.
+#
+
+PROMPT 38
+NumPages 2
+PAGE 1
+Tag = DARK0
+Lines = 8
+PageText = Dark City Zone: v2.0 Development
+This version of Dark City was intended to be the new act 1 for the 2.0 era, but it was never finished. At the time, the zone was not high priority. This was not meant to be a traditional stage as Brak Eggman was meant to chase you down until you lose him in the subway at the end.
+#
+PAGE 2
+Lines = 4
+PageText = This map was modified to allow the stage to be completed.
+#
+
+PROMPT 39
+NumPages 1
+PAGE 1
+Tag = MAP01
+Lines = 4
+PageText = MAP01 Dev Test map
+A small Techno Hill based dev map, it's unknown what this was meant to test exactly.
+#
+
+PROMPT 40
+NumPages 1
+PAGE 1
+Tag = WATERTOP
+Lines = 6
+PageText = WATERTOP Dev Test map
+A Deep Sea themed test map. While the purpose for this map is unknown, it can be theorized that this was meant to test FOF based water as water can be found on both the ceiling and floor.
+#
+
+PROMPT 41
+NumPages 1
+PAGE 1
+Tag = WOOD
+Lines = 7
+PageText = Wood Zone
+This stage had barely begun development before it got scrapped. Wood Zone was supposed to be a secret stage complete with its own sky and music. The sky and music did make it in, but the level was never finished.
+#
+
+PROMPT 42
+
+#
+
+PROMPT 43
+NumPages 1
+PAGE 1
+Tag = GOOMB
+Lines = 7
+PageText = Mario Goomba Blast 1-1: Demo 4 Development
+An early development version of the Mario Mode unlockable stage. This version lacked any goombas and had no working ? Blocks, several walls would also be missing giving certain areas a different appearance.
+#
+
+PROMPT 44
+NumPages 1
+PAGE 1
+Tag = COAST
+Lines = 9
+PageText = Emerald Coast (Kinkajoy)
+An alternate take on Emerald Coast made before the Sonic Adventure remake in SRB2 Christmas. This stage is unique for using the theme instead of being a copy of the level itself. While technically an addon, it's possible this was made to show off the textures to the rest of the team.
+#
+
+PROMPT 45
+
+#
+
+PROMPT 46
+NumPages 1
+PAGE 1
+Tag = KNHOLEB1
+Lines = 9
+PageText = Knothole Base: v2.0 Development
+Knothole Base was intended to be one of 2.0's unlockable levels. While this didn't come to be, the cause was the remake of the SRB1 campaign being taken in as the unlockable instead. This version of Knothole Base is an early development version that ends halfway, it has been modified to be beatable.
+#
+
+PROMPT 47
+NumPages 1
+PAGE 1
+Tag = KNHOLEB2
+Lines = 8
+PageText = Knothole Base: v2.0 Development
+Knothole Base was intended to be one of 2.0's unlockable levels. While this didn't come to be, the cause was the remake of the SRB1 campaign being taken in as the unlockable instead. This version of Knothole Base is a more complete version of the level.
+#
+
+PROMPT 48
+NumPages 1
+PAGE 1
+Tag = SHIGHWAY
+Lines = 8
+PageText = Speed Highway: Development 98
+A different Speed Highway map than what appeared in Beta Quest. This version was intended to based off of the highway section of the Sonic Adventure level, it's very unfinished.
+(This map was modified to allow the stage to be completed.)
+#
+
+PROMPT 49
+NumPages 2
+PAGE 1
+Tag = DOMSHIP1
+Lines = 8
+PageText = Doom Ship Act 1: Development 98
+Doom Ship act 1 was barely started. The stage somewhat resembles one of the ships of the Egg Fleet from Sonic Heroes despite the fact that Sonic Heroes was made years later. When being adapted for this mod, the exit was placed in the most accessible spot, the crusher room.
+#
+PAGE 2
+Lines = 2
+PageText = (This map was modified to allow the stage to be completed.)
+#
+
+PROMPT 50
+NumPages 1
+PAGE 1
+Tag = DOMSHIP3
+Lines = 7
+PageText = Doom Ship Act 3: Development 98
+Once again you fight the old placeholder Egg Mobile. This time the battlefield is very dangerous, and very cheeseable. This battlefield may also look familiar to players of version 2.0, it is not the same battlefield.
+#
+
+PROMPT 51
+NumPages 3
+PAGE 1
+Icon = METLTK
+Tag = METALC
+IconAlign = Left
+Lines = 7
+PageText = Player detected.
+I have a challenge for you.
+#
+PAGE 2
+Icon = MTLMAD
+IconAlign = Left
+Lines = 7
+PageText = I challenge you to race against me in various maps from SRB2's past.
+4 Tiers, 5 races each.
+#
+PAGE 3
+Icon = MTLMAD
+IconAlign = Left
+Lines = 7
+PageText = Complete all 4 and I'll challenge you to my best race.
+No one has ever beaten me at it (And no one ever will)!
+#
+
+PROMPT 52
+NumPages 2
+PAGE 1
+Tag = MATCH
+Lines = 8
+PageText = Match Mode (Ringslinger)
+Match mode was introduced in a special IRC build that was released at roughly the same time as Demo 2, it was a simple ring based Deathmatch mode. This was also the first appearance of Meadow Match.
+#
+PAGE 2
+Lines = 8
+PageText = The mode would grow and change through the years adding and removing features including timed Weapon Rings, the World of Pain, Chaos Emeralds, Power Stones, and ammo-based Weapon Rings.
+#
+
+PROMPT 53
+NumPages 1
+PAGE 1
+Tag = FLAGS
+Lines = 8
+PageText = CTF Mode (Ringslinger)
+Capture The Flag was introduced in Demo 4 with just 2 maps. Those would be replaced in 4.35, and then added to the rotation in Final Demo. This game mode uses Match mode's ringslinger mechanics while 2 teams fight over eachother's flags.
+#
+
+PROMPT 54
+NumPages 1
+PAGE 1
+Tag = RACE
+Lines = 8
+PageText = Circuit Mode
+Circuit mode was introduced in Final Demo 1.09.3 and lasted until 2.0. Unlike Chaos Mode, Circuit still exists in the code today without any maps.
+This mode works by having players race around a track, triggering star posts as they go.
+#
+
+PROMPT 55
+NumPages 2
+PAGE 1
+Tag = ERZDEV
+Lines = 5
+PageText = Egg Rock Zone: Development 98
+Egg Rock started development back in 1998. Back then, the stage was very primitive and only contained 1 unfinished enemy, this was the only known use of the Egghead.
+#
+PAGE 2
+Lines = 6
+PageText = Egg Rock would be publicly known as Robotnirock at this time thanks to the old CD Soundtrack download available on the main website. The name wouldn't be publicly locked in until version 2.0 where the zone was finally revealed.
+#
+
+PROMPT 56
+NumPages 1
+PAGE 1
+Tag = ERZ201
+Lines = 8
+PageText = Egg Rock Zone act 1: v2.0-2.0.4
+Premiering in version 2.0, Egg Rock Zone act 1 had no enemies in it at all. The stage would heavily feature gravity based gimmicks and hazards. The stage however, is actually incomplete as if you were able to go past the sign post you could find an unused room.
+#
+
+PROMPT 57
+NumPages 1
+PAGE 1
+Tag = ERZ202
+Lines = 8
+PageText = Egg Rock Zone act 2: v2.0-2.0.4
+Egg Rock act 2 would be a gauntlet of hazards and puzzles. It's the only act of Egg Rock to have enemies at the time and featured heavy use of the new Polyobjects. Future versions of this level would actually remove sections instead of building upon them.
+#
+
+PROMPT 58
+NumPages 1
+PAGE 1
+Tag = ER1207
+Lines = 8
+PageText = Egg Rock Zone act 1: v2.0.5-2.0.7
+In v2.0.5, Egg Rock act 1 added in a few Eggman monitors near the end as well as another air pocket. This map also marks the first use of the character restriction textures.
+#
+
+PROMPT 59
+NumPages 1
+PAGE 1
+Tag = ER2207
+Lines = 8
+PageText = Egg Rock Zone act 2: v2.0.5-2.0.7
+In the v2.0.5 update, Egg Rock act 2 was updated to make the air locks more obvious by adding in blue highlights. A ceiling in a disappearing block room was made lower and a set of stairs was even placed in the shrink room.
+#
+
+PROMPT 60
+NumPages 2
+PAGE 1
+Tag = ERB20
+Lines = 8
+PageText = Egg Rock Zone act 3: v2.0-2.0.4
+It's Metal Robotnik!
+Brak Eggman's first real appearance outside of Zero Ring has you fighting him in space on top of 4 towers and 4 collapsible platforms. This fight would prove to be a serious challenge as he could not be damaged by normal means. 
+#
+PAGE 2
+Lines = 6
+PageText = Like the OVA he's from, Brak can be damaged by making him hit himself and riding his missiles into him, don't forget to jump off.
+#
+
+PROMPT 61
+NumPages 1
+PAGE 1
+Tag = ERB207
+Lines = 8
+PageText = Egg Rock Zone act 3: v2.0.5-2.0.7
+While the boss itself wasn't changed, the arena was. Now there are walls behind each tower and the platforms are gone. Plus, there's lava falling around the arena too. Like the OVA he's from, Brak can be damaged by making him hit himself and riding his missiles into him, don't forget to jump off.
+#
+
+PROMPT 62
+NumPages 1
+PAGE 1
+Tag = ERBCUT
+Lines = 8
+PageText = Egg Rock Zone act 3: v2.2 Development
+Made for Egg Rock Zone by FuriousFox, this boss wound up being cut because the other developers felt that the end of the game had enough bosses already. Still, this boss got to see release as a reusable addon shortly after v2.2's release.
+#
+
+PROMPT 63
+NumPages 2
+PAGE 1
+Tag = ERBETA
+Lines = 8
+PageText = Egg Rock Zone act 1: v2.0 Various Development
+Egg Rock act 1 Betas. These 3 levels each show off Egg Rock act 1 in different stages of development. The right entrance is the earliest, left is the latest, and center is a special mid point version containing a long lost opening sequence.
+
+(Blue springs were installed in one of these maps due to average jump height issues)
+#
+PAGE 2
+Lines = 8
+PageText = Each level had to be modified to allow the player to be able to complete it as all 3 originally had no way back to normal gravity at the end of the right path, and the special opening was lacking any connection to the rest of the stage.
+#
+
+PROMPT 64
+NumPages 1
+PAGE 1
+Tag = ERGAUN
+Lines = 8
+PageText = Egg Rock Zone Gauntlet
+Welcome to the Egg Rock Gauntlet. Unlike Greenflower, this gauntlet pits you against 1 version of each unique boss for the zone including those from Black Core. It may seem unfair, but those who beat the gauntlet will meet with a special guest.
+#
+
+PROMPT 65
+NumPages 1
+PAGE 1
+Tag = ERZ121
+Lines = 8
+PageText = Egg Rock Zone act 1: v2.1-2.1.25
+In version 2.1, Egg Rock act 1 was mostly the same as 2.0.7, except now there were enemies throughout the level.
+#
+
+PROMPT 66
+NumPages 1
+PAGE 1
+Tag = ERZ221
+Lines = 8
+PageText = Egg Rock Zone act 2: v2.1-2.1.25
+In version 2.1, Egg Rock act 2 was mostly the same as 2.0.7 with one very big exception. The space station had ejected its first section from the map, no more would players be sliding down a trap ridden air tunnel.
+#
+
+PROMPT 67
+NumPages 1
+PAGE 1
+Tag = ERZMSR
+Lines = 9
+PageText = Egg Rock VS Metal Sonic: v2.1-2.1.25
+Time to race against Metal Sonic. This stage marks the very first time Metal Sonic could be raced against and then fought at the end. Though at one point emblems were made for this level, they were scrapped. Even if they were to be restored, the last emblem would have been inaccessible.
+#
+
+PROMPT 68
+NumPages 1
+PAGE 1
+Tag = ERB21
+Lines = 8
+PageText = Egg Rock Zone VS Brak: v2.1-2.1.25
+Brak Eggman has a new boss attack pattern and arena! Though now he is no longer as hard as he once was as there's plenty of space to run around. His movement and attacks are based on an old Doom enemy, giving him the nickname “Cybrakdemon”.
+#
+
+PROMPT 69
+NumPages 1
+PAGE 1
+Icon = MTLMAD2
+Tag = MTLLOST
+IconAlign = Left
+TimeToNext = 210
+Lines = 4
+PageText = NO! THIS IS NOT POSSIBLE! YOU CHEATED!
+#
+
+PROMPT 70
+NumPages 1
+PAGE 1
+Tag = MTLLOST2
+Icon = MTLMAD2
+IconAlign = Left
+TimeToNext = 210
+Lines = 4
+PageText = NO NO NO NO NO NO!
+#
+
+PROMPT 71
+NumPages 1
+PAGE 1
+Tag = MTLLOST3
+Icon = MTLMAD
+TimeToNext = 175
+IconAlign = Left
+Lines = 4
+PageText = There's no way I'm giving you the emblem, nor am I going to let you leave!
+#
+
+PROMPT 72
+NumPages 1
+PAGE 1
+Tag = GLABHELP
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+PageText = Player? PLAYER! Are you there?!
+#
+
+PROMPT 73
+NumPages 1
+PAGE 1
+Tag = GLBHELP2
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+PageText = I just got word that Metal Sonic has trapped you in Egg Rock Zone.
+I've got an idea on how to get you out though.
+#
+
+PROMPT 74
+NumPages 1
+PAGE 1
+Tag = GLBHELP3
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+PageText = We're going to load you into another level so you can get out.
+#
+
+PROMPT 75
+NumPages 1
+PAGE 1
+Tag = MTLLOST4
+Icon = MTLMAD2
+IconAlign = Left
+Lines = 4
+PageText = NOT IF I HAVE ANYTHING TO SAY ABOUT IT!
+#
+
+PROMPT 76
+NumPages 1
+PAGE 1
+Tag = MTLCHEAT
+Icon = METLTK
+IconAlign = Left
+Lines = 4
+TimeToNext = 175
+PageText = YOU CHEATED ME, SO I'LL CHEAT YOU!
+#
+
+PROMPT 77
+NumPages 1
+PAGE 1
+Tag = METALNO
+Icon = METLTK
+IconAlign = Left
+Lines = 4
+TimeToNext = 175
+PageText = NOOOOOOOOO!
+YOU WEREN'T SUPPOSED TO WIN!
+#
+
+PROMPT 78
+NumPages 3
+PAGE 1
+Icon = SSNGLABT
+Tag = GLABC
+IconAlign = Left
+Lines = 7
+PageText = Hi Player.
+Metal Sonic is unfit for hosting duties after he threw a tantrum and nearly destroyed our systems.
+#
+PAGE 2
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 7
+PageText = However, he is still available to race. Rules are the same as before.
+Compete against Metal in 21 tracks.
+#
+PAGE 3
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 7
+PageText = Tracks follow simple rules that are posted in each of the 4 tier rooms.
+Metal will also behave in the final challenge now too.
+#
+
+PROMPT 79
+NumPages 1
+PAGE 1
+Tag = METALF
+Icon = SSNGLABM
+IconAlign = Left
+Lines = 4
+TimeToNext = 350
+PageText = Give it up, Metal! You lost fair and square.
+#
+
+PROMPT 80
+NumPages 1
+PAGE 1
+Tag = METALF2
+Icon = METLTSAD
+IconAlign = Left
+Lines = 4
+TimeToNext = 350
+PageText = No one was supposed to be able to beat me, that was my hardest challenge!
+#
+
+PROMPT 81
+NumPages 1
+PAGE 1
+Tag = METALF3
+Icon = SSNGLABM
+IconAlign = Left
+Lines = 4
+TimeToNext = 350
+PageText = Give the player the emblem, Metal.
+#
+
+PROMPT 82
+NumPages 1
+PAGE 1
+Tag = METALF4
+Icon = METLTSAD
+IconAlign = Left
+Lines = 4
+TimeToNext = 350
+PageText = Fine, here.
+#
+
+# It's Red Volcano now.
+PROMPT 83
+NumPages 1
+PAGE 1
+Tag = RVZ
+Lines = 5
+PageText = Red Volcano act 1: v2.0.5
+In v2.0.5 there was a bug with how lava handled collision with anything that wasn't the player, this caused the secret path to spit players into a death trap.
+#
+
+PROMPT 84
+NumPages 1
+PAGE 1
+Tag = METALF6
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 350
+PageText = While we're at it, we're going to make it so you can replay this level whenever you want as an extra bonus too.
+#
+
+PROMPT 85
+NumPages 1
+PAGE 1
+Tag = METALF7
+Icon = SSNGLABM
+IconAlign = Left
+Lines = 4
+TimeToNext = 350
+PageText = Alright Metal, we need to reprogram you to play fair.
+#
+
+PROMPT 86
+NumPages 1
+PAGE 1
+Tag = HIDDEN01
+Lines = 6
+TimeToNext = 350
+PageText = BOSSBACK: Demo 1
+Unseen in SRB2, this image was previously used in SRB2 Xmas for when you beat Emerald Coast. It's included in Demo 1 as BOSSBACK for fun, and likely to ensure the game does not crash upon completing level 30.
+#
+
+PROMPT 87
+NumPages 1
+PAGE 1
+Tag = HIDDEN02
+Lines = 5
+TimeToNext = 350
+PageText = HELP: Demo 1
+This image comes from a Don Camillo book. It was included for fun by SSNTails as he's a big fan, and it also served the purpose of preventing the game from crashing without a HELP image lump.
+#
+
+PROMPT 88
+NumPages 1
+PAGE 1
+Tag = HIDDEN03
+Lines = 7
+TimeToNext = 350
+PageText = DEM3QUIT: Demo 3
+Used exclusively in Demo 3, this image was created for the Sonic Amateur Games Expo, or SAGE for short. Its purpose was to advertise the next version in line, Demo 4, when exiting the game through the main menu.
+#
+
+PROMPT 89
+NumPages 1
+PAGE 1
+Tag = HIDDEN04
+Lines = 7
+TimeToNext = 350
+PageText = BOSSBACK: Demo 4
+Unseen in SRB2, this image poked fun at what was then the latest Batman animated series, "Batman Beyond". The inclusion of this image is for fun and likely to prevent crashes should someone beat a level in map slot 30.
+#
+
+PROMPT 90
+NumPages 2
+PAGE 1
+Tag = HIDDEN05
+Lines = 6
+TimeToNext = 350
+PageText = CONSBACK: Halloween Tech - Christmas v0.93
+This image isn't exactly hidden as it was used as the splash screen for when the Halloween Tech Demo was booting up. Despite the name, it does not show up when using the console to cheat.
+#
+PAGE 2
+Lines = 4
+TimeToNext = 350
+PageText = Fun Fact: This image originates from an animated cutscene intended for the TGF version of SRB2, being the transition from Mine Maze to Rocky Mountain.
+#
+
+PROMPT 91
+NumPages 1
+PAGE 1
+Tag = HIDDEN06
+Lines = 7
+TimeToNext = 350
+PageText = CONSBACK: Christmas v0.94 - Demo 4
+This image isn't exactly hidden as it was used as the splash screen for when the Christmas Demo was booting up, all the way through to Demo 4.35. Despite the name, it does not show up when using the console to cheat.
+#
+
+PROMPT 92
+NumPages 1
+PAGE 1
+Tag = HIDDEN07
+Lines = 7
+TimeToNext = 350
+PageText = CONSBACK: Final Demo-2.1.25
+This image isn't exactly hidden as it was used as the splash screen for when the "Final" Demo was booting up, all the way through to v2.1.25. Despite the name, it does not show up when using the console to cheat.
+#
+
+PROMPT 93
+NumPages 1
+PAGE 1
+Tag = HIDDEN08
+Lines = 8
+TimeToNext = 350
+PageText = BKLUMP: Final Demo
+An image of Jackel from NiGHTS into Dreams, at first glance it appears to have only been included for fun, but it also contained some of the coding for RedXVI's secret in Castle Eggman 2. This code may have been lost from the image in the porting process.
+#
+
+PROMPT 94
+NumPages 1
+PAGE 1
+Tag = HIDDEN09
+Lines = 8
+TimeToNext = 350
+PageText = BULMER: Final Demo-2.0.7
+*B^^D *B^^D *B^^D *B^^D *B^^D *B^^D *B^^D *B^^D
+Included possibly just for the fun of people discovering it as it's kinda like finding the Majin Sonic image from Sonic CD. Except with David Bulmer's OC, and his face.
+*B^^D
+#
+
+PROMPT 95
+NumPages 1
+PAGE 1
+Tag = HIDDEN10
+Lines = 5
+TimeToNext = 350
+PageText = HELP: Halloween Tech
+Included in the Halloween Tech Demo possibly because the game would crash if the player were to press F1 without it present, it's very blunt. 
+#
+
+PROMPT 96
+NumPages 1
+PAGE 1
+Tag = HIDDEN11
+Lines = 9
+TimeToNext = 385
+PageText = HELP: Christmas v0.92-0.93
+A goofy image that looks like something right out of the 90's Archie and Sonic. In truth, it may be a modified image where Sonic and Knuckles are replacing Reggie and Archie.
+It's included in the Christmas demo for fun and because the game would crash without a HELP Lump present. 
+#
+
+PROMPT 97
+NumPages 1
+PAGE 1
+Tag = HIDDEN12
+Lines = 6
+TimeToNext = 350
+PageText = HELP: Christmas v0.94
+A goofy image featuring Sonic and an unused frame of Brak Eggman intended for Sonic Doom 2, this image was included for fun and to prevent the game crashing.
+#
+
+PROMPT 98
+NumPages 1
+PAGE 1
+Tag = HIDDEN13
+Lines = 6
+TimeToNext = 350
+PageText = HELP: Christmas v0.96
+A goofy sketch seeing SSNTails getting fired by Sonikku, this sketch was included for a bit of fun while also making sure the game doesn't crash.
+#
+
+PROMPT 99
+NumPages 1
+PAGE 1
+Tag = HIDDEN14
+Lines = 6
+TimeToNext = 350
+PageText = HELP: Demo 2 and 3
+Blunt, and a little threatening thanks to Bass aiming his buster at you. This image was drawn by SSNTails, and was included to direct people to the readme.txt file if they needed help.
+#
+
+PROMPT 100
+NumPages 1
+PAGE 1
+Tag = HIDDEN15
+Lines = 3
+TimeToNext = 350
+PageText = HELP: Demo 4
+A sketch of Earthworm Jim telling players to check the readme.txt for help.
+#
+
+PROMPT 101
+NumPages 1
+PAGE 1
+Tag = HIDDEN16
+Lines = 6
+TimeToNext = 350
+PageText = SEGALOGO: Demo 2 and 3
+A picture of A.J.'s dog at the time, well isn't it cute?
+The SEGALOGO lump wound up unused for some reason and might have lasted to Demo 4 because SRB2 was checking for it now.
+#
+
+PROMPT 102
+NumPages 1
+PAGE 1
+Tag = HIDDEN17
+Lines = 6
+TimeToNext = 350
+PageText = SEGALOGO: Demo 4
+A silly image of Sonic water skiing with Tails pulling him in Hydrocity.
+This was the last time a SEGALOGO lump was included as Final Demo did away with this lump.
+#
+
+PROMPT 103
+NumPages 1
+PAGE 1
+Tag = HIDDEN18
+Lines = 6
+TimeToNext = 350
+PageText = SEGALOGO: Demo 1
+Literally the SEGA logo, this image was a holdover from Sonic Doom 2 and went unused in game. The demos afterwards replaced this image with others you see on the wall behind you.
+#
+
+PROMPT 104
+NumPages 2
+PAGE 1
+Tag = HIDDEN19
+Lines = 8
+TimeToNext = 350
+PageText = TITLEPIC: Demo 2 and 3
+This lump was once intended to be the image you see on the main menu before the animated title screen was put in place. Since then, this lump was replaced with placeholder images until SRB2 no longer needed it.
+#
+PAGE 2
+Lines = 5
+TimeToNext = 350
+PageText = The image you see here may have just been an easter egg for people who open up the srb file.
+Demo 1's title picture can be found in the hall by the hint room.
+#
+
+PROMPT 105
+NumPages 1
+PAGE 1
+Tag = HIDDEN20
+Lines = 6
+TimeToNext = 350
+PageText = TITLEPIC: Demo 4
+This lump was once been intended to be the image you see on the main menu before the animated title screen was put in place, the image here is a joke about Hidden Palace.
+#
+
+PROMPT 106
+NumPages 1
+PAGE 1
+Tag = HIDDEN21
+Lines = 5
+TimeToNext = 350
+PageText = HELP: Final Demo at Christmas
+Final Demo did have a proper help screen, but at Christmas when the special mode kicks in, the help image was replace with this one.
+#
+
+PROMPT 107
+NumPages 1
+PAGE 1
+Tag = END1
+Icon = SSNGLABM
+IconAlign = Left
+Lines = 4
+TimeToNext = 130
+PageText = WHAT WERE YOU THINKING?!
+#
+
+PROMPT 108
+NumPages 1
+PAGE 1
+Tag = END2
+Icon = SSNGLABM
+IconAlign = Left
+Lines = 4
+TimeToNext = 130
+PageText = YOU KNOW YOU'RE NOT ALLOWED BACK HERE!
+#
+
+PROMPT 109
+NumPages 1
+PAGE 1
+Tag = END3
+Icon = SSNGLABM
+IconAlign = Left
+Lines = 4
+TimeToNext = 128
+PageText = I SHOULD THROW YOU OUT RIGHT NOW!
+#
+
+PROMPT 110
+NumPages 3
+PAGE 1
+Tag = END4
+Icon = TOADTALK
+IconAlign = Left
+Lines = 4
+TimeToNext = 92
+PageText = Glaber, check this out!
+#
+PAGE 2
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 96
+PageText = Huh?
+#
+PAGE 3
+Icon = TOADTALK
+IconAlign = Left
+Lines = 4
+TimeToNext = 121
+PageText = The Robotnik Virus is gone!
+#
+
+PROMPT 111
+NumPages 4
+PAGE 1
+Tag = END5
+Icon = SSNGLABS
+IconAlign = Left
+Lines = 4
+TimeToNext = 96
+PageText = Was this your doing?
+#
+PAGE 2
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 207
+PageText = If so you've done a great service for the museum, but...
+#
+PAGE 3
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 183
+PageText = ...we're still going to have to punish you for breaking in here.
+#
+PAGE 4
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 183
+PageText = I've got an idea, come with me.
+#
+
+PROMPT 112
+NumPages 7
+PAGE 1
+Tag = END6
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 240
+PageText = Ladies and gentlemen! Today I've come to announce the opening of a brand new exhibit! 
+#
+PAGE 2
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 128
+PageText = Once intended to be included in our original plan,
+#
+PAGE 3
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 279
+PageText = I am now happy to say that we can finally open up "Sonic Doom 2: Bots on Mobius" as we've always intended.
+#
+PAGE 4
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 259
+PageText = But before I let everyone in, we've got a special museum patron to thank for making this all possible,
+#
+PAGE 5
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 188
+PageText = and I can't think of a better way than by letting them have the first run!
+#
+PAGE 6
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 271
+PageText = I told you I still had to punish you, and what better way then by having to go through at least Ice Cap act one again?
+#
+PAGE 7
+Icon = SSNGLABT
+IconAlign = Left
+Lines = 4
+TimeToNext = 148
+PageText = But let's finish the ceremony first, shall we?
+#
+
+# HARD LIMIT 291

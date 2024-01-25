@@ -1,0 +1,2 @@
+showhud 0
+chasecam 1

@@ -1,0 +1,30 @@
+freeslot("MT_RETROBOBMMINE", "S_RMINE", "SPR_OMNE")
+
+// Retro Jetty-Syn bomber's Mine
+mobjinfo[MT_RETROBOBMMINE] = {
+        doomednum = -1,
+        spawnstate = S_RMINE,
+        spawnhealth = 1,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 0,
+        painsound = sfx_None,
+		missilestate = S_NULL,
+        deathstate = S_MINE_BOOM1,
+        xdeathstate = S_MINE_BOOM1,
+        deathsound = sfx_cybdth,
+        speed = 0,
+        radius = 8*FRACUNIT,
+        height = 10*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 64*FRACUNIT,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_NOBLOCKMAP|MF_MISSILE
+}
+	
+states[S_RMINE] = {SPR_OMNE, A, -1, nil, 0, 0, S_NULL}

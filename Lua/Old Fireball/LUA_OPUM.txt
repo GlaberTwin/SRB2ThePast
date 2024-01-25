@@ -1,0 +1,43 @@
+// Old Puma - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_OLDPUMA",
+	"S_OPUMA1",
+	"S_OPUMA2",
+	"S_OPUMA3",
+	"S_OPUMA4",
+	"S_OPUMA5",
+	"S_OPUMA6",
+	"SPR_OPUM"
+)
+
+// (Notes from Glaber)
+// special thanks to Midiman for helping with the water vunerability issue
+// To make the fireball vunerable to water again, give the fireball the flag "|MF_FIRE"
+
+mobjinfo[MT_OLDPUMA] = {
+	//$Name Old Puma
+	//$Sprite OPUMA0
+	//$Category Mario Koopa Blast
+	doomednum = 1811,
+	spawnstate = S_OPUMA1,
+	spawnhealth = 1000,
+	seestate = S_OPUMA1,
+	reactiontime = 8,
+	meleestate = S_OPUMA4,
+	deathsound = sfx_pop,
+	xdeathstate = S_OPUMA6,
+	radius = 8*FRACUNIT,
+	height = 16*FRACUNIT,
+	mass = DMG_FIRE,
+	damage = 1,
+	flags = MF_PAIN
+}
+
+states[S_OPUMA1] =	{SPR_OPUM,	A|FF_FULLBRIGHT,	3,	A_FishJump,	0,	0,	S_OPUMA2}
+states[S_OPUMA2] =	{SPR_OPUM,	B|FF_FULLBRIGHT,	3,	A_FishJump,	0,	0,	S_OPUMA3}
+states[S_OPUMA3] =	{SPR_OPUM,	C|FF_FULLBRIGHT,	3,	A_FishJump,	0,	0,	S_OPUMA1}
+
+states[S_OPUMA4] =	{SPR_OPUM,	D|FF_FULLBRIGHT,	3,	A_FishJump,	0,	0,	S_OPUMA5}
+states[S_OPUMA5] =	{SPR_OPUM,	E|FF_FULLBRIGHT,	3,	A_FishJump,	0,	0,	S_OPUMA6}
+states[S_OPUMA6] =	{SPR_OPUM,	F|FF_FULLBRIGHT,	3,	A_FishJump,	0,	0,	S_OPUMA4}

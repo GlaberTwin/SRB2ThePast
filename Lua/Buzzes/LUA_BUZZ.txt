@@ -1,0 +1,122 @@
+freeslot("MT_RETROBUZZ", "S_OLDBUZZLOOK1", "S_OLDBUZZLOOK2", "S_OLDBUZZFLY1", "S_OLDBUZZFLY2", "S_ALTOLDBUZZFLY1", "S_ALTOLDBUZZFLY2", "SPR_OBUZ", "MT_REDRETROBUZZ", "S_OLDREDBUZZLOOK1", "S_OLDREDBUZZLOOK2", "S_OLDREDBUZZFLY1", "S_OLDREDBUZZFLY2", "SPR_ORBZ")
+
+local function StelthBuzz(mobj, mthing)
+	if (mthing.options & MTF_EXTRA)
+		mobj.cusval = 1
+	end
+end
+addHook("MapThingSpawn", StelthBuzz, MT_RETROBUZZ)
+addHook("MapThingSpawn", StelthBuzz, MT_REDRETROBUZZ)
+
+function A_BuzzFly(actor, var1, var2)
+    -- Make MT_RETROBUZZ (and ONLY MT_RETROBUZZ) silent if its cusval is 1
+    if (actor.type == MT_RETROBUZZ or actor.type == MT_REDRETROBUZZ) and actor.cusval == 1 then
+        super(actor, 0, var2)
+    -- Use the default action for everything else
+    else
+        super(actor, var1, var2)
+    end
+end
+
+local function CustomBuzzSpawn(mobj, mapthing)
+    local offset
+    
+    if mapthing.z != 0
+        offset = mapthing.z
+    else
+        offset = 288*FRACUNIT
+    end
+    
+    if (mapthing.options & MTF_OBJECTFLIP)
+        if offset != 0
+            mobj.z = mobj.z - offset
+        else
+            mobj.z = mobj.ceilingz
+        end
+    else
+        if offset != 0
+            mobj.z = mobj.z + offset
+        else
+            mobj.z = mobj.floorz
+        end
+    end
+    
+end
+
+addHook("MapThingSpawn", CustomBuzzSpawn, MT_RETROBUZZ)
+addHook("MapThingSpawn", CustomBuzzSpawn, MT_REDRETROBUZZ)
+
+// Retro Buzz
+mobjinfo[MT_RETROBUZZ] = {
+		//$Name "Old Buzz"
+		//$Sprite OBUZA1
+		//$Category Enemies
+		//$Flags1Text Stealth mode
+        doomednum = 150,
+        spawnstate = S_OLDBUZZLOOK1,
+        spawnhealth = 1,
+        seestate = S_OLDBUZZFLY1,
+        seesound = sfx_None,
+        reactiontime = 2,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 3072,
+        painsound = sfx_None,
+		missilestate = S_NULL,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 4*FRACUNIT,
+        radius = 20*FRACUNIT,
+        height = 24*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 1,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_SLIDEME|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+	
+states[S_OLDBUZZLOOK1] = {SPR_OBUZ, A, 2, A_Look, 0, 0, S_OLDBUZZLOOK2}
+states[S_OLDBUZZLOOK2] = {SPR_OBUZ, B, 2, A_Look, 0, 0, S_OLDBUZZLOOK1}
+states[S_OLDBUZZFLY1] = {SPR_OBUZ, A, 2, A_BuzzFly, sfx_buzz4, 0, S_OLDBUZZFLY2}
+states[S_OLDBUZZFLY2] = {SPR_OBUZ, B, 2, A_BuzzFly, 0, 0, S_OLDBUZZFLY1}
+
+states[S_ALTOLDBUZZFLY1] = {SPR_OBUZ, A, 2, A_BuzzFly, 0, 0, S_ALTOLDBUZZFLY2}
+states[S_ALTOLDBUZZFLY2] = {SPR_OBUZ, B, 2, A_BuzzFly, 0, 0, S_ALTOLDBUZZFLY1}
+
+// Retro Buzz
+mobjinfo[MT_REDRETROBUZZ] = {
+		//$Name "Old Red Buzz"
+		//$Sprite ORBZA1
+		//$Category Enemies
+		//$Flags1Text Stealth mode
+        doomednum = 151,
+        spawnstate = S_OLDREDBUZZLOOK1,
+        spawnhealth = 1,
+        seestate = S_OLDREDBUZZFLY1,
+        seesound = sfx_None,
+        reactiontime = 2,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 3072,
+        painsound = sfx_None,
+		missilestate = S_NULL,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 8*FRACUNIT,
+        radius = 20*FRACUNIT,
+        height = 24*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 1,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_SLIDEME|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+	
+states[S_OLDREDBUZZLOOK1] = {SPR_ORBZ, A, 2, A_Look, 0, 0, S_OLDREDBUZZLOOK2}
+states[S_OLDREDBUZZLOOK2] = {SPR_ORBZ, B, 2, A_Look, 0, 0, S_OLDREDBUZZLOOK1}
+states[S_OLDREDBUZZFLY1] = {SPR_ORBZ, A, 2, A_BuzzFly, sfx_buzz4, 0, S_OLDREDBUZZFLY2}
+states[S_OLDREDBUZZFLY2] = {SPR_ORBZ, B, 2, A_BuzzFly, 0, 0, S_OLDREDBUZZFLY1}

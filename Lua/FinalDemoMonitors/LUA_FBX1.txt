@@ -1,0 +1,135 @@
+-- Final Demo 1up Box - Ported by MIDIMan
+-- Use with LUA_FBOX
+
+freeslot(
+	"SPR_FBX1",
+	"MT_FDBOX_1UP",
+	"MT_FDBOX_1UP_ICON",
+	"S_FDBOX_1UP_IDLE",
+	"S_FDBOX_1UP_ICON1",
+	"S_FDBOX_1UP_ICON2",
+	"S_FDBOX_1UP_PLAY1",
+	"S_FDBOX_1UP_PLAY2",
+	"S_FDBOX_1UP_ICONPLAY"
+)
+
+-- Properly fits the player's 1up icon into the Final Demo monitor
+-- Mostly based off of 2.2.9's source code
+function A_FD1upThinker(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	-- Display the monitor's 1up icon instead of the player's, a la 1.08
+	if (actor.rmFDAltOption or 0) >= 2 then return end
+	
+	local dist = INT32_MAX
+	local temp
+	local closestplayer
+	
+	for player in players.iterate do
+		if not player.valid or player.bot or player.spectator  then continue end
+		if not (player.mo and player.mo.valid) then continue end
+		if (netgame or multiplayer) and player.playerstate ~= PST_LIVE then continue end
+		
+		temp = FixedHypot(player.mo.x-actor.x, player.mo.y-actor.y)
+		
+		if temp < dist then
+			closestplayer = player
+			dist = temp
+		end
+		
+		if closestplayer == nil or skins[closestplayer.skin].sprites[SPR2_LIFE].numframes == 0 then
+			-- Closest player not found (no players in game?? may be empty dedicated server!), or does not have correct sprite.
+			if actor.tracer then
+				local tracer = actor.tracer
+				actor.tracer = nil
+				P_RemoveMobj(tracer)
+			end
+			return
+		end
+		
+		-- We're using the overlay, so use the overlay 1up box (no text)
+		actor.frame = C
+		
+		if not (actor.tracer and actor.tracer.valid) then
+			actor.tracer = P_SpawnMobjFromMobj(actor, 0, 0, 0, MT_OVERLAY)
+			actor.tracer.target = actor
+			actor.tracer.skin = closestplayer.mo.skin -- required here to prevent spr2 default showing stand for a single frame
+			actor.tracer.state = actor.info.seestate
+			
+			-- Use the new 2.2.9 sprite scaling variables to make the life icon fit inside the Final Demo monitor icon
+			actor.tracer.spritexscale = 3*FRACUNIT/4
+			actor.tracer.spriteyscale = 3*FRACUNIT/4
+			
+			-- The overlay is going to be one tic early turning off and on
+			-- because it's going to get its thinker run the frame we spawned it.
+			-- So make it take one tic longer if it just spawned
+			actor.tracer.tics = $+1
+		end
+		
+		actor.tracer.color = closestplayer.mo.color
+		actor.tracer.skin = closestplayer.mo.skin
+	end
+end
+
+function A_FDExtraLife(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	A_ExtraLife(actor, var1, var2)
+	
+	if actor.type == MT_FDBOX_1UP_ICON and actor.tracer and actor.tracer.valid then
+		actor.frame = D
+	end
+end
+
+addHook("MobjFuse", RM_FDMonitorFuseThink, MT_FDBOX_1UP)
+addHook("MapThingSpawn", RM_FDMonitorTypeSpawn, MT_FDBOX_1UP)
+
+mobjinfo[MT_FDBOX_1UP] = {
+	--$Name Final Demo Extra Life
+	--$Sprite FBX1A0
+	--$Category Monitors
+	--$Flags4Text Random (Strong)
+	--$Flags8Text Random (Weak) / Random (Pre-2.0)
+	--$ParameterText Behavior
+	--$Arg1 Respawn behavior
+	--$Arg1Type 11
+	--$Arg1Enum monitorrespawn
+	--$Arg3 Era
+	--$Arg3Type 11
+	--$Arg3Enum {0 = "2.0"; 1 = "1.09-1.09.4"; 2 = "1.08"; 3 = "2K3-1.04";}
+	doomednum = 468,
+	spawnstate = S_FDBOX_1UP_IDLE,
+	spawnhealth = 1,
+	seestate = S_FDBOX_1UP_PLAY1,
+	painstate = S_FDBOX_1UP_IDLE,
+	deathstate = S_FDBOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	speed = 1,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_FDBOX_1UP_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_FDBOX_1UP_IDLE] =	{SPR_FBX1,	A,	2,	A_FD1upThinker,	0,	0,	S_FDBOX_FLICKER}
+
+mobjinfo[MT_FDBOX_1UP_ICON] = {
+	doomednum = -1,
+	spawnstate = S_FDBOX_1UP_ICON1,
+	spawnhealth = 1,
+	seestate = S_FDBOX_1UP_ICONPLAY,
+	seesound = sfx_itemup,
+	reactiontime = 10,
+	speed = 4*FRACUNIT,	-- Originally 2*FRACUNIT; Changed to match pre-2.1's speed
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_FDBOX_1UP_ICON1] =	{SPR_FBX1,	B,	18,	nil,			0,	0,	S_FDBOX_1UP_ICON2}
+states[S_FDBOX_1UP_ICON2] =	{SPR_FBX1,	B,	18,	A_FDExtraLife,	0,	0,	S_NULL}
+
+states[S_FDBOX_1UP_PLAY1] =		{SPR_PLAY,	SPR2_LIFE,	2,	nil,	0,	14,	S_FDBOX_1UP_PLAY2}
+states[S_FDBOX_1UP_PLAY2] =		{SPR_NULL,	0,			1,	nil,	0,	14,	S_FDBOX_1UP_PLAY1}
+states[S_FDBOX_1UP_ICONPLAY] =	{SPR_PLAY,	SPR2_LIFE,	36,	nil,	0,	1,	S_NULL}

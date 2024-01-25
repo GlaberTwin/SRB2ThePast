@@ -1,0 +1,144 @@
+freeslot("MT_MINUS2", "S_MINUS2_STND", "S_MINUS2_DIGGING", "S_MINUS2_POPUP", "S_MINUS2_UPWARD1", "S_MINUS2_UPWARD2", "S_MINUS2_UPWARD3", "S_MINUS2_UPWARD4", "S_MINUS2_UPWARD5", "S_MINUS2_UPWARD6", "S_MINUS2_UPWARD7", "S_MINUS2_UPWARD8", "S_MINUS2_DOWNWARD1", "S_MINUS2_DOWNWARD2", "S_MINUS2_DOWNWARD3", "S_MINUS2_DOWNWARD4", "S_MINUS2_DOWNWARD5", "S_MINUS2_DOWNWARD6", "S_MINUS2_DOWNWARD7", "S_MINUS2_DOWNWARD8", "SPR_MNU2")
+//Minus 2.0 ported by Glaber from SRB2 2.1.25 with help from Midiman
+
+// Function: A_MinusDigdug
+//
+// Description: Minus digging in the ground.
+//
+// var1 = unused
+// var2 = unused
+//
+local function A_MinusDigdug(actor)
+	actor.flags = $ & ~MF_SPECIAL
+	actor.flags = $ & ~MF_SHOOTABLE
+
+	if (not actor.target)
+		A_Look(actor)
+		return
+	end
+
+	if (actor.reactiontime)
+		actor.reactiontime = $1 - 1
+	end
+
+	// Dirt trail
+	P_SpawnGhostMobj(actor)
+
+	actor.flags = $|MF_NOCLIPTHING
+	A_Chase(actor, 3)
+	actor.flags = $ & ~MF_NOCLIPTHING
+
+	// Play digging sound
+	if (not(leveltime & 15))
+		S_StartSound(actor, actor.info.activesound)
+	end
+	// If we're close enough to our target, pop out of the ground
+	if (P_AproxDistance(actor.target.x-actor.x, actor.target.y-actor.y) < actor.radius
+		and abs(actor.target.z - actor.z) < actor.height)
+		actor.state = actor.info.missilestate
+	end
+	// Snap to ground
+	if (actor.eflags & MFE_VERTICALFLIP)
+		actor.z = actor.ceilingz - actor.height
+	else
+		actor.z = actor.floorz
+	end
+end
+
+
+// Function: A_MinusPopout
+//
+// Description: Minus popping out of the ground.
+//
+// var1 = unused
+// var2 = unused
+//
+local function A_MinusPopout(actor)
+	P_SetObjectMomZ(actor, 10*FRACUNIT, false)
+
+	actor.flags = $|MF_SPECIAL
+	actor.flags = $|MF_SHOOTABLE
+
+	// Sound for busting out of the ground.
+	S_StartSound(actor, actor.info.attacksound)
+end
+
+
+// Function: A_MinusCheckagain
+//
+// Description: If the minus hits the floor, dig back into the ground.
+//
+// var1 = unused
+// var2 = unused
+//
+local function A_MinusCheckagain(actor)
+	if (not(actor.eflags & MFE_VERTICALFLIP) and actor.z <= actor.floorz)
+	or ((actor.eflags & MFE_VERTICALFLIP) and actor.z + actor.height >= actor.ceilingz)
+		actor.flags = $ & ~MF_SPECIAL
+		actor.flags = $ & ~MF_SHOOTABLE
+		actor.reactiontime = TICRATE
+		actor.state = actor.info.seestate
+		return
+	end
+
+	// 'Falling' animation
+	if (P_MobjFlip(actor)*actor.momz < 0 and actor.state < actor.info.meleestate)
+		actor.state = actor.info.meleestate
+	end
+end
+
+//Minus 2.0
+mobjinfo[MT_MINUS2] = {
+	//$Name "Minus 2.0"
+	//$Sprite MNU2A1
+	//$Category Retro Enemies
+        doomednum = 2026,
+        spawnstate = S_MINUS2_STND,
+        spawnhealth = 1,
+        seestate = S_MINUS2_DIGGING,
+        seesound = sfx_None,
+        reactiontime = 32,
+        attacksound = sfx_s3k82,
+        painstate = S_NULL,
+        painchance = 200,
+        painsound = sfx_None,
+        meleestate = S_MINUS2_DOWNWARD1,
+        missilestate = S_MINUS2_POPUP,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 12,
+        radius = 24*FRACUNIT,
+        height = 32*FRACUNIT,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_mindig,
+        flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE,
+        raisestate = S_MINUS2_UPWARD1
+}
+
+states[S_MINUS2_STND] = {SPR_NULL,  0, 1, A_Look,	0, 0, S_MINUS2_STND}
+states[S_MINUS2_DIGGING] = {SPR_MNU2, 16, 1, A_MinusDigdug, 0, 0, S_MINUS2_DIGGING}
+states[S_MINUS2_POPUP] = {SPR_MNU2,  0, 1, A_MinusPopout,   0, 0, S_MINUS2_UPWARD1}
+states[S_MINUS2_UPWARD1] = {SPR_MNU2,  0, 1, A_MinusCheckagain,   0, 0, S_MINUS2_UPWARD2}
+states[S_MINUS2_UPWARD2] = {SPR_MNU2,  1, 1, A_MinusCheckagain,   0, 0, S_MINUS2_UPWARD3}
+states[S_MINUS2_UPWARD3] = {SPR_MNU2,  2, 1, A_MinusCheckagain,   0, 0, S_MINUS2_UPWARD4}
+states[S_MINUS2_UPWARD4] = {SPR_MNU2,  3, 1, A_MinusCheckagain,   0, 0, S_MINUS2_UPWARD5}
+states[S_MINUS2_UPWARD5] = {SPR_MNU2,  4, 1, A_MinusCheckagain,   0, 0, S_MINUS2_UPWARD6}
+states[S_MINUS2_UPWARD6] = {SPR_MNU2,  5, 1, A_MinusCheckagain,   0, 0, S_MINUS2_UPWARD7}
+states[S_MINUS2_UPWARD7] = {SPR_MNU2,  6, 1, A_MinusCheckagain,   0, 0, S_MINUS2_UPWARD8}
+states[S_MINUS2_UPWARD8] = {SPR_MNU2,  7, 1, A_MinusCheckagain,   0, 0, S_MINUS2_UPWARD1}
+states[S_MINUS2_DOWNWARD1] = {SPR_MNU2,  8, 1, A_MinusCheckagain,   0, 0, S_MINUS2_DOWNWARD2}
+states[S_MINUS2_DOWNWARD2] = {SPR_MNU2,  9, 1, A_MinusCheckagain,   0, 0, S_MINUS2_DOWNWARD3}
+states[S_MINUS2_DOWNWARD3] = {SPR_MNU2, 10, 1, A_MinusCheckagain,   0, 0, S_MINUS2_DOWNWARD4}
+states[S_MINUS2_DOWNWARD4] = {SPR_MNU2, 11, 1, A_MinusCheckagain,   0, 0, S_MINUS2_DOWNWARD5}
+states[S_MINUS2_DOWNWARD5] = {SPR_MNU2, 12, 1, A_MinusCheckagain,   0, 0, S_MINUS2_DOWNWARD6}
+states[S_MINUS2_DOWNWARD6] = {SPR_MNU2, 13, 1, A_MinusCheckagain,   0, 0, S_MINUS2_DOWNWARD7}
+states[S_MINUS2_DOWNWARD7] = {SPR_MNU2, 14, 1, A_MinusCheckagain,   0, 0, S_MINUS2_DOWNWARD8}
+states[S_MINUS2_DOWNWARD8] = {SPR_MNU2, 15, 1, A_MinusCheckagain,   0, 0, S_MINUS2_DOWNWARD1}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_MINUS2] = 6    // Makes MT_MINUS2 give Needle

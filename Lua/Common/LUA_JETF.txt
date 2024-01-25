@@ -1,0 +1,61 @@
+freeslot("MT_JETFUMEC1", "S_JETFUMEC1", "SPR_OJTF",
+ "MT_SLIMERFUME1", "S_SLIMERFUME1", "SPR_OSMF")
+//Glaber's jetfumes
+//for eggmobile
+mobjinfo[MT_JETFUMEC1] = {
+        doomednum = -1,
+        spawnstate = S_JETFUMEC1,
+        spawnhealth = 1000,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 0,
+        painsound = sfx_None,
+        meleestate = S_NULL,
+        missilestate = S_NULL,
+        deathstate = S_NULL,
+        xdeathstate = S_NULL,
+        deathsound = sfx_None,
+        speed = 1,
+        radius = 8*FRACUNIT,
+        height = 16*FRACUNIT,
+        dispoffset = 0,
+        mass = 4,
+        damage = 0,
+        activesound = sfx_None,
+        flags = MF_NOBLOCKMAP|MF_NOGRAVITY|MF_NOCLIP|MF_NOCLIPHEIGHT,
+        raisestate = S_NULL
+}
+states[S_JETFUMEC1] = {SPR_OJTF, FF_ANIMATE|FF_FULLBRIGHT, -1, nil, 1, 1, S_NULL}
+
+//for egg slimer
+mobjinfo[MT_SLIMERFUME1] = {
+        doomednum = -1,
+        spawnstate = S_SLIMERFUME1,
+        spawnhealth = 1000,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 0,
+        painsound = sfx_None,
+        meleestate = S_NULL,
+        missilestate = S_NULL,
+        deathstate = S_NULL,
+        xdeathstate = S_NULL,
+        deathsound = sfx_None,
+        speed = 1,
+        radius = 8*FRACUNIT,
+        height = 16*FRACUNIT,
+        dispoffset = 0,
+        mass = 4,
+        damage = 0,
+        activesound = sfx_None,
+        flags = MF_NOBLOCKMAP|MF_NOGRAVITY|MF_NOCLIP|MF_NOCLIPHEIGHT,
+        raisestate = S_NULL
+}
+states[S_SLIMERFUME1] = {SPR_OSMF, FF_ANIMATE|FF_FULLBRIGHT, -1, nil, 1, 1, S_NULL}
+

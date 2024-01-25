@@ -1,0 +1,16 @@
+name = Chaod3
+realname = Chao
+hudname = USER
+ability = CA_NONE
+ability2 = CA2_SPINDASH
+normalspeed = 24
+acceleration = 50
+accelstart = 192
+thrustfactor = 3
+actionspd = 60
+mindash = 15
+maxdash = 70
+jumpfactor = 1
+prefcolor = Blue
+flags = SF_NOSPEEDADJUST|SF_NOSUPERSPRITES
+//credits Glaber, Ren Ramos, The Spriters Resource, Rlan

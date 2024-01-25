@@ -1,0 +1,1511 @@
+##Match and Chaos Level Headers
+
+#DEV
+
+Level JM
+LevelName = Dev Match DCZ
+Subtitle = DevMatch
+SelectHeading = Death Match
+Music = ODCZ1
+TypeOfLevel = Match,Tag
+NextLevel = JN
+SkyNum = 2
+palette = 1032
+
+Level JN
+LevelName = Dev Match GFZ
+Subtitle = DevMatch
+SelectHeading = Death Match
+Music = OGFZ1
+TypeOfLevel = Match,Tag
+NextLevel = JO
+SkyNum = 2
+palette = 1032
+
+Level JO
+LevelName = DevMatch MMZ
+Subtitle = DevMatch
+SelectHeading = Death Match
+Music = OMMZ1
+TypeOfLevel = Match,Tag
+NextLevel = JM
+SkyNum = 2
+palette = 1032
+
+
+
+
+#DEMO 3
+
+Level 67
+Levelname = Meadow Match
+Subtitle = Demo 3
+SelectHeading = Match Demo 3
+Act = 0
+Music = OTHZ2
+NextLevel = 68
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 68
+Levelname = Tag Valley
+Subtitle = Demo 3
+SelectHeading = Match Demo 3
+Act = 0
+Music = VSTBOS
+NextLevel = 69
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 69
+Levelname = Techno Isle
+Subtitle = Demo 3
+SelectHeading = Match Demo 3
+Act = 0
+Music = ODSZ1
+NextLevel = 70
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 70
+Levelname = Unnamed
+Subtitle = Demo 3 (Never Named)
+SelectHeading = Match Demo 3
+Act = 0
+Music = ODSZ2
+NextLevel = 71
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 71
+Levelname = Zero Ring
+Subtitle = Demo 3 
+SelectHeading = Match Demo 3
+Act = 0
+Music = VSTBOS
+NextLevel = 67
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+palette = 1032
+
+
+
+
+#DEMO 4
+
+Level 72
+Levelname = Unnamed
+Subtitle = Demo 4
+SelectHeading = Match Demo 4
+Act = 0
+Music = VSTBOS
+NextLevel = 73
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 1
+palette = 1032
+
+Level 73
+Levelname = Grass Plateau
+Subtitle = Demo 4
+SelectHeading = Match Demo 4
+Act = 0
+Music = ODSZ1
+NextLevel = 74
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 74
+Levelname = Sky temple 
+Subtitle = Demo 4
+SelectHeading = Match Demo 4
+Act = 0
+Music = ODSZ2
+NextLevel = 75
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 75
+Levelname = Starlit Warehouse 
+Subtitle = Demo 4
+SelectHeading = Match Demo 4
+Act = 0
+Music = VSTBOS
+NextLevel = 76
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+palette = 1032
+
+Level 76
+Levelname = Orange Crater 
+Subtitle = Demo 4
+SelectHeading = Match Demo 4
+Act = 0
+Music = OMMZ1
+NextLevel = 77
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+palette = 1032
+
+Level 77
+Levelname = Air Haven 
+Subtitle = Demo 4
+SelectHeading = Match Demo 4
+Act = 0
+Music = OMMZ2
+NextLevel = 78
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 78
+Levelname = Zero Ring 
+Subtitle = Demo 4
+SelectHeading = Match Demo 4
+Act = 0
+Music = MP_1RI
+NextLevel = 79
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+palette = 1032
+
+Level 79
+Levelname = Christmas Match 
+Subtitle = Demo 4
+SelectHeading = Match Demo 4
+Act = 0
+Music = VSTBOS
+NextLevel = 72
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+palette = 1032
+
+
+
+
+#DEMO 4.35
+
+Level 80
+Levelname = Sky temple 
+Subtitle = Demo 4.35
+SelectHeading = Match Demo 4.35
+Act = 0
+Music = VSTBOS
+NextLevel = 81
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 81
+Levelname = Meadow Match 
+Subtitle = Demo 4.35
+SelectHeading = Match Demo 4.35
+Act = 0
+Music = ODSZ1
+NextLevel = 82
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 82
+Levelname = Green Upheaval 
+Subtitle = Demo 4.35
+SelectHeading = Match Demo 4.35
+Act = 0
+Music = ODSZ2
+NextLevel = 83
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 83
+Levelname = Block Factory 
+Subtitle = Demo 4.35
+SelectHeading = Match Demo 4.35
+Act = 0
+Music = VSTBOS
+NextLevel = 84
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+palette = 1032
+
+Level 84
+Levelname = Air Haven 
+Subtitle = Demo 4.35
+SelectHeading = Match Demo 4.35
+Act = 0
+Music = OMMZ1
+NextLevel = 85
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+palette = 1032
+
+Level 85
+Levelname = Grass Plateau
+Subtitle = Demo 4.35
+SelectHeading = Match Demo 4.35
+Act = 0
+Music = OMMZ2
+NextLevel = 86
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+palette = 1032
+
+Level 86
+Levelname = Zero Ring
+Subtitle = Demo 4.35
+SelectHeading = Match Demo 4.35
+Act = 0
+Music = MP_1RI
+NextLevel = 87
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+palette = 1032
+
+Level 87
+Levelname = Christmas Match
+Subtitle = Demo 4.35
+SelectHeading = Match Demo 4.35
+Act = 0
+Music = VSTBOS
+NextLevel = 80
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 26
+palette = 1032
+
+
+
+
+#TOURNAMENT 2003 CHAOS
+
+Level 88
+Levelname = Flying Shrine
+Subtitle = 2K3 (Chaos Rotation)
+SelectHeading = Tournament 2003 Chaos
+Act = 0
+Music = FDDSZ1
+NextLevel = 89
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+
+Level 89
+Levelname = Woodland Panic
+Subtitle = 2K3 (Chaos Rotation)
+SelectHeading = Tournament 2003 Chaos
+Act = 0
+Music = WPANIC
+NextLevel = 90
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+
+Level 90
+Levelname = Ring Lake
+Subtitle = 2K3 (Chaos Rotation)
+SelectHeading = Tournament 2003 Chaos
+Act = 0
+Music = FDGFZ1
+NextLevel = 91
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+
+Level 91
+Levelname = Block Factory
+Subtitle = 2K3 (Chaos Rotation)
+SelectHeading = Tournament 2003 Chaos
+Act = 0
+Music = MAP05M
+NextLevel = 92
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+
+Level 92
+Levelname = Air Haven
+Subtitle = 2K3 (Chaos Rotation)
+SelectHeading = Tournament 2003 Chaos
+Act = 0
+Music = FDDSZ1
+NextLevel = 93
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+
+Level 93
+Levelname = Submerged Temple
+Subtitle = 2K3 (Chaos Rotation)
+SelectHeading = Tournament 2003 Chaos
+Act = 0
+Music = FDDSZ2
+NextLevel = 88
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+
+
+
+
+#TOURNAMENT 2003 MATCH
+
+Level 94
+Levelname = Sky Temple
+Subtitle = 2K3 (Match Rotation)
+SelectHeading = Tournament 2003 Match
+Act = 0
+Music = FDDSZ2
+NextLevel = 95
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level 95
+Levelname = Meadow Match
+Subtitle = 2K3 (Match Rotation)
+SelectHeading = Tournament 2003 Match
+Act = 0
+Music = MP_MED
+NextLevel = 96
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level 96
+Levelname = Conveyor Chaos
+Subtitle = 2K3 (Match Rotation)
+SelectHeading = Tournament 2003 Match
+Act = 0
+Music = MAP05M
+NextLevel = 97
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level 97
+Levelname = Green Upheaval
+Subtitle = 2K3 (Match Rotation)
+SelectHeading = Tournament 2003 Match
+Act = 0
+Music = FDGFZ2
+NextLevel = 98
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level 98
+Levelname = Starlit Warehouse
+Subtitle = 2K3 (Match Rotation)
+SelectHeading = Tournament 2003 Match
+Act = 0
+Music = DCZ
+NextLevel = BH
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level BH
+Levelname = Seafloor Sanctum
+Subtitle = 2K3 (Match Rotation)
+SelectHeading = Tournament 2003 Match
+Act = 0
+Music = FDDSZ1
+NextLevel = 94
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+
+
+#1.01-1.04 CHAOS
+
+Level BI
+Levelname = Flying Shrine
+Subtitle = 1.01-1.04 (Chaos Rotation)
+SelectHeading = FD 1.01-1.04 Chaos
+Act = 0
+Music = FDDSZ1
+NextLevel = BJ
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BJ
+Levelname = Woodland Panic
+Subtitle = 1.01-1.04 (Chaos Rotation)
+SelectHeading = FD 1.01-1.04 Chaos
+Act = 0
+Music = WPANIC
+NextLevel = BK
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BK
+Levelname = Ring Lake
+Subtitle = 1.01-1.04 (Chaos Rotation)
+SelectHeading = FD 1.01-1.04 Chaos
+Act = 0
+Music = FDGFZ1
+NextLevel = BL
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BL
+Levelname = Block Factory
+Subtitle = 1.01-1.04 (Chaos Rotation)
+SelectHeading = FD 1.01-1.04 Chaos
+Act = 0
+Music = MAP05M
+NextLevel = BM
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BM
+Levelname = Slime Canyon
+Subtitle = 1.01-1.04 (Chaos Rotation)
+SelectHeading = FD 1.01-1.04 Chaos
+Act = 0
+Music = FDTHZ1
+NextLevel = BN
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BN
+Levelname = Submerged Temple
+Subtitle = 1.01-1.04 (Chaos Rotation)
+SelectHeading = FD 1.01-1.04 Chaos
+Act = 0
+Music = FDDSZ2
+NextLevel = BO
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BO
+Levelname = Air Haven
+Subtitle = 1.01-1.04 (Chaos Rotation)
+SelectHeading = FD 1.01-1.04 Chaos
+Act = 0
+Music = FDDSZ1
+NextLevel = BI
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+
+
+
+#1.01-1.04 MATCH
+
+Level BP
+Levelname = Sky Temple
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Act = 0
+Music = FDDSZ2
+NextLevel = BQ
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BQ
+Levelname = Meadow Match
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Act = 0
+Music = MP_MED
+NextLevel = BR
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BR
+Levelname = Starlit Warehouse
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Act = 0
+Music = DCZ
+NextLevel = BS
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level BS
+Levelname = Green Upheaval
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Act = 0
+Music = FDGFZ2
+NextLevel = BT
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BT
+Levelname = Midnight Abyss
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Gravity = 0.09
+Act = 0
+Music = MIDABY
+NextLevel = BU
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 37
+Lua.oldmatch = true
+
+Level BU
+Levelname = Storm Valley
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Act = 0
+Music = FDCEZ1
+NextLevel = BV
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 20
+Lua.oldmatch = true
+
+Level BV
+Levelname = Zero Ring
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Act = 0
+Music = MP_0RI
+NextLevel = BW
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level BW
+Levelname = Zim's Base
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Act = 0
+Music = ZIMBAS
+NextLevel = BX
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 38
+Lua.oldmatch = true
+
+Level BX
+Levelname = Christmas Match
+Subtitle = 1.01-1.04 (Match Rotation)
+SelectHeading = FD 1.01-1.04 Match
+Act = 0
+Music = FDGFZ1
+NextLevel = BP
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 17
+Lua.oldmatch = true
+
+Level BY
+Levelname = Flying Shrine
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = _NITAT
+NextLevel = BZ
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level BZ
+Levelname = Woodland Panic
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = WPANC2
+NextLevel = F9
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+
+
+#1.08 CHAOS
+
+Level F9
+Levelname = Ring Lake
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = FDGFZ1
+NextLevel = FA
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FA
+Levelname = Block Factory
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = MAP05M
+NextLevel = FB
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FB
+Levelname = Slime Canyon
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = FDTHZ1
+NextLevel = FC
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 5
+Lua.oldmatch = true
+
+Level FC
+Levelname = Submerged Sanctum
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = FDDSZ1
+NextLevel = FD
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level FD
+Levelname = Conveyor Chaos
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = MAP05M
+NextLevel = FE
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FE
+Levelname = Air Haven
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = FDAIR
+NextLevel = FF
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FF
+Levelname = Tag Valley
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+Act = 0
+Music = FDGFZ1
+NextLevel = FG
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+LEVEL FG
+Levelname = Crystal Void
+Subtitle = 1.08 (Chaos Rotation)
+SelectHeading = Final Demo 1.08 Chaos
+TypeOfLevel = Match,Tag,Chaos
+Music = SPC108
+Skynum = 50
+Nextlevel = BY
+Lua.oldmatch = true
+
+
+
+
+#1.08 MATCH
+
+Level FH
+Levelname = Airborne Temple
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+Act = 0
+Music = _NITAT
+NextLevel = FI
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FI
+Levelname = Meadow Match
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+Act = 0
+Music = MP_MED
+NextLevel = FJ
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FJ
+Levelname = Starlit Warehouse
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+Act = 0
+Music = DCZ
+NextLevel = FK
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level FK
+Levelname = Green Upheaval
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+Act = 0
+Music = FDGFZ2
+NextLevel = FL
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FL
+Levelname = Midnight Abyss
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+Gravity = 0.09
+Act = 0
+Music = MIDABY
+NextLevel = FM
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 37
+Lua.oldmatch = true
+
+Level FM
+Levelname = Techno Isle
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+Act = 0
+Music = FDTHZ1
+NextLevel = FN
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 5
+Lua.oldmatch = true
+
+Level FN
+Levelname = Zero Ring
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+Act = 0
+Music = MP_0RI
+NextLevel = FO
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level FO
+Levelname = Zim's Base
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+Act = 0
+Music = ZIMBAS
+NextLevel = FP
+TypeOfLevel = Match,Tag,Chaos
+Weather = 0
+SkyNum = 38
+Lua.oldmatch = true
+
+Level FP
+LevelName = Sapphire Falls
+Music = FDGFZ2
+TypeOfLevel = Match,Tag,Chaos
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+NextLevel = FQ
+SkyNum = 2
+Lua.oldmatch = true
+
+LEVEL FQ
+Levelname = Chaos Space
+Subtitle = 1.08 (Match Rotation)
+SelectHeading = Final Demo 1.08 Match
+TypeOfLevel = Match,Tag,Chaos
+Music = SPC108
+Skynum = 50
+Nextlevel = FH
+Lua.oldmatch = true
+
+
+
+
+#1.09-1.09.2
+
+Level FR
+Levelname = Airborne Temple
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Act = 0
+Music = FDAIR
+NextLevel = FS
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FS
+Levelname = Meadow Match
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Act = 0
+Music = MP_MED
+NextLevel = FT
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FT
+Levelname = Thunder Citadel
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Act = 0
+Music = FDCEZ2
+NextLevel = FU
+TypeOfLevel = Match,Tag
+Weather = 1
+SkyNum = 20
+Lua.oldmatch = true
+
+Level FU
+LevelName = Sapphire Falls
+Music = MP_SUN
+TypeOfLevel = Match,Tag
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+NextLevel = FV
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FV
+LevelName = Jade Valley
+Music = FDGFZ1
+TypeOfLevel = Match,Tag
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+NextLevel = FW
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FW
+LevelName = Hydro Plant
+Music = HYDRO
+TypeOfLevel = Match,Tag
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+NextLevel = FX
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FX
+LevelName = Noxious Factory
+Music = MAP05M
+TypeOfLevel = Match,Tag
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+NextLevel = FY
+SkyNum = 2
+Lua.oldmatch = true
+
+Level FY
+LevelName = Desolate Twilight
+Music = MP_DES
+TypeOfLevel = Match,Tag
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+NextLevel = FZ
+SkyNum = 21
+Lua.oldmatch = true
+
+Level FZ
+Levelname = Zero Ring
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Act = 0
+Music = MP_0RI
+NextLevel = IM
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level IM
+Levelname = Zim's Base
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Act = 0
+Music = ZIMBAS
+NextLevel = FR
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 38
+Lua.oldmatch = true
+
+
+
+
+#1.09.3-1.09.4
+
+Level IN
+LevelName = Sapphire Falls
+Music = MP_SUN
+TypeOfLevel = Match,Tag
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+NextLevel = IO
+SkyNum = 2
+Lua.oldmatch = true
+
+Level IO
+Levelname = Thunder Citadel
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Act = 0
+Music = FDCEZ2
+NextLevel = IP
+TypeOfLevel = Match,Tag
+Weather = 1
+SkyNum = 20
+Lua.oldmatch = true
+
+Level IP
+LevelName = Desolate Twilight
+Music = MP_DES
+TypeOfLevel = Match,Tag
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+NextLevel = IQ
+SkyNum = 21
+Lua.oldmatch = true
+
+Level IQ
+LevelName = Hydro Plant
+Music = HYDRO
+TypeOfLevel = Match,Tag
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+NextLevel = IR
+SkyNum = 2
+Lua.oldmatch = true
+
+Level IR
+Levelname = Starlit Warehouse
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Act = 0
+Music = DCZ
+NextLevel = IS
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level IS
+Levelname = Midnight Abyss
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Gravity = 0.09
+Act = 0
+Music = MIDABY
+NextLevel = IT
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 37
+Lua.oldmatch = true
+
+Level IT
+Levelname = Tree Ring
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Act = 0
+Music = TRRING
+NextLevel = IU
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+Lua.oldmatch = true
+
+Level IU
+Levelname = Zim's Base
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Act = 0
+Music = ZIMBAS
+NextLevel = IV
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 38
+Lua.oldmatch = true
+
+Level IV
+Levelname = Airborne Temple
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Act = 0
+Music = FDAIR
+NextLevel = IW
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level IW
+Levelname = Meadow Match
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Act = 0
+Music = MP_MED
+NextLevel = IN
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+
+
+
+#SRB2FUN
+
+Level IX
+Levelname = Thunder Citadel
+Subtitle = 1.1/SRB2Fun
+SelectHeading = SRB2Fun
+Act = 0
+Music = FDCEZ2
+NextLevel = IY
+TypeOfLevel = Match,Tag
+Weather = 1
+SkyNum = 20
+
+LEVEL IY
+Levelname = Desolate Twilight
+Subtitle = 1.1/SRB2Fun
+SelectHeading = SRB2Fun
+Act = 0
+Music = MP_DES
+NextLevel = IZ
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 36
+
+Level IZ
+Levelname = Jade Valley
+Subtitle = 1.1/SRB2Fun
+SelectHeading = SRB2Fun
+Act = 0
+Music = MP_SUN
+NextLevel = IX
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+
+
+
+
+#2.0
+
+Level J0
+Levelname = Jade Valley
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = MP_SUN
+NextLevel = J1
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+
+Level J1
+Levelname = Noxious Factory
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = FDTHZ1
+NextLevel = J2
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 5
+
+LEVEL J2
+Levelname = Tidal Palace
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = FDDSZ2
+NextLevel = J3
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 7
+
+LEVEL J3
+Levelname = Thunder Citadel
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = FDCEZ2
+NextLevel = J4
+TypeOfLevel = Match,Tag
+Weather = 1
+SkyNum = 27
+
+LEVEL J4
+Levelname = Desolate Twilight
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = MP_DES
+NextLevel = J5
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 21
+
+LEVEL J5
+Levelname = Infernal Cavern
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = INFRNO
+NextLevel = J6
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 7
+
+LEVEL J6
+Levelname = Frost Columns
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = MP_WTR
+NextLevel = J7
+TypeOfLevel = Match,Tag
+Weather = 2
+SkyNum = 20
+
+LEVEL J7
+Levelname = Sapphire Falls
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = OLDGHZ
+NextLevel = J8
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+
+Level J8
+Levelname = Meadow Match
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Act = 0
+Music = MP_MED
+NextLevel = J0
+TypeOfLevel = Match,Tag
+Weather = 0
+SkyNum = 2
+
+
+
+
+#2.1
+
+Level J9
+LevelName = Jade Valley
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = MP_SUN
+TypeOfLevel = Match,Tag
+NextLevel = JA
+SkyNum = 2
+
+Level JA
+LevelName = Noxious Factory
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = FDTHZ1
+TypeOfLevel = Match,Tag
+NextLevel = JB
+SkyNum = 3
+
+Level JB
+LevelName = Tidal Palace
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = FDDSZ2
+TypeOfLevel = Match,Tag
+NextLevel = JC
+SkyNum = 7
+
+Level JC
+LevelName = Thunder Citadel
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = FDCEZ2
+TypeOfLevel = Match,Tag
+NextLevel = JD
+Weather = 1
+SkyNum = 27
+
+Level JD
+LevelName = Desolate Twilight
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = MP_DES
+TypeOfLevel = Match,Tag
+NextLevel = JE
+SkyNum = 21
+
+Level JE
+LevelName = Infernal Cavern
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = FDRVZ1
+TypeOfLevel = Match,Tag
+NextLevel = JF
+SkyNum = 7
+
+Level JF
+LevelName = Orbital Hangar
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = ORBHAN
+TypeOfLevel = Match,Tag
+NextLevel = JG
+SkyNum = 22
+
+Level JG
+LevelName = Frost Columns
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = MP_WTR
+TypeOfLevel = Match,Tag
+NextLevel = JH
+Weather = 2
+SkyNum = 20
+
+Level JH
+LevelName = Granite Lake
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = MP_GLZ
+TypeOfLevel = Match,Tag
+NextLevel = JI
+SkyNum = 2
+
+Level JI
+LevelName = Diamond Blizzard
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = FDAIR
+TypeOfLevel = Match,Tag
+NextLevel = JJ
+Weather = 2
+SkyNum = 55
+
+Level JJ
+LevelName = Celestial Sanctuary
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = MAPB6M
+TypeOfLevel = Match,Tag
+NextLevel = JK
+SkyNum = 2
+
+Level JK
+LevelName = Sapphire Falls
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = OLDGHZ
+TypeOfLevel = Match,Tag
+NextLevel = JL
+SkyNum = 2
+
+Level JL
+LevelName = Meadow Match
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+Music = MP_MED
+TypeOfLevel = Match,Tag
+NextLevel = J9
+SkyNum = 2
+
+
+
+
+#2.2
+Level M0
+LevelName = Jade Valley
+Music = MP_SUN
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M1
+SkyNum = 1
+
+Level M1
+LevelName = Noxious Factory
+Music = THZ1
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M2
+SkyNum = 4
+
+LEVEL M2
+LevelName = Tidal Palace
+Music = DSZ2
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M3
+SkyNum = 7
+
+Level M3
+LevelName = Thunder Citadel
+Music = CEZ2
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M4
+Weather = 1
+SkyNum = 10
+
+Level M4
+LevelName = Desolate Twilight
+Music = MP_DES
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M5
+SkyNum = 21
+
+Level M5
+LevelName = Infernal Cavern
+Music = RVZ2
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M6
+SkyNum = 7
+
+Level M6
+LevelName = Orbital Hangar
+Music = MP_DOM
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M7
+SkyNum = 22
+
+Level M7
+LevelName = Sapphire Falls
+Music = MP_GHZ
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M8
+SkyNum = 2
+
+Level M8
+LevelName = Diamond Blizzard
+Music = MP_AIR
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M9
+Weather = 2
+SkyNum = 55
+
+Level M9
+LevelName = Celestial Sanctuary
+Music = AGZ
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = MA
+SkyNum = 40
+
+Level MA
+LevelName = Frost Columns
+Music = MP_ICE
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = MB
+Weather = 2
+SkyNum = 6
+
+Level MB
+LevelName = Meadow Match
+Music = MP_MED
+TypeOfLevel = Match,Tag
+Subtitle = Version 2.2
+SelectHeading = Match 2.2
+NextLevel = M0
+SkyNum = 2

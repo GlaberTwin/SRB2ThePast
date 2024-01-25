@@ -1,0 +1,228 @@
+-- TGF Gunner - Ported by Glaber (original Lua) and MIDIMan (TGF movement)
+
+freeslot(
+	"MT_TGFGUNNER", 
+	"S_TGFGUNER_TGFMOVEMENT",
+	"S_TGFGUNER_SHOOT",
+	"S_TGFGUNERLOOK1",
+	"S_TGFGUNERLOOK2",
+	"S_TGFGUNERZOOM1",
+	"S_TGFGUNERZOOM2",
+	"S_TGFGUNERSHOOT1",
+	"S_TGFGUNERSHOOT2",
+	"SPR_TFBT"
+)
+
+local function TGF_GunnerSpawnHeight(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+    local offset
+    
+    if mthing.z ~= 0 then
+        offset = mthing.z
+    else
+        offset = 33*FRACUNIT
+    end
+    
+    if (mthing.options & MTF_OBJECTFLIP) then
+        if offset ~= 0 then
+            mo.z = mo.z - offset
+        else
+            mo.z = mo.ceilingz
+        end
+    else
+        if offset ~= 0 then
+            mo.z = mo.z + offset
+        else
+            mo.z = mo.floorz
+        end
+    end
+end
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	TGF_GunnerSpawnHeight(mo, mthing)
+	
+	-- Manually set the ambush flag
+	if udmf and mthing.args[0] then
+		mo.flags2 = $|MF2_AMBUSH
+	end
+	
+	if (not udmf and (mthing.options & MTF_OBJECTSPECIAL))
+	or (udmf and mthing.args[1]) then
+		mo.state = S_TGFGUNER_TGFMOVEMENT
+		mo.flags = $|MF_NOCLIPHEIGHT
+		mo.tgfmovement = true
+		mo.tgfAngle = FixedAngle(mthing.angle*FRACUNIT)
+	end
+end, MT_TGFGUNNER)
+
+-- Quick function to check if the nextPosition goes over the endPosition
+local function TGF_DifferenceCheck(diff, nextPos, endPos)
+	if abs(diff) >= abs(endPos - nextPos) or 3*abs(diff)/2 >= abs(endPos - nextPos) then
+		return endPos
+	end
+	
+	return nextPos + diff
+end
+
+local function TGF_Movement(mo, endPos, speed)
+	if not (mo and mo.valid) then return end
+	if not endPos then return end
+	if not speed then return end
+	
+	local nextPos = {x = mo.x, y = mo.y, z = mo.z}
+	
+	local angle = R_PointToAngle2(mo.x, mo.y, endPos.x, endPos.y)
+	local dist = FixedHypot(endPos.x - mo.x, endPos.y - mo.y)
+	local pitch = R_PointToAngle2(0, mo.z, dist, endPos.z)
+	
+	local diff = {
+		x = FixedMul(speed, FixedMul(cos(angle), cos(pitch))), 
+		y = FixedMul(speed, FixedMul(sin(angle), cos(pitch))), 
+		z = FixedMul(speed, sin(pitch))
+	}
+	
+	nextPos.x = TGF_DifferenceCheck(diff.x, nextPos.x, endPos.x)
+	nextPos.y = TGF_DifferenceCheck(diff.y, nextPos.y, endPos.y)
+	nextPos.z = TGF_DifferenceCheck(diff.z, nextPos.z, endPos.z)
+	
+	mo.angle = R_PointToAngle2(0, 0, diff.x, diff.y)
+	
+	P_MoveOrigin(mo, nextPos.x, nextPos.y, nextPos.z)
+	
+	if mo.x == endPos.x and mo.y == mo.y and mo.z == endPos.z then
+		return true
+	end
+end
+
+local function TGF_GetPositionFromOrigin(mo, x, y)
+	if not (mo and mo.valid) then return end
+	if not mo.tgfOrigPos then
+		return {
+			x = mo.x,
+			y = mo.y,
+			z = mo.z
+		}
+	end
+	x = $ or 0
+	y = $ or 0
+	
+	return {
+		x = mo.tgfOrigPos.x + FixedMul(cos(mo.tgfAngle or 0), x*mo.scale),
+		y = mo.tgfOrigPos.y + FixedMul(sin(mo.tgfAngle or 0), y*mo.scale),
+		z = mo.tgfOrigPos.z + P_MobjFlip(mo)*y*mo.scale
+	}
+end
+
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	-- This MobjThinker is only for the gunner's TGF movement
+	if mo.health <= 0 or not mo.tgfmovement then return end
+	
+	-- Setup variables for the TGF-based movement
+	if not mo.tgfOrigPos then
+		mo.tgfOrigPos = {
+			x = mo.x,
+			y = mo.y,
+			z = mo.z,
+		}
+	end
+	
+-- 	local origPos = mo.tgfOrigPos
+	if not mo.tgfPosNum then mo.tgfPosNum = 0 end
+	if not mo.tgfReverse then mo.tgfReverse = false end
+	if not mo.tgfAngle then mo.tgfAngle = 0 end
+	if not mo.tgfPositions then
+		mo.tgfPositions = {
+-- 			{x = origPos.x, y = origPos.y, z = origPos.z},
+			TGF_GetPositionFromOrigin(mo, 0, 0),
+			TGF_GetPositionFromOrigin(mo, 54, -29),
+			TGF_GetPositionFromOrigin(mo, 121, -46),
+			TGF_GetPositionFromOrigin(mo, 182, -54),
+			TGF_GetPositionFromOrigin(mo, 218, -41),
+			TGF_GetPositionFromOrigin(mo, 252, -15)
+-- 			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 54*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 54*mo.scale),	z = origPos.z - P_MobjFlip(mo)*29*mo.scale},
+-- 			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 121*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 121*mo.scale),	z = origPos.z - P_MobjFlip(mo)*46*mo.scale},
+-- 			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 182*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 182*mo.scale),	z = origPos.z - P_MobjFlip(mo)*54*mo.scale},
+-- 			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 218*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 218*mo.scale),	z = origPos.z - P_MobjFlip(mo)*41*mo.scale},
+-- 			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 252*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 252*mo.scale),	z = origPos.z - P_MobjFlip(mo)*14*mo.scale}
+		}
+	end
+	
+	local speed = 6*mo.scale
+	
+	if mo.tgfPositions and table.maxn(mo.tgfPositions)
+		local maxIndex = table.maxn(mo.tgfPositions)
+		
+		-- Move the gunner backwards if it is reversed
+		if mo.tgfReverse and mo.tgfPosNum > 1
+			if TGF_Movement(mo, mo.tgfPositions[mo.tgfPosNum - 1], speed)
+				mo.tgfPosNum = $-1
+			end
+		-- Move the gunner forwards if it is not reversed
+		elseif not mo.tgfReverse and mo.tgfPosNum < maxIndex
+			if TGF_Movement(mo, mo.tgfPositions[mo.tgfPosNum + 1], speed)
+				mo.tgfPosNum = $+1
+			end
+		end
+		
+		-- Reverse the gunner's movement if it reaches one of the path's ends
+		if (mo.tgfReverse and mo.tgfPosNum <= 1)
+		or (not mo.tgfReverse and mo.tgfPosNum >= maxIndex)
+			mo.tgfReverse = not $
+		end
+	end
+end, MT_TGFGUNNER)
+
+-- TGF Gunner
+mobjinfo[MT_TGFGUNNER] = {
+	--$Name TGF Gunner
+	--$Sprite TFBTA1
+	--$Category TGF and Concept Enemies
+    doomednum = 155,
+    spawnstate = S_TGFGUNERLOOK1,
+    spawnhealth = 1,
+    seestate = S_TGFGUNERZOOM1,
+    reactiontime = 5,
+    attacksound = sfx_s3k4d,
+	painchance = 3072,
+	missilestate = S_TGFGUNERSHOOT1,
+    deathstate = S_XPLD_FLICKY,
+    deathsound = sfx_pop,
+    speed = 1*FRACUNIT,
+    radius = 20*FRACUNIT,
+    height = 48*FRACUNIT,
+	raisestate = MT_JETTBULLET,
+    flags = MF_SLIDEME|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+
+function A_TGFGunnerShoot(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local bullet = P_SpawnPointMissile(
+		actor, actor.x + cos(actor.angle), actor.y + sin(actor.angle), actor.z, 
+		actor.info.raisestate, 
+		actor.x, actor.y, actor.z
+	)
+	
+	-- Make the bullet disappear after one second
+	if bullet and bullet.valid then
+		bullet.fuse = TICRATE
+	end
+	
+	S_StartSound(actor, actor.info.attacksound)
+end
+
+states[S_TGFGUNER_TGFMOVEMENT] =	{SPR_TFBT,	A|FF_ANIMATE,	105,	nil,				1,	1,	S_TGFGUNER_SHOOT}
+states[S_TGFGUNER_SHOOT] =			{SPR_TFBT,	A,				0,		A_TGFGunnerShoot,	0,	0,	S_TGFGUNER_TGFMOVEMENT}
+	
+states[S_TGFGUNERLOOK1] =	{SPR_TFBT,	A,	4,	A_Look,			0,	0,	S_TGFGUNERLOOK2}	-- S_TGFGUNERLOOK1
+states[S_TGFGUNERLOOK2] =	{SPR_TFBT,	B,	4,	A_Look,			0,	0,	S_TGFGUNERLOOK1}	-- S_TGFGUNERLOOK2
+states[S_TGFGUNERZOOM1] =	{SPR_TFBT,	A,	1,	A_JetgThink,	0,	0,	S_TGFGUNERZOOM2}	-- S_TGFGUNERZOOM1
+states[S_TGFGUNERZOOM2] =	{SPR_TFBT,	B,	1,	A_JetgThink,	0,	0,	S_TGFGUNERZOOM1}	-- S_TGFGUNERZOOM2
+states[S_TGFGUNERSHOOT1] =	{SPR_TFBT,	A,	1,	A_JetgShoot,	0,	0,	S_TGFGUNERSHOOT2}	-- S_TGFGUNERSHOOT1
+states[S_TGFGUNERSHOOT2] =	{SPR_TFBT,	B,	1,	nil,			0,	0,	S_TGFGUNERZOOM1}	-- S_TGFGUNERSHOOT2

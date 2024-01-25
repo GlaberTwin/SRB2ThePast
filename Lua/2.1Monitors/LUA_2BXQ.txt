@@ -1,0 +1,27 @@
+-- 2.1 Mystery Box - Ported by MIDIMan
+-- Use with LUA_2BOX
+
+freeslot(
+	"MT_21BOX_QUESTION",
+	"S_21BOX_QUESTION_IDLE"
+)
+
+addHook("MapThingSpawn", RM_21MonitorTypeSpawn, MT_21BOX_QUESTION)
+
+mobjinfo[MT_21BOX_QUESTION] = {
+	--$Name 2.1 Mystery Monitor
+	--$Sprite 2BXME0
+	--$Category Monitors
+	doomednum = 494,
+	spawnstate = S_21BOX_QUESTION_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_QUESTION_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_UNKNOWN,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_QUESTION_IDLE] =	{SPR_2BXM,	E,	2,	nil,	0,	0,	S_21BOX_FLICKER}

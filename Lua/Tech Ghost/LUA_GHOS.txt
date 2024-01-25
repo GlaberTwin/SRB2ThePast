@@ -1,0 +1,77 @@
+// SPOOK (Halloween Ghost) - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+// If you don't want the SPOOK to shoot, replace the meelee state with S_NULL
+// Use with DSMOAN and DSREDEA
+// some states are now outdated
+
+freeslot(
+	"MT_SPOOK",
+	"S_SPOOK_LOOK",
+	"S_SPOOK_MOVE",
+	"S_SPOOK_SHOOT",
+	"S_SPOOK_SHOOT2",
+	"S_SPOOK_SHOOT3",
+	"S_SPOOK_DEAD",
+	"SPR_GHOS",
+	"sfx_moan",
+	"sfx_redea"
+)
+
+local function Spook_Chase(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	A_Chase(actor, var1, var2)
+	
+	if actor.info.activesound and P_RandomByte() < 3 then
+		S_StartSound(actor, actor.info.activesound)
+	end
+end
+
+local function Spook_Attack(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	if not (actor.target and actor.target.valid) then return end
+	
+	A_FaceTarget(actor)
+	
+	// Originally, the Halloween Ghost also had a melee attack, but I decided not to include it for gameplay reasons --MIDIMan
+	if actor.info.raisestate then
+		P_SpawnMissile(actor, actor.target, actor.info.raisestate)
+	end
+end
+
+// Spawn an explosion on death for player feedback
+addHook("MobjDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	P_SpawnMobjFromMobj(mo, 0, 0, 0, MT_EXPLODE)
+end, MT_SPOOK)
+
+mobjinfo[MT_SPOOK] = {
+	//$Name "Ghost"
+	//$Sprite GHOSA0
+	//$Category Retro Enemies
+	doomednum = 4022,
+	spawnstate = S_SPOOK_LOOK,
+	spawnhealth = 1,
+	seestate = S_SPOOK_MOVE,
+	seesound = sfx_redea,
+	reactiontime = 2,
+	painchance = 128,
+	meleestate = S_SPOOK_SHOOT,
+	deathstate = S_SPOOK_DEAD,
+	deathsound = sfx_redea,
+	speed = 8,
+	radius = 31*FRACUNIT,
+	height = 56*FRACUNIT,
+	activesound = sfx_moan,
+	raisestate = MT_JETTBULLET,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_FLOAT|MF_NOGRAVITY|MF_ENEMY|MF_FLOAT|MF_SPECIAL
+}
+
+states[S_SPOOK_LOOK] =	{SPR_GHOS,	A,	10,	A_Look,			0,	0,	S_SPOOK_LOOK}
+
+states[S_SPOOK_MOVE] =	{SPR_GHOS,	A,	3,	Spook_Chase,	0,	0,	S_SPOOK_MOVE}
+
+states[S_SPOOK_SHOOT] =		{SPR_GHOS,	B,	5,	A_FaceTarget,	0,	0,	S_SPOOK_SHOOT2}
+states[S_SPOOK_SHOOT2] =	{SPR_GHOS,	C,	5,	A_FaceTarget,	0,	0,	S_SPOOK_SHOOT3}
+states[S_SPOOK_SHOOT3] =	{SPR_GHOS,	D,	5,	Spook_Attack,	0,	0,	S_SPOOK_MOVE}
+
+// This state allows the deathsound to play in full instead of being cut-off
+states[S_SPOOK_DEAD] =	{SPR_NULL,	A,	114,	A_Scream,	0,	0,	S_NULL}

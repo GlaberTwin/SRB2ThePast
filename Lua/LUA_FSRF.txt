@@ -1,0 +1,102 @@
+-- Retro Monitors - 2.0 Force Shield reflection code, ported by MIDIMan
+-- Use with LUA_SHLD and LUA_FSHL
+
+addHook("PlayerThink", function(player)
+	if not (player and player.valid and player.mo and player.mo.valid) then return end
+	
+	-- Stop the shield loss sound from playing if the player's Force shield has reflected a projectile
+	if player.rmNoShieldSFX then
+		S_StopSoundByID(player.mo, sfx_shldls)
+		player.rmNoShieldSFX = nil
+	end
+end)
+
+-- Reflect projectiles if a player has a force shield in the 2.0 era
+addHook("MobjDamage", function(mo, inflictor, source, damage, damagetype)
+	if not (mo and mo.valid) then return end
+	local player = mo.player
+	if not (player and player.valid) then return end
+	
+	-- This is 2.0-era-only behavior
+	if (mo.rmShieldEra or "") ~= "2.0" then return end
+	if not (player.powers[pw_shield] & SH_FORCE) then return end
+	
+	if inflictor and inflictor.valid and (inflictor.flags & MF_MISSILE) and not inflictor.rmReflected 
+	and inflictor.type ~= MT_SPINFIRE
+	and not ((inflictor.flags2 & MF2_RAILRING) or (inflictor.flags & MF_GRENADEBOUNCE) or (inflictor.flags2 & MF2_DEBRIS))
+	and not (inflictor.flags & MF_ENEMY) then -- Prevents the Deton from causing a recursion error
+		local missile = P_SpawnPlayerMissile(mo, inflictor.type, inflictor.flags2)
+		
+		if missile and missile.valid then
+			missile.rmReflected = true
+			missile.momx = -inflictor.momx
+			missile.momy = -inflictor.momy
+			missile.momz = -inflictor.momz
+			
+			if missile.type == MT_REDRING then
+				P_ColorTeamMissile(missile, player)
+			end
+		end
+		
+		S_StartSound(mo, sfx_shield)
+		player.rmNoShieldSFX = true
+	end
+end, MT_PLAYER)
+
+-- Displays a message when a ringslinger projectile has been reflected by a 2.0 Force Shield
+addHook("HurtMsg", function(player, inflictor, source)
+	local str, deathonly, deadsource, deadtarget, targetname, sourcename
+	
+	if not (gametyperules & (GTR_RINGSLINGER|GTR_HURTMESSAGES)) then return end -- Not in coop, etc.
+	
+	if not (player and player.valid) then return end -- Impossible!
+	if not (player.mo and player.mo.valid) then return end -- Also impossible!
+-- 	if player.spectator then return end -- No messages for dying (crushed) spectators.
+-- 	if not netgame then return end -- Presumably it's obvious what's happening in splitscreen
+	
+	deadtarget = player.mo.health <= 0
+	
+	-- Don't log every hazard hit if they don't want us to.
+	if not deadtarget and not CV_FindVar("hazardlog").value then return end
+	if not (source and source.valid) then return end
+	if not (source.player and source.player.valid) then return end
+	if not (inflictor and inflictor.valid and inflictor.rmReflected) then return end
+	
+	-- Target's name
+	local colorcode1 = player.ctfteam == 1 and "\x85" or (player.ctfteam == 2 and "\x84" or "")
+	local colorcode2 = source.player.ctfteam == 1 and "\x85" or (player.ctfteam == 2 and "\x84" or "")
+	targetname = colorcode1..player.name.."\x80"
+	sourcename = colorcode2..source.player.name.."\x80"
+	
+	local infType = inflictor.type
+	
+	if source.player.playerstate == PST_DEAD and source.player ~= player and (inflictor.flags2 & MF2_BEYONDTHEGRAVE) then
+		deadsource = true
+	end
+	
+	if (inflictor.flags & MF_PUSHABLE) then return end
+	if infType == MT_PLAYER then return end
+	if infType == MT_SPINFIRE then return end
+	if infType == MT_THROWNEXPLOSION then return end
+	if infType == MT_THROWNGRENADE then return end
+	str = "%s%s's %s "
+	if infType == MT_THROWNBOUNCE then
+		str = $.."bounce ring"
+	elseif infType == MT_THROWNINFINITY then
+		str = $.."infinity ring"
+	elseif infType == MT_THROWNAUTOMATIC then
+		str = $.."automatic ring"
+	elseif infType == MT_THROWNSCATTER then
+		str = $.."scatter ring"
+	elseif infType == MT_REDRING then
+		if (inflictor.flags2 & MF2_RAILRING) then return end
+		str = $.."thrown ring"
+	else
+		return
+	end
+	
+	str = $.." %s %s."
+	
+	print(string.format(str, deadsource and "The late " or "", sourcename, "reflected", deadtarget and "killed" or "hit", targetname))
+	return true
+end)

@@ -1,0 +1,450 @@
+# Cut ERZ3 Boss
+
+Freeslot
+S_EGGMOBILE7_MISSILE1
+S_EGGMOBILE7_MISSILE2
+S_EGGMOBILE7_MISSILE3
+S_EGGMOBILE7_MISSILE4
+S_EGGMOBILE7_MISSILE5
+S_EGGMOBILE7_MISSILE6
+S_EGGMOBILE7_MISSILE7
+MT_EGGMOBILE7_MISSILE
+S_EGGMOBILE7_BIG_MISSILE1
+S_EGGMOBILE7_BIG_MISSILE2
+S_EGGMOBILE7_BIG_MISSILE3
+S_EGGMOBILE7_BIG_MISSILE4
+S_EGGMOBILE7_BIG_MISSILE5
+MT_EGGMOBILE7_BIG_MISSILE
+S_EGGMOBILE7_STND
+S_EGGMOBILE7_LATK1
+S_EGGMOBILE7_LATK2
+S_EGGMOBILE7_LATK3
+S_EGGMOBILE7_LATK4
+S_EGGMOBILE7_LATK5
+S_EGGMOBILE7_LATK6
+S_EGGMOBILE7_LATK7
+S_EGGMOBILE7_LATK8
+S_EGGMOBILE7_LATK9
+S_EGGMOBILE7_RATK1
+S_EGGMOBILE7_RATK2
+S_EGGMOBILE7_RATK3
+S_EGGMOBILE7_RATK4
+S_EGGMOBILE7_RATK5
+S_EGGMOBILE7_RATK6
+S_EGGMOBILE7_RATK7
+S_EGGMOBILE7_RATK8
+S_EGGMOBILE7_RATK9
+S_EGGMOBILE7_PAIN1
+S_EGGMOBILE7_PAIN2
+S_EGGMOBILE7_PAIN3
+S_EGGMOBILE7_PAIN4
+S_EGGMOBILE7_PAIN5
+S_EGGMOBILE7_DIE1
+S_EGGMOBILE7_DIE2
+S_EGGMOBILE7_DIE3
+S_EGGMOBILE7_DIE4
+S_EGGMOBILE7_FLEE1
+S_EGGMOBILE7_FLEE2
+MT_EGGMOBILE7
+#SPR_EGGS
+
+State S_EGGMOBILE7_MISSILE1
+SpriteName = TORP
+SpriteFrame = A
+Duration = 17
+Next = S_EGGMOBILE7_MISSILE2
+Action None
+
+State S_EGGMOBILE7_MISSILE2
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_MISSILE3
+Action A_FindTracer
+Var1 = MT_PLAYER
+Var2 = 0
+
+State S_EGGMOBILE7_MISSILE3
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_MISSILE4
+Action A_DualAction
+Var1 = S_EGGMOBILE7_MISSILE6
+Var2 = S_EGGMOBILE7_MISSILE7
+
+State S_EGGMOBILE7_MISSILE4
+SpriteName = TORP
+SpriteFrame = A
+Duration = 70
+Next = S_EGGMOBILE7_MISSILE5
+Action A_Repeat
+Var1 = 70
+Var2 = S_EGGMOBILE7_MISSILE3
+
+State S_EGGMOBILE7_MISSILE5
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_MISSILE5
+Action None
+
+State S_EGGMOBILE7_MISSILE6
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_NULL
+Action A_HomingChase
+Var1 = 30*FRACUNIT
+Var2 = 1
+
+State S_EGGMOBILE7_MISSILE7
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_NULL
+Action A_CheckTrueRange
+Var1 = 65536+256
+Var2 = S_EGGMOBILE7_MISSILE5
+
+Object MT_EGGMOBILE7_MISSILE
+MapThingNum = -1
+SpawnState = S_EGGMOBILE7_MISSILE1
+SpawnHealth = 1
+ReactionTime = 32
+SeeState = S_NULL
+SeeSound = sfx_s3ka0
+AttackSound = sfx_None
+PainState = S_NULL
+PainChance = 0
+PainSound = sfx_dmpain
+MeleeState = S_NULL
+MissileState = S_NULL
+DeathState = S_XPLD1
+XDeathState = S_NULL
+RaiseState = S_NULL
+DeathSound = sfx_s3kb4
+Speed = 30*FRACUNIT
+Radius = 4*FRACUNIT
+Height = 8*FRACUNIT
+DispOffset = 0
+Mass = 100
+Damage = 1
+ActiveSound = sfx_None
+Flags =	MF_NOBLOCKMAP|MF_MISSILE|MF_NOGRAVITY
+
+State S_EGGMOBILE7_BIG_MISSILE1
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_BIG_MISSILE2
+Action None
+
+State S_EGGMOBILE7_BIG_MISSILE2
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_BIG_MISSILE3
+Action A_FindTracer
+Var1 = MT_PLAYER
+Var2 = 0
+
+State S_EGGMOBILE7_BIG_MISSILE3
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_BIG_MISSILE4
+Action A_HomingChase
+Var1 = 25*FRACUNIT
+Var2 = 1
+
+State S_EGGMOBILE7_BIG_MISSILE4
+SpriteName = TORP
+SpriteFrame = A
+Duration = 105
+Next = S_EGGMOBILE7_BIG_MISSILE5
+Action A_Repeat
+Var1 = 105
+Var2 = S_EGGMOBILE7_BIG_MISSILE3
+
+State S_EGGMOBILE7_BIG_MISSILE5
+SpriteName = TORP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_BIG_MISSILE5
+Action None
+
+Object MT_EGGMOBILE7_BIG_MISSILE
+MapThingNum = -1
+SpawnState = S_EGGMOBILE7_BIG_MISSILE1
+SpawnHealth = 1
+ReactionTime = 32
+SeeState = S_NULL
+SeeSound = sfx_s3k81
+AttackSound = sfx_None
+PainState = S_NULL
+PainChance = 0
+PainSound = sfx_dmpain
+MeleeState = S_NULL
+MissileState = S_NULL
+DeathState = S_XPLD1
+XDeathState = S_NULL
+RaiseState = S_NULL
+DeathSound = sfx_s3kb4
+Speed = 0
+Radius = 8*FRACUNIT
+Height = 16*FRACUNIT
+DispOffset = 0
+Mass = 100
+Damage = 1
+ActiveSound = sfx_None
+Flags =	MF_NOBLOCKMAP|MF_MISSILE|MF_NOGRAVITY
+
+State S_EGGMOBILE7_STND
+SpriteName = EGGP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_STND
+Action A_Boss1Chase
+
+#Fire 4 homing missiles
+State S_EGGMOBILE7_LATK1
+SpriteName = EGGP
+SpriteFrame = B
+Duration = 3
+Next = S_EGGMOBILE7_LATK2
+
+State S_EGGMOBILE7_LATK2
+SpriteName = EGGP
+SpriteFrame = C
+Duration = 15
+Next = S_EGGMOBILE7_LATK3
+
+State S_EGGMOBILE7_LATK3
+SpriteName = EGGP
+SpriteFrame = D
+Duration = 2
+Next = S_EGGMOBILE7_LATK4
+
+State S_EGGMOBILE7_LATK4
+SpriteName = EGGP
+SpriteFrame = E
+Duration = 2
+Next = S_EGGMOBILE7_LATK5
+
+State S_EGGMOBILE7_LATK5
+SpriteName = EGGP
+SpriteFrame = F
+Duration = 8
+Next = S_EGGMOBILE7_LATK6
+Action A_MultiShot
+Var1 = MT_EGGMOBILE7_MISSILE*65536+32
+Var2 = 32
+
+State S_EGGMOBILE7_LATK6
+SpriteName = EGGP
+SpriteFrame = F
+Duration = 8
+Next = S_EGGMOBILE7_LATK7
+Action None
+
+State S_EGGMOBILE7_LATK7
+SpriteName = EGGP
+SpriteFrame = F
+Duration = 8
+Next = S_EGGMOBILE7_LATK8
+Action None
+
+State S_EGGMOBILE7_LATK8
+SpriteName = EGGP
+SpriteFrame = F
+Duration = 8
+Next = S_EGGMOBILE7_LATK9
+Action None
+
+State S_EGGMOBILE7_LATK9
+SpriteName = EGGP
+SpriteFrame = G
+Duration = 35
+Next = S_EGGMOBILE7_STND
+
+
+#Move the lava
+State S_EGGMOBILE7_RATK1
+SpriteName = EGGP
+SpriteFrame = H
+Duration = 3
+Next = S_EGGMOBILE7_RATK2
+
+State S_EGGMOBILE7_RATK2
+SpriteName = EGGP
+SpriteFrame = I
+Duration = 15
+Next = S_EGGMOBILE7_RATK3
+
+State S_EGGMOBILE7_RATK3
+SpriteName = EGGP
+SpriteFrame = J
+Duration = 2
+Next = S_EGGMOBILE7_RATK4
+
+State S_EGGMOBILE7_RATK4
+SpriteName = EGGP
+SpriteFrame = K
+Duration = 2
+Next = S_EGGMOBILE7_RATK5
+
+State S_EGGMOBILE7_RATK5
+SpriteName = EGGP
+SpriteFrame = L
+Duration = 8
+Next = S_EGGMOBILE7_RATK6
+Action A_MultiShot
+Var1 = MT_EGGMOBILE7_MISSILE*65536+4
+Var2 = 32
+
+State S_EGGMOBILE7_RATK6
+SpriteName = EGGP
+SpriteFrame = L
+Duration = 8
+Next = S_EGGMOBILE7_RATK7
+Action A_MultiShot
+Var1 = MT_EGGMOBILE7_MISSILE*65536+4
+Var2 = 32
+
+State S_EGGMOBILE7_RATK7
+SpriteName = EGGP
+SpriteFrame = L
+Duration = 8
+Next = S_EGGMOBILE7_RATK8
+Action A_MultiShot
+Var1 = MT_EGGMOBILE7_MISSILE*65536+4
+Var2 = 32
+
+State S_EGGMOBILE7_RATK8
+SpriteName = EGGP
+SpriteFrame = L
+Duration = 8
+Next = S_EGGMOBILE7_RATK9
+Action A_MultiShot
+Var1 = MT_EGGMOBILE7_MISSILE*65536+4
+Var2 = 32
+
+State S_EGGMOBILE7_RATK9
+SpriteName = EGGP
+SpriteFrame = M
+Duration = 35
+Next = S_EGGMOBILE7_STND
+
+State S_EGGMOBILE7_PAIN1
+SpriteName = EGGP
+SpriteFrame = N
+Duration = 24
+Next = S_EGGMOBILE7_PAIN2
+Action A_Pain
+
+State S_EGGMOBILE7_PAIN2
+SpriteName = EGGP
+SpriteFrame = A
+Duration = 1
+Next = S_EGGMOBILE7_PAIN3
+Action A_CheckPinch
+Var1 = S_EGGMOBILE7_PAIN5
+Var2 = 0
+
+State S_EGGMOBILE7_PAIN3
+SpriteName = EGGP
+SpriteFrame = A
+Duration = 0
+Next = S_EGGMOBILE7_PAIN4
+Action A_LinedefExecute
+Var1 = 7001
+Var2 = 0
+
+State S_EGGMOBILE7_PAIN4
+SpriteName = EGGP
+SpriteFrame = A
+Duration = 104
+Next = S_EGGMOBILE7_STND
+Action A_LinedefExecute
+Var1 = 7002
+Var2 = 0
+
+State S_EGGMOBILE7_PAIN5
+SpriteName = EGGP
+SpriteFrame = A
+Duration = 104
+Next = S_EGGMOBILE7_STND
+Action A_LinedefExecute
+Var1 = 241
+Var2 = 0
+
+State S_EGGMOBILE7_DIE1
+SpriteName = EGGP
+SpriteFrame = O
+Duration = 2
+Next = S_EGGMOBILE7_DIE2
+Action A_Fall
+
+State S_EGGMOBILE7_DIE2
+SpriteName = EGGP
+SpriteFrame = O
+Duration = 2
+Next = S_EGGMOBILE7_DIE3
+Action A_BossScream
+
+State S_EGGMOBILE7_DIE3
+SpriteName = EGGP
+SpriteFrame = O
+Duration = 0
+Next = S_EGGMOBILE7_DIE4
+Action A_Repeat
+Var1 = 17
+Var2 = S_EGGMOBILE7_DIE2
+
+State S_EGGMOBILE7_DIE4
+SpriteName = EGGP
+SpriteFrame = O
+Duration = -1
+Next = S_NULL
+Action A_BossDeath
+
+State S_EGGMOBILE7_FLEE1
+SpriteName = EGGP
+SpriteFrame = P
+Duration = 2
+Next = S_EGGMOBILE7_FLEE2
+Action A_BossScream
+
+State S_EGGMOBILE7_FLEE2
+SpriteName = EGGP
+SpriteFrame = Q
+Duration = 2
+Next = S_EGGMOBILE7_FLEE1
+Action A_BossScream
+
+Object MT_EGGMOBILE7
+MapThingNum = 205 #Or 206 since 205 would be RVZ Boss. But old Brak would need to be moved.
+SpawnState = S_EGGMOBILE7_STND
+SpawnHealth = 8
+ReactionTime = 50
+SeeState = S_EGGMOBILE7_STND
+SeeSound = sfx_None
+AttackSound = sfx_None
+PainState = S_EGGMOBILE7_PAIN1
+PainChance = 0
+PainSound = sfx_dmpain
+MeleeState = S_EGGMOBILE7_LATK1
+MissileState = S_EGGMOBILE7_LATK1
+DeathState = S_EGGMOBILE7_DIE1
+XDeathState = S_EGGMOBILE7_FLEE1
+RaiseState = S_EGGMOBILE7_RATK1
+DeathSound = sfx_s3kb4
+Speed = 0
+Radius = 64*FRACUNIT
+Height = 160*FRACUNIT
+DispOffset = 0
+Mass = 100
+Damage = 3
+ActiveSound = sfx_None
+Flags =	MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY|MF_BOSS

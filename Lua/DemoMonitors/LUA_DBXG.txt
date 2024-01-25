@@ -1,0 +1,70 @@
+-- Demo Green (Bubble) Shield Monitor - Ported by MIDIMan
+-- Use with LUA_DBOX
+
+-- Apparently, this shield was planned to protect against fire damage, but it 
+-- was never implemented in the Demo era
+
+freeslot(
+	"SPR_DBXG",
+	"MT_DEMOBOX_GREEN",
+	"S_DEMOBOX_GREEN_IDLE",
+	"S_DEMOBOX_GREEN_BREAK1",
+	"S_DEMOBOX_GREEN_BREAK2",
+	"S_DEMOBOX_GREEN_BREAK3",
+	"S_DEMOBOX_GREEN_BREAK4",
+	"S_DEMOBOX_GREEN_BREAK5",
+	"S_DEMOBOX_GREEN_BREAK6"
+)
+
+-- Give the player the monitor's shield as soon as it breaks
+addHook("MobjDeath", function(target, inflictor, source, damagetype)
+	if not (target and target.valid) then return end
+	
+	if netgame or multiplayer then
+		if source and source.valid and source.player then
+			target.target = source
+		elseif inflictor and inflictor.valid and inflictor.player then
+			target.target = inflictor
+		else
+			return
+		end
+	
+		A_GiveShield(target, SH_BUBBLEWRAP, var2)
+	end
+end, MT_DEMOBOX_GREEN)
+
+addHook("MapThingSpawn", RM_DemoMonitorShieldSetup, MT_DEMOBOX_GREEN)
+addHook("MobjFuse", RM_DemoMonitorFuseThink, MT_DEMOBOX_GREEN)
+
+mobjinfo[MT_DEMOBOX_GREEN] = {
+	--$Name Demo "Elemental" Shield
+	--$Sprite DBXGA0
+	--$Category Monitors
+	--$Flags1Text Don't "Era-Swap" Shield
+	--$ParameterText XMAS
+	--$Arg2 Era-Swap Shield
+	--$Arg2Type 11
+	--$Arg2Enum yesno
+	--$Arg3 Era
+	--$Arg3Type 11
+	--$Arg3Enum {0 = "Demo"; 1 = "XMAS";}
+	doomednum = 459,
+	spawnstate = S_DEMOBOX_GREEN_IDLE,
+	spawnhealth = 1,
+	seesound = sfx_shield,
+	painstate = S_DEMOBOX_GREEN_IDLE,
+	deathstate = S_DEMOBOX_GREEN_BREAK1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_DEMOBOX_GREEN_IDLE] =	{SPR_DBXG,	A,	2,	nil,	0,	0,	S_DEMOBOX_FLICKER}
+
+states[S_DEMOBOX_GREEN_BREAK1] =	{SPR_DBXG,	B,	2,	A_DemoFall,			0,				0,	S_DEMOBOX_GREEN_BREAK2}
+states[S_DEMOBOX_GREEN_BREAK2] =	{SPR_DBXG,	C,	2,	A_Scream,			0,				0,	S_DEMOBOX_GREEN_BREAK3}
+states[S_DEMOBOX_GREEN_BREAK3] =	{SPR_DBXG,	D,	2,	nil,				0,				0,	S_DEMOBOX_GREEN_BREAK4}
+states[S_DEMOBOX_GREEN_BREAK4] =	{SPR_DBXG,	E,	2,	nil,				0,				0,	S_DEMOBOX_GREEN_BREAK5}
+states[S_DEMOBOX_GREEN_BREAK5] =	{SPR_DBXG,	F,	16,	nil,				0,				0,	S_DEMOBOX_GREEN_BREAK6}
+states[S_DEMOBOX_GREEN_BREAK6] =	{SPR_DBXG,	F,	48,	A_DemoGiveShield,	SH_BUBBLEWRAP,	0,	S_DEMOBOX_DEAD}

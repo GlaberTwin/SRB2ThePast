@@ -1,0 +1,364 @@
+-- 2.0 Egg Slimer - Ported from 2.0.7
+-- PLEASE LOAD LUA_CMMN, LUA_OJTF AND LUA_ENCM BEFORE THIS
+
+freeslot(
+	-- Sprites come from LUA_ENCN
+	-- Objects
+	"MT_20EGGMOBILE2",
+	"MT_OLDGOOP",
+	-- States
+	"S_20EGGMOBILE2_POGO1",
+	"S_20EGGMOBILE2_POGO2",
+	"S_20EGGMOBILE2_POGO3",
+	"S_OLDGOOP1",
+	"S_OLDGOOP2",
+	"S_OLDGOOP3"
+)
+
+local RB_20EGG2_NOSPEED = 1
+local RB_20EGG2_NOPOGO = 2
+local RB_20EGG2_OLDBEHAVIOR = 4
+
+-- 2.0 Egg Slimer
+
+-- Mimics the A_Boss2Chase behavior of versions pre-2.1
+function A_FDBoss2Chase(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local radius
+	local reversed = false
+	local speedvar = 0
+	
+	-- When reactiontime hits zero, he will go the other way
+	if actor.reactiontime then actor.reactiontime = $ - 1 end
+	
+	if actor.reactiontime <= 0 then
+		reversed = true
+		actor.reactiontime = 2*TICRATE + P_RandomByte()
+	end
+	
+	actor.target = P_GetClosestAxis(actor)
+	
+	if not (actor.target and actor.target.valid) then -- This should NEVER happen.
+		print("Error: Boss2 has no target!")
+		A_BossDeath(actor)
+		return
+	end
+	
+	-- Use a hardcoded radius if the Egg Slimer is set to use its pre-1.09.4 behavior
+	-- Otherwise, use the radius of the closest axis
+	if actor.rbOldBehavior then
+		radius = 384*FRACUNIT
+	else
+		radius = actor.target.radius
+	end
+	
+	if reversed then
+		actor.watertop = -$
+	end
+	
+	if not actor.rbOldBehavior then
+		if (actor.flags2 & MF2_AMBUSH) then
+			speedvar = actor.health
+		else
+			speedvar = actor.info.spawnhealth
+		end
+		
+		actor.target.angle = $ + FixedAngle(
+									FixedDiv(
+										FixedMul(
+											actor.watertop,
+											actor.info.spawnhealth*(FRACUNIT/4)*3
+										),
+										speedvar*FRACUNIT
+									)
+								 ) -- Don't use FixedAngleC!
+	else
+		actor.target.angle = $ + FixedMul(actor.watertop, ANG1)
+	end
+	
+	local fa = actor.target.angle
+	local fc = FixedMul(cos(fa), radius)
+	local fs = FixedMul(sin(fa), radius)
+	actor.angle = R_PointToAngle2(actor.x, actor.y, actor.target.x + fc, actor.target.y + fs)
+	
+	-- Emulate the choppiness of the original boss
+	if actor.rbOldBehavior and (leveltime & 1) then
+		P_SetOrigin(actor, actor.target.x + fc, actor.target.y + fs, actor.target.z + 64*FRACUNIT)
+	elseif not actor.rbOldBehavior then
+		P_MoveOrigin(actor, actor.target.x + fc, actor.target.y + fs, actor.z)
+	end
+	
+	-- Put goop spraying code here
+	if (actor.rbOldBehavior and leveltime % 14 == 1)
+	or (not actor.rbOldBehavior and leveltime % (speedvar*15/10)-1 == 0) then
+		local ns = 3 * FRACUNIT
+		local goop
+		local fz = actor.z+actor.height+56*FRACUNIT
+		local fa2
+		-- actor.movedir is used to determine the last
+		-- direction goo was sprayed in. There are 8 possible
+		-- directions to spray. (45-degree increments)
+		
+		actor.movedir = $+1
+		actor.movedir = $%NUMDIRS -- NUMDIRS should be 8
+		fa2 = FixedAngle((actor.movedir*45)*FRACUNIT)
+		
+		goop = P_SpawnMobj(actor.x, actor.y, fz, actor.info.painchance)
+		goop.momx = FixedMul(sin(fa2), ns)
+		goop.momy = FixedMul(cos(fa2), ns)
+		goop.momz = 4*FRACUNIT
+		goop.fuse = 30*TICRATE+P_RandomByte()
+		if actor.info.attacksound then
+			S_StartSound(actor, actor.info.attacksound)
+		end
+		
+		if (P_RandomByte() & 1) then
+			goop.momx = $*2
+			goop.momy = $*2
+		elseif (P_RandomByte() > 128) then
+			goop.momx = $*3
+			goop.momy = $*3
+		end
+		
+		actor.flags2 = $|MF2_JUSTATTACKED
+	end
+end
+
+function A_FDBoss2Pogo(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	if actor.z <= actor.floorz + 8*FRACUNIT and actor.momz <= 0 then
+		actor.state = actor.info.raisestate
+	elseif actor.momz < 0 and actor.reactiontime then
+		local ns = 3*FRACUNIT
+		local goop
+		local fz = actor.z + actor.height + 56*FRACUNIT
+		local fa
+		for i = 0, 7, 1 do
+			actor.movedir = $+1
+			actor.movedir = $%NUMDIRS -- NUMDIRS should be 8
+			fa = FixedAngle((actor.movedir*45)*FRACUNIT)
+			
+			goop = P_SpawnMobj(actor.x, actor.y, fz, MT_OLDGOOP)
+			goop.momx = FixedMul(sin(fa), ns)
+			goop.momy = FixedMul(cos(fa), ns)
+			goop.momz = 4*FRACUNIT
+			
+			-- Make the goop's fuse shorter if the Egg Slimer started the level in its pogo state
+			if actor.rbPogoOnly
+				goop.fuse = 15*TICRATE
+			else
+				goop.fuse = 30*TICRATE+P_RandomByte()
+			end
+		end
+		actor.reactiontime = 0
+		if actor.info.attacksound then
+			S_StartSound(actor, actor.info.attacksound)
+		end
+		actor.flags2 = $|MF2_JUSTATTACKED
+	end
+end
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	-- Make the 2.0 Egg Slimer spawn 33 FRACUNITS off the ground if its map thing's z-position hasn't been set
+	local offset
+	
+	if mthing.z ~= 0 then
+		offset = mthing.z
+	else
+		offset = 33*FRACUNIT
+	end
+	
+	if (mthing.options & MTF_OBJECTFLIP) then
+		if offset ~= 0 then
+			mo.z = mo.z - offset
+		else
+			mo.z = mo.ceilingz
+		end
+	else
+		if offset ~= 0 then
+			mo.z = mo.z + offset
+		else
+			mo.z = mo.floorz
+		end
+	end
+	
+	-- Toggle the Egg Slimer's pre-1.09.4 behavior if its map thing's extra flag has been set
+	if not udmf then
+		if (mthing.options & MTF_EXTRA) then mo.rbOldBehavior = true end
+-- 		if (mthing.options & MTF_AMBUSH) then mo.flags2 = $|MF2_AMBUSH end -- This is already handled by SRB2
+	else
+		local flags = mthing.args[5] or 0
+		if (flags & RB_20EGG2_OLDBEHAVIOR) then mo.rbOldBehavior = true end
+		if not (flags & RB_20EGG2_NOSPEED) then mo.flags2 = $|MF2_AMBUSH end -- Stay consistent with 2.2's UDMF implementation
+	end
+end, MT_20EGGMOBILE2)
+
+-- Display the 2.0 Egg Slimer's "gibs" when it dies
+addHook("BossDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	A_21BossDeath(mo)
+	A_20EggSlimerGibs(mo, 0, 0)
+	return true
+end, MT_20EGGMOBILE2)
+
+-- Allows the Egg Slimer to move in a circular path in its first phase
+addHook("MobjSpawn", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	mo.watertop = mo.info.speed
+	
+	-- Force the Egg Slimer into its pogo state if there is no NiGHTS axis on the map
+	if not P_GetClosestAxis(mo) then mo.rbPogoOnly = true end
+end, MT_20EGGMOBILE2)
+
+-- Ported BossThinker behavior for 2.0 Egg Slimer from 2.0.7
+addHook("BossThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.movecount then mo.movecount = $-1 end
+	if not mo.movecount then mo.flags2 = $ & ~MF2_FRET end
+	if not (mo.tracer and mo.tracer.valid) then A_OldBossJetFumes(mo, 0, 0) end
+	
+	if mo.health <= mo.info.damage and not (mo.target and mo.target.valid and (mo.target.flags & MF_SHOOTABLE)) then
+		if mo.health <= 0 then
+			-- look for a new target
+			if P_LookForPlayers(mo, 0, true) and mo.info.mass then -- Bid farewell!
+				S_StartSound(mo, mo.info.mass)
+			end
+			return
+		end
+		
+		-- look for a new target
+		if P_LookForPlayers(mo, 0, true) and mo.info.seesound then
+			S_StartSound(mo, mo.info.seesound)
+		end
+		
+		return
+	end
+	
+	-- Kill the Egg Slimer if there is no axis and its map Thing parameter is set to 1
+	if mo.rbPogoOnly then
+		if mo.spawnpoint and mo.spawnpoint.valid
+		and mo.spawnpoint.type == mo.info.doomednum 
+		and ((not udmf and mo.spawnpoint.extrainfo == 1)
+		or (udmf and (mo.spawnpoint.args[5] & RB_20EGG2_NOPOGO))) then
+			mo.rbPogoOnly = false
+		end
+	end
+	
+	if mo.state == mo.info.spawnstate and mo.health > mo.info.damage 
+	and not mo.rbPogoOnly then
+		A_FDBoss2Chase(mo, 0, 0)
+	elseif mo.state == mo.info.raisestate
+	or mo.state == S_20EGGMOBILE2_POGO2
+	or mo.state == S_20EGGMOBILE2_POGO3
+	or mo.state == S_21EGGMOBILE2_POGO4
+	or mo.state == mo.info.spawnstate then
+		mo.flags = $ & ~MF_NOGRAVITY
+		A_FDBoss2Pogo(mo, 0, 0)
+		if mo.health <= mo.info.damage then
+			-- UDMF support for pinch phase!
+			local pinchtag = LE_PINCHPHASE
+			if udmf and mo.spawnpoint and mo.spawnpoint.valid then pinchtag = mo.spawnpoint.args[4] end
+			P_LinedefExecute(pinchtag, mo, nil)
+		end
+	end
+	
+	return true
+end, MT_20EGGMOBILE2)
+
+-- Don't let the 2.0 Egg Slimer get hit while its movecount is greater than 0
+addHook("TouchSpecial", function(special, toucher)
+	if not (special and special.valid and toucher and toucher.valid) then return end
+	
+	if special.movecount then return true end
+end, MT_20EGGMOBILE2)
+
+-- 2.0 Egg Slimer reuses states from 2.1 Egg Slimer for optimization
+
+mobjinfo[MT_20EGGMOBILE2] = {
+	--$Name 2.0 Egg Slimer
+	--$Sprite 21ENA1
+	--$Category Bosses
+	--$Flags1Text Pre-1.09.4 behavior
+	--$Flags4Text End level on death
+	--$Flags8Text Speed up when hit
+	--$Arg0 Boss ID
+	--$Arg1 End level on death?
+	--$Arg1Type 11
+	--$Arg1Enum noyes
+	--$Arg2 Death trigger tag
+	--$Arg2Type 15
+	--$Arg3 Victory trigger tag
+	--$Arg3Type 15
+	--$Arg4 Pinch trigger tag
+	--$Arg4Type 15
+	--$Arg5 Flags
+	--$Arg5Type 12
+	--$Arg5Enum {1 = "Don't speed up when hit"; 2 = "Don't pogo without axis"; 4 = "Use Pre-1.09.4 behavior";}
+	doomednum = 226,
+	spawnstate = S_21EGGMOBILE2_STND,
+	spawnhealth = 8,
+	seestate = S_21EGGMOBILE2_STND,
+	reactiontime = 8,
+	attacksound = sfx_gspray,
+	painstate = S_21EGGMOBILE2_PAIN,
+	painchance = MT_OLDGOOP,
+	painsound = sfx_dmpain,
+	meleestate = S_21EGGMOBILE2_STND,
+	missilestate = S_21EGGMOBILE2_STND,
+	deathstate = S_21EGGMOBILE2_DIE1,
+	xdeathstate = S_21EGGMOBILE2_FLEE1,
+	deathsound = sfx_cybdth,
+	speed = 2*FRACUNIT,
+	radius = 24*FRACUNIT,
+	height = 48*FRACUNIT,
+	damage = 2,
+	activesound = sfx_pogo,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY|MF_BOSS,
+	raisestate = S_20EGGMOBILE2_POGO1
+}
+
+states[S_20EGGMOBILE2_POGO1] = {SPR_21EN,	B,	1,	nil,			0,				0,			S_20EGGMOBILE2_POGO2}
+-- Replace A_Boss2PogoSFX with A_21Boss2PogoSFX if it gets replaced or removed
+states[S_20EGGMOBILE2_POGO2] = {SPR_21EN,	A,	1,	A_Boss2PogoSFX,	12*FRACUNIT,	5*FRACUNIT,	S_20EGGMOBILE2_POGO3}
+states[S_20EGGMOBILE2_POGO3] = {SPR_21EN,	B,	1,	nil,			0,				0,			S_21EGGMOBILE2_POGO4}
+
+-- Pre-2.1 Egg Slimer Goop
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.z <= mo.floorz and mo.state ~= mo.info.meleestate then
+		mo.state = mo.info.meleestate
+		mo.momx = 0
+		mo.momy = 0
+		mo.momz = 0
+		mo.z = mo.floorz
+		if mo.info.painsound then
+			S_StartSound(mo, mo.info.painsound)
+		end
+	end
+end, MT_OLDGOOP)
+
+mobjinfo[MT_OLDGOOP] = {
+	doomednum = -1,
+	spawnstate = S_OLDGOOP1,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	painsound = sfx_ghit,
+	meleestate = S_OLDGOOP3,
+	speed = 1,
+	radius = 4*FRACUNIT,
+	height = 4*FRACUNIT,
+	mass = DMG_WATER,
+	flags = MF_PAIN
+}
+
+states[S_OLDGOOP1] = {SPR_OGOP,	A|FF_FULLBRIGHT,	2,	nil,	0,	0,	S_OLDGOOP2}
+states[S_OLDGOOP2] = {SPR_OGOP,	B|FF_FULLBRIGHT,	2,	nil,	0,	0,	S_OLDGOOP1}
+states[S_OLDGOOP3] = {SPR_OGOP,	C|FF_FULLBRIGHT,	-1,	nil,	0,	0,	S_NULL}

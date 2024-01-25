@@ -1,0 +1,16 @@
+name = XtremeSonic
+realname = Sonic
+hudname = PlaceholderSonic
+ability = CA_THOK
+ability2 = CA2_SPINDASH
+normalspeed = 50
+acceleration = 120
+accelstart = 192
+thrustfactor = 5
+actionspd = 100
+mindash = 0
+maxdash = 90
+jumpfactor = 1
+prefcolor = Blue
+flags = SF_MULTIABILITY|SF_SUPER
+//credits Wolfy, and Glaber

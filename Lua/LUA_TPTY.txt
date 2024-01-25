@@ -1,0 +1,20 @@
+-- Retro Monitors - TGF Shield
+-- Use with LUA_SHLD
+
+freeslot(
+	"SPR_TPTY",
+	"MT_TGF_PITYORB",
+	"S_TGF_PITYORB"
+)
+
+mobjinfo[MT_TGF_PITYORB] = {
+	doomednum = -1,
+	spawnstate = S_TGF_PITYORB,
+	spawnhealth = 1000,
+	radius = 64*FRACUNIT,
+	height = 64*FRACUNIT,
+	dispoffset = 1,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOGRAVITY|MF_SCENERY
+}
+
+states[S_TGF_PITYORB] =	{SPR_TPTY,	A|FF_ANIMATE|FF_TRANS40|FF_FULLBRIGHT,	-1,	nil,	7,	1,	S_NULL}

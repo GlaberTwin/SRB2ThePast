@@ -1,0 +1,46 @@
+#Wizard Needs Food Badly Level Headers
+
+Level W0
+Levelname = Super Search
+Act = 0
+nozone = 1
+Subtitle = Wizard Needs Food Badly
+MusicInter = WCLEAR
+Music = Level1
+NextLevel = W1
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 24
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:18
+
+Level W1
+Levelname = Sustenance Search
+Act = 0
+nozone = 1
+Subtitle = Wizard Needs Food Badly
+MusicInter = WCLEAR
+Music = Level2
+NextLevel = W2
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 75
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:18
+
+Level W2
+Levelname = Dashing Disco
+MusicInter = WCLEAR
+Act = 0
+nozone = 1
+Subtitle = Wizard Needs Food Badly
+Music = DISCO
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 66
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:18

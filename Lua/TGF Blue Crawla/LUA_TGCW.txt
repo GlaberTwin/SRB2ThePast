@@ -1,0 +1,86 @@
+// TGF Blue Crawla - Ported by Glaber (original SOC) and MIDIMan (TGF movement and conversion to Lua)
+
+//Blue Crawla TGF
+freeslot(
+	"MT_BLUECRAWLATGF",
+	"S_TGCW_TGFMOVEMENT",
+	"S_TGCW_STND",
+	"S_TGCW_STND2",
+	"S_TGCW_RUN",
+	"S_TGCW_RUN2",
+	"S_TGCW_RUN3",
+	"S_TGCW_RUN4",
+	"S_TGCW_RUN5",
+	"S_TGCW_RUN6",
+	"S_TGCW_RUN7",
+	"SPR_TGCW"
+)
+
+local TGF_BLUECRAWLA_TIMER = 114
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid
+	and mthing and mthing.valid)
+		return
+	end
+	
+	if (mthing.options & MTF_OBJECTSPECIAL)
+		mo.state = S_TGCW_TGFMOVEMENT
+	end
+end, MT_BLUECRAWLATGF)
+
+addHook("MobjSpawn", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	mo.tgfTimer = TGF_BLUECRAWLA_TIMER
+end, MT_BLUECRAWLATGF)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	// This code is only meant for the TGF movement
+	if mo.state ~= S_TGCW_TGFMOVEMENT then return end
+	
+	// Make the crawla move
+	P_InstaThrust(mo, mo.angle, 2*mo.scale)
+	
+	if mo.tgfTimer
+		// Decrement the TGF timer if it is not 0
+		mo.tgfTimer = $-1
+	else
+		// Otherwise flip the crawla 180 degrees and reset the timer
+		mo.tgfTimer = TGF_BLUECRAWLA_TIMER
+		mo.angle = $ + ANGLE_180
+	end
+end, MT_BLUECRAWLATGF)
+
+mobjinfo[MT_BLUECRAWLATGF] = {
+	//$Name "TGF Blue Crawla"
+	//$Sprite TGCWA1
+	//$Category TGF/Concept Enemies
+	//$Flags4Text TGF Movement
+	doomednum = 4023,
+	spawnstate = S_TGCW_STND,
+	spawnhealth = 1,
+	seestate = S_TGCW_RUN,
+	reactiontime = 32,
+	//painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 15*FRACUNIT,
+	height = 32*FRACUNIT,
+	//mass = 100,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY
+}
+
+states[S_TGCW_TGFMOVEMENT] =	{SPR_TGCW,	H|FF_ANIMATE,	-1,	nil,	1,	4,	S_TGCW_TGFMOVEMENT}
+
+states[S_TGCW_STND] =	{SPR_TGCW,	A,	5,	A_Look,		0,	0,	S_TGCW_STND} // Only one state is needed, since both states in SRB2XMAS used the same frame
+states[S_TGCW_RUN] =	{SPR_TGCW,	A,	3,	A_Chase,	0,	0,	S_TGCW_RUN2}
+states[S_TGCW_RUN2] =	{SPR_TGCW,	B,	3,	A_Chase,	0,	0,	S_TGCW_RUN3}
+states[S_TGCW_RUN3] =	{SPR_TGCW,	C,	3,	A_Chase,	0,	0,	S_TGCW_RUN4}
+states[S_TGCW_RUN4] =	{SPR_TGCW,	D,	3,	A_Chase,	0,	0,	S_TGCW_RUN5}
+states[S_TGCW_RUN5] =	{SPR_TGCW,	E,	3,	A_Chase,	0,	0,	S_TGCW_RUN6}
+states[S_TGCW_RUN6] =	{SPR_TGCW,	F,	3,	A_Chase,	0,	0,	S_TGCW_RUN7}
+states[S_TGCW_RUN7] =	{SPR_TGCW,	G,	3,	A_Chase,	0,	0,	S_TGCW_RUN}

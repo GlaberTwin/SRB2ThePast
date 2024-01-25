@@ -1,0 +1,214 @@
+#Development Level Headers
+
+#DARK CITY
+
+Level Y0
+Levelname = Dark City
+Subtitle = Development 98
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = ODCZ1
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:1
+
+Level Y1
+Levelname = Dark City
+Subtitle = Development 98
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = ODCZ2
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:2
+
+Level Y2
+Levelname = Dark City
+Subtitle = Development 98
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+Lua.TPHub = YZ:3
+
+Level YA
+Levelname = Dark City
+Subtitle = Development 2.0
+MusicInter = LCLEAR
+Act = 1
+Music = DCZ
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:4
+
+
+
+
+#DOOMSHIP
+
+Level Y3
+Levelname = Doom Ship
+Subtitle = Development 98
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = ODOOMS
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:5
+
+Level Y4
+Levelname = Doom Ship
+Subtitle = Development 98
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+Lua.TPHub = YZ:6
+
+
+
+
+#SPEED HIGHWAY
+
+Level YB
+Levelname = Speed Highway
+Subtitle = Development 98
+MusicInter = LCLEAR
+interscreen = EGGPIC
+Act = 0
+Music = OGFZ1
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:7
+
+
+
+
+#WOOD ZONE
+
+Level Y6
+LevelName = Wood
+subtitle = Development 98
+MusicInter = LCLEAR
+Act = 0
+Music = TENSE
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+SkyNum = 64
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:8
+
+
+
+
+#EMERALD COAST
+
+Level Y5
+LevelName = Emerald Coast
+subtitle = Development 98
+MusicInter = LCLEAR
+Act = 0
+Music = ECZA1
+NextLevel = YZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = YZ:9
+
+
+
+
+#MARIO GOOMBA BLAST
+
+Level Y9
+LevelName =  Mario Goomba blast
+subtitle = Development Demo 4
+MusicInter = LCLEAR
+interscreen = EGGPIC
+Act = 1
+NoZone = 1
+NextLevel = YZ
+Music = MARIO6
+TypeOfLevel = Singleplayer,Co-op,Race,Competition,Mario
+SkyNum = 31
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:10
+
+
+
+
+#KNOTHOLE BASE
+
+LEVEL Y7
+LEVELNAME = Knothole Base
+subtitle = Development 2.0
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = YZ
+MUSIC = KHB
+WEATHER = 0
+SKYNUM = 2
+TYPEOFLEVEL = Solo,Co-op,Race,Competition
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:11
+
+LEVEL Y8
+LEVELNAME = Knothole Base
+subtitle = Development 2.0 V2
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = YZ
+MUSIC = KHB
+WEATHER = 0
+SKYNUM = 2
+TYPEOFLEVEL = Solo,Co-op,Race,Competition
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = YZ:12
+
+
+
+
+
+
+
+
+
+

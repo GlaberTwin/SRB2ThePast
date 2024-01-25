@@ -1,0 +1,59 @@
+freeslot("MT_ROCKBOT", "S_ROCKLOOK1", "S_ROCKLOOK2", "S_ROCKLOOK3", "S_ROCKLOOK4", "S_ROCKSPLODE", "S_ROCKSEARCH", "S_ROCKSEARCH2", "S_ROCKCHARGE", "S_ROCKCHARGE2", "S_ROCKCHARGE3", "S_ROCKCRUMBLE1", "S_ROCKCRUMBLE2", "S_ROCKCRUMBLE3", "S_ROCKCRUMBLE4", "S_ROCKCRUMBLE5", "S_ROCKCRUMBLE6", "SPR_RKBT")
+
+// Prevents the Rockbot from stopping when it approaches the player in its panic state. Code taken from Midiman's eggmobile lua.
+addHook("MobjMoveCollide", function(tmthing, thing)
+	return false
+end, MT_ROCKBOT)
+
+// Concept badnik RockBot
+mobjinfo[MT_ROCKBOT] = {
+		//$Name "RockBot"
+		//$Sprite RKBTA1
+		//$Category TGF/Concept Enemies
+        doomednum = 154,
+        spawnstate = S_ROCKLOOK1,
+        spawnhealth = 1,
+        seestate = S_ROCKSPLODE,
+        seesound = sfx_crumbl,
+        reactiontime = 8,
+        attacksound = sfx_SHRPGO,
+        painstate = S_NULL,
+        painchance = 256,
+        painsound = sfx_None,
+		missilestate = S_ROCKCHARGE,
+        deathstate = S_ROCKCRUMBLE1,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 8,
+        radius = 23*FRACUNIT,
+        height = 32*FRACUNIT,
+        dispoffset = 0,
+        mass = 50,
+        damage = 3,
+        activesound = sfx_SHRPGO,
+		raisestate = S_NULL,
+        flags = MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY|MF_ENEMY|MF_FLOAT
+}
+	
+states[S_ROCKLOOK1] = {SPR_RKBT, A, 10, A_Look, (0<<16)+1, 0, S_ROCKLOOK2}
+states[S_ROCKLOOK2] = {SPR_RKBT, B, 10, A_Look, (0<<16)+1, 0, S_ROCKLOOK3}
+states[S_ROCKLOOK3] = {SPR_RKBT, A, 10, A_Look, (0<<16)+1, 0, S_ROCKLOOK4}
+states[S_ROCKLOOK4] = {SPR_RKBT, C, 10, A_Look, (0<<16)+1, 0, S_ROCKLOOK1}
+states[S_ROCKSPLODE] = {SPR_RKBT, D, 6, nil, 0, 0, S_ROCKSEARCH}
+states[S_ROCKSEARCH] = {SPR_RKBT, E, 6, A_Chase, 0, 0, S_ROCKSEARCH2}
+states[S_ROCKSEARCH2] = {SPR_RKBT, E, 6, A_Chase, 0, 0, S_ROCKSEARCH}
+states[S_ROCKCHARGE] = {SPR_RKBT, E, 10, A_FaceTarget, 0, 0, S_ROCKCHARGE2}
+states[S_ROCKCHARGE2] = {SPR_RKBT, E, 4, A_SkullAttack, 0, 0, S_ROCKCHARGE3}
+states[S_ROCKCHARGE3] = {SPR_RKBT, E, 4, nil, 0, 0, S_ROCKLOOK1}
+states[S_ROCKCRUMBLE1] = {SPR_RKBT, F, 6, A_FlickySpawn, 0, 0, S_ROCKCRUMBLE2}
+states[S_ROCKCRUMBLE2] = {SPR_RKBT, G, 6, A_Scream, 0, 0, S_ROCKCRUMBLE3}
+states[S_ROCKCRUMBLE3] = {SPR_RKBT, H, 6, nil, 0, 0, S_ROCKCRUMBLE4}
+states[S_ROCKCRUMBLE4] = {SPR_RKBT, I, 6, nil, 0, 0, S_ROCKCRUMBLE5}
+states[S_ROCKCRUMBLE5] = {SPR_RKBT, J, 6, nil, 0, 0, S_ROCKCRUMBLE6}
+states[S_ROCKCRUMBLE6] = {SPR_RKBT, K, 6, nil, 0, 0, S_NULL}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_ROCKBOT] = 3    // Makes MT_ROCKBOT give STONE

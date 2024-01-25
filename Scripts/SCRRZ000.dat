@@ -1,0 +1,1 @@
+cecho Red Volcano act 1: Version 2.0.5\ In 2.0.5 there was a bug with how \Lava handled collision with anything\ that wasn't the player.\This caused the secret path to\spit players into a death trap.

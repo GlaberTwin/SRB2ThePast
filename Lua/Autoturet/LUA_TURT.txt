@@ -1,0 +1,69 @@
+freeslot("MT_OLDTURRET", "S_OTURRET", "S_OTURRETFIRE", "S_OTURRETSHOCK1", "S_OTURRETSHOCK2", "S_OTURRETSHOCK3", "S_OTURRETSHOCK4", "S_OTURRETSHOCK5", "S_OTURRETSHOCK6", "S_OTURRETSHOCK7", "S_OTURRETSHOCK8", "S_OTURRETSHOCK9", "SPR_TURT", "MT_BLINDOLDTURET", "S_BLOT_STND")
+
+// Old_Auto_turret
+mobjinfo[MT_OLDTURRET] = {
+		//$Name "Old Auto Turret"
+		//$Sprite TURTA1
+		//$Category Retro Enemies
+        doomednum = 149,
+        spawnstate = S_OTURRET,
+        spawnhealth = 1000,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_trfire,
+        painstate = S_NULL,
+        painchance = 0,
+        painsound = sfx_fizzle,
+		missilestate = S_NULL,
+        deathstate = S_OTURRETSHOCK1,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 0,
+        radius = 16*FRACUNIT,
+        height = 32*FRACUNIT,
+        dispoffset = 0,
+        mass = MT_TURRETLASER,
+        damage = 1,
+        activesound = sfx_trpowr,
+        flags = MF_SPECIAL|MF_SHOOTABLE|MF_FIRE|MF_NOCLIPTHING
+}
+	
+states[S_OTURRET] = {SPR_TURT, A, 105, A_TurretStop, 0, 0, S_OTURRETFIRE}
+states[S_OTURRETFIRE] = {SPR_TURT, A, 105, A_TurretFire, 0, 0, S_OTURRET}
+states[S_OTURRETSHOCK1] = {SPR_TURT, B, 7, A_Pain, 0, 0, S_OTURRETSHOCK2}
+states[S_OTURRETSHOCK2] = {SPR_TURT, C, 7, none, 0, 0, S_OTURRETSHOCK3}
+states[S_OTURRETSHOCK3] = {SPR_TURT, D, 7, none, 0, 0, S_OTURRETSHOCK4}
+states[S_OTURRETSHOCK4] = {SPR_TURT, E, 7, none, 0, 0, S_OTURRETSHOCK5}
+states[S_OTURRETSHOCK5] = {SPR_TURT, B, 7, none, 0, 0, S_OTURRETSHOCK6}
+states[S_OTURRETSHOCK6] = {SPR_TURT, C, 7, A_Pain, 0, 0, S_OTURRETSHOCK7}
+states[S_OTURRETSHOCK7] = {SPR_TURT, D, 7, none, 0, 0, S_OTURRETSHOCK8}
+states[S_OTURRETSHOCK8] = {SPR_TURT, E, 7, none, 0, 0, S_OTURRETSHOCK9}
+states[S_OTURRETSHOCK9] = {SPR_TURT, E, 7, A_LinedefExecute, 32000, 0, S_XPLD1}
+
+
+// Old_Auto_turret_OFF
+mobjinfo[MT_BLINDOLDTURET] = {
+		//$Name "Old Auto Turret OFF"
+		//$Sprite TURTA1
+		//$Category Retro Enemies
+        doomednum = 1026,
+        spawnstate = S_BLOT_STND,
+        spawnhealth = 1000,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        painstate = S_NULL,
+        painchance = 0,
+		missilestate = S_NULL,
+        deathstate = S_OTURRETSHOCK1,
+        xdeathstate = S_NULL,
+        speed = 0,
+        radius = 16*FRACUNIT,
+        height = 32*FRACUNIT,
+        dispoffset = 0,
+        damage = 1,
+        flags = MF_SOLID|MF_PUSHABLE|MF_SLIDEME
+}
+	
+states[S_BLOT_STND] = {SPR_TURT, A, -1, A_TurretStop, 0, 0, S_BLOT_STND}

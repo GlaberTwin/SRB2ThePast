@@ -1,0 +1,40 @@
+// Red Crawla 2.0 - Ported by Glaber (original SOC) and MIDIMan (fixes and conversion to Lua)
+
+freeslot(
+	"MT_REDCRAWLA2",
+	"S_RCW2_STND",
+	"S_RCW2_RUN1",
+	"S_RCW2_RUN2",
+	"S_RCW2_RUN3",
+	"S_RCW2_RUN4",
+	"S_RCW2_RUN5",
+	"S_RCW2_RUN6",
+	"SPR_RCW2"
+)
+
+mobjinfo[MT_REDCRAWLA2] = {
+	//$Name Red Crawla 2.0
+	//$Sprite RCW2A1
+	//$Category Retro Enemies
+	doomednum = 147,
+	spawnstate = S_RCW2_STND,
+	spawnhealth = 1,
+	seestate = S_RCW2_RUN1,
+	reactiontime = 32,
+	painchance = 170,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 24*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+
+states[S_RCW2_STND] =	{SPR_RCW2,	A,	5,	A_Look,	0,	0,	S_RCW2_STND}
+
+states[S_RCW2_RUN1] =	{SPR_RCW2,	A,	1,	A_Chase,	0,	0,	S_RCW2_RUN2}
+states[S_RCW2_RUN2] =	{SPR_RCW2,	B,	1,	A_Chase,	0,	0,	S_RCW2_RUN3}
+states[S_RCW2_RUN3] =	{SPR_RCW2,	C,	1,	A_Chase,	0,	0,	S_RCW2_RUN4}
+states[S_RCW2_RUN4] =	{SPR_RCW2,	D,	1,	A_Chase,	0,	0,	S_RCW2_RUN5}
+states[S_RCW2_RUN5] =	{SPR_RCW2,	E,	1,	A_Chase,	0,	0,	S_RCW2_RUN6}
+states[S_RCW2_RUN6] =	{SPR_RCW2,	F,	1,	A_Chase,	0,	0,	S_RCW2_RUN1}

@@ -1,0 +1,187 @@
+##Special Stage Level Headers
+
+Level 50
+Levelname = Special Stage 1
+nozone = 1
+Subtitle = Version TGF
+Music = OSPEC2
+MusicInter = LCLEAR
+SkyNum = 2
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 50
+SpecialStageTime = 93
+
+Level 51
+Levelname = Special Stage 2
+nozone = 1
+Music = SS2D4
+MusicInter = LCLEAR
+SkyNum = 2
+Subtitle = Demo 4.1
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+palette = 1032
+SpecialStageSpheres = 150
+SpecialStageTime = 90
+
+Level 52
+Levelname = Special Stage 3
+nozone = 1
+SkyNum = 2
+Subtitle = Demo 4.35
+MusicInter = LCLEAR
+Music = SS3D4
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+palette = 1032
+SpecialStageSpheres = 150
+SpecialStageTime = 80
+
+Level 53
+Levelname = Special Stage 4
+nozone = 1
+SkyNum = 2
+Subtitle = Version 1.01-1.08
+MusicInter = LCLEAR
+Music = SPC108
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 70
+SpecialStageTime = 100
+
+Level 54
+Levelname = Special Stage 5
+nozone = 1
+SkyNum = 58
+Subtitle = Version 1.09.4
+Music = SPC109
+MusicInter = LCLEAR
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 400
+SpecialStageTime = 210
+
+Level 55
+Levelname = Special Stage 6
+nozone = 1
+SkyNum = 55
+Subtitle = Version 2.0
+Music = SPC109
+MusicInter = LCLEAR
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 100
+SpecialStageTime = 120
+
+Level 56
+LevelName = Egg Satellite
+Subtitle = Special Stage Version 2.1-2.1.25
+Music = EGGSAT
+TypeOfLevel = Singleplayer,NiGHTS
+NiGHTSAttack = false
+NextLevel = NZ
+SkyNum = 22
+Grades1 = 70000,75000,80000,85000,90000,160000
+RecordAttack = 0
+hidden = 1
+
+
+
+Level 60
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version TGF
+Music = OSPEC
+MusicInter = LCLEAR
+SkyNum = 2
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 35
+SpecialStageTime = 123
+
+Level 61
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version Demo 4
+Music = SS7D4
+MusicInter = LCLEAR
+SkyNum = 2
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+palette = 1032
+SpecialStageSpheres = 100
+SpecialStageTime = 60
+
+Level 62
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version Demo 4.35
+Music = SS7D4
+MusicInter = LCLEAR
+SkyNum = 2
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+palette = 1032
+SpecialStageSpheres = 110
+SpecialStageTime = 30
+
+Level 63
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version 1.01-1.08
+Music = SPC108
+MusicInter = LCLEAR
+SkyNum = 60
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 375
+SpecialStageTime = 210
+
+Level 64
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version 1.09.4
+Music = SPC109
+MusicInter = LCLEAR
+SkyNum = 60
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 100
+SpecialStageTime = 120
+
+Level 65
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version 2.0
+Music = SPC109
+MusicInter = LCLEAR
+SkyNum = 56
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 100
+SpecialStageTime = 90
+
+Level 66
+LevelName = MP Special Stage 7
+Subtitle = Version 2.2
+Music = SPEC7
+TypeOfLevel = Singleplayer,Co-op
+SelectHeading = MP Special Stages
+SkyNum = 22
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 100
+SpecialStageTime = 90

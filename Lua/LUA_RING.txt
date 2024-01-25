@@ -1,0 +1,14 @@
+// Midiman's Quick hack that prevents the lava from eating rings
+
+local function NoRingEatingLava(target, inflictor, source, damagetype)
+	if not (target and target.valid) then return end
+	
+	if damagetype and damagetype == DMG_FIRE
+		target.flags = target.info.flags
+		target.health = target.info.spawnhealth
+		return true
+	end
+end
+
+addHook("MobjDeath", NoRingEatingLava, MT_RING)
+addHook("MobjDeath", NoRingEatingLava, MT_FLINGRING)

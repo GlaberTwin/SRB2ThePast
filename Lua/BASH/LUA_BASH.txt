@@ -1,0 +1,55 @@
+// Old BASH - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_OLDVULTURE",
+	"S_OVULTURE_STND",
+	"S_OVULTURE_VTOL1",
+	"S_OVULTURE_VTOL2",
+	"S_OVULTURE_VTOL3",
+	"S_OVULTURE_VTOL4",
+	"S_OVULTURE_ZOOM1",
+	"S_OVULTURE_ZOOM2",
+	"S_OVULTURE_ZOOM3",
+	"S_OVULTURE_ZOOM4",
+	"S_OVULTURE_ZOOM5"
+	//"SPR_OVTR" // In case 2.2 decides to re-sprite the BASH
+)
+
+mobjinfo[MT_OLDVULTURE] = {
+	//$Name Old BASH
+	//$Sprite VLTRA2A8
+	//$Category Retro Enemies
+	doomednum = 140,
+	spawnstate = S_OVULTURE_STND,
+	spawnhealth = 1,
+	seestate = S_OVULTURE_VTOL1,
+	reactiontime = 2,
+	missilestate = S_OVULTURE_ZOOM1,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 12*FRACUNIT,
+	height = 24*FRACUNIT,
+	mass = TICRATE,
+	activesound = sfx_jet,
+	flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+
+states[S_OVULTURE_STND] =	{SPR_VLTR,	E,	35,	A_Look,	1,	0,	S_OVULTURE_STND}
+
+states[S_OVULTURE_VTOL1] =	{SPR_VLTR,	E,	1,	A_VultureVtol,	1,	0,	S_OVULTURE_VTOL2}
+states[S_OVULTURE_VTOL2] =	{SPR_VLTR,	F,	1,	A_VultureVtol,	1,	0,	S_OVULTURE_VTOL3}
+states[S_OVULTURE_VTOL3] =	{SPR_VLTR,	G,	1,	A_VultureVtol,	1,	0,	S_OVULTURE_VTOL4}
+states[S_OVULTURE_VTOL4] =	{SPR_VLTR,	H,	1,	A_VultureVtol,	1,	0,	S_OVULTURE_VTOL1}
+
+states[S_OVULTURE_ZOOM1] =	{SPR_VLTR,	A,	1,	A_Thrust,		30,	1,	S_OVULTURE_ZOOM2}
+states[S_OVULTURE_ZOOM2] =	{SPR_VLTR,	A,	1,	A_VultureCheck,	0,	0,	S_OVULTURE_ZOOM3}
+states[S_OVULTURE_ZOOM3] =	{SPR_VLTR,	B,	1,	A_VultureCheck,	0,	0,	S_OVULTURE_ZOOM4}
+states[S_OVULTURE_ZOOM4] =	{SPR_VLTR,	C,	1,	A_VultureCheck,	0,	0,	S_OVULTURE_ZOOM5}
+states[S_OVULTURE_ZOOM5] =	{SPR_VLTR,	D,	1,	A_VultureCheck,	0,	0,	S_OVULTURE_ZOOM2}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OLDVULTURE] = 7    // Makes MT_OLDVULTURE give Tornado

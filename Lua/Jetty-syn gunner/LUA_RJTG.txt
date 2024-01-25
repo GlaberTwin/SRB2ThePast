@@ -1,0 +1,70 @@
+freeslot("MT_JETTYSYNRETROGUNNER", "S_RJETGLOOK1", "S_RJETGLOOK2", "S_RJETGZOOM1", "S_RJETGZOOM2", "S_RJETGSHOOT1", "S_RJETGSHOOT2", "SPR_RJTG")
+
+local function CustomJettyGSpawn(mobj, mapthing)
+    local offset
+    
+    if mapthing.z != 0
+        offset = mapthing.z
+    else
+        offset = 33*FRACUNIT
+    end
+    
+    if (mapthing.options & MTF_OBJECTFLIP)
+        if offset != 0
+            mobj.z = mobj.z - offset
+        else
+            mobj.z = mobj.ceilingz
+        end
+    else
+        if offset != 0
+            mobj.z = mobj.z + offset
+        else
+            mobj.z = mobj.floorz
+        end
+    end
+    
+end
+
+addHook("MapThingSpawn", CustomJettyGSpawn, MT_JETTYSYNRETROGUNNER)
+
+// Retro Jetty-Syn Gunner
+mobjinfo[MT_JETTYSYNRETROGUNNER] = {
+		//$Name "Retro Jetty-syn Gunner"
+		//$Sprite RJTGA1
+        doomednum = 142,
+        spawnstate = S_RJETGLOOK1,
+        spawnhealth = 1,
+        seestate = S_RJETGZOOM1,
+        seesound = sfx_None,
+        reactiontime = 5,
+        attacksound = sfx_s3k4d,
+        painstate = S_NULL,
+        painchance = 3072,
+        painsound = sfx_dmpain,
+		missilestate = S_RJETGSHOOT1,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 1*FRACUNIT,
+        radius = 20*FRACUNIT,
+        height = 48*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_None,
+		raisestate = MT_RETROJETBULLET,
+        flags = MF_SLIDEME|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+	
+states[S_RJETGLOOK1] = {SPR_RJTG, 0, 4, A_Look, 0, 0, S_RJETGLOOK2}       // S_RJETGLOOK1
+states[S_RJETGLOOK2] = {SPR_RJTG, 1, 4, A_Look, 0, 0, S_RJETGLOOK1}       // S_RJETGLOOK2
+states[S_RJETGZOOM1] = {SPR_RJTG, 0, 1, A_JetgThink, 0, 0, S_RJETGZOOM2}  // S_RJETGZOOM1
+states[S_RJETGZOOM2] = {SPR_RJTG, 1, 1, A_JetgThink, 0, 0, S_RJETGZOOM1}  // S_RJETGZOOM2
+states[S_RJETGSHOOT1] = {SPR_RJTG, 2, 1, A_JETGShoot, 0, 0, S_RJETGSHOOT2} // S_RJETGSHOOT1
+states[S_RJETGSHOOT2] = {SPR_RJTG, 3, 1, nil, 0, 0, S_RJETGZOOM1}          // S_RJETGSHOOT2
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_JETTYSYNRETROGUNNER] = 1    // Makes MT_JETTYSYNRETROGUNNER give Fireball

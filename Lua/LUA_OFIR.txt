@@ -1,0 +1,23 @@
+//"Code" Barrowed from Midiman, place after 2.1 brak after imported
+//uncomment the states and freeslots if used by itself.
+freeslot(
+	"MT_OLDFIRE",
+	"S_OLDFIRE"
+//	"SPR_OFLA"
+)
+
+mobjinfo[MT_OLDFIRE] = {
+	//$Name "Old Fire"
+	//$Sprite OFLAA0
+	doomednum = 1139,
+	spawnstate = S_OLDFIRE,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	speed = 0,
+	radius = 8*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = 1,
+	flags = MF_NOGRAVITY|MF_PAIN|MF_FIRE
+}
+
+states[S_OLDFIRE] =	{SPR_OFLA,	FF_FULLBRIGHT|FF_TRANS50|FF_ANIMATE|A,	-1,	nil,	3,	3,	S_OLDFIRE}

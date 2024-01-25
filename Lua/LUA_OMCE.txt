@@ -1,0 +1,865 @@
+-- 2.1 Maces System - Ported from 2.1.25
+
+freeslot(
+	-- Sprites
+	"SPR_21MC",
+	"SPR_20MC",
+	-- Objects
+	"MT_OLDMACEPOINT",
+	"MT_OLDSWINGMACEPOINT",
+	"MT_OLDHANGMACEPOINT",
+	"MT_OLDSPINMACEPOINT",
+	"MT_OLD_HIDDEN_SLING",
+	"MT_21SMALLMACECHAIN",
+	"MT_21BIGMACECHAIN",
+	"MT_21SMALLMACE",
+	"MT_21BIGMACE",
+	"MT_20SMALLMACECHAIN",
+	"MT_20BIGMACECHAIN",
+	"MT_20SMALLMACE",
+	"MT_20BIGMACE",
+	-- States
+	"S_21SLING1",
+	"S_21SLING2",
+	"S_21SMALLMACECHAIN",
+	"S_21BIGMACECHAIN",
+	"S_21SMALLMACE",
+	"S_21BIGMACE",
+	"S_20SMALLMACECHAIN",
+	"S_20BIGMACECHAIN",
+	"S_20SMALLMACE",
+	"S_20BIGMACE"
+)
+
+local RB_MACEFLAGS_DOUBLE = 1
+local RB_MACEFLAGS_NOSOUND = 2
+local RB_MACEFLAGS_TURNABLE = 4
+local RB_MACEFLAGS_20SPRITES = 8
+local RB_MACEFLAGS_NODISTCHECK = 128
+
+-- Let the player jump off of a hanging chain without removing its outermost link
+addHook("JumpSpecial", function(player)
+	if not (player and player.valid
+	and player.mo and player.mo.valid) then
+		return
+	end
+	
+	if not (player.mo.tracer and player.mo.tracer.valid) then return end
+	
+	local chain = player.mo.tracer
+	local macecenter = chain.tracer
+	
+	if not (macecenter and macecenter.valid and macecenter.type == MT_OLDHANGMACEPOINT) then return end
+	
+	-- Don't let the player immediately jump off if they're holding the jump button
+	if not (player.pflags & PF_JUMPDOWN) then
+		if player.powers[pw_carry] == CR_GENERIC then
+			player.powers[pw_carry] = CR_NONE
+			P_DoJump(player, true)
+			P_SetObjectMomZ(player.mo, 9*FRACUNIT)
+			return true
+		end
+	end
+end)
+
+-- 2.1 Mace Player Behavior - Ported from 2.1.25 with fixups
+-- Let the player move the chain
+addHook("PlayerThink", function(player)
+	if not (player and player.valid
+	and player.mo and player.mo.valid) then
+		return
+	end
+	
+	if not (player.mo.tracer and player.mo.tracer.valid) then return end
+	
+	local chain = player.mo.tracer
+	local macecenter = chain.tracer
+	
+	if not (macecenter and macecenter.valid) then return end
+	
+	if player.powers[pw_carry] == CR_MACESPIN and (macecenter.type == MT_OLDSPINMACEPOINT or macecenter.type == MT_OLD_HIDDEN_SLING) then
+		-- Prevent the player's state from changing to the standing state if the player gets stuck in level geometry
+		if player.mo.state ~= S_PLAY_ROLL then player.mo.state = S_PLAY_ROLL end
+		
+		-- Don't let 2-player bots control chains
+		if not (player.bot == BOT_2PAI or player.bot == BOT_2PHUMAN) then
+			if player.cmd.forwardmove > 0 then
+				macecenter.lastlook = $+2
+			elseif player.cmd.forwardmove < 0 and macecenter.lastlook > macecenter.movecount then
+				macecenter.lastlook = $-2
+			end
+			
+			if (macecenter.flags & MF_SLIDEME) -- Noclimb on chain parameters gives this
+			and not (twodlevel or (player.mo.flags2 & MF2_TWOD)) then -- why on earth would you want to turn them in 2D mode?
+				-- This allows the player to rotate the horizontal angle at which they want to be launched with the spin button
+				-- This behavior was introduced in 2.0 and removed in 2.1.5, presumably because it was seen as redundant
+				if (player.cmd.buttons & BT_SPIN) and macecenter.spawnpoint and (macecenter.spawnpoint.options & MTF_EXTRA) then -- do we actually still want this?
+					macecenter.angle = $+(50<<19)
+					player.mo.angle = $+(50<<19)
+				end
+			end
+			
+			-- Force the player to face the direction of the chain's center in Simple Mode
+			if (player.pflags & PF_ANALOGMODE) and (player.pflags & PF_DIRECTIONCHAR) then
+				player.mo.angle = macecenter.angle
+				player.drawangle = player.mo.angle
+			end
+		end
+	elseif player.powers[pw_carry] == CR_GENERIC and macecenter.type == MT_OLDHANGMACEPOINT then
+		-- Force the player to face wherever the camera is pointing
+		player.drawangle = player.mo.angle
+	end
+end)
+
+-- A_MaceRotate ported from 2.1 with some edits to be more like 2.2's setup
+local function RB_MaceRotate(chain, macecenter, wasinvisible)
+	if not (chain and chain.valid) then return end
+	
+	local v = {}
+	local xangle, zangle
+	local cosrad, sinrad
+	local res = {}
+	local radius
+	local tempx, tempy, tempz
+	
+	-- Radius of the link's rotation.
+	radius = FixedMul(chain.info.speed * chain.reactiontime, macecenter.scale)
+	
+	-- Double the radius if the chain links are made up of maces.
+	if macecenter.type == MT_AXIS and (chain.type == MT_21SMALLMACE or chain.type == MT_21BIGMACE) then
+		radius = $*2
+	end
+	
+	-- Axis offset for the axis.
+	radius = $+macecenter.extravalue1
+	
+	-- Smoothly move the link into position.
+	if chain.extravalue1 then
+		radius = FixedMul(radius, FixedDiv(chain.extravalue1, 100))
+		chain.extravalue1 = $+1
+		if chain.extravalue1 >= 100 then
+			chain.extravalue1 = 0
+		end
+	end
+	
+	tempx = macecenter.x
+	tempy = macecenter.y
+	tempz = macecenter.z
+	
+	-- Cut the height to align the link with the axis.
+	if chain.type == MT_21SMALLMACECHAIN or chain.type == MT_21BIGMACECHAIN
+	or chain.type == MT_20SMALLMACECHAIN or chain.type == MT_20BIGMACECHAIN then
+		tempz = $-(chain.height/4)
+	else
+		tempz = $-(chain.height/2)
+	end
+	
+	local lastlook = macecenter.lastlook
+	local movecount = macecenter.cvmem
+	local movefactor = macecenter.movefactor
+	
+	-- Swinging Chain.
+	if macecenter.type == MT_OLDHANGMACEPOINT or macecenter.type == MT_OLDSWINGMACEPOINT then
+		-- Emulate the choppiness of the 2.0 swinging chain
+		if macecenter.spawnpoint and (macecenter.spawnpoint.options & MTF_EXTRA) then
+			chain.threshold = FixedMul(cos(movecount<<19), lastlook)
+		else
+			chain.threshold = FixedMul(cos(movecount<<19), lastlook<<FRACBITS)
+		end
+		
+		v = {FRACUNIT,	0,	-radius,	FRACUNIT}
+		
+		-- Calculate the angle matrixes for the link.
+		if macecenter.spawnpoint and (macecenter.spawnpoint.options & MTF_EXTRA) then
+			-- Emulate the choppiness of the 2.0 swinging chain
+			xangle = FixedAngle(chain.threshold<<FRACBITS)
+		else
+			xangle = FixedAngle(chain.threshold)
+		end
+		zangle = macecenter.angle
+		
+		cosrad = cos(xangle)
+		sinrad = sin(xangle)
+		
+		cosrad = cos(xangle)
+		sinrad = sin(xangle)
+		
+		res[1] = v[1]
+		res[2] = FixedMul(v[2], cosrad) + FixedMul(v[3], -sinrad)
+		res[3] = FixedMul(v[2], sinrad) + FixedMul(v[3], cosrad)
+		res[4] = v[4]
+		
+		cosrad = cos(zangle)
+		sinrad = sin(zangle)
+		
+		local tempres = {res[1], res[2], res[3], res[4]}
+		
+		res[1] = FixedMul(tempres[1], cosrad) + FixedMul(tempres[2], -sinrad)
+		res[2] = FixedMul(tempres[1], sinrad) + FixedMul(tempres[2], cosrad)
+	-- Rotating Chain.
+	else
+		local fa
+		
+		fa = FixedAngle(movefactor*2880)
+		
+		v = {FixedMul(cos(fa), radius),	0,	FixedMul(sin(fa), radius),	FRACUNIT}
+		
+		-- Calculate the angle matrixes for the link.
+		xangle = FixedAngle(macecenter.threshold*2880)
+		zangle = macecenter.angle
+		
+		cosrad = cos(xangle)
+		sinrad = sin(xangle)
+		
+		res[1] = v[1]
+		res[2] = FixedMul(v[2], cosrad) + FixedMul(v[3], -sinrad)
+		res[3] = FixedMul(v[2], sinrad) + FixedMul(v[3], cosrad)
+		res[4] = v[4]
+		
+		cosrad = cos(zangle)
+		sinrad = sin(zangle)
+		
+		local tempres = {res[1], res[2], res[3], res[4]}
+		
+		res[1] = FixedMul(tempres[1], cosrad) + FixedMul(tempres[2], -sinrad)
+		res[2] = FixedMul(tempres[1], sinrad) + FixedMul(tempres[2], cosrad)
+	end
+	
+	-- Add on the appropriate distances to the actor's co-ordinates.
+	if wasinvisible then
+		P_SetOrigin(chain, tempx + res[1], tempy + res[2], tempz + res[3])
+	else
+		P_MoveOrigin(chain, tempx + res[1], tempy + res[2], tempz + res[3])
+	end
+	
+	
+	if not (macecenter.flags2 & MF2_BOSSNOTRAP) -- flag that makes maces shut up on request
+	and not (leveltime & 63)
+	and (chain.type == MT_20BIGMACE or chain.type == MT_20SMALLMACE or chain.type == MT_21BIGMACE or chain.type == MT_21SMALLMACE)
+	and macecenter.type == MT_OLDMACEPOINT then
+		S_StartSound(chain, chain.info.activesound)
+	end
+end
+
+-- 2.1 Mace Points
+
+local function RB_Setup21Mace(mo, mthing)
+	if not (mo and mo.valid) then return end
+	if not (mthing and mthing.valid) then return end
+	
+	local mlength, mspeed, mxspeed, mzspeed, mstartangle, mmaxspeed
+	local chainlink = MT_21SMALLMACECHAIN
+	local macetype = MT_21SMALLMACE
+	local firsttime
+	local spawnee
+	
+	local multi = FixedDiv(8192, 360)
+	
+	-- Only let Binary maps use tagged linedefs for setting parameters
+	if not udmf then
+		-- Use the 2.0 maces and chains if the Extra flag is set
+		if (mthing.options & MTF_EXTRA) then
+			chainlink = MT_20SMALLMACECHAIN
+			macetype = MT_20SMALLMACE
+		end
+		
+		local line = P_FindSpecialLineFromTag(9, mthing.angle, -1)
+		
+		if line == -1 then
+			print("Mace chain needs to be tagged to a #9 parameter line")
+			return
+		end
+		
+-- 		No deaf - small mace
+-- 		Deaf - big mace
+		
+-- 		ML_NOCLIMB : Direction (originally not) controllable
+		
+		mlength = abs(lines[line].dx / (2^FRACBITS))
+		mspeed = abs(lines[line].dy / (2^FRACBITS))
+		mxspeed = sides[lines[line].sidenum[0]].textureoffset / (2^FRACBITS)
+		mzspeed = sides[lines[line].sidenum[0]].rowoffset / (2^FRACBITS)
+		mstartangle = lines[line].frontsector.floorheight / (2^FRACBITS)
+		mmaxspeed = lines[line].frontsector.ceilingheight / (2^FRACBITS)
+		
+		if (lines[line].flags & ML_NOCLIMB) then mo.flags = $|MF_SLIDEME end
+		if (lines[line].flags & ML_EFFECT5) then mo.flags2 = $|MF2_STRONGBOX end
+		
+		if (mthing.options & MTF_AMBUSH) then
+			if (mthing.options & MTF_EXTRA) then
+				chainlink = MT_20BIGMACECHAIN
+				macetype = MT_20BIGMACE
+			else
+				chainlink = MT_21BIGMACECHAIN
+				macetype = MT_21BIGMACE
+			end
+		end
+		
+		if (mthing.options & MTF_OBJECTSPECIAL) then
+			mo.flags2 = $|MF2_BOSSNOTRAP -- shut up maces.
+		end
+	else
+		local maceflags = mthing.args[8]
+		if (maceflags & RB_MACEFLAGS_20SPRITES) then
+			chainlink = MT_20SMALLMACECHAIN
+			macetype = MT_20SMALLMACE
+		end
+		
+		mlength = abs(mthing.args[0])
+		mspeed = abs(mthing.args[3])
+		mxspeed = mthing.pitch
+		mzspeed = mthing.angle
+		mstartangle = mthing.args[4]
+		mmaxspeed = mthing.args[1]
+		
+		if (maceflags & RB_MACEFLAGS_DOUBLE) then
+			if (maceflags & RB_MACEFLAGS_20SPRITES) then
+				chainlink = MT_20BIGMACECHAIN
+				macetype = MT_20BIGMACE
+			else
+				chainlink = MT_21BIGMACECHAIN
+				macetype = MT_21BIGMACE
+			end
+		end
+		if (maceflags & RB_MACEFLAGS_NOSOUND) then mo.flags2 = $|MF2_BOSSNOTRAP end
+		if (maceflags & RB_MACEFLAGS_TURNABLE) then mo.flags = $|MF_SLIDEME end
+		if (maceflags & RB_MACEFLAGS_NODISTCHECK) then mo.flags2 = $|MF2_STRONGBOX end
+	end
+	
+	mstartangle = $%360
+	mxspeed = $%360
+	mzspeed = $%360
+	
+	mo.lastlook = mspeed * (2^4)
+	mo.movecount = mo.lastlook
+	-- These two lines are needed to properly set the angle of the mace/chain
+	mthing.angle = mzspeed + mstartangle
+	mo.angle = FixedAngle(mthing.angle*FRACUNIT)
+	mo.threshold = FixedMul(mxspeed, multi) + FixedMul(mstartangle, multi)
+	mo.movefactor = mo.threshold
+	mo.friction = mmaxspeed
+	
+	mo.reactiontime = 0
+	
+	local prevmo = nil
+	
+	if mo.type == MT_OLDHANGMACEPOINT or mo.type == MT_OLDSPINMACEPOINT then
+		firsttime = true
+	else
+		firsttime = false
+		
+-- 		spawnee = P_SpawnMobj(mo.x, mo.y, mo.z, macetype)
+		spawnee = P_SpawnMobjFromMobj(mo, 0, 0, 0, macetype)
+		spawnee.tracer = mo -- Make this a tracer if necessary
+		
+		if mo.type == MT_OLDSWINGMACEPOINT then
+			spawnee.movecount = FixedMul(mstartangle, multi)
+		else
+			spawnee.movecount = 0
+		end
+		
+		spawnee.threshold = FixedMul(mstartangle, multi)
+		spawnee.reactiontime = mlength+1
+		prevmo = spawnee
+	end
+	
+	while mlength > 0 do
+-- 		spawnee = P_SpawnMobj(mo.x, mo.y, mo.z, chainlink)
+		spawnee = P_SpawnMobjFromMobj(mo, 0, 0, 0, chainlink)
+		
+		spawnee.tracer = mo
+		
+		if mo.type == MT_OLDHANGMACEPOINT or mo.type == MT_OLDSWINGMACEPOINT then
+			spawnee.movecount = FixedMul(mstartangle, multi)
+		else
+			spawnee.movecount = 0
+		end
+		
+		spawnee.threshold = FixedMul(mstartangle, multi)
+		spawnee.reactiontime = mlength
+		
+		if firsttime then
+			-- This is the outermost link in the chain
+			spawnee.flags2 = $|MF2_AMBUSH
+			firsttime = false
+		end
+		
+		spawnee.hnext = prevmo
+		prevmo = spawnee
+		mlength = $-1
+		
+		if mlength <= 0 then mo.hnext = spawnee end
+	end
+end
+
+-- Based off of 2.2's P_MaceSceneryThink
+-- This is so the off-screen maces don't rotate and waste CPU power
+local function RB_MaceThink(mo)
+	if not (mo and mo.valid) then return end
+	
+	-- Set the top speed for the link if it happens to be over that speed.
+	if mo.lastlook > mo.friction then mo.lastlook = mo.friction end
+	mo.cvmem = $+mo.lastlook
+	mo.cvmem = $%8192
+	mo.movefactor = $+mo.lastlook
+	mo.movefactor = $%8192
+	
+	-- Force RB_MaceRotate to use P_SetOrigin if the maces became visible again 
+	-- This makes it so the maces aren't being interpolated from their invisible position
+	local wasinvisible = false
+	
+	if not (mo.flags2 & MF2_STRONGBOX) then
+		if mo.hnext and mo.hnext.valid then
+			local playerSpotted = false
+			
+			for player in players.iterate do
+				if not (player and player.valid
+				and player.mo and player.mo.valid) then
+					continue
+				end
+				
+				-- Check if any player is close to the chain or mace in question
+				if R_PointToDist2(0, mo.z, R_PointToDist2(mo.x, mo.y, player.mo.x, player.mo.y), player.mo.z) < 4200*mo.scale then
+					playerSpotted = true
+					break
+				end
+			end
+			
+			if not playerSpotted then
+				if not (mo.flags2 & MF2_BEYONDTHEGRAVE) then
+					local ref = mo.hnext
+					while ref and ref.valid do
+						ref.flags = $|MF_NOTHINK|MF_NOCLIPTHING
+						ref.flags2 = $|MF2_DONTDRAW
+						ref = ref.hnext
+					end
+					
+					mo.flags2 = $|MF2_BEYONDTHEGRAVE
+				end
+				return
+			elseif (mo.flags2 & MF2_BEYONDTHEGRAVE)
+				local ref = mo.hnext
+				while ref and ref.valid do
+					ref.flags = $ & ~(MF_NOTHINK|MF_NOCLIPTHING)
+					ref.flags2 = $ & ~MF2_DONTDRAW
+					ref = ref.hnext
+				end
+				
+				mo.flags2 = $ & ~MF2_BEYONDTHEGRAVE
+				wasinvisible = true
+			end
+		end
+	end
+	
+	local curSeg = mo.hnext
+	while curSeg and curSeg.valid do
+		RB_MaceRotate(curSeg, mo, wasinvisible)
+		curSeg = $.hnext
+	end
+end
+
+addHook("MapThingSpawn", function(mo, mthing)
+	RB_Setup21Mace(mo, mthing)
+end, MT_OLDMACEPOINT)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	RB_MaceThink(mo)
+end, MT_OLDMACEPOINT)
+
+-- For anyone curious, the unit for maximum speed is actually closer to fracunits per 16 tics
+mobjinfo[MT_OLDMACEPOINT] = {
+	--$Name Old Spinning Mace Spawnpoint
+	--$Sprite 21MCD0
+	--$Category 2.1 Castle Eggman
+	--$Flags1Text 2.0 sprites
+	--$Flags4Text No sounds
+	--$Flags8Text Double size
+	--$AngleText Tag
+	--$Arg0 Number of links
+	--$Arg1 Maximum speed
+	--$Arg1Tooltip In fracunits per 0.5 seconds (approximately).
+	--$Arg3 Speed
+	--$Arg3Tooltip In fracunits per tic.
+	--$Arg4 Pitch offset
+	--$Arg8 Flags
+	--$Arg8Type 12
+	--$Arg8Enum {1 = "Double size"; 2 = "No sounds"; 4 = "Player-turnable chain"; 8 = "2.0 sprites"; 128 = "No distance check";}
+	doomednum = 3104,
+	spawnstate = S_INVISIBLE,
+	spawnhealth = 1000,
+	speed = 10*FRACUNIT,
+	radius = 128*FRACUNIT,
+	height = 1*FRACUNIT,
+	mass = 10000,
+	flags = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+addHook("MapThingSpawn", function(mo, mthing)
+	RB_Setup21Mace(mo, mthing)
+end, MT_OLDSWINGMACEPOINT)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	RB_MaceThink(mo)
+end, MT_OLDSWINGMACEPOINT)
+
+mobjinfo[MT_OLDSWINGMACEPOINT] = {
+	--$Name Old Swinging Mace Spawnpoint
+	--$Sprite 21MCD0
+	--$Category 2.1 Castle Eggman
+	--$Flags1Text 2.0 sprites and behavior
+	--$Flags4Text No sounds
+	--$Flags8Text Double size
+	--$AngleText Tag
+	--$Arg0 Number of links
+	--$Arg1 Maximum speed
+	--$Arg1Tooltip In fracunits per 0.5 seconds (approximately).
+	--$Arg3 Speed
+	--$Arg3Tooltip In fracunits per tic.
+	--$Arg4 Pitch offset
+	--$Arg8 Flags
+	--$Arg8Type 12
+	--$Arg8Enum {1 = "Double size"; 2 = "No sounds"; 4 = "Player-turnable chain"; 8 = "2.0 sprites"; 128 = "No distance check";}
+	doomednum = 3105,
+	spawnstate = S_INVISIBLE,
+	spawnhealth = 1000,
+	speed = 10*FRACUNIT,
+	radius = 128*FRACUNIT,
+	height = 1*FRACUNIT,
+	mass = 10000,
+	flags = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+addHook("MapThingSpawn", function(mo, mthing)
+	RB_Setup21Mace(mo, mthing)
+end, MT_OLDHANGMACEPOINT)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	RB_MaceThink(mo)
+end, MT_OLDHANGMACEPOINT)
+
+mobjinfo[MT_OLDHANGMACEPOINT] = {
+	--$Name Old Hanging Chain Spawnpoint
+	--$Sprite 21MCB0
+	--$Category 2.1 Castle Eggman
+	--$Flags1Text 2.0 sprites and behavior
+	--$Flags8Text Double size
+	--$AngleText Tag
+	--$Arg0 Number of links
+	--$Arg1 Maximum speed
+	--$Arg1Tooltip In fracunits per 0.5 seconds (approximately).
+	--$Arg3 Speed
+	--$Arg3Tooltip In fracunits per tic.
+	--$Arg4 Pitch offset
+	--$Arg8 Flags
+	--$Arg8Type 12
+	--$Arg8Enum {1 = "Double size"; 2 = "No sounds"; 4 = "Player-turnable chain"; 8 = "2.0 sprites"; 128 = "No distance check";}
+	doomednum = 3106,
+	spawnstate = S_INVISIBLE,
+	spawnhealth = 1000,
+	speed = 10*FRACUNIT,
+	radius = 128*FRACUNIT,
+	height = 1*FRACUNIT,
+	mass = 10000,
+	flags = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+addHook("MapThingSpawn", function(mo, mthing)
+	RB_Setup21Mace(mo, mthing)
+end, MT_OLDSPINMACEPOINT)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	RB_MaceThink(mo)
+	
+	if (leveltime & 1) then
+		if mo.lastlook > mo.movecount then mo.lastlook = $-1 end
+	end
+end, MT_OLDSPINMACEPOINT)
+
+mobjinfo[MT_OLDSPINMACEPOINT] = {
+	--$Name Old Spinning Chain Spawnpoint
+	--$Sprite 21MCB0
+	--$Category 2.1 Castle Eggman
+	--$Flags1Text 2.0 sprites and behavior
+	--$Flags8Text Double size
+	--$AngleText Tag
+	--$Arg0 Number of links
+	--$Arg1 Maximum speed
+	--$Arg1Tooltip In fracunits per 0.5 seconds (approximately).
+	--$Arg3 Speed
+	--$Arg3Tooltip In fracunits per tic.
+	--$Arg4 Pitch offset
+	--$Arg8 Flags
+	--$Arg8Type 12
+	--$Arg8Enum {1 = "Double size"; 2 = "No sounds"; 4 = "Player-turnable chain"; 8 = "2.0 sprites"; 128 = "No distance check";}
+	doomednum = 3107,
+	spawnstate = S_INVISIBLE,
+	spawnhealth = 1000,
+	speed = 10*FRACUNIT,
+	radius = 128*FRACUNIT,
+	height = 1*FRACUNIT,
+	mass = 10000,
+	flags = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+function A_21SlingAppear(actor, var1, var2)
+	local firsttime = true
+	local mlength = 4
+	local spawnee
+	
+	actor.flags = $ & ~(MF_NOBLOCKMAP|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT)
+	actor.lastlook = 128
+	actor.movecount = actor.lastlook
+-- 	actor.health = actor.angle/525488
+	actor.threshold = 0
+	actor.movefactor = actor.threshold
+	actor.friction = 128
+	
+-- 	actor.flags = $|MF_SLIDEME
+	
+	local prevmo = nil
+	
+	while mlength > 0 do
+-- 		spawnee = P_SpawnMobj(actor.x, actor.y, actor.z, MT_21SMALLMACECHAIN)
+		spawnee = P_SpawnMobjFromMobj(actor, 0, 0, 0, MT_21SMALLMACECHAIN)
+		
+		spawnee.tracer = actor -- Make the target a tracer
+		
+		spawnee.movecount = 0
+		spawnee.threshold = 0
+		spawnee.reactiontime = mlength
+		
+		if firsttime then
+			-- This is the outermost link in the chain
+			spawnee.flags2 = $|MF2_AMBUSH
+			firsttime = false
+		end
+		
+		spawnee.hnext = prevmo
+		prevmo = spawnee
+		mlength = $-1
+		
+		if mlength <= 0 then actor.hnext = spawnee end
+	end
+end
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.hnext and mo.hnext.valid then
+		RB_MaceThink(mo)
+	end
+end, MT_OLD_HIDDEN_SLING)
+
+mobjinfo[MT_OLD_HIDDEN_SLING] = {
+	--$Name Old Hidden Chain Spawnpoint
+	--$Sprite 21MCA0
+	--$Category 2.1 Castle Eggman
+	--$Flags8Text Double size
+	doomednum = 3108,
+	spawnstate = S_21SLING1,
+	spawnhealth = 1000,
+	speed = 10*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 8*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_21SLING1] = {SPR_NULL, A, -1, nil, 			0, 0, S_21SLING2}
+states[S_21SLING2] = {SPR_NULL, A, -1, A_21SlingAppear,	0, 0, S_NULL}
+
+-- 2.1/2.0 Maces
+
+local function P_OldMaceTouch(special, toucher)
+	if not (special and special.valid
+	and toucher and toucher.valid) then
+		return
+	end
+	
+	-- Is this the last link in the chain?
+	if P_MobjFlip(toucher)*toucher.momz > 0 or not (special.flags2 & MF2_AMBUSH)
+	or toucher.player.powers[pw_carry] == CR_GENERIC or toucher.player.powers[pw_carry] == CR_MACESPIN then
+		return true
+	end
+	
+	if toucher.z > special.z + special.height/2 then return true end
+	if toucher.z + toucher.height/2 < special.z then return true end
+	if toucher.player.powers[pw_flashing] then return true end
+	
+	P_ResetPlayer(toucher.player)
+	toucher.tracer = special
+	special.target = toucher
+	
+	if special.tracer and special.tracer.valid 
+	and (special.tracer.type == MT_OLDSPINMACEPOINT or special.tracer.type == MT_OLD_HIDDEN_SLING) then
+		toucher.player.powers[pw_carry] = CR_MACESPIN
+		S_StartSound(toucher, sfx_spin)
+		toucher.state = S_PLAY_ROLL
+	else
+		toucher.player.powers[pw_carry] = CR_GENERIC
+	end
+	
+	-- Can't jump first frame
+	toucher.player.pflags = $|PF_JUMPSTASIS
+	
+	return true
+end
+
+local function RB_CheckMaceCenter(mo)
+	if not (mo and mo.valid) then return end
+	
+	-- Target was removed
+	if not (mo.tracer and mo.tracer.valid) then
+		-- Prevent the player from getting stuck in CR_MACESPIN or CR_GENERIC
+		if mo.target and mo.target.valid
+		and mo.target.player and mo.target.player.valid then
+			local player = mo.target.player
+			if player.powers[pw_carry] == CR_MACESPIN or player.powers[pw_carry] == CR_GENERIC then
+				player.powers[pw_carry] = CR_NONE
+			end
+		end
+		P_RemoveMobj(mo)
+		return
+	end
+end
+
+addHook("TouchSpecial", P_OldMaceTouch, MT_21SMALLMACECHAIN)
+addHook("MobjThinker", RB_CheckMaceCenter, MT_21SMALLMACECHAIN)
+
+mobjinfo[MT_21SMALLMACECHAIN] = {
+	doomednum = -1,
+	spawnstate = S_21SMALLMACECHAIN,
+	reactiontime = 8,
+	speed = 24*FRACUNIT,
+	radius = 24*FRACUNIT,
+	height = 48*FRACUNIT,
+	damage = 1,
+	flags = MF_NOGRAVITY|MF_SPECIAL|MF_NOCLIPHEIGHT
+}
+
+states[S_21SMALLMACECHAIN] = {SPR_21MC, A, -1, nil, 0, 0, S_21SMALLMACECHAIN}
+
+addHook("TouchSpecial", P_OldMaceTouch, MT_20SMALLMACECHAIN)
+addHook("MobjThinker", RB_CheckMaceCenter, MT_20SMALLMACECHAIN)
+
+mobjinfo[MT_20SMALLMACECHAIN] = {
+	doomednum = -1,
+	spawnstate = S_20SMALLMACECHAIN,
+	reactiontime = 8,
+	speed = 24*FRACUNIT,
+	radius = 24*FRACUNIT,
+	height = 48*FRACUNIT,
+	damage = 1,
+	flags = MF_NOGRAVITY|MF_SPECIAL|MF_NOCLIPHEIGHT
+}
+
+states[S_20SMALLMACECHAIN] = {SPR_20MC, A, -1, nil, 0, 0, S_20SMALLMACECHAIN}
+
+addHook("TouchSpecial", P_OldMaceTouch, MT_21BIGMACECHAIN)
+
+mobjinfo[MT_21BIGMACECHAIN] = {
+	doomednum = -1,
+	spawnstate = S_21BIGMACECHAIN,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	speed = 48*FRACUNIT,
+	radius = 48*FRACUNIT,
+	height = 96*FRACUNIT,
+	damage = 1,
+	flags = MF_NOGRAVITY|MF_SPECIAL|MF_NOCLIPHEIGHT
+}
+
+states[S_21BIGMACECHAIN] = {SPR_21MC, B, -1, nil, 0, 0, S_21BIGMACECHAIN}
+
+addHook("TouchSpecial", P_OldMaceTouch, MT_20BIGMACECHAIN)
+addHook("MobjThinker", RB_CheckMaceCenter, MT_20BIGMACECHAIN)
+
+mobjinfo[MT_20BIGMACECHAIN] = {
+	doomednum = -1,
+	spawnstate = S_20BIGMACECHAIN,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	speed = 48*FRACUNIT,
+	radius = 48*FRACUNIT,
+	height = 96*FRACUNIT,
+	damage = 1,
+	flags = MF_NOGRAVITY|MF_SPECIAL|MF_NOCLIPHEIGHT
+}
+
+states[S_20BIGMACECHAIN] = {SPR_20MC, B, -1, nil, 0, 0, S_20BIGMACECHAIN}
+
+addHook("MobjThinker", RB_CheckMaceCenter, MT_21SMALLMACE)
+
+mobjinfo[MT_21SMALLMACE] = {
+	doomednum = -1,
+	spawnstate = S_21SMALLMACE,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	speed = 24*FRACUNIT,
+	radius = 17*FRACUNIT,
+	height = 34*FRACUNIT,
+	mass = DMG_SPIKE, -- Originally 100
+	damage = 1,
+	activesound = sfx_mswing,
+	flags = MF_PAIN|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_21SMALLMACE] = {SPR_21MC, C, -1, nil, 0, 0, S_21SMALLMACE}
+
+addHook("MobjThinker", RB_CheckMaceCenter, MT_20SMALLMACE)
+
+mobjinfo[MT_20SMALLMACE] = {
+	doomednum = -1,
+	spawnstate = S_20SMALLMACE,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	speed = 24*FRACUNIT,
+	radius = 17*FRACUNIT,
+	height = 34*FRACUNIT,
+	mass = DMG_SPIKE, -- Originally 100
+	damage = 1,
+	activesound = sfx_mswing,
+	flags = MF_PAIN|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_20SMALLMACE] = {SPR_20MC, C, -1, nil, 0, 0, S_20SMALLMACE}
+
+addHook("MobjThinker", RB_CheckMaceCenter, MT_21BIGMACE)
+
+mobjinfo[MT_21BIGMACE] = {
+	doomednum = -1,
+	spawnstate = S_21BIGMACE,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	speed = 48*FRACUNIT,
+	radius = 34*FRACUNIT,
+	height = 68*FRACUNIT,
+	mass = DMG_SPIKE, -- Originally 100
+	damage = 1,
+	activesound = sfx_mswing,
+	flags = MF_PAIN|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_21BIGMACE] = {SPR_21MC, D, -1, nil, 0, 0, S_21BIGMACE}
+
+addHook("MobjThinker", RB_CheckMaceCenter, MT_20BIGMACE)
+
+mobjinfo[MT_20BIGMACE] = {
+	doomednum = -1,
+	spawnstate = S_20BIGMACE,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	speed = 48*FRACUNIT,
+	radius = 34*FRACUNIT,
+	height = 68*FRACUNIT,
+	mass = DMG_SPIKE, -- Originally 100
+	damage = 1,
+	activesound = sfx_mswing,
+	flags = MF_PAIN|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_20BIGMACE] = {SPR_20MC, D, -1, nil, 0, 0, S_20BIGMACE}

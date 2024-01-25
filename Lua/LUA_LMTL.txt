@@ -1,0 +1,48 @@
+freeslot("MT_LOSERMETAL", "S_LOSERFALL1", "S_LOSERFALL2", "S_LOSERCRASHF", "S_LOSERCRASH1", "S_LOSERCRASH2", "S_LOSERCRASH3", "S_LOSERCRASH4", "S_LOSERCRASH5", "SPR_MLOS")
+//Made by Glaber with help from SSNTails and MIDIMan
+
+local function FallCheck(actor)
+	if (actor.z == actor.floorz) and (actor.state == actor.info.spawnstate or actor.state == S_LOSERFALL2)
+		actor.state = actor.info.deathstate
+	end
+end
+addHook("MobjThinker", FallCheck, MT_LOSERMETAL)
+
+// Loser Metal Sonic
+mobjinfo[MT_LOSERMETAL] = {
+		//$Name "Metal Failure"
+		//$Sprite MLOSA1
+		//$Category Metal's Challenge
+        doomednum = 1817,
+        spawnstate = S_LOSERFALL1,
+        spawnhealth = 100,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 0,
+        painsound = sfx_None,
+		missilestate = S_NULL,
+        deathstate = S_LOSERCRASHF,
+        xdeathstate = S_NULL,
+        deathsound = sfx_s3k6e,
+        speed = 0,
+        radius = 20*FRACUNIT,
+        height = 48*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_SPECIAL|MF_RUNSPAWNFUNC
+}
+	
+states[S_LOSERFALL1] = {SPR_MLOS, 0, 2, A_BossScream, 1, 0, S_LOSERFALL1}
+states[S_LOSERFALL2] = {SPR_MLOS, 1, 2, A_BossScream, 0, 0, S_LOSERFALL2}
+states[S_LOSERCRASHF] = {SPR_MLOS, 2, 2, A_BossScream, 0, 0, S_LOSERCRASH1}
+states[S_LOSERCRASH1] = {SPR_MLOS, 3, 6, nil, 0, 0, S_LOSERCRASH2}
+states[S_LOSERCRASH2] = {SPR_MLOS, 4, 6, nil, 0, 0, S_LOSERCRASH3}
+states[S_LOSERCRASH3] = {SPR_MLOS, 5, 6, nil, 0, 0, S_LOSERCRASH4}
+states[S_LOSERCRASH4] = {SPR_MLOS, 6, 6, nil, 0, 0, S_LOSERCRASH5}
+states[S_LOSERCRASH5] = {SPR_MLOS, 7, 6, nil, 0, 0, S_LOSERCRASH1}

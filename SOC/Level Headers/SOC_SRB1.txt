@@ -1,0 +1,787 @@
+#SRB1 unlockable
+LEVEL H2
+LEVELNAME = Knothole Base
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+PreCutsceneNum = 106
+ACT = 1
+NEXTLEVEL = H3
+MUSIC = KHB
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL H3
+LEVELNAME = Knothole Base
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = H4
+MUSIC = KHB
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL H4
+LEVELNAME = Great Forest
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = H5
+Music = MAPAAM
+WEATHER = 0
+SKYNUM = 103
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL H5
+LEVELNAME = Great Forest
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = H6
+Music = MAPAAM
+WEATHER = 0
+SKYNUM = 103
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL H6
+LEVELNAME = Lake
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = H7
+Music = MAPABM
+WEATHER = 0
+SKYNUM = 1
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL H7
+LEVELNAME = Lake
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = H8
+Music = MAPABM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL H8
+LEVELNAME = Ice Palace
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = H9
+Music = MAPACM
+WEATHER = 0
+SKYNUM = 107
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL H9
+LEVELNAME = Ice Palace
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HA
+Music = MAPADM
+WEATHER = 0
+SKYNUM = 107
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HA
+LEVELNAME = Volcano
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HB
+Music = MAPAEM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HB
+LEVELNAME = Volcano
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HC
+Music = MAPAEM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HC
+LEVELNAME = Echidnapolis
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HD
+Music = MAPAFM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = knuckles
+HIDEINSTATS = true
+
+LEVEL HD
+LEVELNAME = Echidnapolis
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HE
+Music = MAPAFM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = knuckles
+HIDEINSTATS = true
+
+LEVEL HE
+LEVELNAME = Sky Lab
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HF
+Music = MAPAGM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = knuckles
+HIDEINSTATS = true
+
+LEVEL HF
+LEVELNAME = Sky Lab
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HG
+Music = MAPAGM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = knuckles
+HIDEINSTATS = true
+
+LEVEL HG
+LEVELNAME = Mechanical Madness
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HH
+Music = MAPAHM
+WEATHER = 0
+SKYNUM = 21
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HH
+LEVELNAME = Mechanical Madness
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HI
+Music = MAPAHM
+WEATHER = 0
+SKYNUM = 1
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HI
+LEVELNAME = Robotopolis
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HJ
+Music = MAPAIM
+WEATHER = 0
+SKYNUM = 117
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HJ
+LEVELNAME = Robotopolis
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HK
+Music = MAPAIM
+WEATHER = 0
+SKYNUM = 117
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HK
+LEVELNAME = Robo Base
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HL
+Music = MAPAJM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HL
+LEVELNAME = Robo Base
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HM
+Music = MAPAJM
+WEATHER = 0
+SKYNUM = 2
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HM
+LEVELNAME = Ringsatellite
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HN
+Music = MAPAMM
+WEATHER = 0
+SKYNUM = 22
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HN
+LEVELNAME = Ringsatellite
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HO
+Music = MAPANM
+WEATHER = 0
+SKYNUM = 22
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HO
+LEVELNAME = Athenos
+Subtitle = SUPER LEVEL 1 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = HP
+Music = MAPAQM
+WEATHER = 0
+SKYNUM = 127
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HP
+LEVELNAME = Great Unknown
+Subtitle = SUPER LEVEL 2 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = HQ
+Music = MAPARM
+WEATHER = 0
+SKYNUM = 13
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HQ
+LEVELNAME = Void
+Subtitle = SUPER LEVEL 3 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = HR
+Music = MAPASM
+WEATHER = 0
+SKYNUM = 66
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HR
+LEVELNAME = Woodland Hill
+Subtitle = HYPER LEVEL 1 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = HS
+Music = MAPATM
+WEATHER = 0
+SKYNUM = 103
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HS
+LEVELNAME = Rocky Mountain
+Subtitle = HYPER LEVEL 2 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = HT
+Music = MAPAUM
+WEATHER = 0
+SKYNUM = 29
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+LEVEL HT
+LEVELNAME = Hidden Palace
+Subtitle = HYPER LEVEL 3 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = CREDITS
+Music = MAPAVM
+WEATHER = 0
+SKYNUM = 132
+LEVELSELECT = 2
+TYPEOFLEVEL = Solo,2D
+FORCECHARACTER = sonic
+HIDEINSTATS = true
+
+#srb1 for everyone!
+LEVEL HU
+LEVELNAME = Knothole Base
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+PreCutsceneNum = 106
+ACT = 1
+NEXTLEVEL = HV
+MUSIC = KHB
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL HV
+LEVELNAME = Knothole Base
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HW
+MUSIC = KHB
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL HW
+LEVELNAME = Great Forest
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HX
+Music = MAPAAM
+WEATHER = 0
+SKYNUM = 103
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL HX
+LEVELNAME = Great Forest
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = HY
+Music = MAPAAM
+WEATHER = 0
+SKYNUM = 103
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL HY
+LEVELNAME = Lake
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = HZ
+Music = MAPABM
+WEATHER = 0
+SKYNUM = 1
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL HZ
+LEVELNAME = Lake
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = I0
+Music = MAPABM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I0
+LEVELNAME = Ice Palace
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = I1
+Music = MAPACM
+WEATHER = 0
+SKYNUM = 107
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I1
+LEVELNAME = Ice Palace
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = I2
+Music = MAPADM
+WEATHER = 0
+SKYNUM = 107
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I2
+LEVELNAME = Volcano
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = I3
+Music = MAPAEM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I3
+LEVELNAME = Volcano
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = I4
+Music = MAPAEM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I4
+LEVELNAME = Echidnapolis
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = I5
+Music = MAPAFM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I5
+LEVELNAME = Echidnapolis
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = I6
+Music = MAPAFM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I6
+LEVELNAME = Sky Lab
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = I7
+Music = MAPAGM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I7
+LEVELNAME = Sky Lab
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = I8
+Music = MAPAGM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I8
+LEVELNAME = Mechanical Madness
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = I9
+Music = MAPAHM
+WEATHER = 0
+SKYNUM = 21
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL I9
+LEVELNAME = Mechanical Madness
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = IA
+Music = MAPAHM
+WEATHER = 0
+SKYNUM = 1
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IA
+LEVELNAME = Robotopolis
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = IB
+Music = MAPAIM
+WEATHER = 0
+SKYNUM = 117
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IB
+LEVELNAME = Robotopolis
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = IC
+Music = MAPAIM
+WEATHER = 0
+SKYNUM = 117
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IC
+LEVELNAME = Robo Base
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = ID
+Music = MAPAJM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL ID
+LEVELNAME = Robo Base
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = IE
+Music = MAPAJM
+WEATHER = 0
+SKYNUM = 2
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IE
+LEVELNAME = Ringsatellite
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 1
+NEXTLEVEL = IF
+Music = MAPAMM
+WEATHER = 0
+SKYNUM = 22
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IF
+LEVELNAME = Ringsatellite
+subtitle = 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 2
+NEXTLEVEL = IG
+Music = MAPANM
+WEATHER = 0
+SKYNUM = 22
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IG
+LEVELNAME = Athenos
+Subtitle = SUPER LEVEL 1 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = IH
+Music = MAPAQM
+WEATHER = 0
+SKYNUM = 127
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IH
+LEVELNAME = Great Unknown
+Subtitle = SUPER LEVEL 2 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = II
+Music = MAPARM
+WEATHER = 0
+SKYNUM = 13
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL II
+LEVELNAME = Void
+Subtitle = SUPER LEVEL 3 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = IJ
+Music = MAPASM
+WEATHER = 0
+SKYNUM = 66
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IJ
+LEVELNAME = Woodland Hill
+Subtitle = HYPER LEVEL 1 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = IK
+Music = MAPATM
+WEATHER = 0
+SKYNUM = 103
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IK
+LEVELNAME = Rocky Mountain
+Subtitle = HYPER LEVEL 2 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = IL
+Music = MAPAUM
+WEATHER = 0
+SKYNUM = 29
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12
+
+LEVEL IL
+LEVELNAME = Hidden Palace
+Subtitle = HYPER LEVEL 3 2.0-2.1.25
+MusicInter = LCLEAR
+ACT = 0
+NEXTLEVEL = 1
+Music = MAPAVM
+WEATHER = 0
+SKYNUM = 132
+hidden = 1
+TYPEOFLEVEL = Solo,2D
+SaveGame = true
+Lua.TPHub = 1:12

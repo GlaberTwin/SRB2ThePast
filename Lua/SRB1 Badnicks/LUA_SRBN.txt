@@ -1,0 +1,37 @@
+// SRB1 Super SWAT Bot - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_GOLDBOT",
+	"S_SRB1_GOLDBOT1",
+	"S_SRB1_GOLDBOT2",
+	"S_SRB1_GOLDBOT3",
+	"S_SRB1_GOLDBOT4",
+	"S_SRB1_GOLDBOT5",
+	"S_SRB1_GOLDBOT6",
+	"SPR_SRBN"
+)
+
+mobjinfo[MT_SRB1_GOLDBOT] = {
+	//$Name Super SWAT Bot
+	//$Sprite SRBNA1
+	//$Category SRB1 Enemies
+	doomednum = 4014,
+	spawnstate = S_SRB1_GOLDBOT1,
+	spawnhealth = 1,
+	seestate = S_SRB1_GOLDBOT1,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3*FRACUNIT,
+	radius = 21*FRACUNIT,
+	height = 69*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_FLOAT
+}
+
+states[S_SRB1_GOLDBOT1] =	{SPR_SRBN,	A,	2,	A_MoveAbsolute,	0,		7,	S_SRB1_GOLDBOT2}
+states[S_SRB1_GOLDBOT2] =	{SPR_SRBN,	B,	2,	A_MoveAbsolute,	0,		7,	S_SRB1_GOLDBOT3}
+states[S_SRB1_GOLDBOT3] =	{SPR_SRBN,	A,	2,	A_MoveAbsolute,	0,		7,	S_SRB1_GOLDBOT4}
+states[S_SRB1_GOLDBOT4] =	{SPR_SRBN,	B,	2,	A_MoveAbsolute,	180,	7,	S_SRB1_GOLDBOT5}
+states[S_SRB1_GOLDBOT5] =	{SPR_SRBN,	A,	2,	A_MoveAbsolute,	180,	7,	S_SRB1_GOLDBOT6}
+states[S_SRB1_GOLDBOT6] =	{SPR_SRBN,	B,	2,	A_MoveAbsolute,	180,	7,	S_SRB1_GOLDBOT1}

@@ -1,0 +1,355 @@
+##Castle Eggman Zone Level Headers
+
+#DEVELOPMENT
+
+Level CB
+Levelname = Castle Eggman
+Subtitle = Development version
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = OGFZ1
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 81
+hidden = 1
+palette = 1032
+Lua.TPHub = CZ:1
+
+Level CC
+Levelname = Castle Eggman
+Subtitle = Development version
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = OGFZ2
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 82
+hidden = 1
+palette = 1032
+Lua.TPHub = CZ:2
+
+
+
+#DEMO 4
+
+Level 172
+Levelname = Castle Eggman
+Subtitle = Demo 4
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = D4CEZ1
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 36
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 5
+hidden = 1
+palette = 1032
+Lua.TPHub = CZ:3
+
+Level 173
+Levelname = Castle Eggman
+Subtitle = Demo 4
+Act = 2
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Music = D4CEZ2
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 36
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 6
+hidden = 1
+palette = 1032
+Lua.TPHub = CZ:4
+
+Level 174
+Levelname = Castle Eggman
+Subtitle = Demo 4
+interscreen = EGGPIC
+MusicInter = LCLEAR
+BonusType = Boss
+Act = 3
+Music = D4CEZ3
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 36
+RecordAttack = 0
+hidden = 1
+hidden = 1
+#PrecutsceneNum = 7
+WarningTitle = true
+palette = 1032
+Lua.TPHub = CZ:5
+
+
+
+
+#FINAL DEMO
+
+Level 175
+Levelname = Castle Eggman
+Subtitle = Version 1.01-1.09.4
+interscreen = FDINTERP
+MusicInter = LCLEAR
+Act = 1
+Music = FDCEZ1
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 2
+Lua.TPHub = CZ:6
+
+Level 176
+Levelname = Castle Eggman
+Subtitle = Version 1.01-1.09.4
+interscreen = FDINTERP
+MusicInter = LCLEAR
+Act = 2
+Music = FDCEZ2
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 3
+Lua.TPHub = CZ:7
+
+Level 177
+Levelname = Castle Eggman
+Subtitle = Version 1.01-1.09.4
+interscreen = FDINTERP
+MusicInter = LCLEAR
+Act = 3
+BonusType = Boss
+Music = FDCEZ3
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 4
+WarningTitle = true
+Lua.TPHub = CZ:8
+
+
+
+
+##1.01-1.09.4 XMAS
+
+Level CG
+Levelname = Castle Eggman
+Subtitle = Version 1.01-1.09.4 (Christmas)
+interscreen = INTERXMS
+MusicInter = LCLEAR
+Act = 1
+Music = MAPA5M
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 2
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 2
+Lua.TPHub = CZ:9
+
+Level CH
+Levelname = Castle Eggman
+Subtitle = Version 1.01-1.09.4 (Christmas)
+interscreen = INTERXMS
+MusicInter = LCLEAR
+Act = 2
+Music = MAPA6M
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 2
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 3
+Lua.TPHub = CZ:10
+
+Level CI
+Levelname = Castle Eggman
+Subtitle = Version 1.01-1.09.4 (Christmas)
+interscreen = INTERXMS
+MusicInter = LCLEAR
+Act = 3
+BonusType = Boss
+Music = MAPA7M
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 4
+WarningTitle = true
+Lua.TPHub = CZ:11
+
+
+
+
+#2.0
+
+Level 178
+Levelname = Castle Eggman
+Subtitle = Version 2.0-2.0.5
+MusicInter = LCLEAR
+Act = 1
+Music = FDCEZ1
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 27
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 43
+Lua.TPHub = CZ:12
+
+Level C7
+Levelname = Castle Eggman
+Subtitle = Version 2.0-2.0.4
+MusicInter = LCLEAR
+Act = 2
+Music = FDCEZ2
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 46
+Lua.TPHub = CZ:13
+
+Level C8
+Levelname = Castle Eggman
+Subtitle = Version 2.0.5
+MusicInter = LCLEAR
+Act = 2
+Music = FDCEZ2
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 44
+Lua.TPHub = CZ:14
+
+Level C9
+Levelname = Castle Eggman
+Subtitle = Version 2.0.6-2.0.7
+MusicInter = LCLEAR
+Act = 1
+Music = FDCEZ1
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 27
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 50
+Lua.TPHub = CZ:15
+
+Level CA
+Levelname = Castle Eggman
+Subtitle = Version 2.0.6-2.0.7
+MusicInter = LCLEAR
+Act = 2
+Music = FDCEZ2
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 1
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+#PrecutsceneNum = 51
+Lua.TPHub = CZ:16
+
+
+
+
+#2.1
+
+Level CD
+Levelname = Castle Eggman
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 1
+Music = FDCEZ1
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = CZ
+SkyNum = 20
+RecordAttack = false
+#PrecutsceneNum = 114
+hidden = 1
+Lua.TPHub = CZ:17
+
+Level CE
+Levelname = Castle Eggman
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 2
+Music = FDCEZ2
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = CZ
+SkyNum = 20
+#PrecutsceneNum = 115
+RecordAttack = false
+hidden = 1
+Lua.TPHub = CZ:18
+
+Level CF
+Levelname = Castle Eggman
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = CZ
+Weather = 1
+SkyNum = 27
+RecordAttack = false
+#PrecutsceneNum = 116
+hidden = 1
+BonusType = Boss
+Lua.TPHub = CZ:19
+
+
+
+#2.2 INDEV
+
+Level 32
+levelname = Forest Fortress
+subtitle = Version 2.2 Dev
+#PrecutsceneNum = 117
+SkyboxScale = 64
+act = 0
+music = CEZ1
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = CZ
+RecordAttack = false
+skynum = 20
+hidden = 1
+weather = 3
+FlickyList = Rat,Bear
+Lua.TPHub = CZ:20

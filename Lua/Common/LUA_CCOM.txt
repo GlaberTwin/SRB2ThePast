@@ -1,0 +1,140 @@
+// Function: A_CrawlaCommanderReThink
+//
+// Description: Old Thinker for Crawla Commander.
+// Special Thanks to MIDIMan, Flame, Monster ɪestyn, Nightwolf, CEO of Blue Balls, Felix44 the SOC expert, LJ Sonic
+//
+// var1 = shoot bullets?
+// var2 = "pogo mode" speed
+//
+function A_CrawlaCommanderReThink(actor, var1, var2)
+
+	local nextsector
+	local thefloor
+
+	if (actor.z >= actor.waterbottom and actor.watertop > actor.floorz
+	and actor.z > actor.watertop - FixedMul(256*FRACUNIT, actor.scale)) then
+		thefloor = actor.watertop
+	else
+		thefloor = actor.floorz
+	end
+
+	// leveltime is used here since MF2_FRET draws black pixels as white when (leveltime & 1) --MIDIMan
+	if actor.fuse and not (leveltime & 1) then
+		actor.flags2 = $|MF2_DONTDRAW
+	elseif (actor.flags2 & MF2_DONTDRAW)
+		actor.flags2 = $1 & ~MF2_DONTDRAW
+	end
+	
+	if (actor.reactiontime > 0) then
+		actor.reactiontime = $1 - 1
+	end
+
+	if (actor.fuse < 2) then
+		actor.fuse = 0
+		actor.flags2 = $1 & ~MF2_FRET
+	end
+
+	// Hover mode
+	if (actor.health > 1 or actor.fuse) then
+		if (actor.z < thefloor + FixedMul(16*FRACUNIT, actor.scale)) then
+			actor.momz = $+ FixedMul(FRACUNIT, actor.scale)
+		elseif (actor.z < thefloor + FixedMul(32*FRACUNIT, actor.scale)) then
+			actor.momz = $+ FixedMul(FRACUNIT/2, actor.scale)
+		else
+			actor.momz = $+ FixedMul(16, actor.scale)
+		end
+	end
+
+	if (not actor.target or not (actor.target.flags & MF_SHOOTABLE)) then
+		// look for a new target
+		if (P_LookForPlayers(actor, 0, true, false)) then
+			return // got a new target
+		end
+
+		if (actor.state ~= actor.info.spawnstate) then
+			actor.state = actor.info.spawnstate
+		end
+		return
+	end
+
+	local dist = R_PointToDist2(actor.x,  actor.y, actor.target.x, actor.target.y)
+
+	if (actor.target.player and actor.health > 1) then
+		if (dist < FixedMul(128*FRACUNIT, actor.scale)
+		and ((actor.target.player.pflags & PF_JUMPED) or (actor.target.player.pflags & PF_SPINNING))) then
+			// Auugh! He's trying to kill you! Strafe! STRAAAAFFEEE!!
+			if (actor.target.momx or actor.target.momy) then
+				P_InstaThrust(actor, actor.angle - ANGLE_180, FixedMul(20*FRACUNIT, actor.scale))
+			end
+			return
+		end
+	end
+
+	if (var1) then
+		if (actor.health < 2 and P_RandomChance(FRACUNIT/128)) then
+			P_SpawnMissile(actor, actor.target, var1)
+		end
+	end
+
+	// Face the player
+	actor.angle = R_PointToAngle2(actor.x, actor.y, actor.target.x, actor.target.y)
+
+	if (actor.threshold and dist > FixedMul(256*FRACUNIT, actor.scale)) then
+		actor.momx = 0
+		actor.momy = 0
+	end
+
+	if (actor.reactiontime and actor.reactiontime <= 2*TICRATE and dist > actor.target.radius - FixedMul(FRACUNIT, actor.scale)) then
+		actor.threshold = 0
+
+		// Roam around, somewhat in the player's direction.
+		actor.angle = $+ (P_RandomByte()<<10)
+		actor.angle = $- (P_RandomByte()<<10)
+
+		if (actor.health > 1) then
+			P_InstaThrust(actor, actor.angle, FixedMul(10*FRACUNIT, actor.scale))
+		end
+	elseif (not actor.reactiontime) then
+		if (actor.health > 1) // Hover Mode
+
+			if (dist < FixedMul(512*FRACUNIT, actor.scale))
+
+				actor.angle = R_PointToAngle2(actor.x, actor.y, actor.target.x, actor.target.y)
+				P_InstaThrust(actor, actor.angle, FixedMul(60*FRACUNIT, actor.scale))
+				actor.threshold = 1
+			end
+		end
+		actor.reactiontime = 2*TICRATE + P_RandomByte()/2
+	end
+
+	if (actor.health == 1) then
+		P_Thrust(actor, actor.angle, 1)
+	end
+
+	// Pogo Mode
+	if (not actor.fuse and actor.health == 1 and actor.z <= actor.floorz) then
+		if (dist < FixedMul(256*FRACUNIT, actor.scale)) then
+			actor.momz = FixedMul(var2, actor.scale)
+			actor.angle = R_PointToAngle2(actor.x, actor.y, actor.target.x, actor.target.y)
+			P_InstaThrust(actor, actor.angle, FixedMul(var2/8, actor.scale))
+			// pogo on player
+		else
+			local prandom = P_RandomByte()
+			actor.angle = R_PointToAngle2(actor.x, actor.y, actor.target.x, actor.target.y)
+			if P_RandomChance(FRACUNIT/2) then
+				actor.angle = $ - prandom
+			else
+				actor.angle = $ + prandom
+			end
+			P_InstaThrust(actor, actor.angle, FixedDiv(FixedMul(var2, actor.scale), 3*FRACUNIT/2))
+			actor.momz = FixedMul(var2, actor.scale) // Bounce up in air
+		end
+	end
+
+	nextsector = R_PointInSubsector(actor.x + actor.momx, actor.y + actor.momy).sector
+
+	// Move downwards or upwards to go through a passageway.
+	if (nextsector.floorheight > actor.z and nextsector.floorheight - actor.z < FixedMul(128*FRACUNIT, actor.scale)) then
+		actor.momz = $+ (nextsector.floorheight - actor.z) / 4
+	end
+end

@@ -1,0 +1,193 @@
+-- SRB2TP - TGF Minecart (WIP)
+
+freeslot(
+	"SPR_TCRT",
+	"MT_TGF_MINECART",
+	"S_TGF_MINECART_IDLE",
+	"S_TGF_MINECART_MOVING"
+)
+
+local SRB2TP_TGF_MINECART_SPEED = 24*FRACUNIT
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	if mo.health <= 0 then return end
+	
+	-- Handle minecart respawning
+	if mo.tgfCartSpawnTimer then
+		mo.tgfCartSpawnTimer = $-1
+		
+		-- Flash when the minecart is about to spawn
+		if mo.tgfCartSpawnTimer <= TICRATE then
+			mo.flags2 = $ ^^ MF2_DONTDRAW
+		end
+		
+		-- Make the minecart collidable
+		if not mo.tgfCartSpawnTimer then
+			mo.flags = $ & ~MF_NOCLIPTHING
+			mo.flags2 = $ & ~MF2_DONTDRAW
+		end
+	end
+	
+	if mo.target and mo.target.valid then
+		if mo.target.health <= 0 then
+			mo.target = nil
+		end
+		
+		-- Don't target the player if their tracer is pointing to another object
+		if not (mo.target.tracer and mo.target.tracer.valid and mo.target.tracer == mo) then
+			mo.target = nil
+		end
+	end
+	
+	-- Imitate SRB2TGF's "instant gravity"
+	if not P_IsObjectOnGround(mo) then
+		P_SetObjectMomZ(mo, -SRB2TP_TGF_MINECART_SPEED)
+	end
+	
+	-- Only move when the minecart should be moving
+	if mo.state == mo.info.seestate then
+		P_InstaThrust(mo, mo.angle, FixedMul(SRB2TP_TGF_MINECART_SPEED, mo.scale))
+	end
+end, MT_TGF_MINECART)
+
+addHook("MobjMoveCollide", function(tmthing, thing)
+	if not (tmthing and tmthing.valid and thing and thing.valid) then return end
+	
+	-- Ignore the minecart's target
+	if thing == tmthing.target then return end
+	
+	if not (tmthing.z <= thing.z + thing.height and thing.z <= tmthing.z + tmthing.height) then return end
+	
+	-- This only works with horizontal springs
+	if (thing.flags & MF_SPRING) and thing.info.damage then
+		local target = tmthing.target
+		if target and target.valid then
+			if (target.eflags & MFE_SPRUNG) then return end
+			target.eflags = $|MFE_SPRUNG
+			local player = target.player
+			if player and player.valid then
+				player.powers[pw_justsprung] = 15
+			end
+		end
+		thing.state = thing.info.raisestate
+		tmthing.angle = thing.angle
+	end
+	
+	if thing.type == MT_MINECARTEND then
+		return true
+	end
+end, MT_TGF_MINECART)
+
+-- Eject the player from the minecart if it has crashed into a wall
+addHook("MobjMoveBlocked", function(mo, line, thing)
+	if not (mo and mo.valid) then return end
+	A_Scream(mo)
+	mo.flags = $|MF_NOGRAVITY
+	if mo.target and mo.target.valid then
+		local player = mo.target.player
+		if player and player.valid then
+			P_ResetPlayer(player)
+-- 			mo.target.angle = mo.angle
+			P_InstaThrust(mo.target, mo.angle, 16*mo.scale)
+			player.rmomx = mo.target.momx + player.cmomx
+			player.rmomy = mo.target.momy + player.cmomy
+			P_SetObjectMomZ(mo.target, 12*FRACUNIT)
+			player.pflags = $ & ~PF_APPLYAUTOBRAKE
+			mo.target.state = S_PLAY_FALL
+			mo.target.tracer = nil
+		end
+	end
+	for i = 1, 6, 1 do
+		local wood = P_SpawnMobjFromMobj(mo, 0, 0, mo.info.height/2, MT_WOODDEBRIS)
+		if wood and wood.valid then
+			wood.flags = $|MF_NOCLIP|MF_NOCLIPHEIGHT
+			local speed = 12
+			local angle = FixedAngle(P_RandomRange(0, 360)*FRACUNIT)
+			local pitch = FixedAngle(P_RandomRange(0, 180)*FRACUNIT)
+			wood.momx = FixedMul(wood.scale, speed*FixedMul(cos(angle), cos(pitch)))
+			wood.momy = FixedMul(wood.scale, speed*FixedMul(sin(angle), cos(pitch)))
+			P_SetObjectMomZ(wood, speed*sin(pitch))
+		end
+	end
+	P_KillMobj(mo)
+end, MT_TGF_MINECART)
+
+addHook("TouchSpecial", function(special, toucher)
+	if not (special and special.valid and toucher and toucher.valid) then return end
+	if not (toucher.player and toucher.player.valid) then return end
+	local player = toucher.player
+	-- Don't let bots control minecarts
+	if not player.bot and player.bot ~= BOT_MPAI then
+		special.flags = $ & ~MF_SPECIAL
+		special.state = special.info.seestate
+		special.target = toucher
+		special.height = toucher.height
+		
+		P_ResetPlayer(player)
+		toucher.angle = special.angle
+		toucher.tracer = special
+		
+		local newcart = P_SpawnMobjFromMobj(special, 0, 0, 0, special.type)
+		if newcart and newcart.valid then
+			newcart.spawnpoint = special.spawnpoint
+			newcart.angle = special.angle
+			newcart.flags = $|MF_NOCLIPTHING
+			newcart.flags2 = $|MF2_DONTDRAW
+			newcart.tgfCartSpawnTimer = 3*TICRATE
+		end
+	end
+	return true
+end, MT_TGF_MINECART)
+
+-- Using ThinkFrame instead of PlayerThink puts the player in the exact position of the minecart, instead of behind it
+addHook("ThinkFrame", do
+	for player in players.iterate do
+		if not (player and player.valid) then continue end
+		if not (player.mo and player.mo.valid) then continue end
+		if player.mo.health <= 0 then
+			player.mo.tracer = nil -- Just to be safe
+			continue
+		end
+		local minecart = player.mo.tracer
+		if not (minecart and minecart.valid and minecart.health > 0) then continue end
+		if minecart.type ~= MT_TGF_MINECART then return end
+	
+		if player.mo.state ~= S_PLAY_ROLL then
+			player.mo.state = S_PLAY_ROLL
+-- 			player.mo.tics = -1
+		end
+-- 		player.pflags = $|PF_SPINNING
+		player.powers[pw_nocontrol] = 2
+-- 		player.mo.angle = minecart.angle
+		player.drawangle = minecart.angle
+		local zOffset = minecart.height/3
+		local z = minecart.z + zOffset
+		if (minecart.eflags & MFE_VERTICALFLIP) then
+			z = minecart.z + minecart.height - player.mo.height - zOffset
+		end
+		P_MoveOrigin(player.mo, minecart.x, minecart.y, z)
+		player.mo.momx = minecart.momx
+		player.mo.momy = minecart.momy
+		player.mo.momz = minecart.momz
+	end
+end)
+
+mobjinfo[MT_TGF_MINECART] = {
+	--$Name TGF Minecart
+	--$Sprite TCRTA3A7
+	--$Category Mine Maze
+	doomednum = 1240,
+	spawnstate = S_TGF_MINECART_IDLE,
+	spawnhealth = 1000,
+	seestate = S_TGF_MINECART_MOVING,
+	deathstate = S_TNTBARREL_EXPL4,
+	deathsound = sfx_crumbl,
+	radius = 24*FRACUNIT,
+	height = 32*FRACUNIT,
+	dispoffset = 2,
+	flags = MF_SPECIAL
+}
+
+states[S_TGF_MINECART_IDLE] = 	{SPR_TCRT,	A,				-1,	nil,	0,	0,	S_NULL}
+states[S_TGF_MINECART_MOVING] = {SPR_TCRT,	A|FF_ANIMATE,	-1,	nil,	1,	1,	S_NULL}

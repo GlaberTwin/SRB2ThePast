@@ -1,0 +1,60 @@
+// SRB1 POGMinz - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+// NORMAL
+
+freeslot(
+	"MT_SRB1_HOPPY",
+	"S_SRB1_HOPPY1",
+	"S_SRB1_HOPPY2",
+	"SPR_SRBE"
+)
+
+mobjinfo[MT_SRB1_HOPPY] = {
+	//$Name Pogminz
+	//$Sprite SRBEA1
+	//$Category SRB1 Enemies
+	doomednum = 4004,
+	spawnstate = S_SRB1_HOPPY1,
+	spawnhealth = 1,
+	seestate = S_SRB1_HOPPY1,
+	reactiontime = 2,
+	painchance = 3072,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = FRACUNIT,
+	radius = 20*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY
+}
+
+states[S_SRB1_HOPPY1] =	{SPR_SRBE,	A,	2,	A_BunnyHop,	7,	2,	S_SRB1_HOPPY2}
+states[S_SRB1_HOPPY2] =	{SPR_SRBE,	B,	2,	A_BunnyHop,	7,	-2,	S_SRB1_HOPPY1}
+
+// WATER
+
+freeslot(
+	"MT_SRB1_HOPPYWATER",
+	"S_SRB1_HOPPYWATER1",
+	"S_SRB1_HOPPYWATER2"
+)
+
+mobjinfo[MT_SRB1_HOPPYWATER] = {
+	//$Name Pogminz (Water)
+	//$Sprite SRBEA1
+	//$Category SRB1 Enemies
+	doomednum = 4005,
+	spawnstate = S_SRB1_HOPPYWATER1,
+	spawnhealth = 1,
+	seestate = S_SRB1_HOPPYWATER1,
+	reactiontime = 2,
+	painchance = 3072,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = FRACUNIT,
+	radius = 20*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY
+}
+
+states[S_SRB1_HOPPYWATER1] =	{SPR_SRBE,	A,	2,	A_BunnyHop,	4,	2,	S_SRB1_HOPPYWATER2}
+states[S_SRB1_HOPPYWATER2] =	{SPR_SRBE,	B,	2,	A_BunnyHop,	4,	-2,	S_SRB1_HOPPYWATER1}

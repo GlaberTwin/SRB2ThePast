@@ -1,0 +1,42 @@
+-- Retro Boss Commonalities
+
+-- A_BossDeath portion ported from 2.1.25
+function A_21BossDeath(actor)
+	-- Stop exploding and prepare to run.
+	actor.state = actor.info.xdeathstate
+	if not actor.valid then return end
+	
+	actor.target = nil
+	local bossid = 0
+	if actor.spawnpoint and actor.spawnpoint.valid then bossid = actor.spawnpoint.args[0] end
+	
+	-- Flee! Flee! Find a point to escape to! If none, just shoot upward!
+	-- scan the thinkers to find the runaway point
+	for th in mobjs.iterate() do
+		if th.type == MT_BOSSFLYPOINT then
+			-- UDMF support for Boss IDs!
+			if udmf then
+				if not (th.spawnpoint and th.spawnpoint.valid and bossid == th.spawnpoint.tag) then continue end
+			end
+			
+			-- If this one's closer then the last one, go for it
+			if not (actor.target and actor.target.valid) or
+			FixedHypot(FixedHypot(actor.x - th.x, actor.y - th.y), actor.z - th.z) <
+			FixedHypot(FixedHypot(actor.x - actor.target.x, actor.y - actor.target.y), actor.z - actor.target.z) then
+				actor.target = th
+			end
+			-- Otherwise... Don't!
+		end
+	end
+	
+	actor.flags = $|MF_NOGRAVITY|MF_NOCLIP
+	actor.flags = $|MF_NOCLIPHEIGHT
+	
+	if actor.target and actor.target.valid then
+		actor.angle = R_PointToAngle2(actor.x, actor.y, actor.target.x, actor.target.y)
+		actor.flags2 = $|MF2_BOSSFLEE
+		actor.momz = FixedMul(FixedDiv(actor.target.z - actor.z, FixedHypot(actor.x-actor.target.x,actor.y-actor.target.y)), FixedMul(2*FRACUNIT, actor.scale))
+	else
+		actor.momz = FixedMul(2*FRACUNIT, actor.scale)
+	end
+end

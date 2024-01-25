@@ -1,0 +1,106 @@
+-- TGF Monitor Commonalities - "Ported" by MIDIMan
+-- Use with the other LUA_TBX* scripts
+
+freeslot(
+	"SPR_TBOX",
+	"SPR_TBXX",
+	"sfx_tgfbng",
+	"S_TGFBOX_CHOOSEEXPLOSION",
+	"S_TGFBOX_EXPLODE",
+	"S_TGFBOX_BIGEXPLODE",
+	"S_TGFBOX_FUSE"
+)
+
+rawset(_G, "RM_TGFMonitorGiveAbility", function(mo, action, var1, var2)
+	if not (mo and mo.valid) then return end
+	if not action then return end
+	if not var1 then var1 = 0 end
+	if not var2 then var2 = 0 end
+	
+	if not (mo.target and mo.target.valid) then return end
+	local player = mo.target.player
+	if not (player and player.valid) then return end
+	
+	-- Prevent 2-player bots from stealing your power-ups
+	-- I don't know why SRB2 doesn't automatically do this for all power-up actions besides A_RingBox
+	if (player.bot == BOT_2PAI or player.bot == BOT_2PHUMAN) and player.botleader then
+		player = player.botleader
+		mo.target = player.mo
+	end
+	
+	action(mo, var1, var2)
+end)
+
+sfxinfo[sfx_tgfbng].caption = "Speed burst"
+
+rawset(_G, "RM_TGFPowerUpSetup", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	-- Don't offset the power-up if the "float" argument is unchecked
+	if udmf and mthing.args[0] then return end -- Make this consistent with the ring
+	if not udmf and not (mthing.options & MTF_AMBUSH) then return end
+	
+	-- Make the power-up float if the "Ambush" flag is set
+	local offset = 24*FRACUNIT
+	
+	if (mthing.options & MTF_OBJECTFLIP) then
+		mo.z = mo.ceilingz - FixedMul(mo.scale, offset + mo.info.height)
+	else
+		mo.z = mo.floorz + FixedMul(mo.scale, offset)
+	end
+end)
+
+rawset(_G, "RM_TGFMonitorFuseThink", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	local newmobj = P_SpawnMobjFromMobj(mo, 0, 0, 0, mo.type)
+	
+	newmobj.flags2 = mo.flags2
+	newmobj.spawnpoint = mo.spawnpoint
+	newmobj.rmShieldEra = mo.rmShieldEra
+	
+	P_RemoveMobj(mo)
+	return true
+end)
+
+rawset(_G, "RM_TGFMonitorTouchSpecial", function(special, toucher)
+	if not (special and special.valid and toucher and toucher.valid) then return end
+	
+	if not special.health then return end
+	
+	P_KillMobj(special, toucher, toucher)
+	return true
+end)
+
+rawset(_G, "RM_TGFMonitorDeath", function(target, _, _, _)
+	if not (target and target.valid) then return end
+	
+	if target.info.deathsound then S_StartSound(target, target.info.deathsound) end
+end)
+
+-- Allow any power-ups to respawn in a non-coop multiplayer game
+rawset(_G, "RM_TGFPowerUpDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if CV_FindVar("respawnitem").value and gametype ~= GT_COOP and (modifiedgame or netgame or multiplayer) then
+		mo.fuse = CV_FindVar("respawnitemtime").value*TICRATE + 2
+	end
+end)
+
+function A_ChooseExplosion(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	if actor.spawnpoint and actor.spawnpoint.valid then
+		if (udmf and actor.spawnpoint.args[1])
+		or (not udmf and (actor.spawnpoint.options & MTF_OBJECTSPECIAL)) then
+			actor.state = S_TGFBOX_BIGEXPLODE
+		else
+			actor.state = S_TGFBOX_EXPLODE
+		end
+	end
+end
+
+states[S_TGFBOX_CHOOSEEXPLOSION] =	{SPR_TBXX,	A,				0,	A_ChooseExplosion,	0,	0,	S_NULL}
+states[S_TGFBOX_EXPLODE] =			{SPR_TBXX,	A|FF_ANIMATE,	12,	A_Fall,				5,	2,	S_TGFBOX_FUSE}
+states[S_TGFBOX_BIGEXPLODE] =		{SPR_TBXX,	G|FF_ANIMATE,	12,	A_Fall,				5,	2,	S_TGFBOX_FUSE}
+states[S_TGFBOX_FUSE] =				{SPR_NULL,	A,				-1,	nil,				0,	0,	S_NULL}

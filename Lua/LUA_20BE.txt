@@ -1,0 +1,963 @@
+-- 2.0 Brak Eggman (Black Egg) - Ported from 2.0.7
+-- PLEASE LOAD LUA_BECM BEFORE THIS
+
+freeslot(
+	-- Sprites
+	-- Sounds
+	-- Objects
+	"MT_OLDBLACKEGGMAN",
+	"MT_OLDBLACKEGGMAN_HELPER",
+	"MT_OLDBLACKEGGMAN_GOOPFIRE",
+	"MT_OLDBLACKEGGMAN_MISSILE",
+	"MT_OLDEXPLODE",
+	-- States
+	"S_OLDBLACKEGG_STND",
+	"S_OLDBLACKEGG_STND2",
+	"S_OLDBLACKEGG_WALK1",
+	"S_OLDBLACKEGG_WALK2",
+	"S_OLDBLACKEGG_WALK3",
+	"S_OLDBLACKEGG_WALK4",
+	"S_OLDBLACKEGG_WALK5",
+	"S_OLDBLACKEGG_WALK6",
+	"S_OLDBLACKEGG_SHOOT1",
+	"S_OLDBLACKEGG_SHOOT2",
+	"S_OLDBLACKEGG_PAIN1",
+	"S_OLDBLACKEGG_PAIN2",
+	"S_OLDBLACKEGG_PAIN3",
+	"S_OLDBLACKEGG_PAINREPEAT",
+	"S_OLDBLACKEGG_PAIN4",
+	"S_OLDBLACKEGG_PAIN5", -- Originally went up to 35
+	"S_OLDBLACKEGG_HITFACE1",
+	"S_OLDBLACKEGG_HITFACE2",
+	"S_OLDBLACKEGG_HITFACE3",
+	"S_OLDBLACKEGG_HITFACE4",
+	"S_OLDBLACKEGG_DIE1",
+	"S_OLDBLACKEGG_DIE2",
+	"S_OLDBLACKEGG_DIE3",
+	"S_OLDBLACKEGG_DIE4",
+	"S_OLDBLACKEGG_DIE5",
+	"S_OLDBLACKEGG_MISSILE1",
+	"S_OLDBLACKEGG_MISSILE2",
+	"S_OLDBLACKEGG_MISSILE3",
+	"S_OLDBLACKEGG_GOOP",
+	"S_OLDBLACKEGG_JUMP1",
+	"S_OLDBLACKEGG_JUMP2",
+	"S_OLDBLACKEGG_DESTROYPLAT1",
+	"S_OLDBLACKEGG_DESTROYPLAT2",
+	"S_OLDBLACKEGG_DESTROYPLAT3",
+	"S_OLDBLACKEGG_HELPER",
+	"S_OLDBLACKEGG_GOOP1",
+	"S_OLDBLACKEGG_GOOP2",
+	"S_OLDBLACKEGG_GOOP3",
+	"S_OLDBLACKEGG_GOOP4",
+	"S_OLDBLACKEGG_GOOP5",
+	"S_OLDBLACKEGG_GOOP6",
+	"S_OLDBLACKEGG_GOOP7",
+	"S_OLDBLACKEGG_MISSILE"
+)
+
+local RB_20BRAK_NOSCALING = 1
+local RB_20BRAK_HALFSIZE = 2
+
+-- 2.0 Brak Eggman
+
+-- Make a cusotmized version of A_LobShot specifically so 2.0 Brak can fire correctly
+-- scaled versions
+function A_OldBrakLobShot(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local locvar2 = var2 / (2^16)
+	local shot, hitspot
+	local an
+	local z
+	local dist
+	local vertical, horizontal
+	local airtime = (var2 & 65535)
+	
+	if not (actor.target and actor.target.valid) then return end
+	
+	A_FaceTarget(actor)
+	
+	shot = P_SpawnMobjFromMobj(actor, 0, 0, locvar2*FRACUNIT, var1)
+	shot.scale = $/2
+	
+	-- Keep track of where it's going to land
+	local hitSpotZ = actor.target.z
+	if actor.target.subsector and actor.target.subsector.valid then hitSpotZ = actor.target.subsector.sector.floorheight end
+	hitspot = P_SpawnMobj(actor.target.x & (64*FRACUNIT-1), actor.target.y & (64*FRACUNIT-1), hitSpotZ, MT_THOK)
+	hitspot.tics = airtime
+	shot.tracer = hitspot
+	
+	shot.target = actor -- where it came from
+	
+	shot.angle = actor.angle
+	an = actor.angle
+	
+	dist = FixedHypot(actor.target.x - shot.x, actor.target.y - shot.y)
+	
+	horizontal = dist / airtime
+	vertical = (abs(P_GetMobjGravity(actor))*airtime)/2
+	
+	shot.momx = FixedMul(horizontal, cos(an))
+	shot.momy = FixedMul(horizontal, sin(an))
+	P_SetObjectMomZ(shot, vertical)
+-- 	shot.momz = vertical
+	
+	if shot.info.seesound then
+		S_StartSound(shot, shot.info.seesound)
+	end
+	
+	if hitspot and hitspot.valid then P_RemoveMobj(hitspot) end
+end
+
+-- Emulate the wonky "gravity" when the player gets hurt in an "OldBrak" level in 2.0
+addHook("MobjDamage", function(target, inflictor, source)
+	if not (target and target.valid
+	and target.player and target.player.valid) then
+		return
+	end
+	
+	if (maptol & TOL_OLDBRAK) then target.player.hitinoldbrak = true end
+end, MT_PLAYER)
+
+local function RetryAttack(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.threshold == 0 then -- Lob cannon balls
+		if mo.z < 1056*FRACUNIT then
+			A_FaceTarget(mo)
+			mo.state = mo.info.xdeathstate
+			mo.movecount = 7*TICRATE + P_RandomByte()
+		else
+			mo.threshold = $+1
+			RetryAttack(mo)
+			return -- Prevents a neverending recursive loop
+		end
+	elseif mo.threshold == 1 then	-- Chaingun Goop
+		A_FaceTarget(mo)
+		mo.state = S_OLDBLACKEGG_SHOOT1
+		
+		if mo.health > 2 then
+			mo.movecount = TICRATE + P_RandomByte()/3
+		else
+			mo.movecount = TICRATE + P_RandomByte()/2
+		end
+	elseif mo.threshold == 2 then -- Homing Missile
+		A_FaceTarget(mo)
+		mo.state = mo.info.missilestate
+		S_StartSound(nil, sfx_beflap)
+	end
+	
+	mo.threshold = $+1
+	mo.threshold = $%3
+	return true
+end
+
+addHook("BossThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if not (mo.target and mo.target.valid and (mo.target.flags & MF_SHOOTABLE))
+		-- look for a new target
+		if P_LookForPlayers(mo, 0, true, false) then return true end
+		
+		P_SetMobjStateNF(mo, mo.info.spawnstate)
+		return true
+	end
+	
+	if mo.health >= 8 and (leveltime & 14) == 0 then
+		local smokemobj = P_SpawnMobj(mo.x, mo.y, mo.z + mo.height, MT_SMOKE)
+		smokemobj.destscale = mo.scale
+		P_SetScale(smokemobj, mo.scale)
+		smokemobj.momz = P_MobjFlip(smokemobj)*FixedMul(mo.scale, 2*FRACUNIT)
+	end
+	
+	if mo.state == S_OLDBLACKEGG_STND and mo.tics == states[mo.state].tics then
+		mo.reactiontime = $+P_RandomByte()
+		
+		if mo.health <= 2 then mo.reactiontime = $/4 end
+	elseif mo.state == S_OLDBLACKEGG_DIE4 and mo.tics == states[mo.state].tics then
+		mo.health = 0
+		
+		-- This replaces what would have been an expensive mobjs.iterate loop
+		A_BossDeath(mo, 0, 0)
+	elseif mo.state >= S_OLDBLACKEGG_WALK1
+	and mo.state <= S_OLDBLACKEGG_WALK6 then
+		-- Chase
+		local delta
+		local i
+		
+		if not P_IsObjectOnGround(mo) then return true end
+		
+		-- Self-adjust if stuck on the edge
+		if mo.tracer and mo.tracer.valid then
+			-- *** I might need to use FixedMul with mo.scale here ***
+			if FixedHypot(mo.x - mo.tracer.x, mo.y - mo.tracer.y) > FixedMul(mo.scale, 128*FRACUNIT) - mo.radius
+				P_InstaThrust(mo, R_PointToAngle2(mo.x, mo.y, mo.tracer.x, mo.tracer.y), FixedMul(mo.scale, FRACUNIT))
+			end
+		end
+		
+		if (mo.flags2 & MF2_FRET) then
+			mo.state = S_OLDBLACKEGG_DESTROYPLAT1
+			S_StartSound(nil, sfx_s3k53) -- sfx_s3k53 is a replacement for sfx_s3k_34
+			mo.flags2 = $ & ~MF2_FRET
+			return true
+		end
+		
+		-- turn towards movement direction if not there yet
+		if mo.movedir < NUMDIRS then -- NUMDIRS should be 8
+			mo.angle = $ & (7 * (2^29))
+			delta = mo.angle - (mo.movedir * (2^29))
+			
+			if delta > 0 then
+				mo.angle = $-ANGLE_45
+			elseif delta < 0 then
+				mo.angle = $+ANGLE_45
+			end
+		end
+		
+		-- Is a player on top of us?
+		for player in players.iterate do
+			if not player.valid or player.spectator then continue end
+			if not (player.mo and player.mo.valid) then continue end
+			if player.mo.health <= 0 then continue end
+			if FixedHypot(player.mo.x - mo.x, player.mo.y - mo.y) > mo.radius then continue end
+			
+			-- This statement has been touched up to account for the boss's scale
+			if player.mo.z > mo.z + mo.height - FixedMul(mo.scale, 2*FRACUNIT)
+			and player.mo.z < mo.z + mo.height + FixedMul(mo.scale, 32*FRACUNIT) then
+				-- Punch him!
+				mo.state = mo.info.meleestate
+				S_StartSound(nil, sfx_begrnd) -- warning sound
+				return true
+			end
+		end
+		
+		if mo.health <= 2
+		and mo.target
+		and mo.target.player
+		and mo.target.player.powers[pw_carry] == CR_GENERIC then
+			A_FaceTarget(mo)
+			mo.state = S_OLDBLACKEGG_SHOOT1
+			mo.movecount = TICRATE + P_RandomByte()/2
+			return true
+		end
+		
+		if mo.reactiontime then mo.reactiontime = $-1 end
+		
+		if mo.reactiontime <= 0 and P_IsObjectOnGround(mo) then
+			-- Here, we'll call P_Random() and decide what kind of attack to do
+			RetryAttack(mo)
+		end
+		
+		-- possibly choose another target
+		if multiplayer and mo.target.health <= 0 or not P_CheckSight(mo, mo.target)
+		and P_LookForPlayers(mo, 0, true, false) then
+			return true -- got a new target
+		end
+		
+		if (leveltime & 1) then
+			-- chase towards player
+			mo.movecount = $-1
+			-- This statement has been touched up to account for the boss's scale
+			if mo.movecount < 0 or not P_Move(mo, FixedMul(mo.scale, mo.info.speed)) then
+				P_NewChaseDir(mo)
+			end
+		end
+	elseif mo.state == S_OLDBLACKEGG_MISSILE3 and mo.tics == states[S_OLDBLACKEGG_MISSILE3].tics then
+		-- set dummymo's coordinates
+		local dummymo = P_SpawnMobj(mo.target.x, mo.target.y, mo.target.z + FixedMul(mo.scale, 16*FRACUNIT), MT_THOK)
+		
+		if not (mo.target and mo.target.valid) then
+			mo.state = mo.info.spawnstate
+			return true
+		end
+		
+		A_FaceTarget(mo)
+		
+		P_SpawnXYZMissile(mo, dummymo, MT_OLDBLACKEGGMAN_MISSILE,
+			mo.x + P_ReturnThrustX(mo, mo.angle-ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.y + P_ReturnThrustY(mo, mo.angle-ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.z + FixedDiv(mo.height, 3*FRACUNIT/2)
+		)
+		
+		P_SpawnXYZMissile(mo, dummymo, MT_OLDBLACKEGGMAN_MISSILE,
+			mo.x + P_ReturnThrustX(mo, mo.angle+ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.y + P_ReturnThrustY(mo, mo.angle+ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.z + FixedDiv(mo.height, 3*FRACUNIT/2)
+		)
+		
+		P_SpawnXYZMissile(mo, dummymo, MT_OLDBLACKEGGMAN_MISSILE,
+			mo.x + P_ReturnThrustX(mo, mo.angle-ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.y + P_ReturnThrustY(mo, mo.angle-ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.z + mo.height/2
+		)
+		
+		P_SpawnXYZMissile(mo, dummymo, MT_OLDBLACKEGGMAN_MISSILE,
+			mo.x + P_ReturnThrustX(mo, mo.angle+ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.y + P_ReturnThrustY(mo, mo.angle+ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.z + mo.height/2
+		)
+		
+		if dummymo and dummymo.valid then P_RemoveMobj(dummymo) end
+	elseif mo.state == S_OLDBLACKEGG_PAIN1 and mo.tics == states[mo.state].tics
+		if mo.health > 0 then mo.health = $-1 end
+		
+		mo.reactiontime = $/3
+		
+		-- This might need to be changed
+		if mo.health <= 0 then
+			P_KillMobj(mo, nil, nil)
+			
+			-- The following code is meant to be a replacement for the score adding 
+			-- part of A_BossDeath since the original code did not call the action. 
+			-- However, since the action is called in this port, this code is not needed.
+			-- It was a team effort
+-- 			for player in players.iterate
+-- 				-- This is a bug from 2.0.7 where the player does not get rewarded points for defeating 2.0 Brak
+-- 				if not player.valid
+-- 					continue
+-- 				end
+				
+-- 				P_AddPlayerScore(player, 1000)
+-- 			end
+		end
+	elseif mo.state == S_OLDBLACKEGG_PAIN5 and mo.tics == 1 then
+		if mo.health == mo.info.damage then
+			-- Begin platform destruction
+			mo.flags2 = $|MF2_FRET
+			mo.state = mo.info.raisestate
+			-- UDMF support for pinch phase!
+			if mo.spawnpoint and mo.spawnpoint.valid then
+				P_LinedefExecute(mo.spawnpoint.args[4], mo, nil)
+			end
+		end
+	elseif mo.state == S_OLDBLACKEGG_HITFACE4 and mo.tics == states[mo.state].tics then
+		-- This is where Black Eggman hits his face.
+		-- If a player is on top of him, the player gets hurt.
+		-- But, if the player has managed to escape,
+		-- Black Eggman gets hurt!
+		states[mo.state].nextstate = mo.info.painstate -- Reset
+		
+		S_StartSound(nil, sfx_bedeen)
+		
+		for player in players.iterate do
+			if not player.valid or player.spectator then continue end
+			if not (player.mo and player.mo.valid) then continue end
+			if player.mo.health <= 0 then continue end
+			if FixedHypot(player.mo.x - mo.x, player.mo.y - mo.y) > mo.radius + player.mo.radius then continue end
+			
+			if player.mo.z > mo.z + mo.height - mo.scale
+			and player.mo.z < mo.z + mo.height + 128*mo.scale then -- You can't be in the vicinity, either...
+				-- Punch him!
+				P_DamageMobj(player.mo, mo, mo, 1)
+				states[mo.state].nextstate = mo.info.spawnstate
+				
+				-- Laugh
+				S_StartSound(nil, sfx_bewar1 + (P_RandomByte() % 4))
+			end
+		end
+	elseif mo.state == S_OLDBLACKEGG_GOOP then
+		-- Lob cannon balls
+		mo.movecount = $-1
+		if mo.movecount <= 0 or not (mo.target and mo.target.valid) then
+			mo.state = mo.info.spawnstate
+			return true
+		end
+		
+		if (leveltime % 15) == 1 then
+			-- Replace MT_CANNONBALL if it gets removed in the future
+			A_OldBrakLobShot(mo, MT_CANNONBALL, 2*TICRATE + (80<<16))
+			S_StartSound(nil, sfx_begoop)
+		end
+	elseif mo.state == S_OLDBLACKEGG_SHOOT2 then
+		-- Chaingun goop
+		local missile
+		
+		mo.movecount = $-1
+		if mo.movecount <= 0 or not (mo.target and mo.target.valid) then
+			mo.state = mo.info.spawnstate
+			return true
+		end
+		
+		A_FaceTarget(mo)
+		
+		missile = P_SpawnXYZMissile(mo, mo.target, MT_OLDBLACKEGGMAN_GOOPFIRE,
+			mo.x + P_ReturnThrustX(mo, mo.angle-ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.y + P_ReturnThrustY(mo, mo.angle-ANGLE_90, FixedDiv(mo.radius, 3*FRACUNIT/2)+(4*FRACUNIT)),
+			mo.z + FixedDiv(mo.height, 3*FRACUNIT/2)
+		)
+		
+		if missile then S_StopSound(missile) end
+		if (leveltime & 1) then S_StartSound(nil, sfx_beshot) end
+	elseif mo.state == S_OLDBLACKEGG_JUMP1 and mo.tics == 1 then
+		local hitspot = nil
+		local an
+		local dist, closestdist
+		local vertical, horizontal
+		local airtime = 5*TICRATE
+		local waypointNum = 0
+		local foundgoop = false
+		local closestNum
+		
+		-- *** There's likely a less expensive way to do the following, but I'm 
+		-- too tired to figure it out right now...
+		
+		-- Looks for players in goop. If you find one, try to jump on him.
+		for player in players.iterate do
+			if not player.valid or player.spectator then continue end
+			if not (player.mo and player.mo.valid) then continue end
+			if player.mo.health <= 0 then continue end
+			
+			-- This might need to be changed if it gets removed in the future
+			if player.powers[pw_carry] == CR_BRAKGOOP then
+				closestNum = -1
+				closestdist = 16384*FRACUNIT -- Just in case...
+				
+				-- Find waypoint he is closest to
+				for mo2 in mobjs.iterate() do
+					if mo2.type == MT_BOSS3WAYPOINT and mo2.spawnpoint and mo2.spawnpoint.valid then
+						dist = FixedHypot(player.mo.x - mo2.x, player.mo.y - mo2.y)
+						
+						if closestNum == -1 or dist < closestdist then
+							closestNum = (mo2.spawnpoint.options & 7)
+							if udmf and mo2.spawnpoint.args[1] then closestNum = mo2.spawnpoint.args[1] end
+							closestdist = dist
+							foundgoop = true
+						end
+					end
+				end
+				waypointNum = closestNum
+				break
+			end
+		end
+		
+		if not foundgoop then
+			if mo.z > 1056*FRACUNIT then
+				waypointNum = 0
+			else
+				waypointNum = 1 + (P_RandomByte() % 4)
+			end
+		end
+		
+		-- Don't jump to the center when health is low.
+		-- Force the player to beat you with missiles.
+		if mo.health <= 2 and waypointNum == 0 then
+			waypointNum = 1 + (P_RandomByte() % 4)
+		end
+		
+		if mo.tracer and mo.tracer.valid and mo.tracer.type == MT_BOSS3WAYPOINT
+		and mo.tracer.spawnpoint and mo.tracer.spawnpoint.valid 
+		and ((not udmf and (mo.tracer.spawnpoint.options & 7) == waypointNum)
+		or (udmf and mo.tracer.spawnpoint.args[1] == waypointNum)) then
+			if (P_RandomByte() & 1) then
+				waypointNum = $+1
+			else
+				waypointNum = $-1
+			end
+			
+			waypointNum = $%5
+			
+			if waypointNum < 0 then waypointNum = 0 end
+		end
+		
+		if waypointNum == 0 and mo.health <= 2 then
+			waypointNum = 1 + (P_RandomByte() & 1)
+		end
+		
+		-- scan the thinkers to find
+		-- the waypoint to use
+		for mo2 in mobjs.iterate() do
+			if mo2.valid and mo2.type == MT_BOSS3WAYPOINT and mo2.spawnpoint and mo2.spawnpoint.valid 
+			and ((not udmf and (mo2.spawnpoint.options & 7) == waypointNum)
+			or (udmf and mo2.spawnpoint.args[1] == waypointNum)) then
+				hitspot = mo2
+				break
+			end
+		end
+		
+		if hitspot == nil then
+			print("BlackEggman unable to find waypoint " + waypointNum + "!")
+			mo.state = mo.info.spawnstate
+			return true
+		end
+		
+		mo.tracer = hitspot
+		
+		mo.angle = R_PointToAngle2(mo.x, mo.y, hitspot.x, hitspot.y)
+		
+		an = mo.angle
+		
+		dist = FixedHypot(hitspot.x - mo.x, hitspot.y - mo.y)
+		
+		horizontal = dist/airtime
+		vertical = abs((P_GetMobjGravity(mo)*airtime)/2)
+		
+		mo.momx = FixedMul(horizontal, cos(an))
+		mo.momy = FixedMul(horizontal, sin(an))
+		P_SetObjectMomZ(mo, vertical, false)
+	elseif mo.state == S_OLDBLACKEGG_JUMP2 and P_IsObjectOnGround(mo) then
+		-- BANG! onto the ground
+		local ns
+		local x,y,z
+		local mo2
+		
+		S_StartSound(nil, sfx_befall)
+		
+		z = P_MobjFlip(mo) > 0 and mo.floorz or mo.ceilingz
+		for j = 0, 1, 1 do
+			for i = 0, 31, 1 do
+				local fa = i*ANGLE_22h -- Replacement for i*FINEANGLE/16
+				ns = FixedMul(mo.scale, 64*FRACUNIT)
+				x = mo.x + FixedMul(sin(fa), ns)
+				y = mo.y + FixedMul(cos(fa), ns)
+				
+				mo2 = P_SpawnMobj(x, y, z, MT_EXPLODE)
+-- 				mo2.state = S_MINE_BOOM1 -- Uncomment this if you want the explosion sprites to be accurate to 2.0
+				ns = FixedMul(mo.scale, 16*FRACUNIT)
+				mo2.momx = FixedMul(sin(fa), ns)
+				mo2.momy = FixedMul(cos(fa), ns)
+			end
+			z = $ - FixedMul(mo.scale, 32*FRACUNIT)
+		end
+		
+		-- Hurt player??
+		for player in players.iterate do
+			if not player.valid or player.spectator then continue end
+			if not (player.mo and player.mo.valid) then continue end
+			if player.mo.health <= 0 then continue end
+			if FixedHypot(player.mo.x - mo.x, player.mo.y - mo.y) > mo.radius*4 then continue end
+			if player.mo.z > mo.z + FixedMul(mo.scale, 128*FRACUNIT) then continue end
+			if player.mo.z < mo.z - FixedMul(mo.scale, 64*FRACUNIT) then continue end
+			
+			P_DamageMobj(player.mo, mo, mo, 1)
+			
+			-- Laugh
+			S_StartSound(nil, sfx_bewar1 + (P_RandomByte() % 4))
+		end
+		
+		mo.state = mo.info.spawnstate
+	elseif mo.state == mo.info.deathstate and mo.tics == states[mo.state].tics then
+		S_StartSound(nil, sfx_bedie1 + (P_RandomByte() & 1))
+	end
+	
+	return true
+end, MT_OLDBLACKEGGMAN)
+
+-- Force any rings in an "OldBrak" level to be scaled down
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid) then return end
+	
+	if (maptol & TOL_OLDBRAK) then
+		mo.scale = $/2
+	end
+end, MT_RING)
+
+-- Special thanks to Tatsuru for the tip on using MapThingSpawn instead of MobjSpawn
+-- for scaling objects
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	if not udmf or (udmf and not (mthing.args[6] & RB_20BRAK_NOSCALING)) then
+		if (not udmf and not (mthing.options & MTF_EXTRA))
+		or (udmf and not (mthing.args[6] & RB_20BRAK_HALFSIZE)) then
+			if (maptol & TOL_OLDBRAK) then
+				mo.scale = $
+			else
+				mo.scale = $*2
+			end
+		else
+			if (maptol & TOL_OLDBRAK) then
+				mo.scale = $/2
+			else
+				mo.scale = $
+			end
+		end
+	end
+	
+	local spawn = P_SpawnMobjFromMobj(mo, 0, 0, mo.info.height - 16*FRACUNIT, MT_OLDBLACKEGGMAN_HELPER)
+	spawn.target = mo
+end, MT_OLDBLACKEGGMAN)
+
+addHook("BossDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	mo.target = nil
+	
+	mo.flags = $|MF_NOCLIP
+	mo.flags = $ & ~MF_SPECIAL
+	
+	S_StartSound(nil, sfx_befall)
+	
+	return true
+end, MT_OLDBLACKEGGMAN)
+
+-- Prevent 2.0 Brak from being damaged by players normally
+addHook("TouchSpecial", function(special, toucher)
+	if not (special and special.valid and toucher and toucher.valid) then return end
+	
+	P_DamageMobj(toucher, special, special, 1) -- ouch
+	return true
+end, MT_OLDBLACKEGGMAN)
+
+mobjinfo[MT_OLDBLACKEGGMAN] = {
+	--$Name 2.0 Brak Eggman
+	--$Sprite OBRKA1
+	--$Category Bosses
+	--$Flags1Text Half size
+	--$Flags4Text End level on death
+	--$Arg0 Boss ID
+	--$Arg1 End level on death?
+	--$Arg1Type 11
+	--$Arg1Enum noyes
+	--$Arg2 Death trigger tag
+	--$Arg2Type 15
+	--$Arg3 Victory trigger tag
+	--$Arg3Type 15
+	--$Arg4 Pinch trigger tag
+	--$Arg4Type 15
+	--$Arg5 Platform trigger tag
+	--$Arg5Type 15
+	--$Arg6 Flags
+	--$Arg6Type 12
+	--$Arg6Enum {1 = "Don't automatically scale"; 2 = "Spawn at half-size";}
+	doomednum = 4056, -- Originally 206
+	spawnstate = S_OLDBLACKEGG_STND,
+	spawnhealth = 8,
+	seestate = S_OLDBLACKEGG_WALK1,
+	reactiontime = 8*TICRATE,
+	painstate = S_OLDBLACKEGG_PAIN1,
+	meleestate = S_OLDBLACKEGG_HITFACE1,
+	missilestate = S_OLDBLACKEGG_MISSILE1,
+	deathstate = S_OLDBLACKEGG_DIE1,
+	xdeathstate = S_OLDBLACKEGG_GOOP,
+	speed = 1,
+	radius = 48*FRACUNIT,
+	height = 160*FRACUNIT,
+	damage = 2,
+	flags = MF_SPECIAL|MF_BOSS,
+	raisestate = S_OLDBLACKEGG_JUMP1
+}
+
+-- Replace LE_BRAKPLATFORM if it gets replaced in the future
+local function RB_BrakPlatform(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	local tag = LE_BRAKPLATFORM
+	if udmf and actor.spawnpoint and actor.spawnpoint.valid then
+		tag = actor.spawnpoint.args[5]
+	end
+	P_LinedefExecute(tag, actor, nil)
+end
+
+states[S_OLDBLACKEGG_STND] =	{SPR_OBRK,	A,	1,	A_SetReactionTime,	0,	0,	S_OLDBLACKEGG_STND2}
+states[S_OLDBLACKEGG_STND2] =	{SPR_OBRK,	A,	7,	A_Look,				1,	0,	S_OLDBLACKEGG_STND2}
+
+states[S_OLDBLACKEGG_WALK1] =	{SPR_OBRK,	B,	7,	nil,			0,			0,	S_OLDBLACKEGG_WALK2}
+states[S_OLDBLACKEGG_WALK2] =	{SPR_OBRK,	C,	7,	nil,			0,			0,	S_OLDBLACKEGG_WALK3}
+states[S_OLDBLACKEGG_WALK3] =	{SPR_OBRK,	D,	7,	A_PlaySound,	sfx_bestep,	0,	S_OLDBLACKEGG_WALK4}
+states[S_OLDBLACKEGG_WALK4] =	{SPR_OBRK,	E,	7,	nil,			0,			0,	S_OLDBLACKEGG_WALK5}
+states[S_OLDBLACKEGG_WALK5] =	{SPR_OBRK,	F,	7,	nil,			0,			0,	S_OLDBLACKEGG_WALK6}
+states[S_OLDBLACKEGG_WALK6] =	{SPR_OBRK,	G,	7,	A_PlaySound,	sfx_bestp2,	0,	S_OLDBLACKEGG_WALK1}
+
+states[S_OLDBLACKEGG_SHOOT1] = 	{SPR_OBRK,	H,	3,	nil,			0,			0,	S_OLDBLACKEGG_SHOOT2}
+states[S_OLDBLACKEGG_SHOOT2] = 	{SPR_OBRK,	Y,	1,	A_PlaySound,	sfx_befire,	0,	S_OLDBLACKEGG_SHOOT1}
+
+states[S_OLDBLACKEGG_PAIN1] =		{SPR_OBRK,	I,	1,	A_PlaySound,	sfx_behurt,	0,						S_OLDBLACKEGG_PAIN2}
+states[S_OLDBLACKEGG_PAIN2] =		{SPR_OBRK,	Z,	1,	nil,			0,			0,						S_OLDBLACKEGG_PAIN3}
+states[S_OLDBLACKEGG_PAIN3] =		{SPR_OBRK,	I,	1,	nil,			0,			0,						S_OLDBLACKEGG_PAINREPEAT}
+-- I might have to change var1
+states[S_OLDBLACKEGG_PAINREPEAT] =	{SPR_OBRK,	Z,	0,	A_Repeat,		16,			S_OLDBLACKEGG_PAIN2,	S_OLDBLACKEGG_PAIN4}
+states[S_OLDBLACKEGG_PAIN4] = 		{SPR_OBRK,	Z,	1,	nil,			0,			0,						S_OLDBLACKEGG_PAIN5}
+states[S_OLDBLACKEGG_PAIN5] = 		{SPR_OBRK,	I,	1,	nil,			0,			0,						S_OLDBLACKEGG_WALK1}
+
+states[S_OLDBLACKEGG_HITFACE1] =	{SPR_OBRK,	J,	20,	nil,	0,	0,	S_OLDBLACKEGG_HITFACE2}
+states[S_OLDBLACKEGG_HITFACE2] =	{SPR_OBRK,	K,	2,	nil,	0,	0,	S_OLDBLACKEGG_HITFACE3}
+states[S_OLDBLACKEGG_HITFACE3] =	{SPR_OBRK,	L,	2,	nil,	0,	0,	S_OLDBLACKEGG_HITFACE4}
+states[S_OLDBLACKEGG_HITFACE4] =	{SPR_OBRK,	M,	14,	nil,	0,	0,	S_OLDBLACKEGG_PAIN1}
+
+states[S_OLDBLACKEGG_DIE1] =	{SPR_OBRK,	N,	14,	A_Scream,		sfx_bedie2,	0,	S_OLDBLACKEGG_DIE2}
+states[S_OLDBLACKEGG_DIE2] =	{SPR_OBRK,	O,	7,	nil,			0,			0,	S_OLDBLACKEGG_DIE3}
+states[S_OLDBLACKEGG_DIE3] =	{SPR_OBRK,	P,	5,	nil,			0,			0,	S_OLDBLACKEGG_DIE4}
+states[S_OLDBLACKEGG_DIE4] =	{SPR_OBRK,	Q,	3,	A_PlaySound,	sfx_bgxpld,	0,	S_OLDBLACKEGG_DIE5}
+states[S_OLDBLACKEGG_DIE5] =	{SPR_OBRK,	R,	-1,	nil,			0,			0,	S_OLDBLACKEGG_DIE5}
+
+states[S_OLDBLACKEGG_MISSILE1] =	{SPR_OBRK,	S,	14,	nil,			0,			0,	S_OLDBLACKEGG_MISSILE2}
+states[S_OLDBLACKEGG_MISSILE2] =	{SPR_OBRK,	T,	5,	nil,			0,			0,	S_OLDBLACKEGG_MISSILE3}
+states[S_OLDBLACKEGG_MISSILE3] =	{SPR_OBRK,	U,	35,	A_PlaySound,	sfx_beshot,	0,	S_OLDBLACKEGG_JUMP1}
+
+states[S_OLDBLACKEGG_GOOP] =	{SPR_OBRK,	V,	-1,	nil,	0,	0,	S_OLDBLACKEGG_STND}
+
+states[S_OLDBLACKEGG_JUMP1] =	{SPR_OBRK,	W,	14,	A_PlaySound,	sfx_belnch,	0,	S_OLDBLACKEGG_JUMP2}
+states[S_OLDBLACKEGG_JUMP2] =	{SPR_OBRK,	X,	-1,	nil,			0,			0,	S_OLDBLACKEGG_WALK1}
+
+states[S_OLDBLACKEGG_DESTROYPLAT1] =	{SPR_OBRK,	V,	3*TICRATE,	nil,				0,			0,	S_OLDBLACKEGG_DESTROYPLAT2}
+-- sfx_s3k54 was originally sfx_s3k_35
+states[S_OLDBLACKEGG_DESTROYPLAT2] =	{SPR_OBRK,	V,	1,			A_PlaySound,		sfx_s3k54,	0,	S_OLDBLACKEGG_DESTROYPLAT3}
+states[S_OLDBLACKEGG_DESTROYPLAT3] =	{SPR_OBRK,	V,	14,			RB_BrakPlatform,	0,			0,	S_OLDBLACKEGG_STND}
+
+-- 2.0 Brak Eggman Helper
+
+-- Only the player should collide with the 2.0 Brak "helper"
+addHook("MobjCollide", function(thing, tmthing)
+	if not (thing and thing.valid and tmthing and tmthing.valid) then return end
+	
+	if not (tmthing.player and tmthing.player.valid) then return false end
+end, MT_OLDBLACKEGGMAN_HELPER)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	local brak = mo.target
+	
+	if not (brak and brak.valid) or brak.health <= 0 then
+		P_RemoveMobj(mo)
+		return
+	end
+	
+	local z = brak.z
+	
+	if (brak.eflags & MFE_VERTICALFLIP) then
+		mo.eflags = $|MFE_VERTICALFLIP
+		mo.flags2 = $|MF2_OBJECTFLIP
+		z = brak.z + brak.height - mo.height - FixedMul((160-16)*FRACUNIT, mo.scale)
+	else
+		mo.eflags = $ & ~MFE_VERTICALFLIP
+		mo.flags2 = $ & ~MF2_OBJECTFLIP
+		z = brak.z + FixedMul((160-16)*FRACUNIT, mo.scale)
+	end
+	
+	P_MoveOrigin(mo, brak.x, brak.y, z)
+	if brak.player and brak.player.valid then
+		mo.angle = brak.player.drawangle
+	else
+		mo.angle = brak.angle
+	end
+	
+	-- Prevent the player from being able to stand on the helper in rare occassions
+	if brak.player and brak.player.valid then
+		mo.flags = $|MF_NOCLIPHEIGHT
+	else
+		mo.flags = $ & ~MF_NOCLIPHEIGHT
+	end
+end, MT_OLDBLACKEGGMAN_HELPER)
+
+-- Currently, this object targets the player when they bump into it from the side.
+-- This "bug" also happens in 2.0, so I'm keeping it as is.
+mobjinfo[MT_OLDBLACKEGGMAN_HELPER] = {
+	doomednum = -1,
+	spawnstate = S_OLDBLACKEGG_HELPER,
+	spawnhealth = 8,
+	speed = 1,
+	radius = 48*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = 1,
+	flags = MF_SOLID|MF_PUSHABLE|MF_NOGRAVITY
+}
+
+states[S_OLDBLACKEGG_HELPER] =	{SPR_NULL,	0,	-1,	nil,	0,	0,	S_OLDBLACKEGG_HELPER}
+
+-- 2.0 Brak Eggman Goop
+
+addHook("TouchSpecial", function(special, toucher)
+	if not (special and special.valid and toucher and toucher.valid) then return end
+	
+	local player = toucher.player
+	
+	if player and player.valid then
+		if not player.powers[pw_flashing] and not (player.powers[pw_ignorelatch] & (1<<15)) then
+		-- Original if statement from 2.0.7
+-- 		if toucher.state != S_PLAY_PAIN and not player.powers[pw_flashing]
+			toucher.momx = 0
+			toucher.momy = 0
+			
+			if toucher.momz ~= 0 then special.momz = toucher.momz end
+			
+-- 			player.powers[pw_carry] = CR_BRAKGOOP
+			
+-- 			if player.powers[pw_carry] == CR_GENERIC
+-- 				toucher.tracer = nil
+-- 				player.powers[pw_carry] = CR_NONE
+-- 			end
+			
+			player.powers[pw_carry] = CR_BRAKGOOP
+			toucher.tracer = special
+			
+			P_ResetPlayer(player)
+			
+			if special.target and special.target.valid and special.target.state == S_OLDBLACKEGG_SHOOT1
+				if special.target.health <= 2 and (P_RandomByte() & 1)
+					special.target.state = special.target.info.missilestate
+				else
+					special.target.state = special.target.info.raisestate
+				end
+			end
+		end
+	end
+	return true
+end, MT_OLDBLACKEGGMAN_GOOPFIRE)
+
+-- Hopefully this prevents C stack overflow errors once and for all
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	if not (mo.tracer and mo.tracer.valid) then return end
+	P_MoveOrigin(mo, mo.tracer.x, mo.tracer.y, mo.z)
+	mo.tracer = nil -- Only move the goop once
+end, MT_OLDBLACKEGGMAN_GOOPFIRE)
+
+addHook("ShouldDamage", function(target, inflictor, source)
+	if not (target and target.valid) then return end
+	if not (inflictor and inflictor.valid) then return end
+	if inflictor.type ~= MT_OLDBLACKEGGMAN_GOOPFIRE then return end
+	
+	if target.player and target.player.valid then
+		inflictor.tracer = target
+	end
+	return false
+end)
+
+mobjinfo[MT_OLDBLACKEGGMAN_GOOPFIRE] = {
+	doomednum = -1,
+	spawnstate = S_OLDBLACKEGG_GOOP1,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	deathstate = S_OLDBLACKEGG_GOOP3,
+	deathsound = sfx_ghit,
+	speed = 30*FRACUNIT,
+	radius = 11*FRACUNIT,
+	height = 8*FRACUNIT,
+	dispoffset = 1,
+	flags = MF_NOBLOCKMAP|MF_MISSILE|MF_NOGRAVITY|MF_SPECIAL
+}
+
+-- Replace SPR_BGOO if it gets removed in the future
+states[S_OLDBLACKEGG_GOOP1] =	{SPR_BGOO,	A|FF_TRANS50,	2,			nil,			0,	0,	S_OLDBLACKEGG_GOOP2}
+states[S_OLDBLACKEGG_GOOP2] =	{SPR_BGOO,	B|FF_TRANS50,	2,			nil,			0,	0,	S_OLDBLACKEGG_GOOP1}
+states[S_OLDBLACKEGG_GOOP3] =	{SPR_BGOO,	C|FF_TRANS50,	6*TICRATE,	A_GoopSplat,	0,	0,	S_OLDBLACKEGG_GOOP4}
+states[S_OLDBLACKEGG_GOOP4] =	{SPR_BGOO,	C|FF_TRANS60,	4,			nil,			0,	0,	S_OLDBLACKEGG_GOOP5}
+states[S_OLDBLACKEGG_GOOP5] =	{SPR_BGOO,	C|FF_TRANS70,	4,			nil,			0,	0,	S_OLDBLACKEGG_GOOP6}
+states[S_OLDBLACKEGG_GOOP6] =	{SPR_BGOO,	C|FF_TRANS80,	4,			nil,			0,	0,	S_OLDBLACKEGG_GOOP7}
+states[S_OLDBLACKEGG_GOOP7] =	{SPR_BGOO,	C|FF_TRANS90,	4,			nil,			0,	0,	S_NULL}
+
+-- 2.0 Brak Eggman Missile
+
+-- Controllable missile code ported from p_user.c in 2.0.7
+addHook("PlayerThink", function(player)
+	if not (player and player.valid
+	and player.mo and player.mo.valid) then
+		return
+	end
+	
+	-- Emulate the wonky "gravity" in 2.0.7 when the player gets hit in an "Old Brak" level
+	if (maptol & TOL_OLDBRAK) then
+		if P_PlayerInPain(player) and player.hitinoldbrak then
+			player.mo.momx = FixedMul($, FixedDiv(player.mo.scale, FRACUNIT))
+			player.mo.momy = FixedMul($, FixedDiv(player.mo.scale, FRACUNIT))
+			player.mo.momz = FixedMul($, FixedDiv(player.mo.scale, FRACUNIT))
+			player.hitinoldbrak = false
+		end
+	end
+	
+	if player.powers[pw_carry] == CR_GENERIC then
+		local item = player.mo.tracer
+		
+		-- Controllable missile
+		if item and item.valid then
+			if item.type == MT_OLDBLACKEGGMAN_MISSILE then
+				-- Don't let 2-player bots control missiles
+				if not (player.bot == BOT_2PAI or player.bot == BOT_2PHUMAN) then
+					if player.cmd.forwardmove > 0 then
+						item.momz = $+FixedMul(item.scale, FRACUNIT/4)
+					elseif player.cmd.forwardmove < 0 then
+						item.momz = $-FixedMul(item.scale, FRACUNIT/4)
+					end
+					
+					-- Fix for Simple controls
+					if (player.pflags & PF_ANALOGMODE) then
+						player.mo.angle = player.cmd.angleturn<<16
+						player.mo.angle = $-FixedAngle(player.cmd.sidemove*FRACUNIT/10)
+					end
+					
+					item.angle = player.mo.angle
+					P_InstaThrust(item, item.angle, FixedMul(item.info.speed, item.scale))
+				end
+				
+				if P_IsObjectOnGround(player.mo) or item.health <= 0 then
+					player.powers[pw_carry] = CR_NONE
+					player.mo.tracer = nil
+				end
+			end
+		else
+			player.powers[pw_carry] = CR_NONE
+		end
+	end
+end)
+
+addHook("MobjMoveCollide", function(tmthing, thing)
+	if not (tmthing and tmthing.valid
+	and thing and thing.valid) then
+		return
+	end
+	
+	if tmthing.z <= thing.z + thing.height
+	and thing.z <= tmthing.z + tmthing.height then
+		if thing.type == MT_OLDBLACKEGGMAN
+		and tmthing.target ~= thing then
+			thing.state = thing.info.painstate
+			return true
+		end
+		
+-- 		-- Prevent the missile from hitting the helper
+-- 		if thing.type == MT_OLDBLACKEGGMAN_HELPER
+-- 			return false
+-- 		end
+		
+		if thing.player and thing.player.valid
+		and (thing.player.pflags & PF_JUMPED)
+		and not thing.player.powers[pw_flashing]
+		and not thing.player.powers[pw_ignorelatch]
+		and thing.tracer ~= tmthing
+		and tmthing.target ~= thing then
+			-- Hop on the missile for a ride!
+			if not (thing.player.bot == BOT_2PAI or thing.player.bot == BOT_2PHUMAN) then
+				thing.player.powers[pw_carry] = CR_GENERIC
+				thing.player.pflags = $ & ~(PF_JUMPED|PF_NOJUMPDAMAGE)
+				thing.tracer = tmthing
+				tmthing.target = thing -- Set owner to the player
+				tmthing.tracer = nil -- Disable homing-ness
+				tmthing.momz = 0
+				
+				thing.angle = tmthing.angle
+			
+				-- This is required for CR_GENERIC to work
+				thing.tracer = tmthing
+			end
+			
+			return false
+		elseif thing.player and thing.player.valid 
+		and ((thing.player.powers[pw_carry] == CR_GENERIC) or (thing.player.pflags & PF_JUMPED)) then
+			-- Only explode if the player is not riding the missile
+			if thing.tracer ~= tmthing and not (thing.player.pflags & PF_JUMPED) then
+				P_ExplodeMissile(tmthing)
+			end
+			
+			-- Ignore
+			return false
+		end
+	end
+end, MT_OLDBLACKEGGMAN_MISSILE)
+
+mobjinfo[MT_OLDBLACKEGGMAN_MISSILE] = {
+	doomednum = -1,
+	spawnstate = S_OLDBLACKEGG_MISSILE,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	deathstate = S_BOSSEXPLODE, -- Replacement for S_BPLD1
+	deathsound = sfx_bexpld,
+	speed = 10*FRACUNIT,
+	radius = 24*FRACUNIT,
+	height = 24*FRACUNIT,
+	damage = 1,
+	flags = MF_NOBLOCKMAP|MF_MISSILE|MF_NOGRAVITY
+}
+
+-- Replace SPR_BMSL if it gets removed in the future
+states[S_OLDBLACKEGG_MISSILE] =	{SPR_BMSL,	A,	1,	nil,	0,	0,	S_OLDBLACKEGG_MISSILE}

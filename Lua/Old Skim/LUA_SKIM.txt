@@ -1,0 +1,65 @@
+// Old Skim (Demo-Final Demo) - Ported by Glaber (original SOC) and MIDIMan (fixes and conversion to Lua)
+
+freeslot(
+	"MT_OLDSKIM",
+	"S_OLDSKIM_CHASE",
+	"S_OLDSKIM_POWERUP",
+	"S_OLDSKIM_DROPMINE",
+	"S_OLDSKIM_POWERDOWN",
+	"S_OLDSKIM_POWERDOWN2",
+	"S_OLDSKIM_POWERDOWN3",
+	"S_OLDSKIM_POWERDOWN4",
+	"S_OLDSKIM_POWERDOWN5",
+	"S_OLDSKIM_POWERDOWN6",
+	"S_OLDSKIM_POWERDOWN7",
+	"S_OLDSKIM_POWERDOWN8",
+	"S_OLDSKIM_POWERDOWN9",
+	"S_OLDSKIM_POWERDOWN10",
+	"S_OLDSKIM_POWERDOWN11",
+	"S_OLDSKIM_POWERDOWN12",
+	"S_OLDSKIM_POWERDOWN13",
+	"SPR_SKM2"
+)
+
+mobjinfo[MT_OLDSKIM] = {
+	//$Name Old Skim
+	//$Sprite SKM2A0
+	//$Category Retro Enemies
+	doomednum = 4050,
+	spawnstate = S_OLDSKIM_CHASE,
+	spawnhealth = 1,
+	reactiontime = 8,
+	attacksound = sfx_s3k51,
+	meleestate = S_OLDSKIM_POWERUP,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 8,
+	radius = 32*FRACUNIT,
+	height = 32*FRACUNIT,
+	raisestate = MT_RETROBOBMMINE,
+	flags = MF_ENEMY|MF_SPECIAL|MF_NOGRAVITY|MF_SHOOTABLE
+}
+
+states[S_OLDSKIM_CHASE] =	{SPR_SKM2,	A,				1,	A_SkimChase,	0,	0,	S_OLDSKIM_CHASE}
+
+states[S_OLDSKIM_POWERUP] =		{SPR_SKM2,	B|FF_ANIMATE,	14,	nil,			13,	1,	S_OLDSKIM_DROPMINE}
+states[S_OLDSKIM_DROPMINE] =	{SPR_SKM2,	O,				1,	A_DropMine,		0,	0,	S_OLDSKIM_POWERDOWN}
+states[S_OLDSKIM_POWERDOWN] =	{SPR_SKM2,	N,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN2}
+states[S_OLDSKIM_POWERDOWN2] =	{SPR_SKM2,	M,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN3}
+states[S_OLDSKIM_POWERDOWN3] =	{SPR_SKM2,	L,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN4}
+states[S_OLDSKIM_POWERDOWN4] =	{SPR_SKM2,	K,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN5}
+states[S_OLDSKIM_POWERDOWN5] =	{SPR_SKM2,	J,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN6}
+states[S_OLDSKIM_POWERDOWN6] =	{SPR_SKM2,	I,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN7}
+states[S_OLDSKIM_POWERDOWN7] =	{SPR_SKM2,	H,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN8}
+states[S_OLDSKIM_POWERDOWN8] =	{SPR_SKM2,	G,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN9}
+states[S_OLDSKIM_POWERDOWN9] =	{SPR_SKM2,	F,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN10}
+states[S_OLDSKIM_POWERDOWN10] =	{SPR_SKM2,	E,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN11}
+states[S_OLDSKIM_POWERDOWN11] =	{SPR_SKM2,	D,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN12}
+states[S_OLDSKIM_POWERDOWN12] =	{SPR_SKM2,	C,				1,	nil,			0,	0,	S_OLDSKIM_POWERDOWN13}
+states[S_OLDSKIM_POWERDOWN13] =	{SPR_SKM2,	B,				1,	nil,			0,	0,	S_OLDSKIM_CHASE}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OLDSKIM] = 4    // Makes MT_OLDSKIM give bomb

@@ -1,0 +1,6 @@
+function A_DroneFloorCheck(actor)
+	actor.momz = 2*FRACUNIT
+	if (actor.z + actor.height <= actor.floorz)
+		actor.state = actor.info.spawnstate
+	end
+end

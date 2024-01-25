@@ -1,0 +1,53 @@
+-- 2.1 Recycler Box - Ported by MIDIMan
+-- Use with LUA_2BOX and LUA_2BG2
+
+freeslot(
+	"MT_21BOX_RECYCLE",
+	"MT_21BOX_RECYCLE_ICON",
+	"S_21BOX_RECYCLE_IDLE",
+	"S_21BOX_RECYCLE_ICON_APPEAR",
+	"S_21BOX_RECYCLE_ICON_SPIN",
+	"S_21BOX_RECYCLE_ICON_LEAVE"
+)
+
+addHook("MobjFuse", RM_21MonitorFuseThink, MT_21BOX_RECYCLE)
+addHook("MapThingSpawn", RM_21MonitorTypeSpawn, MT_21BOX_RECYCLE)
+
+mobjinfo[MT_21BOX_RECYCLE] = {
+	--$Name 2.1 Recycler
+	--$Sprite 2BXMI0
+	--$Category Monitors
+	--$Flags4Text Random (Strong)
+	--$Flags8Text Random (Weak)
+	--$Arg1 Respawn behavior
+	--$Arg1Type 11
+	--$Arg1Enum monitorrespawn
+	doomednum = 496,
+	spawnstate = S_21BOX_RECYCLE_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_RECYCLE_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	speed = 1,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_RECYCLE_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_RECYCLE_IDLE] =	{SPR_2BXM,	I,	2,	nil,	0,	0,	S_21BOX_FLICKER}
+
+mobjinfo[MT_21BOX_RECYCLE_ICON] = {
+	doomednum = -1,
+	spawnstate = S_21BOX_RECYCLE_ICON_APPEAR,
+	spawnhealth = 1,
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_21BOX_RECYCLE_ICON_APPEAR] =	{SPR_2BXM,	J,				4,	nil,				0,	0,	S_21BOX_RECYCLE_ICON_SPIN}
+states[S_21BOX_RECYCLE_ICON_SPIN] =		{SPR_2BXG,	C|FF_ANIMATE,	12,	nil,				2,	4,	S_21BOX_RECYCLE_ICON_LEAVE}
+states[S_21BOX_RECYCLE_ICON_LEAVE] =	{SPR_2BXM,	J,				18,	A_RecyclePowers,	0,	0,	S_NULL}

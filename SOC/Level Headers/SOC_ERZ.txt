@@ -1,0 +1,253 @@
+##Egg Rock Zone Level Headers
+
+#DEVELOPMENT
+
+Level E0
+Levelname = Egg Rock
+Subtitle = Development 98
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = RRZ
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 21
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = EZ:1
+
+Level E1
+Levelname = Egg Rock
+Subtitle = 2.0 Development
+MusicInter = LCLEAR
+Act = 1
+Music = ERZ120
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 37
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = EZ:2
+
+Level E2
+Levelname = Egg Rock
+Subtitle = 2.0 Early Development
+MusicInter = LCLEAR
+Act = 1
+Music = ERZ120
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 37
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = EZ:3
+
+Level E3
+Levelname = Egg Rock
+Subtitle = 2.0 Late Development
+MusicInter = LCLEAR
+Act = 1
+Music = ERZ120
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 37
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = EZ:4
+
+
+
+
+#2.0
+
+Level E4
+Levelname = Egg Rock
+Subtitle = 2.0-2.0.4
+MusicInter = LCLEAR
+Act = 1
+Music = ERZ120
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 41
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = EZ:5
+
+Level E5
+Levelname = Egg Rock
+Subtitle = 2.0-2.0.4
+MusicInter = LCLEAR
+Act = 2
+Music = ERZ220
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 41
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = EZ:6
+
+Level E6
+Levelname = Egg Rock
+Subtitle = 2.0-2.0.4
+MusicInter = LCLEAR
+Act = 3
+Gravity = 0.125
+Music = VSBRK1
+TypeOfLevel = Singleplayer,Co-op,Oldbrak
+NextLevel = EZ
+SkyNum = 41
+BonusType = Boss
+WarningTitle = true
+hidden = 1
+Lua.TPHub = EZ:7
+
+Level E7
+Levelname = Egg Rock
+Subtitle = 2.0.5-2.0.7
+MusicInter = LCLEAR
+Act = 1
+Music = ERZ120
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 41
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = EZ:8
+
+Level E8
+Levelname = Egg Rock
+Subtitle = 2.0.5-2.0.7
+MusicInter = LCLEAR
+Act = 2
+Music = ERZ220
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 41
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = EZ:9
+
+Level E9
+Levelname = Egg Rock
+Subtitle = 2.0.5-2.0.7
+MusicInter = LCLEAR
+Act = 3
+Gravity = 0.25
+Music = VSBRK1
+TypeOfLevel = Singleplayer,Co-op,Oldbrak
+NextLevel = EZ
+SkyNum = 41
+BonusType = Boss
+WarningTitle = true
+hidden = 1
+Lua.TPHub = EZ:10
+
+
+
+#2.1
+
+Level EA
+Levelname = Egg Rock
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 1
+Music = ERZ121
+TypeOfLevel = Singleplayer,Co-op,Competition,Race
+NextLevel = EZ
+SkyNum = 41
+RecordAttack = false
+hidden = 1
+Lua.TPHub = EZ:11
+
+Level EB
+Levelname = Egg Rock
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 2
+Music = ERZ221
+TypeOfLevel = Singleplayer,Co-op,Competition,Race
+NextLevel = EZ
+SkyNum = 41
+RecordAttack = false
+hidden = 1
+Lua.TPHub = EZ:12
+
+Level EC
+Levelname = Egg Rock
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 3
+Music = VSMTAL
+NextLevel = EZ
+TypeOfLevel = Singleplayer,Co-op,Competition,Race
+SkyNum = 41
+RecordAttack = false
+hidden = 1
+BonusType = ERZ3
+Lua.TPHub = EZ:13
+
+Level ED
+Levelname = Egg Rock Core
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Music = VSOBRK
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = EZ
+SkyNum = 41
+RecordAttack = false
+hidden = 1
+BonusType = Boss
+SkyboxScale = 128
+Lua.TPHub = EZ:14
+
+
+
+
+#2.2 INDEV
+
+Level EE
+Levelname = Egg Rock
+Subtitle = 2.2 Dev
+Act = 3
+Music = VSBOSS
+MusicPostBoss = ERZ1
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = 25
+SkyNum = 22
+RecordAttack = false
+LevelSelect = 0
+FlickyList = All
+BonusType = Boss
+StartRings = 10
+WarningTitle = true
+hidden = 1
+Lua.TPHub = EZ:15
+
+
+
+
+#GAUNTLET
+
+Level EY
+Levelname = Egg Rock
+Subtitle = Gauntlet
+Act = 0
+Music = VSBOSS
+NextLevel = ZY
+StartRings = 10
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 22
+RecordAttack = false
+hidden = 1
+FlickyList = All
+ForceResetMusic = On
+WarningTitle = true
+SkyboxScale = 64
+Lua.TPHub = EZ:16

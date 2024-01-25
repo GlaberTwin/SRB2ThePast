@@ -1,0 +1,29 @@
+// SRB1 GENREX - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_GENREX",
+	"S_SRB1_GENREX1",
+	"S_SRB1_GENREX2",
+	"SPR_SRBO"
+)
+
+mobjinfo[MT_SRB1_GENREX] = {
+	//$Name Genrex
+	//$Sprite SRBOA1
+	//$Category SRB1 Enemies
+	doomednum = 4015,
+	spawnstate = S_SRB1_GENREX1,
+	spawnhealth = 1,
+	seestate = S_SRB1_GENREX2,
+	reactiontime = 2,
+	painchance = 3072,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 4*FRACUNIT,
+	radius = 17*FRACUNIT,
+	height = 40*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_SLIDEME
+}
+
+states[S_SRB1_GENREX1] =	{SPR_SRBO,	A,	2,	A_Look,		0,	0,	S_SRB1_GENREX1}
+states[S_SRB1_GENREX2] =	{SPR_SRBO,	A,	2,	A_BuzzFly,	0,	0,	S_SRB1_GENREX2}

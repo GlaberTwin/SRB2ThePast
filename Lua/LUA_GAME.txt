@@ -1,0 +1,49 @@
+freeslot(
+"MT_CUSTOMCAMERA",
+"MT_CAMERASTAND"
+)
+//This camera stand was made by D00D64
+/*RedEnchilada told me how to get the camera and walls working,
+/so props to him! This script is for the blocking walls, and
+they also kill the player if they get stuck. If you don't use
+this script, you can use the camera stand for other functions!*/
+
+addHook("MobjThinker", function(mo)
+	for player in players.iterate
+		do player.awayviewmobj = mo; player.awayviewtics = 2
+		if player.health and player.livetime then
+			player.livetime = $1+1
+			else player.livetime = 1
+		end
+	end
+end, MT_CUSTOMCAMERA)
+
+/*Camera spawn examples!
+
+These are required if you want your level to have checkpoints.
+Make your spawn point and checkpoints trigger a script that's
+called CAMHERE#, replace X, Y, and Z with the coordinates you want it
+spawned at, and copypaste the template for whatever many checkpoints
+you need. Make sure the script can only be activated on respawn!
+You can do this by making the trigger for the script also remove
+the triggers for the other scripts, such as making triggering
+FOFs vertically move out of the way. 
+
+addHook("LinedefExecute", function(line_t, mobj_t)
+print("test!")
+	if mobj_t.player.awayviewtics == 0
+		local obj = P_SpawnMobj(x*FRACUNIT, y*FRACUNIT, z*FRACUNIT, MT_CAMERASTAND)
+obj.angle = ANGLE_90
+		P_SpawnMobj(x*FRACUNIT, y*FRACUNIT, z*FRACUNIT, MT_CUSTOMCAMERA)
+	end
+end, "CAMHERE1")
+
+addHook("LinedefExecute", function(line_t, mobj_t)
+	if mobj_t.player.awayviewtics == 0
+		local obj = P_SpawnMobj(x*FRACUNIT, y*FRACUNIT, z*FRACUNIT, MT_CAMERASTAND)
+obj.angle = ANGLE_90
+		P_SpawnMobj(x*FRACUNIT, y*FRACUNIT, z*FRACUNIT, MT_CUSTOMCAMERA)
+	end
+end, "CAMHERE2")
+
+*/

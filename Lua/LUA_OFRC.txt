@@ -1,0 +1,25 @@
+-- Retro Monitors - 2.1 Force Shield Orb
+-- Use with LUA_SHLD
+
+freeslot(
+	"SPR_OFRC",
+	"MT_21_FORCEORB",
+	"S_21_FORCEORB",
+	"S_21_FORCEORBBACK"
+)
+
+-- The 2.1 Force Shield is blue rather than the 2.2 Force Shield's purple-ish blue
+mobjinfo[MT_21_FORCEORB] = {
+	doomednum = -1,
+	spawnstate = S_21_FORCEORB,
+	spawnhealth = 1000,
+	painstate = S_21_FORCEORBBACK,
+	speed = SH_FORCE,
+	radius = 64*FRACUNIT,
+	height = 64*FRACUNIT,
+	dispoffset = 1,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOGRAVITY|MF_SCENERY
+}
+
+states[S_21_FORCEORB] =		{SPR_OFRC,	A|FF_TRANS50|FF_ANIMATE,	-1,	nil,	9,	3,	S_NULL}
+states[S_21_FORCEORBBACK] =	{SPR_OFRC,	K|FF_TRANS50|FF_ANIMATE,	-1,	nil,	9,	3,	S_NULL}

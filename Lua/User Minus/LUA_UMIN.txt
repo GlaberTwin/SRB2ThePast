@@ -1,0 +1,40 @@
+// User Minus - Created by Glaber (original SOC) and convered to Lua by MIDIMan
+
+freeslot(
+	"MT_USER_MINUS",
+	"S_UMIN_FLOT",
+	"S_UMIN_FLOT2",
+	"S_UMIN_FLY",
+	"S_UMIN_FLY2",
+	"SPR_UMIN"
+)
+
+mobjinfo[MT_USER_MINUS] = {
+	//$Name User Minus
+	//$Sprite UMINA1
+	//$Category Retro Enemies
+	doomednum = 4020,
+	spawnstate = S_UMIN_FLOT,
+	spawnhealth = 1,
+	seestate = S_UMIN_FLY,
+	reactiontime = 2,
+	painchance = 3072,
+	deathstate = S_XPLD1,
+	deathsound = sfx_pop,
+	speed = 8*FRACUNIT,
+	radius = 20*FRACUNIT,
+	height = 24*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY|MF_SLIDEME|MF_ENEMY
+}
+
+states[S_UMIN_FLOT] =	{SPR_UMIN,	A,	3,	A_Look,	0,	0,	S_UMIN_FLOT2}
+states[S_UMIN_FLOT2] =	{SPR_UMIN,	B,	3,	A_Look,	0,	0,	S_UMIN_FLOT}
+
+states[S_UMIN_FLY] =	{SPR_UMIN,	A,	2,	A_BuzzFly,	0,	0,	S_UMIN_FLY2}
+states[S_UMIN_FLY2] =	{SPR_UMIN,	B,	2,	A_BuzzFly,	0,	0,	S_UMIN_FLY}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_USER_MINUS] = 6    // Makes MT_USER_MINUS give Needle

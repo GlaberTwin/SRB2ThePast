@@ -1,0 +1,3 @@
+-- 2.1 Miscellaneous Monitor Commonalities - Ported by MIDIMan
+
+freeslot("SPR_2BXM")

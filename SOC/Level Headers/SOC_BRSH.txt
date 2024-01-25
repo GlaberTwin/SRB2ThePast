@@ -1,0 +1,241 @@
+##Boss Rush Level Headers
+
+Level 34
+Levelname = Boss Rush
+Subtitle = Christmas
+Act = 0
+Music = spec2
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = flase
+WarningTitle = true
+Lua.TPHub = 30:1
+
+Level 35
+Levelname = Boss Rush
+Subtitle = TGF
+Act = 0
+Music = spec2
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:2
+
+Level 36
+Levelname = Boss Rush
+Subtitle = Beta Quest
+Act = 0
+Music = spec2
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:3
+
+Level 37
+Levelname = Boss Rush
+Subtitle = Final Demo
+Act = 0
+Music = spec2
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:4
+
+Level 38
+Levelname = Boss Rush
+Subtitle = 2.0 Era Part 1
+Act = 0
+Music = VSALT
+NextLevel = 39
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:5
+
+Level 39
+Levelname = Boss Rush
+Subtitle = 2.0 Era Part 2
+Gravity = 0.125
+Act = 0
+Music = VSALT
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op,Oldbrak
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+StartRings = 10
+Lua.TPHub = 30:5
+
+Level 40
+Levelname = Boss Rush
+Subtitle = 2.1 Era Part 1
+Act = 0
+Music = VSALT
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:6
+
+Level 41
+Levelname = Boss Rush
+Subtitle = 2.1 Era Part 2
+Act = 0
+Music = VSALT
+NextLevel = 30
+SkyboxScale = 16
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:6
+
+Level 42
+Levelname = Boss Rush
+Subtitle = 2.2 Era Part 1
+StartRings = 10
+Act = 0
+Music = VSALT
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:7
+
+Level 43
+Levelname = Boss Rush
+Subtitle = 2.2 Era Part 2
+StartRings = 30
+Act = 0
+Music = VSALT
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:7
+
+Level 44
+Levelname = Boss Gauntlet
+Subtitle = VS Everyone
+StartRings = 10
+Act = 0
+Music = VSOBOS
+NextLevel = 30
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = false
+WarningTitle = true
+Lua.TPHub = 30:8
+
+Level 45
+Levelname = Boss Gauntlet
+Subtitle = VS Everyone part 2
+StartRings = 30
+Act = 0
+Music = SPEC2
+NextLevel = 20
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+WarningTitle = true
+Lua.TPHub = 30:8
+
+
+Level 46
+Levelname = Boss Gauntlet
+Subtitle = VS Everyone part 3
+StartRings = 30
+Act = 0
+Music = VSALT
+NextLevel = 20
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+WarningTitle = true
+Lua.TPHub = 30:8
+
+
+Level 47
+Levelname = Boss Gauntlet
+Subtitle = VS Everyone part 4
+StartRings = 30
+Act = 0
+Music = VSALT
+NextLevel = 20
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+WarningTitle = true
+Lua.TPHub = 30:8
+
+
+Level 48
+Levelname = Boss Gauntlet
+Subtitle = VS Everyone part 5
+StartRings = 30
+Act = 0
+Music = MP_DOM
+NextLevel = ZY
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 98
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+WarningTitle = true
+SkyboxScale = 64
+Lua.TPHub = 30:8
+

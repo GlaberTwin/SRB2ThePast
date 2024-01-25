@@ -1,0 +1,4 @@
+-- 2.1 Green Monitor Commonalities - Ported by MIDIMan
+-- Only use with LUA_2BXG and LUA_2BXT
+
+freeslot("SPR_2BXG")

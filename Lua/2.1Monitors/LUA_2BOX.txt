@@ -1,0 +1,236 @@
+-- 2.1 Monitor Commonalities - Ported by MIDIMan
+-- Use with the other LUA_2BX* scripts
+
+freeslot(
+	"SPR_2BOX",
+	"S_21BOX_FLICKER",
+	"S_21BOX_EXPLOSION1",
+	"S_21BOX_EXPLOSION2"
+)
+
+-- Change the current mo type to something else
+local function RM_ChangeMobj(mo, newtype)
+	if not (mo and mo.valid) then return end
+	if not newtype then return end
+	
+	mo.type = newtype
+	
+	mo.radius = FixedMul(mo.scale, mo.info.radius)
+	mo.height = FixedMul(mo.scale, mo.info.height)
+	mo.flags = mo.info.flags
+	
+	mo.health = mo.info.spawnhealth
+	
+	mo.reactiontime = mo.info.reactiontime
+	
+	mo.state = mo.info.spawnstate
+end
+
+-- Change the monitor's type based on the current gametype and its settings
+rawset(_G, "RM_21MonitorTypeSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	if udmf then
+		if not mthing.args[2] then
+			mo.rmShieldEra = "2.1"
+		end
+		
+		if mthing.args[1] and mo.info.speed ~= 0 then
+			if mthing.args[1] == 1 then
+				mo.flags2 = $|MF2_AMBUSH
+			elseif mthing.args[1] == 2 then
+				mo.flags2 = $|MF2_STRONGBOX
+			end
+		end
+	else
+		if not (mthing.options & MTF_EXTRA) then
+			mo.rmShieldEra = "2.1"
+		end
+	end
+	
+	-- Set powerup boxes to user settings for competition.
+	if gametype == GT_COMPETITION then
+		local compboxes = CV_FindVar("competitionboxes").value
+		if compboxes then -- not Normal
+			
+			if compboxes == 1 then -- Random
+				RM_ChangeMobj(mo, MT_21BOX_QUESTION)
+			elseif compboxes == 2 then -- Teleports
+				RM_ChangeMobj(mo, MT_21BOX_MIXUP)
+			elseif compboxes == 3 then -- None
+				P_RemoveMobj(mo) -- Don't spawn!
+			end
+		end
+	-- Set powerup boxes to user settings for other netplay modes
+	elseif gametype ~= GT_COOP then
+		local matchboxes = CV_FindVar("matchboxes").value
+		if matchboxes then -- not Normal
+			if matchboxes == 1 then -- Random
+				RM_ChangeMobj(mo, MT_21BOX_QUESTION)
+			elseif matchboxes == 3 then -- Don't spawn
+				P_RemoveMobj(mo)
+			else -- Non-random
+				if mo.type == MT_21BOX_QUESTION then
+					P_RemoveMobj(mo)
+					return
+				end
+				
+				mthing.options = $ & ~(MTF_AMBUSH|MTF_OBJECTSPECIAL)
+-- 				mthing.args[1] = 0 -- Doesn't work
+				mo.flags2 = $ & ~(MF2_AMBUSH|MF2_STRONGBOX)
+			end
+		end
+	end
+end)
+
+-- Handle how 2.1 monitors respawn in Multiplayer gametypes
+rawset(_G, "RM_21MonitorFuseThink", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	local newmobj, boxtype
+	
+	if ((mo.flags2 & (MF2_AMBUSH|MF2_STRONGBOX)) and mo.info.damage ~= MT_UNKNOWN) then
+		local spawnchance = {}
+		local numchoices, i = 0, 0
+		
+		local function SETMONITORCHANCES(boxtype, strongboxamt, weakboxamt)
+			local boxamt
+			
+			if (mo.flags2 & MF2_STRONGBOX) then
+				boxamt = strongboxamt
+			else
+				boxamt = weakboxamt
+			end
+			
+			for i = boxamt, 1, -1 do
+				spawnchance[numchoices+1] = boxtype
+				numchoices = $+1
+			end
+		end
+		
+		--				  Type				  SRM  WRM
+		SETMONITORCHANCES(MT_21BOX_SHOES,		0,	10) -- Super Sneakers
+		SETMONITORCHANCES(MT_21BOX_INVIN,		2,	 0) -- Invincibility
+		SETMONITORCHANCES(MT_21BOX_WHIRLWIND,	3,	 8) -- Whirlwind Shield
+		SETMONITORCHANCES(MT_21BOX_ELEMENTAL,	3,	 8) -- Elemental Shield
+		SETMONITORCHANCES(MT_21BOX_ATTRACT,		2,	 0) -- Attraction Shield
+		SETMONITORCHANCES(MT_21BOX_FORCE,		3,	 3) -- Force Shield
+		SETMONITORCHANCES(MT_21BOX_ARMAGEDDON,	2,	 0) -- Armageddon Shield
+		SETMONITORCHANCES(MT_21BOX_MIXUP,		0,	 1) -- Teleporters
+		SETMONITORCHANCES(MT_21BOX_RECYCLE,		0,	 1) -- Recycler
+		SETMONITORCHANCES(MT_21BOX_1UP,			1,	 1) -- 1-Up
+		-- ===========================================
+		--				  Total				   16	32
+		
+		i = P_RandomKey(numchoices) -- Gotta love those random numbers!
+		
+		boxtype = spawnchance[i+1]
+	end
+	
+	if boxtype == nil then boxtype = mo.type end
+	
+	newmobj = P_SpawnMobjFromMobj(mo, 0, 0, 0, boxtype)
+		
+	-- Transfer flags2 (strongbox, objectflip)
+	newmobj.flags2 = mo.flags2
+	-- Transfer shield era as well
+	newmobj.rmShieldEra = mo.rmShieldEra
+	
+	P_RemoveMobj(mo) -- make sure they disappear
+	
+	return true
+end)
+
+-- Mystery Monitor behavior ported from 2.1.25 with some 2.2-based enhancements
+local function P_21DoRandomBoxChances()
+	local spawnchance = {}
+	local numchoices, i = 0, 0
+	
+	local function QUESTIONBOXCHANCES(boxtype, cvar)
+		for i = cvar.value, 1, -1 do
+			spawnchance[numchoices+1] = boxtype
+			numchoices = $+1
+		end
+	end
+	
+	QUESTIONBOXCHANCES(MT_21BOX_RING_ICON,			CV_FindVar("tv_superring"))
+	QUESTIONBOXCHANCES(MT_21BOX_SHOES_ICON,			CV_FindVar("tv_supersneaker"))
+	QUESTIONBOXCHANCES(MT_21BOX_INVIN_ICON,			CV_FindVar("tv_invincibility"))
+	QUESTIONBOXCHANCES(MT_21BOX_WHIRLWIND_ICON,		CV_FindVar("tv_jumpshield"))
+	QUESTIONBOXCHANCES(MT_21BOX_ELEMENTAL_ICON,		CV_FindVar("tv_watershield"))
+	QUESTIONBOXCHANCES(MT_21BOX_ATTRACT_ICON,		CV_FindVar("tv_ringshield"))
+	QUESTIONBOXCHANCES(MT_21BOX_FORCE_ICON,			CV_FindVar("tv_forceshield"))
+	QUESTIONBOXCHANCES(MT_21BOX_ARMAGEDDON_ICON,	CV_FindVar("tv_bombshield"))
+	QUESTIONBOXCHANCES(MT_21BOX_1UP_ICON,			CV_FindVar("tv_1up"))
+	QUESTIONBOXCHANCES(MT_21BOX_EGGMAN_ICON,		CV_FindVar("tv_eggman"))
+	QUESTIONBOXCHANCES(MT_21BOX_MIXUP_ICON,			CV_FindVar("tv_teleporter"))
+	QUESTIONBOXCHANCES(MT_21BOX_RECYCLE_ICON,		CV_FindVar("tv_recycler"))
+	
+	if numchoices == 0 then
+		print("All monitors turned off.")
+		return MT_NULL
+	end
+	
+	return spawnchance[P_RandomKey(numchoices)+1]
+end
+
+function A_21MonitorPop(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local explode
+	local item = 0
+	local newbox
+	
+	-- de-solidify
+	actor.health = 0
+	actor.flags = $|MF_NOCLIP & ~MF_SOLID
+	
+	-- Monitor explosion
+	explode = P_SpawnMobjFromMobj(actor, 0, 0, 0, MT_EXPLODE) -- Replace MT_EXPLODE with a 2.1 variant, maybe?
+	
+	if actor.info.deathsound then S_StartSound(actor, actor.info.deathsound) end
+	
+	if actor.info.damage == MT_UNKNOWN then
+		item = P_21DoRandomBoxChances()
+		
+		if item == MT_NULL then
+-- 			print("All monitors turned off.")
+			return
+		end
+	else
+		item = actor.info.damage
+	end
+	
+	if item ~= nil then
+		local newmobj = P_SpawnMobjFromMobj(actor, 0, 0, 13*FRACUNIT, item)
+		newmobj.target = actor.target -- Transfer target
+		newmobj.rmShieldEra = actor.rmShieldEra -- Transfer shield era
+		
+		if item == MT_21BOX_1UP_ICON then
+			if actor.tracer and actor.tracer.valid then -- Remove the old lives icon.
+				P_RemoveMobj(actor.tracer)
+			end
+			
+			if not (newmobj.target and newmobj.target.valid)
+			or not newmobj.target.player
+			or not newmobj.target.skin
+			or skins[newmobj.target.skin].sprites[SPR2_LIFE].numframes == 0 then
+				-- No lives icon for this player, use the default
+				newmobj.frame = B
+			else -- Spawn the lives icon
+				local livesico = P_SpawnMobjFromMobj(newmobj, 0, 0, 0, MT_OVERLAY)
+				livesico.target = newmobj
+				newmobj.tracer = livesico
+				
+				livesico.color = newmobj.target.player.mo.color
+				livesico.skin = newmobj.target.skin
+				livesico.state = newmobj.info.seestate
+			end
+		end
+	end
+end
+
+states[S_21BOX_FLICKER] =	{SPR_2BOX,	A,	1,	nil,	0,	0,	S_SPAWNSTATE}
+
+states[S_21BOX_EXPLOSION1] =	{SPR_2BOX,	A,	4,	A_21MonitorPop,	0,	0,	S_21BOX_EXPLOSION2}
+states[S_21BOX_EXPLOSION2] =	{SPR_2BOX,	B,	-1,	nil,			0,	0,	S_NULL}

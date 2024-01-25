@@ -1,0 +1,152 @@
+// TGF Minus - Ported by Glaber (original SOC) and MIDIMan (TGF movement and conversion to Lua)
+
+//Return and Revival of Old Minus
+//TGF
+freeslot(
+	"MT_TGF_MINUS",
+	"S_TMIN_TGFMOVEMENT",
+	"S_TMIN_FLOAT",
+	"S_TMIN_FLOAT2",
+	"S_TMIN_FLY",
+	"S_TMIN_FLY2",
+	"SPR_TMIN"
+)
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid
+	and mthing and mthing.valid)
+		return
+	end
+	
+	if (mthing.options & MTF_OBJECTSPECIAL)
+		mo.state = S_TMIN_TGFMOVEMENT
+		mo.flags = $|MF_NOCLIPHEIGHT
+		mo.tgfMovement = true
+		mo.tgfAngle = FixedAngle(mthing.angle*FRACUNIT)
+	end
+end, MT_TGF_MINUS)
+
+// Quick function to check if the nextPosition goes over the endPosition
+local function TGFDifferenceCheck(diff, nextPos, endPos)
+	if abs(diff) >= abs(endPos - nextPos)
+	or 3*abs(diff)/2 >= abs(endPos - nextPos)
+		return endPos
+	end
+	
+	return nextPos + diff
+end
+
+local function TGFMovement(mo, endPos, speed)
+	if not (mo and mo.valid) then return end
+	if not endPos then return end
+	if not speed then return end
+	
+	local nextPos = {x = mo.x, y = mo.y, z = mo.z}
+	
+	local angle = R_PointToAngle2(mo.x, mo.y, endPos.x, endPos.y)
+	local dist = FixedHypot(endPos.x - mo.x, endPos.y - mo.y)
+	local pitch = R_PointToAngle2(0, mo.z, dist, endPos.z)
+	
+	local diff = {
+		x = FixedMul(speed, FixedMul(cos(angle), cos(pitch))), 
+		y = FixedMul(speed, FixedMul(sin(angle), cos(pitch))), 
+		z = FixedMul(speed, sin(pitch))
+	}
+	
+	nextPos.x = TGFDifferenceCheck(diff.x, nextPos.x, endPos.x)
+	nextPos.y = TGFDifferenceCheck(diff.y, nextPos.y, endPos.y)
+	nextPos.z = TGFDifferenceCheck(diff.z, nextPos.z, endPos.z)
+	
+	mo.angle = R_PointToAngle2(0, 0, diff.x, diff.y)
+	
+	P_MoveOrigin(mo, nextPos.x, nextPos.y, nextPos.z)
+	
+	if mo.x == endPos.x and mo.y == mo.y and mo.z == endPos.z
+		return true
+	end
+end
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	// This MobjThinker is only for the minus's TGF movement
+	if mo.health <= 0 or not mo.tgfMovement then return end
+	
+	// Setup variables for the TGF-based movement
+	if not mo.tgfOrigPos
+		mo.tgfOrigPos = {
+			x = mo.x,
+			y = mo.y,
+			z = mo.z,
+		}
+	end
+	
+	local origPos = mo.tgfOrigPos
+	if not mo.tgfPosNum then mo.tgfPosNum = 0 end
+	if not mo.tgfReverse then mo.tgfReverse = false end
+	if not mo.tgfAngle then mo.tgfAngle = 0 end
+	if not mo.tgfPositions
+		mo.tgfPositions = {
+			{x = origPos.x, y = origPos.y, z = origPos.z},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 43*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 43*mo.scale),	z = origPos.z - P_MobjFlip(mo)*32*mo.scale},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 208*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 208*mo.scale),	z = origPos.z - P_MobjFlip(mo)*45*mo.scale},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 258*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 258*mo.scale),	z = origPos.z - P_MobjFlip(mo)*7*mo.scale}
+		}
+	end
+	
+	local speed = 8*mo.scale
+	
+	if mo.tgfPositions and table.maxn(mo.tgfPositions)
+		local maxIndex = table.maxn(mo.tgfPositions)
+		
+		// Move the minus backwards if it is reversed
+		if mo.tgfReverse and mo.tgfPosNum > 1
+			if TGFMovement(mo, mo.tgfPositions[mo.tgfPosNum - 1], speed)
+				mo.tgfPosNum = $-1
+			end
+		// Move the minus forwards if it is not reversed
+		elseif not mo.tgfReverse and mo.tgfPosNum < maxIndex
+			if TGFMovement(mo, mo.tgfPositions[mo.tgfPosNum + 1], speed)
+				mo.tgfPosNum = $+1
+			end
+		end
+		
+		// Reverse the minus's movement if it reaches one of the path's ends
+		if (mo.tgfReverse and mo.tgfPosNum <= 1)
+		or (not mo.tgfReverse and mo.tgfPosNum >= maxIndex)
+			mo.tgfReverse = not $
+		end
+	end
+end, MT_TGF_MINUS)
+
+mobjinfo[MT_TGF_MINUS] = {
+	//$Name "TGF Minus"
+	//$Sprite TMINA1
+	//$Category TGF/Concept Enemies
+	//$Flags4Text TGF Behavior
+	doomednum = 4019,
+	spawnstate = S_TMIN_FLOAT,
+	spawnhealth = 1,
+	seestate = S_TMIN_FLY,
+	reactiontime = 2,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 20,
+	radius = 28*FRACUNIT,
+	height = 16*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY|MF_ENEMY|MF_FLOAT
+}
+
+states[S_TMIN_TGFMOVEMENT] =	{SPR_TMIN,	A|FF_ANIMATE,	-1,	nil,	1,	1,	S_TMIN_TGFMOVEMENT}
+
+states[S_TMIN_FLOAT] =	{SPR_TMIN,	A,	10,	A_Look,	0,	0,	S_TMIN_FLOAT2}
+states[S_TMIN_FLOAT2] =	{SPR_TMIN,	B,	10,	A_Look,	0,	0,	S_TMIN_FLOAT}
+
+states[S_TMIN_FLY] =	{SPR_TMIN,	A,	3,	A_Chase,	0,	0,	S_TMIN_FLY2}
+states[S_TMIN_FLY2] =	{SPR_TMIN,	B,	3,	A_Chase,	0,	0,	S_TMIN_FLY}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_TGF_MINUS] = 6    // Makes MT_TGF_MINUS give Needle

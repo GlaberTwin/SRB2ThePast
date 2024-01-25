@@ -1,0 +1,318 @@
+// Demo Eggman - Ported by Glaber (original SOC) and MIDIMan (accuracy fixes and conversion to Lua)
+// use with LUA_OMIS
+
+//Binary maps only
+//The Demo Egg Mobile's behavior can be modified with the parameter setting in Zone Builder:
+
+//0 - XMAS behavior
+//1 - Demo 2-3 behavior
+//2 - Demo 4.0-4.35 behavior
+
+//The Ambush flag can be set to spawn a spikeball shield around the Egg Mobile
+
+// Demo Eggman
+
+freeslot(
+	"MT_EGGDEMOHOVER",
+	"S_EGGDEMOHOVER_IDLE",
+	"S_EGGDEMOHOVER_IDLE2",
+	"S_EGGDEMOHOVER_HOVER",
+	"S_EGGDEMOHOVER_HOVER2",
+	"S_EGGDEMOHOVER_HOVER3",
+	"S_EGGDEMOHOVER_HOVER4",
+	"S_EGGDEMOHOVER_ATTACK",
+	"S_EGGDEMOHOVER_ATTACK2",
+	"S_EGGDEMOHOVER_HURT",
+	"S_EGGDEMOHOVER_DEAD",
+	"S_EGGDEMOHOVER_DEAD2",
+	"S_EGGDEMOHOVER_DEAD3",
+	"S_EGGDEMOHOVER_DEAD4",
+	"S_EGGDEMOHOVER_DEAD5",
+	"S_EGGDEMOHOVER_DEAD6",
+	"S_EGGDEMOHOVER_DEAD7",
+	"S_EGGDEMOHOVER_DEAD8",
+	"S_EGGDEMOHOVER_DEAD9",
+	"S_EGGDEMOHOVER_DEAD10",
+	"S_EGGDEMOHOVER_DEAD11",
+	"S_EGGDEMOHOVER_DEAD12",
+	"S_EGGDEMOHOVER_DEAD13",
+	"S_EGGDEMOHOVER_DEAD14",
+	"S_EGGDEMOHOVER_RUNAWAY",
+	"S_EGGDEMOHOVER_RUNAWAY2",
+	"SPR_EGG9"
+)
+
+// Constants
+local TP_EGGDEMO_XMAS = 0
+local TP_EGGDEMO_DEMO2 = 1
+local TP_EGGDEMO_DEMO4 = 2
+
+// Call A_FaceTarget and set the Egg Mobile's current tics to 6 if they're the XMAS variant
+local function Demo_EggTarget(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	A_FaceTarget(actor)
+	if not actor.eggdemoBehavior then actor.tics = 6 end
+end
+
+local function Demo_CheckMissileSpawn(th)
+	if not (th and th.valid) then return end
+	
+	P_SetOrigin(th, th.x + (th.momx/2), th.y + (th.momy/2), th.z + (th.momz/2))
+	
+	if not P_TryMove(th, th.x, th.y, true) then
+		P_ExplodeMissile(th)
+		return false
+	end
+	return true
+end
+
+// Create our own P_SpawnMissile that plays the missile's seesound from the missile instead of its source
+local function Demo_SpawnMissile(source, dest, moType)
+	if not (source and source.valid
+	and dest and dest.valid) then
+		return
+	end
+	
+	if not moType then moType = MT_THOK end
+	
+	local th = P_SpawnMobjFromMobj(source, 0, 0, source.info.height, moType)
+	
+	local speed = FixedMul(th.info.speed, th.scale)
+	
+	if speed == 0 then
+		//print("Demo_SpawnMissile - projectile has 0 speed! (mobj type "..tostring(moType)..")")
+		speed = FixedMul(mobjinfo[MT_TURRETLASER].speed, th.scale)
+	end
+	
+	if (th.info.seesound) then S_StartSound(th, th.info.seesound) end
+	
+	th.target = source
+	
+	local an = R_PointToAngle2(source.x, source.y, dest.x, dest.y)
+	
+	th.angle = an
+	P_InstaThrust(th, an, speed)
+	
+	local dist = P_AproxDistance(dest.x - source.x, dest.y - source.y)
+	
+	dist = dist/speed
+	
+	if dist < 1 then dist = 1 end
+	
+	th.momz = (dest.z - th.z)/dist
+	
+	th.eggdemoBehavior = source.eggdemoBehavior
+	
+	if (th.flags & MF_MISSILE) then
+		dist = Demo_CheckMissileSpawn(th)
+	else
+		dist = 1
+	end
+	
+	if dist then
+		return th
+	end
+	
+	return nil
+end
+
+local function Demo_EggAttack(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	if actor.eggdemoBehavior and actor.health < 3 then
+		A_SkullAttack(actor)
+	else
+		A_FaceTarget(actor)
+		Demo_SpawnMissile(actor, actor.target, MT_OLD_LAZER)
+	end
+end
+
+// Make the Demo Egg Mobile spawn 33 FRACUNITS off the ground if its z-position hasn't been set
+addHook("MapThingSpawn", function(mobj, mapthing)
+	if not (mobj and mobj.valid
+	and mapthing and mapthing.valid)
+		return
+	end
+	
+	mobj.eggdemoBehavior = mapthing.extrainfo
+	if mobj.eggdemoBehavior > TP_EGGDEMO_DEMO4 then mobj.eggdemoBehavior = TP_EGGDEMO_DEMO4 end
+	
+	// Spawn a spike ball shield if the ambush flag is set
+	if (mapthing.options & MTF_AMBUSH)
+		local spikemobj
+		for i = 0, 3, 1 do
+			spikemobj = P_SpawnMobj(mobj.x, mobj.y, mobj.z, MT_SPIKEBALL)
+			spikemobj.target = mobj
+			if i == 0
+				spikemobj.angle = 0
+			elseif i == 1
+				spikemobj.angle = ANGLE_90
+			elseif i == 2
+				spikemobj.angle = ANGLE_180
+			elseif i == 3
+				spikemobj.angle = ANGLE_270
+			end
+		end
+	end
+end, MT_EGGDEMOHOVER)
+
+// The Egg Mobile originally bounced off of players instead of going through them in "SKULLFLY" mode
+addHook("MobjMoveCollide", function(tmthing, thing)
+	if not (tmthing and tmthing.valid
+	and thing and thing.valid) then
+		return
+	end
+	
+	// Only bounce off of objects if the Demo Egg Mobile is in "SKULLFLY" mode
+	if not (tmthing.flags2 & MF2_SKULLFLY) then return end
+	
+	// Don't let spikeballs interrupt the Egg Mobile's movement
+	if thing.type == MT_SPIKEBALL then return false end
+	
+	// Only bounce off of objects in "SKULLFLY" if the Egg Mobile is using its Demo 4 behavior
+	if tmthing.eggdemoBehavior and tmthing.eggdemoBehavior >= TP_EGGDEMO_DEMO4
+		tmthing.momx = -$
+		tmthing.momy = -$
+		tmthing.momz = -$
+	else
+		// Make sure the player is not spinning before attempting to hurt it
+		if not (thing.player and thing.player.valid
+		and P_PlayerCanDamage(thing.player, tmthing)) then
+			P_DamageMobj(thing, tmthing, tmthing)
+		end
+		tmthing.flags2 = $ & ~MF2_SKULLFLY
+		tmthing.momx = 0
+		tmthing.momy = 0
+		tmthing.momz = 0
+	end
+	return false
+end, MT_EGGDEMOHOVER)
+
+// Prevents the Demo Egg Mobile from bouncing off of the walls in "SKULLFLY" mode
+addHook("MobjMoveBlocked", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	mobj.flags2 = $ & ~MF2_SKULLFLY
+	mobj.momx = 0
+	mobj.momy = 0
+	mobj.momz = 0
+	return true
+end, MT_EGGDEMOHOVER)
+
+// Prevents the Demo Egg Mobile from being hit-spammed
+addHook("MobjDamage", function(target, inflictor, source)
+	if not (target and target.valid) then return end
+	if (target.flags2 & MF2_SKULLFLY) then target.flags2 = $ & ~MF2_SKULLFLY end
+end, MT_EGGDEMOHOVER)
+
+// Makes the spikeball rotate around its target (only for the Demo Egg Mobile)
+addHook("MobjThinker", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	if mobj.target and mobj.target.valid and mobj.target.type == MT_EGGDEMOHOVER
+		local radius = FixedMul(5*mobj.info.speed, mobj.scale)
+		
+		mobj.angle = $ + FixedAngle(mobj.info.speed)
+		P_MoveOrigin(
+			mobj,
+			mobj.target.x + FixedMul(cos(mobj.angle), radius),
+			mobj.target.y + FixedMul(sin(mobj.angle), radius),
+			mobj.target.z + mobj.target.height/2
+		)
+	end
+end, MT_SPIKEBALL)
+
+addHook("BossThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	// The particle effects only happen in the Demo series
+	if mo.eggdemoBehavior then
+		// Make the Egg Mobile smoke in its pinch phase
+		if mo.health > 0 and mo.health < 3 and (leveltime & 1) then
+			P_SpawnMobjFromMobj(mo, 0, 0, 0, MT_SMOKE)
+		end
+		
+		// Make the Egg Mobile spawn a thok while in "SKULLFLY" mode
+		if (mo.flags2 & MF2_SKULLFLY) then
+			local spawnmobj = P_SpawnMobjFromMobj(mo, 0, 0, 0, MT_THOK)
+			spawnmobj.target = mo
+			spawnmobj.color = SKINCOLOR_GREY
+		end
+	end
+	
+	if (mo.flags2 & MF2_FRET) and mo.state ~= mo.info.painstate then
+		mo.flags2 = $ & ~MF2_FRET
+	end
+	
+	return true
+end, MT_EGGDEMOHOVER)
+
+addHook("BossDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	mo.state = mo.info.xdeathstate
+	if not mo.valid then return end
+	
+	// Don't do anything spectacular, just go upwards
+	P_SetObjectMomZ(mo, 2*FRACUNIT)
+	return true
+end, MT_EGGDEMOHOVER)
+
+mobjinfo[MT_EGGDEMOHOVER] = {
+	//$Name Demo Egg Mobile
+	//$Sprite EGG9A1
+	//$Category Retro Bosses
+	//$Flags4Text End level on death
+	//$Flags8Text Spawn w/ Spikeball Shield
+	//$ParameterText Behavior
+	doomednum = 4048,
+	spawnstate = S_EGGDEMOHOVER_IDLE,
+	spawnhealth = 8,
+	seestate = S_EGGDEMOHOVER_HOVER,
+	reactiontime = 8,
+	painstate = S_EGGDEMOHOVER_HURT,
+	painchance = 20,
+	painsound = sfx_dmpain,
+	missilestate = S_EGGDEMOHOVER_ATTACK,
+	deathstate = S_EGGDEMOHOVER_DEAD,
+	deathsound = sfx_cybdth,
+	xdeathstate = S_EGGDEMOHOVER_RUNAWAY,
+	speed = 16,
+	radius = 24*FRACUNIT,
+	height = 48*FRACUNIT,
+	activesound = sfx_telept,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_BOSS|MF_FLOAT|MF_NOGRAVITY
+}
+
+states[S_EGGDEMOHOVER_IDLE] =	{SPR_EGG9,	A,	10,	A_Look,	0,	0,	S_EGGDEMOHOVER_IDLE2}
+states[S_EGGDEMOHOVER_IDLE2] =	{SPR_EGG9,	B,	10,	A_Look,	0,	0,	S_EGGDEMOHOVER_IDLE}
+
+states[S_EGGDEMOHOVER_HOVER] =	{SPR_EGG9,	A,	3,	A_Chase,	0,	0,	S_EGGDEMOHOVER_HOVER2}
+states[S_EGGDEMOHOVER_HOVER2] =	{SPR_EGG9,	B,	3,	A_Chase,	0,	0,	S_EGGDEMOHOVER_HOVER3}
+states[S_EGGDEMOHOVER_HOVER3] =	{SPR_EGG9,	C,	3,	A_Chase,	0,	0,	S_EGGDEMOHOVER_HOVER4}
+states[S_EGGDEMOHOVER_HOVER4] =	{SPR_EGG9,	D,	3,	A_Chase,	0,	0,	S_EGGDEMOHOVER_HOVER}
+
+states[S_EGGDEMOHOVER_ATTACK] =		{SPR_EGG9,	E,	28,	Demo_EggTarget,	0,	0,	S_EGGDEMOHOVER_ATTACK2}
+states[S_EGGDEMOHOVER_ATTACK2] =	{SPR_EGG9,	E,	12,	Demo_EggAttack,	0,	0,	S_EGGDEMOHOVER_HOVER}
+
+states[S_EGGDEMOHOVER_HURT] =	{SPR_EGG9,	F,	24,	A_Pain,	0,	0,	S_EGGDEMOHOVER_HOVER}
+
+states[S_EGGDEMOHOVER_DEAD] =	{SPR_EGG9,	H,	8,	A_Fall,			0,	0,	S_EGGDEMOHOVER_DEAD2}
+states[S_EGGDEMOHOVER_DEAD2] =	{SPR_EGG9,	I,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD3}
+states[S_EGGDEMOHOVER_DEAD3] =	{SPR_EGG9,	J,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD4}
+states[S_EGGDEMOHOVER_DEAD4] =	{SPR_EGG9,	K,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD5}
+states[S_EGGDEMOHOVER_DEAD5] =	{SPR_EGG9,	L,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD6}
+states[S_EGGDEMOHOVER_DEAD6] =	{SPR_EGG9,	M,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD7}
+states[S_EGGDEMOHOVER_DEAD7] =	{SPR_EGG9,	N,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD8}
+states[S_EGGDEMOHOVER_DEAD8] =	{SPR_EGG9,	O,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD9}
+states[S_EGGDEMOHOVER_DEAD9] =	{SPR_EGG9,	P,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD10}
+states[S_EGGDEMOHOVER_DEAD10] =	{SPR_EGG9,	Q,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD11}
+states[S_EGGDEMOHOVER_DEAD11] =	{SPR_EGG9,	R,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD12}
+states[S_EGGDEMOHOVER_DEAD12] =	{SPR_EGG9,	S,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD13}
+states[S_EGGDEMOHOVER_DEAD13] =	{SPR_EGG9,	T,	8,	A_Scream,		0,	0,	S_EGGDEMOHOVER_DEAD14}
+states[S_EGGDEMOHOVER_DEAD14] =	{SPR_EGG9,	U,	-1,	A_BossDeath,	0,	0,	S_NULL}
+
+// The Demo Egg Mobile did not originally have a fleeing animation, since it brought up the results screen immediately after dying
+states[S_EGGDEMOHOVER_RUNAWAY] =	{SPR_EGG9,	F,	10,	nil,	0,	0,	S_EGGDEMOHOVER_RUNAWAY2}
+states[S_EGGDEMOHOVER_RUNAWAY2] =	{SPR_EGG9,	A,	10,	nil,	0,	0,	S_EGGDEMOHOVER_RUNAWAY}

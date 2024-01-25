@@ -1,0 +1,102 @@
+-- Stuff shared between the 2.1 and 2.0 Egg Slimer
+-- THIS IS REQUIRED FOR EITHER TO WORK
+
+freeslot(
+	-- Sprites
+	"SPR_21EN",
+	"SPR_2ENJ",
+	"SPR_OGOP",
+	-- Objects
+	"MT_20BOSSJUNK",
+	"MT_20BOSSSPIGOTJUNK",
+	-- States
+	"S_21EGGMOBILE2_STND",
+	"S_21EGGMOBILE2_POGO4",
+	"S_21EGGMOBILE2_PAIN",
+	"S_21EGGMOBILE2_PAIN2",
+	"S_21EGGMOBILE2_DIE1",
+	"S_21EGGMOBILE2_DIE2",
+	"S_21EGGMOBILE2_DIE3",
+	"S_21EGGMOBILE2_DIE4",
+	"S_21EGGMOBILE2_FLEE1",
+	"S_21EGGMOBILE2_FLEE2",
+	"S_20BOSSTANK1",
+	"S_20BOSSTANK2",
+	"S_20BOSSSPIGOT"
+)
+
+function A_20EggSlimerGibs(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local mo2 = P_SpawnMobjFromMobj(
+		actor,
+		P_ReturnThrustX(actor, actor.angle - ANGLE_90, 32*FRACUNIT),
+		P_ReturnThrustY(actor, actor.angle - ANGLE_90, 32*FRACUNIT),
+		actor.height/2 + 8*FRACUNIT,
+		MT_20BOSSJUNK
+	)
+	mo2.angle = actor.angle
+	P_InstaThrust(mo2, mo2.angle - ANGLE_90, FixedMul(4*FRACUNIT, mo2.scale))
+	P_SetObjectMomZ(mo2, 4*FRACUNIT, false)
+	mo2.state = S_20BOSSTANK1
+	
+	mo2 = P_SpawnMobjFromMobj(
+		actor,
+		P_ReturnThrustX(actor, actor.angle + ANGLE_90, 32*FRACUNIT),
+		P_ReturnThrustY(actor, actor.angle + ANGLE_90, 32*FRACUNIT),
+		actor.height/2 + 8*FRACUNIT,
+		MT_20BOSSJUNK
+	)
+	mo2.angle = actor.angle
+	P_InstaThrust(mo2, mo2.angle + ANGLE_90, FixedMul(4*FRACUNIT, mo2.scale))
+	P_SetObjectMomZ(mo2, 4*FRACUNIT, false)
+	mo2.state = S_20BOSSTANK2
+	
+	mo2 = P_SpawnMobjFromMobj(actor, 0, 0, actor.height + 32*FRACUNIT, MT_20BOSSSPIGOTJUNK)
+	mo2.angle = actor.angle
+	
+	P_SetObjectMomZ(mo2, 4*FRACUNIT, false)
+end
+
+states[S_21EGGMOBILE2_STND] =	{SPR_21EN,	A,	-1,	nil,	0,	0,	S_NULL}
+
+states[S_21EGGMOBILE2_POGO4] =	{SPR_21EN,	C,	-1,	nil,	0,	0,	S_NULL}
+
+-- Replace A_Boss2TakeDamage with A_21Boss2TakeDamage if it changes in the future
+states[S_21EGGMOBILE2_PAIN] =	{SPR_21EN,	D,	24,	A_Boss2TakeDamage,	24+TICRATE,	0,	S_21EGGMOBILE2_STND}
+-- Replace A_Boss2TakeDamage with A_21Boss2TakeDamage if it changes in the future
+states[S_21EGGMOBILE2_PAIN2] =	{SPR_21EN,	E,	24,	A_Boss2TakeDamage,	24+TICRATE,	0,	S_21EGGMOBILE2_POGO4}
+
+states[S_21EGGMOBILE2_DIE1] =	{SPR_21EN,	F,	8,	A_Fall,			0,	0,						S_21EGGMOBILE2_DIE2}
+states[S_21EGGMOBILE2_DIE2] =	{SPR_21EN,	F,	8,	A_BossScream,	0,	MT_BOSSEXPLODE,			S_21EGGMOBILE2_DIE3}
+states[S_21EGGMOBILE2_DIE3] =	{SPR_21EN,	F,	8,	A_Repeat,		12,	S_21EGGMOBILE2_DIE2,	S_21EGGMOBILE2_DIE4}
+states[S_21EGGMOBILE2_DIE4] =	{SPR_21EN,	F,	-1,	A_BossDeath,	0,	0,						S_NULL}
+
+states[S_21EGGMOBILE2_FLEE1] =	{SPR_21EN,	G,	5,	nil,	0,	0,	S_21EGGMOBILE2_FLEE2}
+states[S_21EGGMOBILE2_FLEE2] =	{SPR_21EN,	H,	5,	nil,	0,	0,	S_21EGGMOBILE2_FLEE1}
+
+-- 2.0/2.1 Egg Slimer "Gibs"
+
+mobjinfo[MT_20BOSSJUNK] = {
+	doomednum = -1,
+	spawnstate = S_INVISIBLE, -- Invisible unless its state is altered
+	spawnhealth = 1,
+	reactiontime = 8,
+	radius = 8*FRACUNIT,
+	height = 64*FRACUNIT,
+	flags = MF_NOBLOCKMAP
+}
+
+mobjinfo[MT_20BOSSSPIGOTJUNK] = {
+	doomednum = -1,
+	spawnstate = S_20BOSSSPIGOT,
+	spawnhealth = 1,
+	reactiontime = 8,
+	radius = 8*FRACUNIT,
+	height = 24*FRACUNIT,
+	flags = MF_NOBLOCKMAP
+}
+
+states[S_20BOSSTANK1] =		{SPR_2ENJ,	A,	35,	nil,	0,	0,	S_NULL}
+states[S_20BOSSTANK2] =		{SPR_2ENJ,	B,	35,	nil,	0,	0,	S_NULL}
+states[S_20BOSSSPIGOT] =	{SPR_2ENJ,	C,	35,	nil,	0,	0,	S_NULL}

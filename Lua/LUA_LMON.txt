@@ -1,0 +1,38 @@
+--"lemons"
+freeslot("MT_LEMON", "S_LEMON", "S_SOUNDPLAYERLMN", "SPR_PLSS", "sfx_plasma", "sfx_firxpl")
+
+mobjinfo[MT_LEMON] = {
+	doomednum = -1,
+	spawnstate = S_LEMON,
+	spawnhealth = 1000,
+	seesound = sfx_plasma,
+	reactiontime = 8,
+	deathstate = S_SOUNDPLAYERLMN,
+	deathsound = sfx_firxpl,
+	xdeathstate = S_NULL,
+	speed = 60*FRACUNIT,
+	radius = 4*FRACUNIT,
+	height = 6*FRACUNIT,
+	mass = 0,
+	damage = 1,
+	flags = MF_NOBLOCKMAP|MF_NOGRAVITY|MF_MISSILE
+}
+
+states[S_LEMON] = {SPR_PLSS, A, 1, nil, 0, 0, S_LEMON}
+states[S_SOUNDPLAYERLMN] = {SPR_NULL, 0, 35, nil, 0, 0, S_NULL}
+
+//lua help from Monster Iestyn, Golden, Inferno, Tatsuru, Nightwolf, and Midiman
+addHook("PlayerThink", function(player)
+	if not (player and player.valid
+	and player.mo and player.mo.valid)
+		return
+	end
+    if player.mo.skin == "megamand3" then
+        if not player.lastbuttons then player.lastbuttons = 0 end
+        if ((player.cmd.buttons & BT_ATTACK) and not (player.lastbuttons & BT_ATTACK))
+        or ((player.cmd.buttons & BT_FIRENORMAL) and not (player.lastbuttons & BT_FIRENORMAL)) then
+            local ring = P_SpawnPlayerMissile(player.mo, MT_LEMON)
+        end
+        player.lastbuttons = player.cmd.buttons
+    end
+end)

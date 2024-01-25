@@ -1,0 +1,35 @@
+// SRB1 PYRX - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_MMZFLYING",
+	"S_SRB1_MMZFLYING1",
+	"S_SRB1_MMZFLYING2",
+	"S_SRB1_MMZFLYING3",
+	"S_SRB1_MMZFLYING4",
+	"S_SRB1_MMZFLYING5",
+	"SPR_SRBG"
+)
+
+mobjinfo[MT_SRB1_MMZFLYING] = {
+	//$Name Pyrex
+	//$Sprite SRBGA1
+	//$Category SRB1 Enemies
+	doomednum = 4007,
+	spawnstate = S_SRB1_MMZFLYING1,
+	spawnhealth = 1,
+	seestate = S_SRB1_MMZFLYING1,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = FRACUNIT,
+	radius = 24*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_FLOAT
+}
+
+states[S_SRB1_MMZFLYING1] =	{SPR_SRBG,	A,	16,	A_MoveAbsolute,	0,		5,	S_SRB1_MMZFLYING2}
+states[S_SRB1_MMZFLYING2] =	{SPR_SRBG,	A,	16,	A_MoveAbsolute,	180,	5,	S_SRB1_MMZFLYING3}
+states[S_SRB1_MMZFLYING3] =	{SPR_SRBG,	A,	1,	A_MoveAbsolute,	0,		5,	S_SRB1_MMZFLYING4}
+states[S_SRB1_MMZFLYING4] =	{SPR_SRBG,	A,	7,	A_MoveAbsolute,	0,		5,	S_SRB1_MMZFLYING5}
+states[S_SRB1_MMZFLYING5] =	{SPR_SRBG,	A,	8,	A_MoveAbsolute,	180,	5,	S_SRB1_MMZFLYING1}

@@ -1,0 +1,304 @@
+##Hub Level Headers
+
+#MUSEUM
+Level 1
+Levelname = SRB2 Museum
+Subtitle = Gateway to the Past
+SelectHeading = Museum
+ScriptName = SCRIPT01
+Act = 0
+Music = MUSEUM
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 0
+SaveGame = true
+
+
+
+
+#GREENFLOWER
+Level GZ
+Levelname = Greenflower Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 1
+RecordAttack = 0
+LevelSelect = true
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:1
+
+
+
+
+#TECHNO HILL
+Level TZ
+Levelname = Techno Hill Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+RecordAttack = 0
+LevelSelect = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:2
+
+
+
+
+#DEEP SEA
+Level DZ
+Levelname = Deep Sea Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 7
+RecordAttack = 0
+LevelSelect = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:3
+
+
+
+
+#CASTLE EGGMAN
+Level CZ
+Levelname = Castle Eggman Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+RecordAttack = 0
+LevelSelect = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:4
+
+
+
+
+#ARID CANYON
+Level AZ
+Levelname = Arid Canyon Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 13
+RecordAttack = 0
+LevelSelect = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:5
+
+
+
+
+#RED VOLCANO
+Level RZ
+Levelname = Red Volcano Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 1
+RecordAttack = 0
+LevelSelect = 1
+NoSSMusic = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:6
+
+
+
+
+#EGG ROCK
+Level EZ
+Levelname = Egg Rock Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 22
+RecordAttack = 0
+LevelSelect = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:7
+
+
+
+
+#DEVELOPMENT
+Level YZ
+Levelname = Development Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = DEVHUB
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 66
+RecordAttack = 0
+LevelSelect = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:8
+
+
+
+
+#UNLOCKABLES
+Level UZ
+Levelname = Unlockables Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+NoSSMusic = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:9
+
+
+
+
+
+#NIGHTS
+Level NZ
+Levelname = NiGHTS Hub
+SelectHeading = Museum
+Act = 0
+NoZone = true
+Music = FIELD
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 117
+RecordAttack = 0
+LevelSelect = 1
+NoSSMusic = 1
+Weather = 0
+SaveGame = true
+Lua.TPHub = 1:10
+
+
+
+
+#COLOSSEUM
+Level 29
+Levelname = SRB2 Colosseum
+Subtitle = Arena of the Past
+SelectHeading = Colosseum
+Act = 0
+Music = _INTER
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+SaveGame = true
+Lua.TPHub = 1:19
+
+Level 30
+Levelname = Boss Rush
+Subtitle = Lobby
+SelectHeading = Colosseum
+Act = 0
+Music = _INTER
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+Lua.TPHub = 29:1
+
+Level 31
+Levelname = Metal's Challenge
+Subtitle = Lobby
+SelectHeading = Colosseum
+Act = 0
+Music = RIVALR
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+Lua.TPHub = 29:2
+
+Level 58
+Levelname = Match Locker Room
+Subtitle = Game Prep
+SelectHeading = Colosseum
+Act = 0
+Music = _INTER
+NextLevel = 58
+TypeOfLevel = Singleplayer,Co-op,Match
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+SaveGame = false
+NoVisitNeeded = true
+Lua.TPHub = 29:3
+
+Level 59
+Levelname = CTF Locker Room
+Subtitle = Game Prep
+SelectHeading = Colosseum
+Act = 0
+Music = _INTER
+NextLevel = 59
+TypeOfLevel = Singleplayer,Co-op,CTF
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+SaveGame = false
+NoVisitNeeded = true
+Lua.TPHub = 29:4
+
+Level MZ
+Levelname = Circuit Locker Room
+Subtitle = Game Prep
+SelectHeading = Colosseum
+Act = 0
+Music = _INTER
+NextLevel = MZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+SaveGame = false
+NoVisitNeeded = true
+Lua.TPHub = 29:5

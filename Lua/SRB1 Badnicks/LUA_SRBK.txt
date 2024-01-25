@@ -1,0 +1,29 @@
+// SRB1 Buzz Bomber - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_RBZBUZZ",
+	"S_SRB1_RBZBUZZ1",
+	"S_SRB1_RBZBUZZ2",
+	"SPR_SRBK"
+)
+
+mobjinfo[MT_SRB1_RBZBUZZ] = {
+	//$Name Buzz Bomber
+	//$Sprite SRBKA0
+	//$Category SRB1 Enemies
+	doomednum = 4011,
+	spawnstate = S_SRB1_RBZBUZZ1,
+	spawnhealth = 1,
+	seestate = S_SRB1_RBZBUZZ1,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3*FRACUNIT,
+	radius = 44*FRACUNIT,
+	height = 45*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_FLOAT
+}
+
+states[S_SRB1_RBZBUZZ1] =	{SPR_SRBK,	A,	8,	A_MoveAbsolute,	0,	5,	S_SRB1_RBZBUZZ2}
+states[S_SRB1_RBZBUZZ2] =	{SPR_SRBK,	B,	8,	A_MoveAbsolute,	0,	-5,	S_SRB1_RBZBUZZ1}

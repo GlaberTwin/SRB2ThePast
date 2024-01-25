@@ -1,0 +1,68 @@
+freeslot("MT_JETTYSYNRETROBOMBER", "S_RJETBLOOK1", "S_RJETBLOOK2", "S_RJETBZOOM1", "S_RJETBZOOM2", "SPR_RJTB")
+
+local function CustomJettyBSpawn(mobj, mapthing)
+    local offset
+    
+    if mapthing.z != 0
+        offset = mapthing.z
+    else
+        offset = 33*FRACUNIT
+    end
+    
+    if (mapthing.options & MTF_OBJECTFLIP)
+        if offset != 0
+            mobj.z = mobj.z - offset
+        else
+            mobj.z = mobj.ceilingz
+        end
+    else
+        if offset != 0
+            mobj.z = mobj.z + offset
+        else
+            mobj.z = mobj.floorz
+        end
+    end
+    
+end
+
+addHook("MapThingSpawn", CustomJettyBSpawn, MT_JETTYSYNRETROBOMBER)
+
+// Retro Jetty-Syn Bomber
+mobjinfo[MT_JETTYSYNRETROBOMBER] = {
+		//$Name "Retro Jetty-syn Bomber"
+		//$Sprite RJTBA1
+        doomednum = 143,
+        spawnstate = S_RJETBLOOK1,
+        spawnhealth = 1,
+        seestate = S_RJETBZOOM1,
+        seesound = sfx_None,
+        reactiontime = 32,
+        attacksound = sfx_s3k51,
+        painstate = S_NULL,
+        painchance = 200,
+        painsound = sfx_dmpain,
+		missilestate = S_NULL,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 1*FRACUNIT,
+        radius = 20*FRACUNIT,
+        height = 50*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_None,
+		raisestate = MT_RETROBOBMMINE,
+        flags = MF_SLIDEME|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+	
+states[S_RJETBLOOK1] = {SPR_RJTB, 0, 4, A_Look, 0, 0, S_RJETBLOOK2}
+states[S_RJETBLOOK2] = {SPR_RJTB, 1, 4, A_Look, 0, 0, S_RJETBLOOK1}
+states[S_RJETBZOOM1] = {SPR_RJTB, 0, 1, A_JetbThink, 0, 0, S_RJETBZOOM2}
+states[S_RJETBZOOM2] = {SPR_RJTB, 1, 1, A_JetbThink, 0, 0, S_RJETBZOOM1}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_JETTYSYNRETROBOMBER] = 4    // Makes MT_JETTYSYNRETROBOMBER give bomb

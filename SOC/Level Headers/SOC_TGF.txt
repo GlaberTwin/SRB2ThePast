@@ -1,0 +1,274 @@
+#The Games Factory Level Headers
+
+#GREENFLOWER
+
+Level 136
+Levelname = Greenflower
+Act = 1
+Subtitle = The Games Factory
+Music = TGFZ1
+PreCutsceneNum = 41
+NextLevel = 137
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:11
+
+Level 137
+Levelname = Greenflower
+Act = 2
+Subtitle = The Games Factory
+Music = OGFZ2
+NextLevel = 138
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:11
+
+Level 138
+Levelname = Greenflower
+Act = 3
+Subtitle = The Games Factory
+Music = VSTBOS
+NextLevel = 139
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+BonusType = Boss
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+Lua.TPHub = 1:11
+
+
+
+
+#TECHNO HILL
+
+Level 139
+Levelname = Techno Hill
+Act = 1
+Subtitle = The Games Factory
+Music = THTGF1
+NextLevel = 140
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+Lua.TPHub = 1:11
+
+Level 140
+Levelname = Techno Hill
+Act = 2
+Subtitle = The Games Factory
+Music = THTGF2
+NextLevel = 141
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:11
+
+Level 141
+Levelname = Techno Hill
+Act = 3
+Subtitle = The Games Factory
+Music = VSTBOS
+NextLevel = 142
+BonusType = Boss
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+Lua.TPHub = 1:11
+
+Level 142
+Levelname = Deep Sea
+Act = 1
+Subtitle = The Games Factory
+Music = DEEPSE
+NextLevel = 143
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+Lua.TPHub = 1:11
+
+
+
+
+#DEEP SEA
+
+Level 143
+Levelname = Deep Sea
+Act = 2
+Subtitle = The Games Factory
+Music = DEEPS2
+NextLevel = 144
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:11
+
+Level 144
+Levelname = Deep Sea
+Act = 3
+Subtitle = The Games Factory
+Music = VSTBOS
+NextLevel = 145
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+BonusType = Boss
+WarningTitle = true
+Lua.TPHub = 1:11
+
+
+
+
+#MINE MAZE
+
+Level 145
+Levelname = Mine Maze
+Act = 1
+Subtitle = The Games Factory
+Music = mines
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+Lua.TPHub = 1:11
+
+
+
+
+#The Games Factory XMAS Level Headers
+
+#SNOW FLOWER
+
+Level BA
+Levelname = Snow Flower
+Act = 1
+Subtitle = The Games Factory
+Music = GFZX1
+NextLevel = BB
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:13
+
+Level BB
+Levelname = Snow Flower
+Act = 2
+Subtitle = The Games Factory
+Music = GFZX2
+NextLevel = BC
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:13
+
+
+
+
+#SNOW FACTORY
+
+Level BC
+Levelname = Snow Factory
+Act = 1
+Subtitle = The Games Factory
+Music = THZX
+NextLevel = Bd
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+Lua.TPHub = 1:13
+
+Level BD
+Levelname = Snow Factory
+Act = 2
+Subtitle = The Games Factory
+Music = THZX
+NextLevel = be
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:13
+
+
+
+
+#DEEP SEA
+
+Level BE
+Levelname = Deep Sea
+Act = 1
+Subtitle = The Games Factory
+Music = DSZX1
+NextLevel = bf
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+Lua.TPHub = 1:13
+
+Level BF
+Levelname = Deep Sea
+Act = 2
+Subtitle = The Games Factory
+Music = DSZX2
+NextLevel = bg
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1:13
+
+
+
+
+#SNOW MINE
+
+Level BG
+Levelname = Snow Mine
+Act = 1
+Subtitle = The Games Factory
+Music = MMZX
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+Lua.TPHub = 1:13

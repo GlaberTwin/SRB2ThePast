@@ -1,0 +1,83 @@
+// Lua made by MIDIMan
+// deton exception by WellDoneSnake (edited slightly by MIDIMan)
+
+local function SRB2TP_UnsolidEnemies(tmthing, thing)
+	if not (tmthing and tmthing.valid
+	and thing and thing.valid) then
+		return
+	end
+	
+	// Allow the tmthing to be hit by a deton
+	if thing.type == MT_DETON then return end
+	
+	// tmthing flags should not need to be checked if the object already has MF_ENEMY or MF_BOSS
+	if (thing.flags & MF_ENEMY|MF_BOSS) then
+		return false
+	end
+end
+
+// Add to this list when more retro enemies are ported
+
+// Vanilla Enemies
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SKIM)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_JETJAW)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_POINTY)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SPRINGSHELL)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_GOOMBA)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_BLUEGOOMBA)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_KOOPA)
+
+// Retro Enemies
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_MINUS2)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_JETTYSYNRETROGUNNER)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_JETTYSYNRETROBOMBER)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OSHARP)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OSNAPPER)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_AQUABUZZ)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_RETROBUZZ)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_REDRETROBUZZ)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_ALTYELLOWSHELL)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_RETROROBOHOOD)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OGEGGGUARD)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OUNIDUS)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_CASTLEBOT2)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SDURF)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OLDSKIM)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_USER_MINUS)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OLDPOP)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_BLUECRAWLACLASSIC)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_REDCRAWLACLASSIC)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OLDSNAILER)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_CRAWLA)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_BAT)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_ROBOFISH)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_VOLCANOGUY)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_HOPPY)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_HOPPYWATER)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_HOPPYSKYLAB)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_MMZFLYING)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_UFO)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_GRAYBOT)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_ROBOTOPOLIS)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_RBZBUZZ)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_RBZSPIKES)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_GOLDBOT)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SRB1_GENREX)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OLDVULTURE)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_REDCRAWLA2)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_BLUECRAWLA2)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_SDURF2)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_OLDCRAWLACOMANDER)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_20CRAWLACOMANDER)
+
+// Retro Bosses - Might have to remove these for reasons
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_EGGDEMOHOVER)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_EGGOMATIC) // FD Egg Mobile
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_20EGGMOBILE)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_21EGGMOBILE)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_FDEGGMOBILE2)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_20EGGMOBILE2)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_21EGGMOBILE2)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_20EGGMOBILE3)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_21EGGMOBILE3)
+addHook("MobjMoveCollide", SRB2TP_UnsolidEnemies, MT_21EGGMOBILE4)

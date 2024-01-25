@@ -1,0 +1,487 @@
+##Techno Hill Zone Level Headers
+
+#DEMO
+
+Level 784
+Levelname = Techno Hill
+Act = 1
+subtitle = Demo 2
+MusicInter = LCLEAR
+Music = OTHZ1
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = KNUXPIC
+Precutscenenum = 52
+palette = 1032
+Lua.TPHub = TZ:3
+
+
+Level 785
+Levelname = Techno Hill
+interscreen = EGGPIC
+Act = 2
+Subtitle = Development Version
+MusicInter = LCLEAR
+Music = OTHZ2
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 53
+palette = 1032
+Lua.TPHub = TZ:2
+
+Level 786
+Levelname = Techno Hill
+interscreen = EGGPIC
+Subtitle = Development Version
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 54
+palette = 1032
+Lua.TPHub = TZ:1
+
+Level 787
+Levelname = Techno Hill
+Act = 1
+subtitle = Demo 3
+Music = OTHZ1
+MusicInter = LCLEAR
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = KNUXPIC
+Precutscenenum = 55
+palette = 1032
+Lua.TPHub = TZ:4
+
+Level 788
+Levelname = Techno Hill
+Act = 1
+subtitle = Demo 4
+MusicInter = LCLEAR
+Music = OTHZ1
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = KNUXPIC
+Precutscenenum = 56
+palette = 1032
+Lua.TPHub = TZ:5
+
+Level 789
+Levelname = Techno Hill
+Act = 2
+subtitle = Demo 4
+MusicInter = LCLEAR
+Music = OTHZ2
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = EGGPIC
+Precutscenenum = 57
+palette = 1032
+Lua.TPHub = TZ:6
+
+
+
+
+#DEMO DEV
+
+Level TP
+Levelname = Techno Hill
+Act = 2
+subtitle = Demo 4 Development
+MusicInter = LCLEAR
+Music = OTHZ2
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = EGGPIC
+Precutscenenum = 112
+palette = 1032
+Lua.TPHub = TZ:7
+
+Level TQ
+Levelname = Techno Hill
+interscreen = EGGPIC
+Subtitle = Demo 4 Development
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 113
+palette = 1032
+Lua.TPHub = TZ:8
+
+
+
+
+#1.01 DEV
+
+Level TI
+Levelname = Techno Hill
+Act = 2
+subtitle = Version 1.01 DEV
+MusicInter = LCLEAR
+Music = MAP05M
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = FDINTERP
+Precutscenenum = 107
+Lua.TPHub = TZ:9
+
+
+
+
+#FINAL DEMO
+
+Level 790
+Levelname = Techno Hill
+Act = 1
+subtitle = Version 1.01-1.08
+MusicInter = LCLEAR
+Music = FDTHZ1
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = FDINTERP
+Precutscenenum = 58
+Lua.TPHub = TZ:10
+
+Level 791
+Levelname = Techno Hill
+Act = 2
+subtitle = Version 1.01-1.08
+MusicInter = LCLEAR
+Music = MAP05M
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = FDINTERP
+Precutscenenum = 59
+Lua.TPHub = TZ:11
+
+Level 792
+Levelname = Techno Hill
+interscreen = FDINTERP
+Subtitle = Version 1.01-1.08
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 60
+Lua.TPHub = TZ:12
+
+Level 793
+Levelname = Techno Hill
+Act = 1
+subtitle = Version 1.09.4
+MusicInter = LCLEAR
+Music = FDTHZ1
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = FDINTERP
+Precutscenenum = 61
+Lua.TPHub = TZ:13
+
+Level 794
+Levelname = Techno Hill
+Act = 2
+subtitle = Version 1.09.4
+MusicInter = LCLEAR
+Music = MAP05M
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = FDINTERP
+Precutscenenum = 62
+Lua.TPHub = TZ:14
+
+Level 795
+Levelname = Techno Hill
+interscreen = FDINTERP
+Subtitle = Version 1.09.4
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 63
+Lua.TPHub = TZ:15
+
+
+
+
+#1.09.4 XMAS
+
+Level TJ
+Levelname = Techno Hill
+Act = 1
+subtitle = Version 1.09.4 (Christmas)
+MusicInter = LCLEAR
+Music = MAPA3M
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 2
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+interscreen = INTERXMS
+Precutscenenum = 61
+Lua.TPHub = TZ:16
+
+Level TK
+Levelname = Techno Hill
+Act = 2
+subtitle = Version 1.09.4 (Christmas)
+MusicInter = LCLEAR
+Music = MAPA4M
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+interscreen = INTERXMS
+Precutscenenum = 62
+Lua.TPHub = TZ:17
+
+Level TL
+Levelname = Techno Hill
+interscreen = INTERXMS
+Subtitle = Version 1.09.4 (Christmas)
+MusicInter = LCLEAR
+Act = 3
+Music = MAPA2M
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 17
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 63
+Lua.TPHub = TZ:18
+
+
+
+#SRB2FUN
+
+Level TC
+Levelname = Techno Hill
+Act = 1
+subtitle = Version 1.1
+MusicInter = LCLEAR
+Music = FDTHZ1
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = FDINTERP
+Precutscenenum = 64
+Lua.TPHub = TZ:19
+
+Level TD
+Levelname = Techno Hill
+Act = 2
+subtitle = Version 1.1
+MusicInter = LCLEAR
+Music = MAP05M
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+interscreen = FDINTERP
+Precutscenenum = 65
+Lua.TPHub = TZ:20
+
+Level TE
+Levelname = Techno Hill
+interscreen = FDINTERP
+Subtitle = Version 1.1
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 66
+Lua.TPHub = TZ:21
+
+
+
+
+#2.0
+
+Level TF
+Levelname = Techno Hill
+Act = 1
+Subtitle = Version 2.0-2.0.7
+MusicInter = LCLEAR
+Music = FDTHZ1
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 67
+Lua.TPHub = TZ:22
+
+Level TG
+Levelname = Techno Hill
+Act = 2
+Subtitle = Version 2.0-2.0.7
+MusicInter = LCLEAR
+Music = MAP05M
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 4
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 68
+Lua.TPHub = TZ:23
+
+Level TH
+Levelname = Techno Hill
+Act = 3
+Subtitle = Version 2.0-2.0.7
+MusicInter = LCLEAR
+Music = VSOBOS
+NextLevel = TZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 4
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 69
+Lua.TPHub = TZ:24
+
+
+
+
+#LEGACY
+
+Level 33
+levelname = Techno Legacy
+subtitle = Version 2.2 (2.1 Dev)
+PrecutsceneNum = 111
+act = 0
+music = THZALT
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = TZ
+RecordAttack = false
+skynum = 1
+hidden = 1
+weather = 0
+Lua.TPHub = TZ:25
+
+
+
+
+#2.1
+
+Level TM
+Levelname = Techno Hill
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 1
+Music = FDTHZ1
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = TZ
+SkyNum = 3
+RecordAttack = false
+hidden = 1
+Precutscenenum = 108
+Lua.TPHub = TZ:26
+
+Level TN
+Levelname = Techno Hill
+Subtitle = Version 2.1.14-2.1.25
+MusicInter = LCLEAR
+Act = 2
+Music = MAP05M
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = TZ
+SkyNum = 6
+RecordAttack = false
+hidden = 1
+SkyboxScale = 16
+Precutscenenum = 109
+Lua.TPHub = TZ:27
+
+Level TO
+Levelname = Techno Hill
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = TZ
+SkyNum = 3
+RecordAttack = false
+hidden = 1
+BonusType = Boss
+Precutscenenum = 110
+Lua.TPHub = TZ:28

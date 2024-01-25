@@ -1,0 +1,2830 @@
+Maincfg Category
+IntroToPlay = 1
+Gamedata = SRB2past21dev.dat
+CustomVersion = v. 2.1 Development Pre-Alpha
+NumDemos = 9
+
+Clear Unlockables
+Clear Emblems
+Clear ExtraEmblems
+Clear ConditionSets
+Clear Levels
+
+# If you wish to create levels for chaos, put "Chaos" in the typeoflevel.
+
+Freeslot
+TOL_CHAOS
+TOL_CHAOSMODE
+
+Gametype Chaos
+TypeOfLevel = Chaos,Chaosmode
+Identifier = "Chaos"
+Rules = GTR_RINGSLINGER|GTR_PITYSHIELD|GTR_RESPAWNDELAY|GTR_DEATHPENALTY|GTR_POWERSTONES|GTR_SPECTATORS|GTR_SPAWNINVUL|GTR_SPAWNENEMIES|GTR_TIMELIMIT|GTR_OVERTIME|GTR_DEATHMATCHSTARTS|GTR_NOSPECTATORSPAWN
+IntermissionType = int_match
+HeaderColor = 182
+DefaultTimeLimit = 2
+Description = Nobody's in charge of balance this time around, knockout as many enemies as you can in a path of destruction, and don't look back. You could even go by yourself and earn new high scores!
+#
+
+Unlockable 1
+Name = Christmas Hunt at NiGHTS
+Objective = Collect 10 Emblems
+Type = None
+Height = 10
+ConditionSet = 1
+
+ConditionSet 1
+Condition1 = TotalEmblems 10
+
+Unlockable 2
+Name = Play as Fang
+Objective = Defend a Train.
+Type = Skin
+Var = fang
+ConditionSet = 14
+
+ConditionSet 14
+Condition1 = MapBeaten AA
+
+Unlockable 3
+Name = Play as Metal
+Objective = Super Search for him. He's Starving!
+Type = Skin
+Var = metalsonic
+ConditionSet = 17
+
+ConditionSet 17
+Condition1 = Emblem 96
+Condition2 = MapBeaten EC
+
+Unlockable 4
+Name = Emblem Radar
+Objective = Locate the Emblem Radar
+ConditionSet = 4
+Type = ItemFinder
+
+ConditionSet 4
+Condition1 = Emblem 50
+
+Unlockable 5
+Name = Emblem hints
+Objective = Find your first emblem
+ConditionSet = 5
+Type = EmblemHints
+
+ConditionSet 5
+Condition1 = TotalEmblems 1
+
+Unlockable 6
+Name = Mario Goomba Blast
+Objective = Collect 15 Emblems
+Type = None
+ConditionSet = 6
+
+ConditionSet 6
+Condition1 = TotalEmblems 15
+
+Unlockable 7
+Name = Mario's Spring Hill Koopa Blast
+Objective = Collect 20 Emblems
+Type = None
+Height = 30
+ConditionSet = 7
+
+ConditionSet 7
+Condition1 = TotalEmblems 20
+
+Unlockable 8
+Name = Neo Aerial Garden
+Objective = Visit "Heaven"
+Type = None
+Height = 40
+ConditionSet = 9
+
+ConditionSet 9
+Condition1 = MapBeaten U0
+
+Unlockable 9
+Name = Red Volcano 1.09.4
+Objective = leave the Volcano
+Type = None
+Height = 50
+ConditionSet = 10
+
+Unlockable 10
+Name = Hyperkin
+Objective = Find the 8th Emerald
+Type = None
+Height = 60
+ConditionSet = 11
+
+ConditionSet 11
+Condition1 = Trigger 1
+
+Unlockable 11
+Name = Pandora's box
+Objective = With 8 emeralds, jump into a castle's pool.
+Type = Pandora
+Height = 70
+ConditionSet = 12
+
+ConditionSet 12
+Condition1 = Trigger 2
+
+Unlockable 12
+Name = Rocked the Gauntlet
+Objective = Return from Space on a Gauntlet's Rocket.
+Type = None
+Height = 80
+ConditionSet = 35
+
+ConditionSet 35
+Condition1 = MapBeaten ZY
+
+Unlockable 13
+Name = Metal's Equal
+Objective = Finish Metal Sonic's Races
+Type = None
+ConditionSet = 36
+
+ConditionSet 36
+Condition1 = MapBeaten O0
+Condition1 = MapBeaten O1
+Condition1 = MapBeaten O2
+Condition1 = MapBeaten O3
+Condition1 = MapBeaten O4
+Condition1 = MapBeaten O5
+Condition1 = MapBeaten O6
+Condition1 = MapBeaten O7
+Condition1 = MapBeaten O8
+Condition1 = MapBeaten O9
+Condition1 = MapBeaten OA
+Condition1 = MapBeaten OB
+Condition1 = MapBeaten OC
+Condition1 = MapBeaten OD
+Condition1 = MapBeaten OE
+Condition1 = MapBeaten OF
+Condition1 = MapBeaten OG
+Condition1 = MapBeaten OH
+Condition1 = MapBeaten OI
+Condition1 = MapBeaten OJ
+
+Unlockable 14
+Name = Sonic into Dreams
+Objective = Beat a NiGHTS stage
+Type = NightsMode
+ConditionSet = 19
+
+ConditionSet 19
+Condition1 = MapBeaten 56
+Condition2 = MapBeaten N5
+Condition3 = MapBeaten N6
+Condition4 = MapBeaten N7
+Condition5 = MapBeaten N8
+Condition6 = MapBeaten N9
+Condition7 = MapBeaten NA
+Condition8 = MapBeaten NB
+Condition9 = MapBeaten N4
+Condition10 = MapBeaten N1
+Condition11 = MapBeaten N2
+Condition12 = MapBeaten N3
+Condition13 = MapBeaten N0
+Condition14 = MapBeaten ND
+
+Unlockable 15
+Name = Play as Placeholder Sonic
+Objective = Beat Halloween Tech and Xmas levels
+Type = Skin
+Var = XtremeSonic
+ConditionSet = 20
+
+ConditionSet 20
+Condition1 = MapBeaten H1
+Condition1 = MapBeaten X9
+
+Unlockable 16
+Name = Metal's Superior
+Objective = Prove to Metal why you are the best!
+Type = None
+ConditionSet = 37
+
+ConditionSet 37
+Condition1 = MapBeaten OK
+Condition1 = MapBeaten ZZ
+
+Unlockable 17
+Name = SRB1 Remake + Aerial Garden 2.1
+Objective = Beat Beta Quest w/ 7 emeralds
+Type = Warp
+Var = H2
+Height = 10
+ConditionSet = 21
+
+ConditionSet 21
+Condition1 = MapAllEmeralds 26
+
+
+Unlockable 18
+Name = Getting a P-p-p-p-promotion
+Objective = "Rock" the "eggs"
+Type = None
+ConditionSet = 22
+
+ConditionSet 22
+Condition1 = MapBeaten 26
+Condition1 = MapBeaten 56
+Condition1 = ExtraEmblem  8
+Condition2 = MapBeaten 26
+Condition2 = MapBeaten NB
+Condition2 = ExtraEmblem  8
+Condition3 = MapBeaten EY
+
+Unlockable 19
+Name = Azure Temple
+Objective = Beat Aerial Garden 2.1
+Type = None
+ConditionSet = 23
+
+ConditionSet 23
+Condition1 = MapBeaten U6
+
+Unlockable 20
+Name = The Demo 3 Pack
+Objective = Complete all demo 3 levels
+Type = Skin
+Var = megamand3
+ConditionSet = 24
+
+ConditionSet 24
+Condition1 = MapBeaten G2
+Condition1 = MapBeaten G3
+Condition1 = MapBeaten G4
+Condition1 = MapBeaten T3
+
+Unlockable 21
+Name = Easter Invasion
+Objective = Find the Final Demo Eggs
+Type = Skin
+Var = ZimFD
+ConditionSet = 25
+
+ConditionSet 25
+Condition1 = Emblem 127
+Condition1 = Emblem 128
+Condition1 = Emblem 129
+Condition1 = Emblem 130
+Condition1 = Emblem 147
+Condition1 = Emblem 148
+Condition1 = Emblem 149
+Condition1 = Emblem 150
+Condition1 = Emblem 185
+Condition1 = Emblem 186
+Condition1 = Emblem 187
+Condition1 = Emblem 188
+
+Unlockable 22
+Name = Christmas Time
+Objective = Beat the Christmas Demo
+Type = availability
+ConditionSet = 15
+
+Unlockable 23
+Name = Play as Amy
+Objective = Free Amy
+Type = Skin
+Var = amy
+NoChecklist = true
+ConditionSet = 18
+
+ConditionSet 18
+Condition1 = MapBeaten U5
+
+Unlockable 24
+Name = Black Hole
+Objective = Get a perfect Report card
+Type = None
+ConditionSet = 26
+
+ConditionSet 26
+Condition1 = NightsGrade N5 0 GRADE_A
+Condition1 = NightsGrade N6 0 GRADE_A
+Condition1 = NightsGrade N7 0 GRADE_A
+Condition1 = NightsGrade N8 0 GRADE_A
+Condition1 = NightsGrade N9 0 GRADE_A
+Condition1 = NightsGrade NA 0 GRADE_A
+Condition1 = NightsGrade NB 0 GRADE_A
+
+Unlockable 25
+Name = Techno Legacy + Spring Hill 2.1
+Objective = Still get 100 Emblems
+Type = None
+ConditionSet = 13
+
+ConditionSet 13
+Condition1 = TotalEmblems 100
+
+Unlockable 26
+Name = Forest Fortress
+Objective = 60 Emblems
+Type = None
+ConditionSet = 27
+
+ConditionSet 27
+Condition1 = TotalEmblems 60
+
+Unlockable 27
+Name = Your DOOM.
+Objective = Defeat a long forgotten and unfinished foe.
+Type = None
+ConditionSet = 38
+
+ConditionSet 38
+Condition1 = MapBeaten PU
+
+Unlockable 28
+Name = Adventure Example
+Objective = Beat Spring Hill (1.09.4)
+Type = None
+ConditionSet = 29
+
+ConditionSet 29
+Condition1 = MapBeaten N2
+
+Unlockable 29
+Name = Boss GAUNTLET
+Objective = Beat all the Boss Rushes
+Type = None
+ConditionSet = 34
+
+ConditionSet 34
+Condition1 = Emblem 124
+Condition1 = Emblem 125
+Condition1 = Emblem 126
+Condition1 = Emblem 205
+Condition1 = ExtraEmblem 8
+Condition1 = ExtraEmblem 9
+Condition1 = ExtraEmblem 10
+
+Unlockable 30
+Name = The Demo 3 Pack
+Objective = Complete all demo 3 levels
+Type = Skin
+Var = Chaod3
+ConditionSet = 24
+
+Unlockable 31
+Name = The Demo 3 Pack
+Objective = Complete all demo 3 levels
+Type = Skin
+Var = Cinossu
+ConditionSet = 24
+
+Unlockable 32
+Name = Sound Test
+Objective = 90 Emblems
+Height = 20
+Type = SoundTest
+ConditionSet = 28
+
+ConditionSet 28
+Condition1 = TotalEmblems 90
+
+ExtraEmblem 1
+Name = Beta Quest
+Objective = Complete Beta Quest
+Sprite = H
+ConditionSet = 2
+
+ConditionSet 2
+Condition1 = MapBeaten 26
+
+ExtraEmblem 2
+Name = Click N Create
+Objective = Complete the TGF Levels
+Sprite = O
+ConditionSet = 3
+
+ConditionSet 3
+Condition1 = MapBeaten B9
+
+ExtraEmblem 3
+Name = Multimedia Fusion
+Objective = Finish the Christmas TGF Levels
+Sprite = H
+ConditionSet = 8
+
+ConditionSet 8
+Condition1 = MapBeaten BG
+
+ExtraEmblem 4
+Name = Hot from it
+Objective = You got sent here, now get out
+Sprite = H
+ConditionSet = 10
+
+ConditionSet 10
+Condition1 = MapBeaten R0
+
+ExtraEmblem 5
+Name = Hyperkin
+Objective = disturb a picnic
+Sprite = F
+ConditionSet = 11
+
+ExtraEmblem 6
+Name = Spook Fest
+Objective = Get through Halloween Tech
+Sprite = H
+ConditionSet = 16
+
+ConditionSet 16
+Condition1 = MapBeaten H1
+
+ExtraEmblem 7
+Name = Christmas Carnival
+Objective = Get through SRB2 Christmas
+Sprite = H
+ConditionSet = 15
+
+ConditionSet 15
+Condition1 = MapBeaten X9
+
+ExtraEmblem 8
+Name = Who's the Boss? 2.0
+Objective = clear the 2.0 boss rush
+Sprite = P
+ConditionSet = 30
+
+ConditionSet 30
+Condition1 = MapBeaten 39
+
+ExtraEmblem 9
+Name = Who's the Boss? 2.1
+Objective = clear the 2.1 boss rush
+Sprite = P
+ConditionSet = 31
+
+ConditionSet 31
+Condition1 = MapBeaten 41
+
+ExtraEmblem 10
+Name = Who's the Boss? 2.2
+Objective = clear the 2.2 boss rush
+Sprite = P
+ConditionSet = 32
+
+ConditionSet 32
+Condition1 = MapBeaten 43
+
+ExtraEmblem 11
+Name = Cutting Room Brawl
+Objective = Don't skip the cut 2.2 boss in the rush
+Sprite = P
+ConditionSet = 33
+
+ConditionSet 33
+Condition1 = Trigger 4
+
+ExtraEmblem 12
+Name = Metal's Easy win
+Objective = Complete tier one of Metal's Challenge
+Sprite = S
+ConditionSet = 39
+
+ConditionSet 39
+Condition1 = MapBeaten O0
+Condition1 = MapBeaten O1
+Condition1 = MapBeaten O2
+Condition1 = MapBeaten O3
+Condition1 = MapBeaten O4
+
+ExtraEmblem 13
+Name = Metal's tricky win
+Objective = Complete tier two of Metal's Challenge
+Sprite = S
+ConditionSet = 40
+
+ConditionSet 40
+Condition1 = MapBeaten O5
+Condition1 = MapBeaten O6
+Condition1 = MapBeaten O7
+Condition1 = MapBeaten O8
+Condition1 = MapBeaten O9
+
+ExtraEmblem 14
+Name = Metal's mild win
+Objective = Beat tier three of Metal's Challenge
+Sprite = S
+ConditionSet = 41
+
+ConditionSet 41
+Condition1 = MapBeaten OA
+Condition1 = MapBeaten OB
+Condition1 = MapBeaten OC
+Condition1 = MapBeaten OD
+Condition1 = MapBeaten OE
+
+ExtraEmblem 15
+Name = Metal's Hard win
+Objective = Complete tier four of Metal's Challenge
+Sprite = S
+ConditionSet = 42
+
+ConditionSet 42
+Condition1 = MapBeaten OF
+Condition1 = MapBeaten OG
+Condition1 = MapBeaten OH
+Condition1 = MapBeaten OI
+Condition1 = MapBeaten OJ
+
+ExtraEmblem 16
+Name = Metal's Expert win
+Objective = Complete Metal's " Final " Challenge
+Sprite = S
+ConditionSet = 43
+
+ConditionSet 43
+Condition1 = Trigger 5
+
+EMBLEM 1
+Type = Skin
+Hint = A spin and a jump is what it will take to make it to this house
+var = 0
+Tag = 0
+MAPNUM = 323
+Sprite = U
+Color = SKINCOLOR_BLUE
+
+EMBLEM 2
+Type = Skin
+Hint = Found in a secret tunnel by the start.\\ You don't have to cause Armageddon to find it.
+var = 1
+Tag = 1
+MAPNUM = 323
+Sprite = V
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 3
+Type = Skin
+Hint = If you can find the Blue emblem, this one is near by and higher up
+var = 2
+Tag = 2
+MAPNUM = 323
+Sprite = W
+Color = SKINCOLOR_RED
+
+EMBLEM 4
+Type = Skin
+Hint = Near the top of a waterfall by a box
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = 324
+Color = SKINCOLOR_BLUE
+
+EMBLEM 5
+Type = Skin
+var = 1
+Tag = 1
+Hint = Hidden in a high up passage meant for a fox.\\ This emblem is near by a big lake.
+Sprite = V
+MAPNUM = 324
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 6
+Type = Skin
+Hint = Cliff side by the start
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = 324
+Color = SKINCOLOR_RED
+
+EMBLEM 7
+Type = Skin
+Hint = A spin and a jump is what it will take to make it to this house
+var = 0
+Tag = 0
+Sprite = U
+MAPNUM = 325
+Color = SKINCOLOR_BLUE
+
+EMBLEM 8
+Type = Skin
+Hint = Found in a secret tunnel by the start.\\ You don't have to cause Armageddon to find it.
+var = 1
+Tag = 1
+Sprite = V
+MAPNUM = 325
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 9
+Type = Skin
+Hint = If you can find the Blue emblem, this one is near by and higher up
+var = 2
+Tag = 2
+Sprite = W
+MAPNUM = 325
+Color = SKINCOLOR_RED
+
+EMBLEM 10
+Type = Skin
+Hint = A spin and a jump is what it will take to make it to this house
+var = 0
+Tag = 0
+Sprite = U
+MAPNUM = 326
+Color = SKINCOLOR_BLUE
+
+EMBLEM 11
+Type = Skin
+Hint = Found in a secret tunnel by the start.\\ You don't have to cause Armageddon to find it.
+var = 1
+Tag = 1
+Sprite = V
+MAPNUM = 326
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 12
+Type = Skin
+Hint = If you can find the Blue emblem, this one is near by and higher up
+var = 2
+Tag = 2
+Sprite = W
+MAPNUM = 326
+Color = SKINCOLOR_RED
+
+EMBLEM 13
+Type = Skin
+Hint = Near the top of a waterfall by 3 boxes
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = 327
+Color = SKINCOLOR_BLUE
+
+EMBLEM 14
+Type = Skin
+var = 1
+Tag = 1
+Hint = Hidden in a high up passage meant for a fox.\\ This emblem is near by a big lake.
+Sprite = V
+MAPNUM = 327
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 15
+Type = Skin
+Hint = Cliff side by the start
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = 327
+Color = SKINCOLOR_RED
+
+EMBLEM 16
+Type = Skin
+Hint = A spin and a jump is what it will take to make it to this house
+var = 0
+Tag = 0
+Sprite = U
+MAPNUM = 329
+Color = SKINCOLOR_BLUE
+
+EMBLEM 17
+Type = Skin
+Hint = Found in a secret tunnel by the start.\\ You don't have to cause Armageddon to find it.
+var = 1
+Tag = 1
+Sprite = V
+MAPNUM = 329
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 18
+Type = Skin
+Hint = If you can find the Blue emblem, this one is near by and higher up
+var = 2
+Tag = 2
+Sprite = W
+MAPNUM = 329
+Color = SKINCOLOR_RED
+
+EMBLEM 19
+Type = Skin
+Hint = Near the top of a waterfall by 3 boxes
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = 330
+Color = SKINCOLOR_BLUE
+
+EMBLEM 20
+Type = Skin
+var = 1
+Tag = 1
+Hint = Hidden in a high up passage meant for a fox.\\ This emblem is near by a big lake.
+Sprite = V
+MAPNUM = 330
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 21
+Type = Skin
+Hint = Cliff side by the start
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = 330
+Color = SKINCOLOR_RED
+
+EMBLEM 22
+Type = Global
+Hint = Behind some rubble
+Sprite = A
+Tag = 1
+MAPNUM = CZ
+Color = SKINCOLOR_BLUE
+
+EMBLEM 23
+Type = Global
+Hint = Up a wall you must climb. Knuckles, springs or flight, just get up there.
+Sprite = A
+Tag = 1
+MAPNUM = GZ
+Color = SKINCOLOR_BLUE
+
+EMBLEM 24
+Type = Skin
+Hint = A spring at the end of a tunnel will lead the way. Watch your head.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = C3
+Color = SKINCOLOR_BLUE
+
+EMBLEM 25
+Type = Skin
+var = 1
+tag = 1
+Hint = Silver and Gold. 4 ring boxes guarded by bombs.
+Sprite = V
+MAPNUM = C3
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 26
+Type = Skin
+Hint = Found near the start, this emblem is high up on the shelf.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = C3
+Color = SKINCOLOR_RED
+
+EMBLEM 27
+Type = Skin
+Hint = A location hidden within a secret in the pool
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = C4
+Color = SKINCOLOR_BLUE
+
+EMBLEM 28
+Type = Skin
+var = 1
+tag = 1
+Hint = Behind the bars. You must trip the trap.
+Sprite = V
+MAPNUM = C4
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 29
+Type = Skin
+Hint = Washed up and alone. Its rest within the reservoir.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = C4
+Color = SKINCOLOR_RED
+
+EMBLEM 30
+Type = Skin
+Hint = On a high platform near the lake.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = C6
+Color = SKINCOLOR_BLUE
+
+EMBLEM 31
+Type = Skin
+var = 1
+tag = 1
+Hint = Underneath a wooden platform near the start.
+Sprite = V
+MAPNUM = C6
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 32
+Type = Skin
+Hint = Look in the higher quarters of the end castle for your reward.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = C6
+Color = SKINCOLOR_RED
+
+EMBLEM 33
+Type = Skin
+Hint = On a high platform near the lake.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = C9
+Color = SKINCOLOR_BLUE
+
+EMBLEM 34
+Type = Skin
+var = 1
+tag = 1
+Hint = Underneath a wooden platform near the start.
+Sprite = V
+MAPNUM = C9
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 35
+Type = Skin
+Hint = Look in the higher quarters of the end castle for your reward.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = C9
+Color = SKINCOLOR_RED
+
+EMBLEM 36
+Type = Skin
+Hint = At the swinging chain in a hallway, look behind you and throw.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = C7
+Color = SKINCOLOR_BLUE
+
+EMBLEM 37
+Type = Skin
+var = 1
+tag = 1
+Hint = Swinging spike balls line this hall. If you get torched you've gone too far.
+Sprite = V
+MAPNUM = C7
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 38
+Type = Skin
+Hint = A signature path through the wall will get you this one.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = C7
+Color = SKINCOLOR_RED
+
+EMBLEM 39
+Type = Skin
+Hint = at the swinging chain hallway, look behind you and throw.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = CA
+Color = SKINCOLOR_BLUE
+
+EMBLEM 40
+Type = Skin
+var = 1
+tag = 1
+Hint = Swinging spike balls line this hall. If you get torched you've gone too far.
+Sprite = V
+MAPNUM = CA
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 41
+Type = Skin
+Hint = A signature path through the wall will get you this one.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = CA
+Color = SKINCOLOR_RED
+
+EMBLEM 42
+Type = Skin
+Hint = At the swinging chain hallway, look behind you and throw.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = C8
+Color = SKINCOLOR_BLUE
+
+EMBLEM 43
+Type = Skin
+Hint = A signature path through the wall will get you this one.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = C8
+Color = SKINCOLOR_RED
+
+EMBLEM 44
+Type = Skin
+Hint = Down, around, up and over. Some white pipes are where you'll find this one.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = T6
+Color = SKINCOLOR_BLUE
+
+EMBLEM 45
+Type = Skin
+Hint = A waterfall of poison, goes up high. You know what to do, now go fly.
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = T6
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 46
+Type = Skin
+Hint = This one can be found near the end. Don't go underground, go up instead.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = T6
+Color = SKINCOLOR_RED
+
+EMBLEM 47
+Type = Skin
+Hint = Hidden somewhere sneaky, a ceiling tile betrays a hidden path.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = T7
+Color = SKINCOLOR_BLUE
+
+EMBLEM 48
+Type = Skin
+Hint = Up above a conveyor belt is where this on hides. 
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = T7
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 49
+Type = Skin
+Hint = High a top a big pipe. Watch your climb or you'll drop into the poison pool.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = T7
+Color = SKINCOLOR_RED
+
+EMBLEM 50
+Type = Global
+Hint = You're not a plumber, but that shouldn't stop you from riding the pipes.
+Tag = 1
+Sprite = G
+MAPNUM = TZ
+Color = SKINCOLOR_GREEN
+
+EMBLEM 51
+Type = Skin
+Hint = Down, around, up and over. Some white pipes are where you'll find this one.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = T9
+Color = SKINCOLOR_BLUE
+
+EMBLEM 52
+Type = Skin
+Hint = A waterfall of poison, goes up high. You know what to do, now go fly.
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = T9
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 53
+Type = Skin
+Hint = This one can be found near the end. Don't go underground, go up instead.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = T9
+Color = SKINCOLOR_RED
+
+EMBLEM 54
+Type = Skin
+Hint = Hidden somewhere sneaky, a ceiling tile betrays a hidden path.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = TA
+Color = SKINCOLOR_BLUE
+
+EMBLEM 55
+Type = Skin
+Hint = Up above a conveyor belt is where this on hides. 
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = TA
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 56
+Type = Skin
+Hint = High a top a big pipe. Watch your climb or you'll drop into the poison pool.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = TA
+Color = SKINCOLOR_RED
+
+EMBLEM 57
+Type = Skin
+Hint = High above on top of a cliff. Grab a fork and get a lift.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = TF
+Color = SKINCOLOR_BLUE
+
+EMBLEM 58
+Type = Skin
+Hint = Check your points and look below. Under the bridge, poison will show.
+Sprite = V
+var = 1
+tag = 1
+MAPNUM = TF
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 59
+Type = Skin
+Hint = This one can be found near the end. Do go underground, but keep a careful eye open.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = TF
+Color = SKINCOLOR_RED
+
+EMBLEM 62
+Type = Skin
+Hint = A dangerous path with tracking bombs. Check your points and go up the falls.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = TG
+Color = SKINCOLOR_RED
+
+EMBLEM 61
+Type = Skin
+Hint = A dangerous Path with tracking bombs. Check your points, go down the falls, and go against the flow.
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = TG
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 60
+Type = Skin
+Hint = High a top a big pipe. Keep the elements with you and throw yourself high.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = TG
+Color = SKINCOLOR_BLUE
+
+EMBLEM 63
+Type = Skin
+Hint = Down, around, up and over. Some white pipes are where you'll find this one.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = TC
+Color = SKINCOLOR_BLUE
+
+EMBLEM 64
+Type = Skin
+Hint = A waterfall of poison, goes up high. You know what to do, now go fly.
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = TC
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 65
+Type = Skin
+Hint = This one can be found near the end. Don't go underground, go up instead.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = TC
+Color = SKINCOLOR_RED
+
+EMBLEM 66
+Type = Skin
+Hint = Hidden somewhere sneaky, a ceiling tile betrays a hidden path.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = TD
+Color = SKINCOLOR_BLUE
+
+EMBLEM 67
+Type = Skin
+Hint = Up above a conveyor belt is where this on hides. 
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = TD
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 68
+Type = Skin
+Hint = High a top a big pipe. Watch your climb or you'll drop into the poison pool.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = TD
+Color = SKINCOLOR_RED
+
+EMBLEM 69
+Type = Skin
+Hint = Complete the Nightmare as Sonic
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = XB
+Color = SKINCOLOR_BLUE
+
+EMBLEM 70
+Type = Global
+Hint = Right by the entrance, it's not well hid. It's high up, so get climbing kid.
+tag = 1
+Sprite = A
+MAPNUM = RZ
+Color = SKINCOLOR_BLUE
+
+EMBLEM 71
+Type = Skin
+Hint = High up a cliff. Watch out for falling rocks and oil slicks.
+Sprite = U
+Tag = 0
+var = 0
+MAPNUM = A9
+Color = SKINCOLOR_BLUE
+
+EMBLEM 72
+Type = Skin
+Hint = A plateu that's easy to miss. Surrounded by stairs and snapping turtles.
+Sprite = V
+Tag = 1
+var = 1
+MAPNUM = A9
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 73
+Type = Skin
+Hint = Left behind in an abandoned mine shaft. Shield yourself to gust up.
+Sprite = W
+Tag = 2
+var = 2
+MAPNUM = A9
+Color = SKINCOLOR_RED
+
+EMBLEM 74
+Type = Skin
+Hint = A lake of magma ebbs and flows unendingly. A Ledge above is where you'll find it.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = R5
+Color = SKINCOLOR_BLUE
+
+EMBLEM 75
+Type = Skin
+Hint = Ever look upwards when you're traversing across collapsing platforms? 
+Sprite = V
+var = 1
+tag = 1
+MAPNUM = R5
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 76
+Type = Skin
+Hint = A river of Lava comes before it. Look to the ceiling and look behind you as you leave.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = R5
+Color = SKINCOLOR_RED
+
+EMBLEM 77
+Type = Global
+Hint = Look around the room,\\just before you clear the stage;\\something's hidden there!
+Sprite = A
+Tag = 0
+MAPNUM = R6
+Color = SKINCOLOR_BLUE
+
+EMBLEM 78
+Type = Global
+Hint = Ever look upwards\\when you're traversing across\\collapsing platforms?
+Sprite = B
+Tag = 1
+MAPNUM = R6
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 79
+Type = Global
+Hint = Check out a corner\\of a lake of magma near\\spinning jets of flame.
+Sprite = C
+Tag = 2
+MAPNUM = R6
+Color = SKINCOLOR_RED
+
+EMBLEM 80
+Type = Global
+Hint = Where once a bridge stood,\\now magma falls from above.\\The bridge dropped something...
+Sprite = D
+Tag = 3
+MAPNUM = R6
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 81
+Type = Global
+Hint = A lake of magma\\ebbs and flows unendingly.\\Wait for its nadir.
+Sprite = E
+Tag = 4
+MAPNUM = R6
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 82
+Type = Global
+Hint = Look around the room,\\just before you clear the stage;\\something's hidden there!
+Sprite = A
+Tag = 0
+MAPNUM = R7
+Color = SKINCOLOR_BLUE
+
+EMBLEM 83
+Type = Global
+Hint = Ever look upwards\\when you're traversing across\\collapsing platforms?
+Sprite = B
+Tag = 1
+MAPNUM = R7
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 84
+Type = Global
+Hint = Check out a corner\\of a lake of magma near\\spinning jets of flame.
+Sprite = C
+Tag = 2
+MAPNUM = R7
+Color = SKINCOLOR_RED
+
+EMBLEM 85
+Type = Global
+Hint = Where once a bridge stood,\\now magma falls from above.\\The bridge dropped something...
+Sprite = D
+Tag = 3
+MAPNUM = R7
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 86
+Type = Global
+Hint = A lake of magma\\ebbs and flows unendingly.\\Wait for its nadir.
+Sprite = E
+Tag = 4
+MAPNUM = R7
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 87
+Type = Skin
+Hint = A Spin and a Jump is all it takes to get to this house.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = GI
+Color = SKINCOLOR_BLUE
+
+EMBLEM 88
+Type = Skin
+Hint = Hidden near the end. This one may be a little wet. 
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = GI
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 89
+Type = Skin
+Hint = Look up to the sky to find this "Ringer".
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = GI
+Color = SKINCOLOR_RED
+
+EMBLEM 90
+Type = Skin
+Hint = A near by cave overlooks the lake. Look inside.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = GJ
+Color = SKINCOLOR_BLUE
+
+EMBLEM 91
+Type = Skin
+Hint = Don't go causing Armageddon to find this one. The cave is a bit high.
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = GJ
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 92
+Type = Skin
+Hint = A fenced off ring box lies in front of this one.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = GJ
+Color = SKINCOLOR_RED
+
+EMBLEM 93
+Type = Skin
+Hint = A lake of magma ebbs and flows unendingly. A Ledge above is where you'll find it.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = R3
+Color = SKINCOLOR_BLUE
+
+EMBLEM 94
+Type = Skin
+Hint = Ever look upwards when you're traversing across collapsing platforms? 
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = R3
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 95
+Type = Skin
+Hint = A river of Lava comes before it. Look to the ceiling and look behind you as you leave.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = R3
+Color = SKINCOLOR_RED
+
+Emblem 96
+Hint = A Super Search will be needed to find this one.
+Type = Global
+Tag = 0
+MapNum = W0
+Sprite = X
+Color = SKINCOLOR_COBALT
+
+EMBLEM 97
+Type = Skin
+Hint = Complete the Nightmare as AMY
+Sprite = Z
+var = 3
+Tag = 1
+MAPNUM = XB
+Color = SKINCOLOR_PINK
+
+EMBLEM 98
+Type = Skin
+Hint = Complete the Nightmare as Fang
+Sprite = Y
+var = 4
+Tag = 2
+MAPNUM = XB
+Color = SKINCOLOR_PURPLE
+
+EMBLEM 99
+Type = Skin
+Hint = Complete the Nightmare as Metal Sonic
+Sprite = X
+var = 5
+Tag = 3
+MAPNUM = XB
+Color = SKINCOLOR_COBALT
+
+EMBLEM 100
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 1
+MAPNUM = NB
+Color = SKINCOLOR_RUST
+
+EMBLEM 101
+Type = Global
+Hint = Hidden in an old shaft. Check the supports before you hit the rails.
+Sprite = A
+Tag = 1
+MAPNUM = AZ
+Color = SKINCOLOR_BLUE
+
+EMBLEM 102
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 0
+MAPNUM = N3
+Color = SKINCOLOR_RUST
+
+EMBLEM 103
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 0
+MAPNUM = N6
+Color = SKINCOLOR_RUST
+
+EMBLEM 104
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 0
+MAPNUM = N7
+Color = SKINCOLOR_RUST
+
+EMBLEM 105
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 0
+MAPNUM = N8
+Color = SKINCOLOR_RUST
+
+EMBLEM 106
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 0
+MAPNUM = N9
+Color = SKINCOLOR_RUST
+
+EMBLEM 107
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 0
+MAPNUM = NA
+Color = SKINCOLOR_RUST
+
+EMBLEM 108
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 0
+MAPNUM = NC
+Color = SKINCOLOR_RUST
+
+EMBLEM 109
+Type = global
+Hint = In a dream I can see, you are not far away.\\ Between these trees in this place, that is where I stay.
+Sprite = N
+Tag = 0
+MAPNUM = NZ
+Color = SKINCOLOR_RUST
+
+EMBLEM 110
+Type = global
+Hint = n/a
+Sprite = N
+Tag = 0
+MAPNUM = N5
+Color = SKINCOLOR_RUST
+
+EMBLEM 111
+Type = Skin
+Hint = High up a cliff. Watch out for falling rocks and oil slicks.
+Sprite = U
+Tag = 0
+var = 0
+MAPNUM = A6
+Color = SKINCOLOR_BLUE
+
+EMBLEM 112
+Type = Skin
+Hint = A plateau that's easy to miss. Surrounded by stairs and snapping turtles.
+Sprite = V
+Tag = 1
+var = 1
+MAPNUM = A6
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 113
+Type = Skin
+Hint = Left behind in an abandoned mine shaft. Shield yourself to gust up.
+Sprite = W
+Tag = 2
+var = 2
+MAPNUM = A6
+Color = SKINCOLOR_RED
+
+EMBLEM 114
+Type = global
+Hint = A central tower,\\one with many waterfalls,\\hides a secret room.
+Sprite = A
+Tag = 0
+MAPNUM = U6
+Color = SKINCOLOR_BLUE
+
+EMBLEM 115
+Type = global
+Hint = Hidden off the path\\lies a sky-scraping tower.\\A lake's at the top.
+Sprite = B
+Tag = 1
+MAPNUM = U6
+Color = SKINCOLOR_PURPLE
+
+EMBLEM 116
+Type = global
+Hint = Find all four buttons\\that sink when you stand on them.\\They'll open a door...
+Sprite = C
+Tag = 2
+MAPNUM = U6
+Color = SKINCOLOR_RED
+
+EMBLEM 117
+Type = global
+Hint = Much like the last one,\\you need to find some switches.\\Only two, this time.
+Sprite = D
+Tag = 3
+MAPNUM = U6
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 118
+Type = global
+Hint = The inner sanctum!\\Teleport to its switches\\then, check near the goal.
+Sprite = E
+Tag = 4
+MAPNUM = U6
+Color = SKINCOLOR_GREEN
+
+EMBLEM 119
+Type = global
+Hint = For those who can swim,\\a long tunnel hides rewards.\\Do mind the Buzzes!
+Sprite = A
+Tag = 0
+MAPNUM = U7
+Color = SKINCOLOR_BLUE
+
+EMBLEM 120
+Type = global
+Hint = So many skylights!\\A markedly large one hides\\behind a starpost...
+Sprite = B
+Tag = 1
+MAPNUM = U7
+Color = SKINCOLOR_PURPLE
+
+EMBLEM 121
+Type = global
+Hint = When you reach gauntlets\\of diagonal fire,\\check out the corners.
+Sprite = C
+Tag = 2
+MAPNUM = U7
+Color = SKINCOLOR_RED
+
+EMBLEM 122
+Type = global
+Hint = A room of currents;\\most of them are marked by spikes.\\This one? A corner.
+Sprite = D
+Tag = 3
+MAPNUM = U7
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 123
+Type = global
+Hint = The inner sanctum!\\Teleport to its switches\\then, check near the goal.
+Sprite = E
+Tag = 4
+MAPNUM = U7
+Color = SKINCOLOR_GREEN
+
+EMBLEM 124
+Type = global
+Hint = n/a
+Sprite = P
+Tag = 0
+MAPNUM = 34
+Color = SKINCOLOR_RED
+
+EMBLEM 125
+Type = global
+Hint = n/a
+Sprite = P
+Tag = 0
+MAPNUM = 35
+Color = SKINCOLOR_RED
+
+EMBLEM 126
+Type = global
+Hint = n/a
+Sprite = P
+Tag = 0
+MAPNUM = 36
+Color = SKINCOLOR_RED
+
+EMBLEM 127
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 3
+MAPNUM = 324
+Color = SKINCOLOR_PEACHY
+
+EMBLEM 128
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 4
+MAPNUM = 324
+Color = SKINCOLOR_CRIMSON
+
+EMBLEM 129
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 3
+MAPNUM = 325
+Color = SKINCOLOR_GREEN
+
+EMBLEM 130
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 4
+MAPNUM = 325
+Color = SKINCOLOR_CARBON
+
+EMBLEM 131
+Type = Skin
+Hint = A spin and a jump is what it will take to make it to this house
+var = 0
+Tag = 0
+Sprite = U
+MAPNUM = 336
+Color = SKINCOLOR_BLUE
+
+EMBLEM 132
+Type = Skin
+Hint = Found in a secret tunnel by the start.\\ You don't have to cause Armageddon to find it.
+var = 1
+Tag = 1
+Sprite = V
+MAPNUM = 336
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 133
+Type = Skin
+Hint = If you can find the Blue emblem, this one is near by and higher up
+var = 2
+Tag = 2
+Sprite = W
+MAPNUM = 336
+Color = SKINCOLOR_RED
+
+EMBLEM 134
+Type = Skin
+Hint = Near the top of a waterfall by 3 boxes
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = 337
+Color = SKINCOLOR_BLUE
+
+EMBLEM 135
+Type = Skin
+var = 1
+Tag = 1
+Hint = Hidden in a high up passage meant for a fox.\\ This emblem is near by a big lake.
+Sprite = V
+MAPNUM = 337
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 136
+Type = Skin
+Hint = Cliff side by the start
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = 337
+Color = SKINCOLOR_RED
+
+EMBLEM 137
+Type = Global
+Hint = Near the giant lake\\ lies a cave with a 1-Up.\\ An emblem's there, too!
+Sprite = A
+Tag = 0
+MAPNUM = GP
+Color = SKINCOLOR_BLUE
+
+EMBLEM 138
+Type = Global
+Hint = Near the final lake,\\ a higher lake falls on in.\\ Three platforms await.
+Sprite = B
+Tag = 1
+MAPNUM = GP
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 139
+Type = Global
+Hint = Near the level's start,\\ a bridge crosses a river.\\ What's that river's source?
+Sprite = C
+Tag = 2
+MAPNUM = GP
+Color = SKINCOLOR_RED
+
+EMBLEM 140
+Type = Global
+Hint = Near the level's end,\\ another bridge spans a lake.\\ What could be under...?
+Sprite = D
+Tag = 3
+MAPNUM = GP
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 141
+Type = Global
+Hint = An ivied tunnel\\ has a corner that's sunlit.\\ Go reach for the sky!
+Sprite = E
+Tag = 4
+MAPNUM = GP
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 142
+Type = Global
+Hint = Go get your feet wet\\ to find this, the first emblem.\\ Yes, it's very deep.
+Sprite = A
+Tag = 0
+MAPNUM = GO
+Color = SKINCOLOR_BLUE
+
+EMBLEM 143
+Type = Global
+Hint = There are many rings,\\ but this one's not what you think.\\ There lies the emblem.
+Sprite = B
+Tag = 1
+MAPNUM = GO
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 144
+Type = Global
+Hint = Right next to a lake,\\ a ledge has been constructed.\\ Near there is the goal.
+Sprite = C
+Tag = 2
+MAPNUM = GO
+Color = SKINCOLOR_RED
+
+EMBLEM 145
+Type = Global
+Hint = Streams come to an end\\ where they can no longer fall.\\ But if you went up...
+Sprite = D
+Tag = 3
+MAPNUM = GO
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 146
+Type = Global
+Hint = This one's in plain sight.\\ Why haven't you claimed it?\\ Surely you saw it.
+Sprite = E
+Tag = 4
+MAPNUM = GO
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 147
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 3
+MAPNUM = T6
+Color = SKINCOLOR_WHITE
+
+EMBLEM 148
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 4
+MAPNUM = T6
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 149
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 3
+MAPNUM = T7
+Color = SKINCOLOR_RED
+
+EMBLEM 150
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 4
+MAPNUM = T7
+Color = SKINCOLOR_SKY
+
+EMBLEM 151
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = N5
+Color = SKINCOLOR_TEAL
+
+EMBLEM 152
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 40*TICRATE
+MAPNUM = N5
+Color = SKINCOLOR_GREY
+
+EMBLEM 153
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = N6
+Color = SKINCOLOR_TEAL
+
+EMBLEM 154
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 50*TICRATE
+MAPNUM = N6
+Color = SKINCOLOR_GREY
+
+EMBLEM 155
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = N7
+Color = SKINCOLOR_TEAL
+
+EMBLEM 156
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 90*TICRATE
+MAPNUM = N7
+Color = SKINCOLOR_GREY
+
+EMBLEM 157
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = N8
+Color = SKINCOLOR_TEAL
+
+EMBLEM 158
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 75*TICRATE
+MAPNUM = N8
+Color = SKINCOLOR_GREY
+
+EMBLEM 159
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = N9
+Color = SKINCOLOR_TEAL
+
+EMBLEM 160
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 65*TICRATE
+MAPNUM = N9
+Color = SKINCOLOR_GREY
+
+EMBLEM 161
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = NA
+Color = SKINCOLOR_TEAL
+
+EMBLEM 162
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 80*TICRATE
+MAPNUM = NA
+Color = SKINCOLOR_GREY
+
+EMBLEM 163
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = NB
+Color = SKINCOLOR_TEAL
+
+EMBLEM 164
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 120*TICRATE
+MAPNUM = NB
+Color = SKINCOLOR_GREY
+
+EMBLEM 165
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = NC
+Color = SKINCOLOR_TEAL
+
+EMBLEM 166
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 150*TICRATE
+MAPNUM = NC
+Color = SKINCOLOR_GREY
+
+EMBLEM 167
+Type = NGrade
+Hint = n/a
+Sprite = Q
+var = GRADE_A
+MAPNUM = N3
+Color = SKINCOLOR_TEAL
+
+EMBLEM 168
+Type = NTime
+Hint = n/a
+Sprite = T
+var = 60*TICRATE
+MAPNUM = N3
+Color = SKINCOLOR_GREY
+
+EMBLEM 169
+Type = Skin
+Hint = Down, around, up and over. Some white pipes are where you'll find this one.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = TJ
+Color = SKINCOLOR_BLUE
+
+EMBLEM 170
+Type = Skin
+Hint = A waterfall of poison, goes up high. You know what to do, now go fly.
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = TJ
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 171
+Type = Skin
+Hint = This one can be found near the end. Don't go underground, go up instead.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = TJ
+Color = SKINCOLOR_RED
+
+EMBLEM 172
+Type = Skin
+Hint = Hidden somewhere sneaky, a ceiling tile betrays a hidden path.
+Sprite = U
+var = 0
+Tag = 0
+MAPNUM = TK
+Color = SKINCOLOR_BLUE
+
+EMBLEM 173
+Type = Skin
+Hint = Up above a conveyor belt is where this on hides. 
+Sprite = V
+var = 1
+Tag = 1
+MAPNUM = TK
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 174
+Type = Skin
+Hint = High a top a big pipe. Watch your climb or you'll drop into the poison pool.
+Sprite = W
+var = 2
+Tag = 2
+MAPNUM = TK
+Color = SKINCOLOR_RED
+
+EMBLEM 175
+Type = Global
+Hint = Three pipes reside near\\ where our heroes' paths split off.\\ You'll have to look up!
+Sprite = A
+Tag = 0
+MAPNUM = TM
+Color = SKINCOLOR_BLUE
+
+EMBLEM 176
+Type = Global
+Hint = Climbing yields great range.\\Yet, on a path for climbers,\\flying is the key.
+Sprite = B
+Tag = 1
+MAPNUM = TM
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 177
+Type = Global
+Hint = That's sure lots of slime.\\Say, do you ever wonder\\what's dumping it all?
+Sprite = C
+Tag = 2
+MAPNUM = TM
+Color = SKINCOLOR_RED
+
+EMBLEM 178
+Type = Global
+Hint = Spinning through small gaps\\can slip you into a cave.\\In that cave's first stretch...
+Sprite = D
+Tag = 3
+MAPNUM = TM
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 179
+Type = Global
+Hint = The slime lake is deep,\\but reaching the floor takes height.\\Scream "Geronimo!"...
+Sprite = E
+Tag = 4
+MAPNUM = TM
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 180
+Type = Global
+Hint = Near the first checkpoint,\\a bridge crosses a slime pool.\\(Sensing a pattern?)
+Sprite = A
+Tag = 0
+MAPNUM = TN
+Color = SKINCOLOR_BLUE
+
+EMBLEM 181
+Type = Global
+Hint = Behind the windows,\\near crushers, ever smashing\\a conveyor belt.
+Sprite = B
+Tag = 1
+MAPNUM = TN
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 182
+Type = Global
+Hint = A pipe drops onto\\a half-outdoors conveyor.\\But is it empty?
+Sprite = C
+Tag = 2
+MAPNUM = TN
+Color = SKINCOLOR_RED
+
+EMBLEM 183
+Type = Global
+Hint = There is a hallway\\that a button floods with slime.\\Go through it again!
+Sprite = D
+Tag = 3
+MAPNUM = TN
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 184
+Type = Global
+Hint = Jumping on turtles\\will send you springing skyward.\\Now, do that six times...
+Sprite = E
+Tag = 4
+MAPNUM = TN
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 185
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 3
+MAPNUM = C3
+Color = SKINCOLOR_COBALT
+
+EMBLEM 186
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 4
+MAPNUM = C3
+Color = SKINCOLOR_PINK
+
+EMBLEM 187
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 3
+MAPNUM = C4
+Color = SKINCOLOR_BONE
+
+EMBLEM 188
+Type = global
+Hint = n/a
+Sprite = I
+Tag = 4
+MAPNUM = C4
+Color = SKINCOLOR_PINK
+
+EMBLEM 189
+Type = Global
+Hint = A drain feeds the lake.\\Water rushes quickly through.\\Go against the flow.
+Sprite = A
+Tag = 0
+MAPNUM = CD
+Color = SKINCOLOR_BLUE
+
+EMBLEM 190
+Type = Global
+Hint = The left starting path\\goes atop a large wood deck.\\Checked underneath yet?
+Sprite = B
+Tag = 1
+MAPNUM = CD
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 191
+Type = Global
+Hint = At last, the castle!\\Hold up! Don't just barge right in!\\What's the facade hold...?
+Sprite = C
+Tag = 2
+MAPNUM = CD
+Color = SKINCOLOR_RED
+
+EMBLEM 192
+Type = Global
+Hint = The final approach!\\A tower holds the emblem\\near a ring arrow.
+Sprite = D
+Tag = 3
+MAPNUM = CD
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 193
+Type = Global
+Hint = The right starting path\\hides this near a canopy,\\high, where two trees meet.
+Sprite = E
+Tag = 4
+MAPNUM = CD
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 194
+Type = Global
+Hint = Find a trick bookcase\\that hides a darkened hallway.\\There, climb a tower.
+Sprite = A
+Tag = 0
+MAPNUM = CE
+Color = SKINCOLOR_BLUE
+
+EMBLEM 195
+Type = Global
+Hint = Down in the dungeon,\\a cracked wall hides secret paths.\\Echidnas only!
+Sprite = B
+Tag = 1
+MAPNUM = CE
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 196
+Type = Global
+Hint = A room you can flood!\\A brown grate's near its exit.\\Knuckles can break it...
+Sprite = C
+Tag = 2
+MAPNUM = CE
+Color = SKINCOLOR_RED
+
+EMBLEM 197
+Type = Global
+Hint = Some of these bookshelves\\are not flush against the walls.\\Wonder why that is?
+Sprite = D
+Tag = 3
+MAPNUM = CE
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 198
+Type = Global
+Hint = The ending's towers\\are hiding a small alcove.\\Check around outside.
+Sprite = E
+Tag = 4
+MAPNUM = CE
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 199
+Type = Skin
+Hint = A spring at the end of a tunnel will lead the way. Watch your head.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = CG
+Color = SKINCOLOR_BLUE
+
+EMBLEM 200
+Type = Skin
+var = 1
+tag = 1
+Hint = Silver and Gold. 4 ring boxes guarded by bombs.
+Sprite = V
+MAPNUM = CG
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 201
+Type = Skin
+Hint = Found near the start, this emblem is high up on the shelf.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = CG
+Color = SKINCOLOR_RED
+
+EMBLEM 202
+Type = Skin
+Hint = A location hidden within a secret in the pool
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = CH
+Color = SKINCOLOR_BLUE
+
+EMBLEM 203
+Type = Skin
+var = 1
+tag = 1
+Hint = Behind the bars. You must trip the trap.
+Sprite = V
+MAPNUM = CH
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 204
+Type = Skin
+Hint = Washed up and alone. Its rest within the reservoir.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = CH
+Color = SKINCOLOR_RED
+
+EMBLEM 205
+Type = global
+Hint = n/a
+Sprite = P
+Tag = 0
+MAPNUM = 37
+Color = SKINCOLOR_RED
+
+EMBLEM 206
+Type = Global
+Hint = Look around the room,\\just before you clear the stage;\\something's hidden there!
+Sprite = A
+Tag = 0
+MAPNUM = RB
+Color = SKINCOLOR_BLUE
+
+EMBLEM 207
+Type = Global
+Hint = Ever look upwards\\when you're traversing across\\collapsing platforms?
+Sprite = B
+Tag = 1
+MAPNUM = RB
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 208
+Type = Global
+Hint = Check out a corner\\of a lake of magma near\\spinning jets of flame.
+Sprite = C
+Tag = 2
+MAPNUM = RB
+Color = SKINCOLOR_RED
+
+EMBLEM 209
+Type = Global
+Hint = Where once a bridge stood,\\now magma falls from above.\\The bridge dropped something...
+Sprite = D
+Tag = 3
+MAPNUM = RB
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 210
+Type = Global
+Hint = A lake of magma\\ebbs and flows unendingly.\\Wait for its nadir.
+Sprite = E
+Tag = 4
+MAPNUM = RB
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 211
+Type = Global
+Hint = A rather large gap\\must be crossed by way of tram.\\At its end, jump left.
+Sprite = A
+Tag = 0
+MAPNUM = AB
+Color = SKINCOLOR_BLUE
+
+EMBLEM 212
+Type = Global
+Hint = Crushers that go up!\\Mind your step; if they're triggered,\\they'll block this emblem.
+Sprite = B
+Tag = 1
+MAPNUM = AB
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 213
+Type = Global
+Hint = There's an oil lake\\that you can sink deep into.\\Drain it, and explore.
+Sprite = C
+Tag = 2
+MAPNUM = AB
+Color = SKINCOLOR_RED
+
+EMBLEM 214
+Type = Global
+Hint = Not far from the start,\\if you climb toward the sky,\\the cliffs hide something.
+Sprite = D
+Tag = 3
+MAPNUM = AB
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 215
+Type = Global
+Hint = Right by the exit,\\an emblem lies on a cliff.\\Ride ropes to reach it.
+Sprite = E
+Tag = 4
+MAPNUM = AB
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 216
+Type = Global
+Hint = A rather large gap\\must be crossed by way of tram.\\At its end, jump left.
+Sprite = A
+Tag = 0
+MAPNUM = AC
+Color = SKINCOLOR_BLUE
+
+EMBLEM 217
+Type = Global
+Hint = Crushers that go up!\\Mind your step; if they're triggered,\\they'll block this emblem.
+Sprite = B
+Tag = 1
+MAPNUM = AC
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 218
+Type = Global
+Hint = There's an oil lake\\that you can sink deep into.\\Drain it, and explore.
+Sprite = C
+Tag = 2
+MAPNUM = AC
+Color = SKINCOLOR_RED
+
+EMBLEM 219
+Type = Global
+Hint = Not far from the start,\\if you climb toward the sky,\\the cliffs hide something.
+Sprite = D
+Tag = 3
+MAPNUM = AC
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 220
+Type = Global
+Hint = Right by the exit,\\an emblem lies on a cliff.\\Ride ropes to reach it.
+Sprite = E
+Tag = 4
+MAPNUM = AC
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 221
+Type = Global
+Hint = Up and around, this emblem hides high. Watch out as those last platforms will fall.
+Sprite = A
+Tag = 0
+MAPNUM = DZ
+Color = SKINCOLOR_BLUE
+
+EMBLEM 222
+Type = Skin
+Hint = The Deep Sea hides a deep lake. The edge hides a reward for those that can make it high up.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = D7
+Color = SKINCOLOR_BLUE
+
+EMBLEM 223
+Type = Skin
+var = 1
+tag = 1
+Hint = A certain path holds many gargoyle puzzles. Victors reach a "V".
+Sprite = V
+MAPNUM = D7
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 224
+Type = Skin
+Hint = Climb up two maze walls. Break the roof, then a corner. There, glide, but stay dry.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = D7
+Color = SKINCOLOR_RED
+
+EMBLEM 225
+Type = Skin
+Hint = A Dragon looks away from the hidden crushers. Gargoyles stand by waiting to help.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = D8
+Color = SKINCOLOR_BLUE
+
+EMBLEM 226
+Type = Skin
+var = 1
+tag = 1
+Hint = A waterfall lands near a starpost in a cave. It's dark up there, but...
+Sprite = V
+MAPNUM = D8
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 227
+Type = Skin
+Hint = Destructable blocks astound and confuse. To the top layer search, before you find yourself a headache.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = D8
+Color = SKINCOLOR_RED
+
+EMBLEM 228
+Type = Global
+Hint = Climb up two maze walls.\\Break the roof, then a corner.\\There, glide, but stay dry.
+Sprite = A
+Tag = 0
+MAPNUM = DB
+Color = SKINCOLOR_BLUE
+
+EMBLEM 229
+Type = Global
+Hint = Follow the left path.\\A square green button lurks deep.\\Weight it down, somehow.
+Sprite = B
+Tag = 1
+MAPNUM = DB
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 230
+Type = Global
+Hint = A certain path holds\\many gargoyle puzzles.\\Victors reach a "V".
+Sprite = C
+Tag = 2
+MAPNUM = DB
+Color = SKINCOLOR_RED
+
+EMBLEM 231
+Type = Global
+Hint = A caved-in hallway?\\The floor falls; the path goes down.\\But those rocks looked weak...
+Sprite = D
+Tag = 3
+MAPNUM = DB
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 232
+Type = Global
+Hint = The end is quite dry.\\Some rocks dam the water in.\\Knuckles can fix that...
+Sprite = E
+Tag = 4
+MAPNUM = DB
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 233
+Type = Global
+Hint = A waterfall lands\\near a starpost in a cave.\\It's dark up there, but...
+Sprite = A
+Tag = 0
+MAPNUM = DC
+Color = SKINCOLOR_BLUE
+
+EMBLEM 234
+Type = Global
+Hint = So many blocks here!\\Take five; bathe in the fountain.\\Hmmm? A hidden path...?
+Sprite = B
+Tag = 1
+MAPNUM = DC
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 235
+Type = Global
+Hint = An ornate dragon\\faces a secret passage.\\Knuckles! Don't get crushed!
+Sprite = C
+Tag = 2
+MAPNUM = DC
+Color = SKINCOLOR_RED
+
+EMBLEM 236
+Type = Global
+Hint = In the current maze\\hides a dark room of columns.\\Find it, then look up.
+Sprite = D
+Tag = 3
+MAPNUM = DC
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 237
+Type = Global
+Hint = That same dragon's eye\\hides another secret room.\\There, solve its riddle.
+Sprite = E
+Tag = 4
+MAPNUM = DC
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 238
+Type = Global
+Hint = Climb up two maze walls.\\Break the roof, then a corner.\\There, glide, but stay dry.
+Sprite = A
+Tag = 0
+MAPNUM = DA
+Color = SKINCOLOR_BLUE
+
+EMBLEM 239
+Type = Global
+Hint = Follow the left path.\\A square green button lurks deep.\\Weight it down, somehow.
+Sprite = B
+Tag = 1
+MAPNUM = DA
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 240
+Type = Global
+Hint = A certain path holds\\many gargoyle puzzles.\\Victors reach a "V".
+Sprite = C
+Tag = 2
+MAPNUM = DA
+Color = SKINCOLOR_RED
+
+EMBLEM 241
+Type = Global
+Hint = A caved-in hallway?\\The floor falls; the path goes down.\\But those rocks looked weak...
+Sprite = D
+Tag = 3
+MAPNUM = DA
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 242
+Type = Global
+Hint = The end is quite dry.\\Some rocks dam the water in.\\Knuckles can fix that...
+Sprite = E
+Tag = 4
+MAPNUM = DA
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 243
+Type = Global
+Hint = Not hidden very well at all, but\\you earned it just getting here.
+Sprite = A
+Tag = 1
+MAPNUM = EZ
+Color = SKINCOLOR_BLUE
+
+EMBLEM 244
+Type = Skin
+Hint = A Moving platform takes you close. A falling one even closer,\\or your death.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = E4
+Color = SKINCOLOR_BLUE
+
+EMBLEM 245
+Type = Skin
+var = 1
+tag = 1
+Hint = An Echidna's lava tunnel is not meant for a fox. Get there anyway you can.
+Sprite = V
+MAPNUM = E4
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 246
+Type = Skin
+Hint = The Hedgehog's path ends in a SMASH. Get here carefully, or you'll be BASHED!
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = E4
+Color = SKINCOLOR_RED
+
+EMBLEM 247
+Type = Skin
+Hint = A lava-fall hides the cave. A lap may give you protection.\\Wait! There are ruins on this rock?!
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = E5
+Color = SKINCOLOR_BLUE
+
+EMBLEM 248
+Type = Skin
+var = 1
+tag = 1
+Hint = Check the vents after getting blown around. Is that an emerald token near by?
+Sprite = V
+MAPNUM = E5
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 249
+Type = Skin
+Hint = Try not to get shafted as you climb up the elevator cable.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = E5
+Color = SKINCOLOR_RED
+
+EMBLEM 250
+Type = Skin
+Hint = A Moving platform takes you close. A falling one even closer,\\or your death.
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = E7
+Color = SKINCOLOR_BLUE
+
+EMBLEM 251
+Type = Skin
+var = 1
+tag = 1
+Hint = An Echidna's lava tunnel is not meant for a fox. Get there anyway you can.
+Sprite = V
+MAPNUM = E7
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 252
+Type = Skin
+Hint = The Hedgehog's path ends in a SMASH. Get here carefully, or you'll be BASHED!
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = E7
+Color = SKINCOLOR_RED
+
+EMBLEM 253
+Type = Skin
+Hint = A lava-fall hides the cave. A lap may give you protection.\\Wait! There are ruins on this rock?!
+Sprite = U
+var = 0
+tag = 0
+MAPNUM = E8
+Color = SKINCOLOR_BLUE
+
+EMBLEM 254
+Type = Skin
+var = 1
+tag = 1
+Hint = Check the vents after getting blown around. Is that an emerald token near by?
+Sprite = V
+MAPNUM = E8
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 255
+Type = Skin
+Hint = Try not to get shafted as you climb up the elevator cable.
+Sprite = W
+var = 2
+tag = 2
+MAPNUM = E8
+Color = SKINCOLOR_RED
+
+EMBLEM 256
+Type = Global
+Hint = Vanishing platforms,\\then collapsing ones herald\\a last-second jump.
+Sprite = A
+Tag = 0
+MAPNUM = EA
+Color = SKINCOLOR_BLUE
+
+EMBLEM 257
+Type = Global
+Hint = What is this red stuff?\\You can't breathe it in, but look!\\It can't reach up there...
+Sprite = B
+Tag = 1
+MAPNUM = EA
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 258
+Type = Global
+Hint = The team's paths diverge.\\Should Tails run the crusher path?\\No! Fly outside it!
+Sprite = C
+Tag = 2
+MAPNUM = EA
+Color = SKINCOLOR_RED
+
+EMBLEM 259
+Type = Global
+Hint = Don't jump too high here!\\No conveyor will catch you;\\you'd fall to your death.
+Sprite = D
+Tag = 3
+MAPNUM = EA
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 260
+Type = Global
+Hint = Conveyors! Magma!\\What an intense room this is!\\But, what brought you here?
+Sprite = E
+Tag = 4
+MAPNUM = EA
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 261
+Type = Global
+Hint = Walk on the ceiling\\resist the urge to flip back!\\Find the cyan path...
+Sprite = A
+Tag = 0
+MAPNUM = EB
+Color = SKINCOLOR_BLUE
+
+EMBLEM 262
+Type = Global
+Hint = X marks the spot? Nope!\\Try standing further away\\when the timer flips.
+Sprite = B
+Tag = 1
+MAPNUM = EB
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 263
+Type = Global
+Hint = There is more than one\\elevator inside the\\elevator shaft...
+Sprite = C
+Tag = 2
+MAPNUM = EB
+Color = SKINCOLOR_RED
+
+EMBLEM 264
+Type = Global
+Hint = Gears with missing teeth\\can hide a clever secret!\\Think Green Hill Zone boss.
+Sprite = D
+Tag = 3
+MAPNUM = EB
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 265
+Type = Global
+Hint = Just before you reach\\the defective cargo bay,\\fly under a bridge.
+Sprite = E
+Tag = 4
+MAPNUM = EB
+Color = SKINCOLOR_LEGACYNEONGREEN
+
+EMBLEM 266
+Type = Global
+Hint = Forest far away.\\Jump the fence, but not too far\\Or else you will fall!
+Sprite = A
+Tag = 0
+MAPNUM = 32
+Color = SKINCOLOR_BLUE
+
+EMBLEM 267
+Type = Global
+Hint = Search shallow water\\Surrounding the stronghold wall.\\Surely you will see it.
+Sprite = B
+Tag = 1
+MAPNUM = 32
+Color = SKINCOLOR_LAVENDER
+
+EMBLEM 268
+Type = Global
+Hint = Heavely guarded.\\Look for the secret passage\\To drop in unseen.
+Sprite = C
+Tag = 2
+MAPNUM = 32
+Color = SKINCOLOR_RED
+
+EMBLEM 269
+Type = Global
+Hint = Springing through the air.\\Was there something in the trees?\\Turn around and look.
+Sprite = D
+Tag = 3
+MAPNUM = 32
+Color = SKINCOLOR_ORANGE
+
+EMBLEM 270
+Type = Global
+Hint = Near the last Starpost...\\Look through the gate, to the tree.\\Is there a way out?
+Sprite = E
+Tag = 4
+MAPNUM = 32
+Color = SKINCOLOR_GREEN

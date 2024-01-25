@@ -1,0 +1,67 @@
+-- Demo Blue (Pity) Shield Monitor - Ported by MIDIMan
+-- Use with LUA_DBOX
+
+freeslot(
+	"SPR_DBXB",
+	"MT_DEMOBOX_BLUE",
+	"S_DEMOBOX_BLUE_IDLE",
+	"S_DEMOBOX_BLUE_BREAK1",
+	"S_DEMOBOX_BLUE_BREAK2",
+	"S_DEMOBOX_BLUE_BREAK3",
+	"S_DEMOBOX_BLUE_BREAK4",
+	"S_DEMOBOX_BLUE_BREAK5",
+	"S_DEMOBOX_BLUE_BREAK6"
+)
+
+-- Give the player the monitor's shield as soon as it breaks
+addHook("MobjDeath", function(target, inflictor, source, damagetype)
+	if not (target and target.valid) then return end
+	
+	if netgame or multiplayer then
+		if source and source.valid and source.player then
+			target.target = source
+		elseif inflictor and inflictor.valid and inflictor.player then
+			target.target = inflictor
+		else
+			return
+		end
+	
+		A_GiveShield(target, SH_PITY, var2)
+	end
+end, MT_DEMOBOX_BLUE)
+
+addHook("MapThingSpawn", RM_DemoMonitorShieldSetup, MT_DEMOBOX_BLUE)
+addHook("MobjFuse", RM_DemoMonitorFuseThink, MT_DEMOBOX_BLUE)
+
+mobjinfo[MT_DEMOBOX_BLUE] = {
+	--$Name Demo "Basic" Shield
+	--$Sprite DBXBA0
+	--$Category Monitors
+	--$Flags1Text Don't "Era-Swap" Shield
+	--$ParameterText XMAS
+	--$Arg2 Era-Swap Shield
+	--$Arg2Type 11
+	--$Arg2Enum yesno
+	--$Arg3 Era
+	--$Arg3Type 11
+	--$Arg3Enum {0 = "Demo"; 1 = "XMAS";}
+	doomednum = 458,
+	spawnstate = S_DEMOBOX_BLUE_IDLE,
+	spawnhealth = 1,
+	seesound = sfx_shield,
+	painstate = S_DEMOBOX_BLUE_IDLE,
+	deathstate = S_DEMOBOX_BLUE_BREAK1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_DEMOBOX_BLUE_IDLE] =	{SPR_DBXB,	A,	2,	nil,	0,	0,	S_DEMOBOX_FLICKER}
+
+states[S_DEMOBOX_BLUE_BREAK1] =	{SPR_DBXB,	B,	2,	A_DemoFall,			0,			0,	S_DEMOBOX_BLUE_BREAK2}
+states[S_DEMOBOX_BLUE_BREAK2] =	{SPR_DBXB,	C,	2,	A_Scream,			0,			0,	S_DEMOBOX_BLUE_BREAK3}
+states[S_DEMOBOX_BLUE_BREAK3] =	{SPR_DBXB,	D,	2,	nil,				0,			0,	S_DEMOBOX_BLUE_BREAK4}
+states[S_DEMOBOX_BLUE_BREAK4] =	{SPR_DBXB,	E,	2,	nil,				0,			0,	S_DEMOBOX_BLUE_BREAK5}
+states[S_DEMOBOX_BLUE_BREAK5] =	{SPR_DBXB,	F,	16,	nil,				0,			0,	S_DEMOBOX_BLUE_BREAK6}
+states[S_DEMOBOX_BLUE_BREAK6] =	{SPR_DBXB,	F,	48,	A_DemoGiveShield,	SH_PITY,	0,	S_DEMOBOX_DEAD}

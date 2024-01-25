@@ -1,0 +1,20 @@
+freeslot("MT_RETROJETBULLET", "S_RJETBULLET1", "S_RJETBULLET2", "SPR_RJBU")
+
+// Retro Jetty-Syn Gunner bullet
+mobjinfo[MT_RETROJETBULLET] = {
+        doomednum = -1,
+        spawnstate = S_RJETBULLET1,
+        spawnhealth = 1,
+        reactiontime = 32,
+        painchance = 200,
+        deathstate = S_XPLD1,
+        speed = 20*FRACUNIT,
+        radius = 4*FRACUNIT,
+        height = 8*FRACUNIT,
+        mass = 100,
+        damage = 1,
+        flags = MF_NOBLOCKMAP|MF_MISSILE|MF_NOGRAVITY
+}
+	
+states[S_RJETBULLET1] = {SPR_RJBU, FF_FULLBRIGHT|A, 4, nil, 0, 0, S_RJETBULLET2}
+states[S_RJETBULLET2] = {SPR_RJBU, FF_FULLBRIGHT|B, 4, nil, 0, 0, S_RJETBULLET1}

@@ -1,0 +1,16 @@
+name = Cinossu
+realname = Cinossu
+hudname = USER
+ability = CA_THOK
+ability2 = CA2_SPINDASH
+normalspeed = 36
+acceleration = 40
+accelstart = 64
+thrustfactor = 5
+actionspd = 60
+mindash = 15
+maxdash = 70
+jumpfactor = 1
+prefcolor = orange
+flags = SF_MULTIABILITY|SF_SUPER
+//credits Glaber, Cinossu for the original recolor

@@ -1,0 +1,34 @@
+// Old SDURF ("Fishy") - Ported by Glaber (original SOC) and MIDIMan (fixes and conversion to Lua)
+
+freeslot(
+	"MT_SDURF",
+	"S_DURF1",
+	"S_DURF2",
+	"S_DURF3",
+	"S_DURF4",
+	"SPR_SDUR"
+)
+
+mobjinfo[MT_SDURF] = {
+	//$Name Old Stupid Dumb Unnamed Robo Fish
+	//$Sprite SDURA0
+	//$Category Retro Enemies
+	doomednum = 4049,
+	spawnstate = S_DURF2,
+	spawnhealth = 1,
+	seestate = S_DURF1,
+	reactiontime = 8,
+	meleestate = S_DURF3,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	xdeathstate = S_DURF4,
+	radius = 8*FRACUNIT,
+	height = 28*FRACUNIT,
+	damage = 1,
+	flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+
+states[S_DURF1] =	{SPR_SDUR,	B,	1,	nil,		0,	0,	S_DURF2}
+states[S_DURF2] =	{SPR_SDUR,	B,	1,	A_FishJump,	0,	0,	S_DURF1}
+states[S_DURF3] =	{SPR_SDUR,	A,	1,	nil,		0,	0,	S_DURF4}
+states[S_DURF4] =	{SPR_SDUR,	A,	1,	A_FishJump,	0,	0,	S_DURF3}

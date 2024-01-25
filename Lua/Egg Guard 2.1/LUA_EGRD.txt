@@ -1,0 +1,193 @@
+freeslot("MT_OGEGGGUARD", "S_OGEGGGUARD_STND", "S_OGEGGGUARD_WALK1", "S_OGEGGGUARD_WALK2", "S_OGEGGGUARD_WALK3", "S_OGEGGGUARD_WALK4", "S_OGEGGGUARD_MAD1", "S_OGEGGGUARD_MAD2", "S_OGEGGGUARD_MAD3", "S_OGEGGGUARD_RUN1", "S_OGEGGGUARD_RUN2", "S_OGEGGGUARD_RUN3", "S_OGEGGGUARD_RUN4", "SPR_OPSH", "MT_OGEGGSHIELD", "S_OGEGGSHIELD", "SPR_OSHI")
+
+-- Code ported from 2.1 by Glaber with help from Tatsuru and Midiman
+addHook("MobjSpawn", function(mo)
+    mo.oldguardshield = P_SpawnMobj(mo.x, mo.y, mo.z, MT_OGEGGSHIELD)
+    mo.oldguardshield.destscale = mo.scale
+    P_SetScale(mo.oldguardshield, mo.scale)
+    mo.tracer = mo.oldguardshield
+    mo.oldguardshield.target = mo
+end, MT_OGEGGGUARD)
+
+
+-- Function: A_OldGuardChase
+--Translated from 2.1 by Glaber with help from Tatsuru, Monster Iestyn
+-- Description: Modified A_Chase for Egg Guard
+--
+-- var1 = unused
+-- var2 = unused
+--
+
+function A_OldGuardChase(actor)
+	local delta
+
+	if (actor.reactiontime)
+		actor.reactiontime = $1 - 1
+	end
+
+	if ((not actor.tracer or not actor.tracer.health) and actor.threshold != 42)
+		actor.target = nil
+		actor.threshold = 42
+		actor.state = actor.info.painstate
+		actor.flags = $ | MF_SPECIAL|MF_SHOOTABLE
+		return
+	end
+
+	-- turn towards movement direction if not there yet
+	if (actor.movedir < NUMDIRS)
+		actor.angle = $1 & (7<<29)
+		delta = actor.angle - (actor.movedir << 29)
+
+		if (delta > 0)
+			actor.angle = $-ANGLE_45
+		elseif (delta < 0)
+			actor.angle = $+ANGLE_45
+		end
+	end
+	if (not actor.target or not (actor.target.flags & MF_SHOOTABLE))
+		-- look for a new target
+		if P_LookForPlayers(actor, 0, true, false)
+			return -- got a new target
+		end
+
+		P_SetMobjStateNF(actor, actor.info.spawnstate)
+		return
+	end
+
+	-- possibly choose another target
+	if (multiplayer and (actor.target.health <= 0 or not P_CheckSight(actor, actor.target)))
+		and P_LookForPlayers(actor, 0, true, false)
+		return -- got a new target
+	end
+
+	-- chase towards player
+	actor.movecount = $-1
+	if (actor.movecount < 0 or not P_Move(actor, (actor.flags & MF2_AMBUSH) and actor.info.speed * 2 or actor.info.speed))
+		P_NewChaseDir(actor)
+		actor.movecount = $ | 5 -- Increase tics before change in direction allowed.
+	end
+
+-- Now that we've moved, its time for our shield to move!
+-- Otherwise it'll never act as a proper overlay.
+	if actor.tracer
+		local stateinfo = states[actor.tracer.state]
+
+		if stateinfo.action != nil
+			stateinfo.action(actor.tracer, stateinfo.var1, stateinfo.var2)
+		end
+	end
+end
+
+-- Old Egg Guard
+mobjinfo[MT_OGEGGGUARD] = {
+		--$Name "Old Guard Egg Guard"
+		--$Sprite OPSHA1
+		--$Category Retro Enemies
+        doomednum = 158,
+        spawnstate = S_OGEGGGUARD_STND,
+        spawnhealth = 1,
+        seestate = S_OGEGGGUARD_WALK1,
+        seesound = sfx_None,
+        reactiontime = 35,
+        attacksound = sfx_None,
+        painstate = S_OGEGGGUARD_MAD1,
+        painchance = 0,
+        painsound = sfx_None,
+		meleestate = S_OGEGGGUARD_RUN1,
+		missilestate = S_NULL,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 6,
+        radius = 16*FRACUNIT,
+        height = 48*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_ENEMY
+}
+
+	
+states[S_OGEGGGUARD_STND] = {SPR_OPSH,  0,  1,       A_Look, 0, 0, S_OGEGGGUARD_STND}
+states[S_OGEGGGUARD_WALK1] = {SPR_OPSH,  1,  3, A_OldGuardChase, 0, 0, S_OGEGGGUARD_WALK2}
+states[S_OGEGGGUARD_WALK2] = {SPR_OPSH,  2,  3, A_OldGuardChase, 0, 0, S_OGEGGGUARD_WALK3}
+states[S_OGEGGGUARD_WALK3] = {SPR_OPSH,  3,  3, A_OldGuardChase, 0, 0, S_OGEGGGUARD_WALK4}
+states[S_OGEGGGUARD_WALK4] = {SPR_OPSH,  4,  3, A_OldGuardChase, 0, 0, S_OGEGGGUARD_WALK1}
+states[S_OGEGGGUARD_MAD1] = {SPR_OPSH,  5,  5,         NULL, 0, 0, S_OGEGGGUARD_MAD2}
+states[S_OGEGGGUARD_MAD2] = {SPR_OPSH,  6,  5,         NULL, 0, 0, S_OGEGGGUARD_MAD3}
+states[S_OGEGGGUARD_MAD3] = {SPR_OPSH,  7, 15,         NULL, 0, 0, S_OGEGGGUARD_RUN1}
+states[S_OGEGGGUARD_RUN1] = {SPR_OPSH,  8,  1, A_OldGuardChase, 0, 0, S_OGEGGGUARD_RUN2}
+states[S_OGEGGGUARD_RUN2] = {SPR_OPSH,  9,  1, A_OldGuardChase, 0, 0, S_OGEGGGUARD_RUN3}
+states[S_OGEGGGUARD_RUN3] = {SPR_OPSH, 10,  1, A_OldGuardChase, 0, 0, S_OGEGGGUARD_RUN4}
+states[S_OGEGGGUARD_RUN4] = {SPR_OPSH, 11,  1, A_OldGuardChase, 0, 0, S_OGEGGGUARD_RUN1}
+
+
+addHook("TouchSpecial", function(special, toucher)
+	local touchx, touchy, touchspeed
+	local angle
+	local player = toucher.player
+	if (P_AproxDistance(toucher.x-special.x, toucher.y-special.y) >
+		P_AproxDistance((toucher.x-toucher.momx)-special.x, (toucher.y-toucher.momy)-special.y))
+		touchx = toucher.x + toucher.momx
+		touchy = toucher.y + toucher.momy
+	else	
+		touchx = toucher.x
+		touchy = toucher.y
+	end
+	angle = R_PointToAngle2(special.x, special.y, touchx, touchy) - special.angle
+	touchspeed = P_AproxDistance(toucher.momx, toucher.momy)
+	// Blocked by the shield?
+	if not (AngleFixed(angle) > 90*FRACUNIT and AngleFixed(angle) < 270*FRACUNIT)	
+	
+		toucher.momx = P_ReturnThrustX(special, special.angle, touchspeed)
+		toucher.momy = P_ReturnThrustY(special, special.angle, touchspeed)
+		toucher.momz = -toucher.momz
+		if (player.pflags & PF_GLIDING)
+		
+			player.pflags = $ & ~(PF_GLIDING|PF_JUMPED)--"&=" was swapped out with "= $ |" it caused a level end bug
+			toucher.state = S_PLAY_FALL
+		end
+		// Play a bounce sound?
+		S_StartSound(toucher, special.info.painsound)
+		return true
+	else
+		// Shatter the shield!
+		toucher.momx = -toucher.momx/2
+		toucher.momy = -toucher.momy/2
+		toucher.momz = -toucher.momz
+	end
+end, MT_OGEGGSHIELD)
+
+
+
+-- Old shield
+mobjinfo[MT_OGEGGSHIELD] = {
+        doomednum = -1,
+        spawnstate = S_OGEGGSHIELD,
+        spawnhealth = 1,
+        seestate = S_OGEGGSHIELD,
+        seesound = sfx_None,
+        reactiontime = 35,
+        attacksound = sfx_s3k7b,
+        painstate = S_NULL,
+        painchance = 0,
+        painsound = sfx_s3k7b,
+		meleestate = S_NULL,
+		missilestate = S_NULL,
+        deathstate = S_XPLD1,
+        xdeathstate = S_NULL,
+        deathsound = sfx_wbreak,
+        speed = 3,
+        radius = 24*FRACUNIT,
+        height = 128*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_SPECIAL|MF_NOGRAVITY
+}
+     
+states[S_OGEGGSHIELD] = {SPR_OSHI, 0, 8, A_EggShield, 0, 0, S_OGEGGSHIELD}

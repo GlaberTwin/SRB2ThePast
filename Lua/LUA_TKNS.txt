@@ -1,0 +1,13 @@
+freeslot("MT_FINALDEMOTOKEN", "MT_EMMY", "S_FINALDEMOTOKEN1", "S_FINALDEMOTOKEN2", "S_EMMY", "SPR_EMMY", "SPR_TKOR")
+
+//Special Thanks to Monster Iestyn, Flare, Flame, and anyone else on #scripting who helped make this possible.
+
+addHook("MobjSpawn", function(mo)
+    mo.Tokenorb = P_SpawnMobj(mo.x, mo.y, mo.z, MT_FINALDEMOTOKEN)
+	mo.Tokenorb.target = mo
+	end, MT_EMMY)
+addHook("MobjThinker", function(mobj)
+  if (mobj.target == nil)
+    P_KillMobj(mobj)
+  end
+end, MT_FINALDEMOTOKEN)

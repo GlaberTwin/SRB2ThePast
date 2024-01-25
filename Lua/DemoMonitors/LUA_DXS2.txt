@@ -1,0 +1,33 @@
+-- Demo Shield Monitor Commonalities - Ported by MIDIMan
+-- Use with LUA_DBXB, LUA_DBXG, LUA_DBXY, and LUA_DBXK
+
+-- Only give the player a shield in singleplayer
+function A_DemoGiveShield(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	if not (netgame or multiplayer) then
+		A_GiveShield(actor, var1, var2)
+	end
+end
+
+rawset(_G, "RM_DemoMonitorShieldSetup", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	if udmf then
+		if not mthing.args[2] then
+			if mthing.args[3] == 1 then
+				mo.rmShieldEra = "XMAS"
+			else
+				mo.rmShieldEra = "DEMO"
+			end
+		end
+	else
+		if not (mthing.options & MTF_EXTRA) then
+			if mthing.extrainfo == 1 then
+				mo.rmShieldEra = "XMAS"
+			else
+				mo.rmShieldEra = "DEMO"
+			end
+		end
+	end
+end)

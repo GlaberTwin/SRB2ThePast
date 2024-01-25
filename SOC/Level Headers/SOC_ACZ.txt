@@ -1,0 +1,248 @@
+##Arid Canyon Zone Level Headers
+
+##MINE MAZE
+
+Level A0
+Levelname = Mine Maze
+Subtitle = Development Version
+PreCutsceneNum = 123
+interscreen = EGGPIC
+Act = 1
+Music = OMMZ1
+MusicInter = LCLEAR
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = AZ:1
+
+Level A1
+Levelname = Mine Maze
+Subtitle = Development Version
+PreCutsceneNum = 124
+interscreen = EGGPIC
+Act = 2
+Music = OMMZ2
+MusicInter = LCLEAR
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = AZ:2
+
+Level A2
+Levelname = Mine Maze
+Subtitle = Development Version
+PreCutsceneNum = 71
+interscreen = EGGPIC
+Act = 3
+Music = VSTBOS
+MusicInter = LCLEAR
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+Lua.TPHub = AZ:3
+
+Level A7
+Levelname = Mine Maze
+Subtitle = Development Version
+interscreen = EGGPIC
+PreCutsceneNum = 122
+Act = 1
+Music = OMMZ1
+MusicInter = LCLEAR
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = AZ:4
+
+
+
+#ROCKY MOUNTAIN
+
+Level A3
+Levelname = Rocky Mountain
+Subtitle = Development Version
+PreCutsceneNum = 126
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = ROCKYM
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = AZ:5
+
+Level A4
+Levelname = Rocky Mountain
+Subtitle = Development Version
+PreCutsceneNum = 127
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = ROCKY2
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = AZ:6
+
+Level A5
+Levelname = Rocky Mountain
+Subtitle = Development Version
+PreCutsceneNum = 128
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+Lua.TPHub = AZ:7
+
+Level A8
+Levelname = Hidden Palace
+Subtitle = Development Version
+MusicInter = LCLEAR
+interscreen = EGGPIC
+Act = 0
+Music = HPZ
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 132
+RecordAttack = 0
+hidden = 1
+PreCutsceneNum = 125
+Lua.TPHub = AZ:8
+
+
+
+
+#2.0
+
+Level A6
+Levelname = Arid Canyon
+Subtitle = Version 2.0
+Act = 1
+PreCutsceneNum = 83
+Music = OACZ1
+MusicInter = LCLEAR
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 28
+RecordAttack = 0
+hidden = 1
+FlickyList = Cow,Ram
+Lua.TPHub = AZ:9
+
+Level A9
+Levelname = Arid Canyon
+Subtitle = Version 2.0.6-2.0.7
+PreCutsceneNum = 119
+Act = 1
+Music = OACZ1
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 28
+RecordAttack = 0
+hidden = 1
+MusicInter = LCLEAR
+FlickyList = Cow,Ram
+Lua.TPHub = AZ:10
+
+
+
+
+#2.1
+
+Level AB
+Levelname = Arid Canyon
+Subtitle = Version 2.1-2.1.6
+PreCutsceneNum = 120
+Act = 1
+Music = OACZ1
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 28
+RecordAttack = 0
+hidden = 1
+MusicInter = LCLEAR
+FlickyList = Cow,Ram
+Lua.TPHub = AZ:11
+
+Level AC
+Levelname = Arid Canyon
+Subtitle = Version 2.1.12-2.1.25
+PreCutsceneNum = 121
+Act = 1
+Music = OACZ1
+NextLevel = AZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 28
+RecordAttack = 0
+hidden = 1
+MusicInter = LCLEAR
+FlickyList = Cow,Ram
+Lua.TPHub = AZ:12
+
+
+
+
+#2.2 INDEV
+
+Level AD
+Levelname = Minecart Test
+Subtitle = Version 2.2-present
+Act = 0
+Keywords = MINECART
+Music = ACZ2
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = AZ
+SkyNum = 14
+RecordAttack = False
+LevelSelect = False
+SaveGame = False
+SkyboxScale = 32
+hidden = 1
+FlickyList = Canary,Ram
+Lua.TPHub = AZ:13
+
+
+
+
+#2.2 BOSS INDEV
+
+Level AA
+Levelname = Arid Canyon
+Subtitle = Development Version
+Act = 3
+Music = MAP14M
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = AZ
+SkyNum = 13
+RecordAttack = false
+hidden = 1
+FlickyList = Canary,Ram
+BonusType = Boss
+WarningTitle = true
+PreCutsceneNum = 42
+Lua.TPHub = AZ:14

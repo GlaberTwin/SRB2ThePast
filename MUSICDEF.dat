@@ -1,0 +1,1631 @@
+Lump _INTRO
+Title = Introduction
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 265.642
+BPM = 120
+
+Lump _TITLE
+Title = Titlescreen
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 23.174
+BPM = 158
+
+Lump TUTORL
+Title = Tutorial
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 200
+
+Lump _CHSEL
+Title = Get_ready!
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 152
+
+Lump GFZ1
+Title = Greenflower_1
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 132
+
+Lump GFZ2
+Title = Greenflower_2
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 155
+
+Lump VSBOSS
+Title = VS_Dr_Eggman
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 136
+
+Lump SPEC1
+Title = Floral_Field
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 137
+
+Lump THZ1
+Title = Techno_Hill_1
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 137
+
+Lump THZ2
+Title = Techno_Hill_2
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 137
+
+Lump SPEC2
+Title = Toxic_Plateau
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 170
+
+Lump DSZ1
+Title = Deep_Sea_1
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 130
+
+Lump DSZ2
+Title = Deep_Sea_2
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 115
+
+Lump SPEC3
+Title = Flooded_Cove
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 125
+
+Lump CEZ1
+Title = Castle_Eggman_1
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 156
+
+Lump CEZR
+Title = Bridge_collapse!
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 170
+
+Lump CEZ2
+Title = Castle_Eggman_2
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 120
+
+Lump SPEC4
+Title = Cavern_Fortress
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 147
+
+Lump ACZ1
+Title = Arid_Canyon_1
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 182
+
+Lump ACZ2
+Title = Arid_Canyon_2
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 90
+
+Lump VSFANG
+Title = VS_Fang_the_Sniper
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 145
+
+Lump SPEC5
+Title = Dusty_Wasteland
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 185
+
+Lump RVZ1
+Title = Red_Volcano_1
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 112
+
+Lump SPEC6
+Title = Magma_Caves
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 120
+
+Lump ERZ1
+Title = Egg_Rock_1
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 120
+
+Lump ERZ2
+Title = Egg_Rock_2
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 152
+
+Lump SPEC7
+Title = Egg_Satellite
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 170
+
+Lump BCZ1
+Title = The_Speedway
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 164
+
+Lump VSMETL
+Title = VS_Metal_Sonic
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 184
+
+Lump BCZ2
+Title = Anticipation
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 102
+
+Lump VSBRAK
+Title = VS_Black_Eggman
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 216
+
+Lump SPEC8
+Title = Marathon_Run
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 84
+
+Lump _ENDB
+Title = Ending
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 15.328
+
+Lump _CREDS
+Title = Credits
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 162
+
+Lump FHZ
+Title = Frozen_Hillside
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 140
+
+Lump HAUNTD
+Title = Haunted_Heights
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 100
+
+Lump AGZ
+Title = Aerial_Garden
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 125
+
+Lump ATZ
+Title = Azure_Temple
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 96
+
+Lump _1UP
+Title = One-Up
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 4.992
+BPM = 144.071
+
+Lump _SHOES
+Title = Power_Sneakers
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 20.652
+BPM = 190
+
+Lump _INV
+Title = Invincible
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 22.599
+BPM = 160
+
+Lump _SUPER
+Title = Supersonic!
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 172
+
+Lump _DROWN
+Title = Drowning
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 12.571
+BPM = 275
+
+Lump _GOVER
+Title = GAME_OVER
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 10.057
+BPM = 90
+
+Lump _CONTI
+Title = Continue?
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 11.731
+BPM = 120
+
+Lump _CLEAR
+Title = Act_clear
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 6.8
+BPM = 150
+
+Lump _RECAT
+Title = Record_Attack
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 120
+
+Lump _NTIME
+Title = Dream_over...
+Alttitle = Time_Up_(JINGLE)
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 11.709
+BPM = 90
+
+Lump CCZ
+Title = Christmas_Chime
+Alttitle = Take_The_Snow_Train
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 127.5
+
+Lump DHZ
+Title = Dream_Hill
+Alttitle = The_Amazing_Water
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 136
+
+Lump APZ1
+Title = Alpine_Paradise_1
+Alttitle = Paternal_Horn
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 140
+
+Lump APZ2
+Title = Alpine_Paradise_2
+Alttitle = Suburban_Museum
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 128
+
+Lump BHZ
+Title = Black_Hole
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 84
+
+Lump _INTER
+Title = Intermission
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 120
+
+Lump MP_SUN
+Title = Jade_Valley
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 120
+
+Lump MP_DES
+Title = Desolate_Twilight
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 82.5
+
+Lump MP_GHZ
+Title = Sapphire_Falls
+Alttitle = Green_Hill
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 160
+
+Lump MP_ICE
+Title = Frost_Columns
+Alttitle = Icicle_Falls
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 130
+
+Lump RVZ2
+Title = Infernal_Cavern
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 120
+
+Lump MP_DOM
+Title = Orbital_Hangar
+Alttitle = Doomship
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 180
+
+Lump MP_MED
+Title = Meadow_Match
+Authors = SRB2_Final_Demo-2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 135
+
+Lump GFZALT
+Title = Lime_Forest
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 136
+
+Lump AGZALT
+Title = Lost_Palace
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 125
+
+Lump MP_WTR
+Title = Silver_Cascade
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 100
+
+Lump MP_AIR
+Title = Nimbus_Ruins
+Alttitle = Diamond_Blizzard
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 120
+
+Lump MARIO1
+Title = Pipe_Towers_1
+Alttitle = Overworld
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 100
+
+Lump MARIO2
+Title = Pipe_Towers_2
+Alttitle = Underground
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 200
+
+Lump _MINV
+Title = Starman
+Authors = SRB2_Version_2.2
+Soundtestpage = 1
+Soundtestcond = 0
+Stoppingtime = 22.987
+BPM = 157
+
+Lump MUSEUM
+Title = SRB2_Museum
+Authors = SRB2_The_Past(MIDIMan)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FIELD
+Title = Zone_Hubs
+Authors = SRB2_The_Past(MIDIMan)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump DEVHUB
+Title = Development_Hub
+Authors = SRB2_Version_2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump RIVALR
+Title = Metal's_Challenge_Hub
+Authors = SRB2_Version_2.0
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump TGFZ1
+Title = Greenflower_1
+Authors = TGF_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump TGFZ2
+Title = Greenflower_2
+Authors = TGF_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump VSTBOS
+Title = VS_Boss
+Authors = TGF_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump THTGF1
+Title = Techno_Hill_1
+Authors = TGF_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump THTGF2
+Title = Techno_Hill_2
+Authors = TGF_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump DEEPSE
+Title = Deep_Sea_1
+Authors = TGF_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump DEEPS2
+Title = Deep_Sea_2
+Authors = TGF_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MINES
+Title = Mine_Maze_1
+Authors = TGF_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump GFZX1
+Title = Snow_Flower_1
+Authors = TGF_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump GFZX2
+Title = Snow_Flower_2
+Authors = TGF_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump THZX
+Title = Snow_Factory
+Authors = TGF_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump DSZX1
+Title = Deep_Sea_1
+Authors = TGF_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump DSZX2
+Title = Deep_Sea_2
+Authors = TGF_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MMZX
+Title = Snow_Mine
+Authors = TGF_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump HTITLE
+Title = Halloween_Title
+Authors = Halloween_Tech_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump HTECH
+Title = Halloween_Level
+Authors = Halloween_Tech_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump XTITLE
+Title = Christmas_Title
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SPNGAR
+Title = Springin'_Around
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump XMSCUT
+Title = Cutscene
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump BLUSTR
+Title = Blustery_Day
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SNOMTN
+Title = Snow_Mountain
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump GLEEMI
+Title = Gleaming_Glacier
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump EGGB
+Title = Egg_Base
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump EGGA
+Title = Egg_Arena
+Alttitle = Havin'_Fun?
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump CLOCNR
+Title = Close_Corners
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump XMASFA
+Title = Christmas_Factory
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SNOWVA
+Title = Snow_Valley
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump VSFBOS
+Title = Final_Boss
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ECZA1
+Title = Emerald_Coast
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump NGHTMR
+Title = Sonic's_Nightmare
+Authors = SRB2_Christmas_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump OGFZ1
+Title = Greenflower_1
+Authors = Demo_1-Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump OGFZ2
+Title = Greenflower_2
+Authors = Demo_1-Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump VSTBOS
+Title = VS_Boss
+Authors = Demo_1-Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump OTHZ1
+Title = Techno_Hill_1
+Authors = Demo_1-Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump OTHZ2
+Title = Techno_Hill_2
+Authors = Demo_1-Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ODSZ1
+Title = Deep_Sea_1
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ODSZ2
+Title = Deep_Sea_2
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump OMMZ1
+Title = Mine_Maze_1
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump OMMZ2
+Title = Mine_Maze_2
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ROCKYM
+Title = Rocky_Mountain_1
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ROCKY2
+Title = Rocky_Mountain_2
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ORVZ1
+Title = Red_Volcano_1
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ORVZ2
+Title = Red_Volcano_2
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ODCZ1
+Title = Dark_City_1
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ODCZ2
+Title = Dark_City_2
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ODOOMS
+Title = Doomship
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump RRZ
+Title = Egg_Rock
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SPHZ
+Title = Speed_Highway_at_Dawn
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump HPZ
+Title = Hidden_Palace
+Authors = SRB2_Demo_Era_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SS2D4
+Title = Special_Stage_2
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SS3D4
+Title = Special_Stage_3
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SS6D4
+Title = Special_Stage_6
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SS7D4
+Title = Special_Stage_7
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump D4CEZ1
+Title = Castle_Eggman_1
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump D4CEZ2
+Title = Castle_Eggman_2
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump D4CEZ3
+Title = Castle_Eggman_3
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MP_1RI
+Title = Zero_Ring
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MARIO6
+Title = Mario_Goomba_Blast
+Authors = SRB2_Demo_4_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump WPANIC
+Title = Woodland_Panic
+Authors = SRB2_2K3-1.08
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump DUALFT
+Title = Dual_Fortress
+Authors = SRB2_2K3-1.08
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDMMZ1
+Title = Vine_Cavern
+Authors = SRB2_2K3-1.08
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDGFZ1
+Title = Greenflower_1
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDGFZ2
+Title = Greenflower_2
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump VSOBOS
+Title = VS_Boss
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDTHZ1
+Title = Techno_Hill_1
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump THZALT
+Title = Techno_Hill_2
+Authors = SRB2_Final_Demo-2.2
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDCEZ1
+Title = Castle_Eggman_1
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDCEZ2
+Title = Castle_Eggman_2
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDCEZ3
+Title = Castle_Eggman_3
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA0M
+Title = Greenflower_1_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA1M
+Title = Greenflower_2_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA2M
+Title = VS_Boss_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA3M
+Title = Techno_Hill_1_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA4M
+Title = Techno_Hill_2_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA5M
+Title = Castle_Eggman_1_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA6M
+Title = Castle_Eggman_2_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA7M
+Title = Castle_Eggman_3_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDRVZ1
+Title = Red_Volcano_1
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SHZ
+Title = Spring_Hill
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPA8M
+Title = Spring_Hill_(Christmas)
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MARIO3
+Title = Mario_Koopa_Blast_1
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MARIO4
+Title = Mario_Koopa_Blast_2
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MARIO5
+Title = Mario_Koopa_Blast_3
+Authors = SRB2_Final_Demo-2.0
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MTLHBR
+Title = SA_Example
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump LCLEAR
+Title = Level_Clear
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SPC108
+Title = Special_Stage_1.08
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SPC109
+Title = Special_Stage
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MIDNT1
+Title = Frozen_Night
+Alttitle = Midnight_Freeze
+Authors = SRB2_Final_Demo/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump _NITAT
+Title = Cloud_Palace
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump DCZ
+Title = Starlit_Warehouse
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MIDABY
+Title = Midnight_Abyss
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MP_0RI
+Title = Zero_Ring
+Authors = SRB2_Final_Demo-2.2
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ZIMBAS
+Title = Zim's_Base
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump WPANC2
+Title = Woodland_Panic
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump HYDRO
+Title = Hydro_Plant
+Authors = SRB2_Final_Demo
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump TRRING
+Title = Tree_Ring
+Alttitle = Verdant_Forest
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump LEVEL1
+Title = Super_Search
+Authors = Wizard_Needs_Food_Badly!
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump DISCO
+Title = Dashing_Disco
+Authors = Wizard_Needs_Food_Badly!
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDDSZ1
+Title = Deep_Sea_1
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDDSZ2
+Title = Deep_Sea_2
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump OACZ1
+Title = Arid_Canyon_1
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ERZ120
+Title = Egg_Rock_1
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = E4
+
+Lump ERZ220
+Title = Egg_Rock_2
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = E5
+
+Lump VSBRK1
+Title = Egg_Rock_3
+Alttitle = VS_Old_Brak/2.1_Metal
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = E6
+
+Lump MAPB6M
+Title = Neo_Aerial_Garden/Aerial_Garden
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MIDNIT
+Title = Icicle_Falls/Frozen_Night
+Alttitle = Midnight_Freeze
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FDAIR
+Title = Nimbus_Ruins
+Authors = SRB2_Final_Demo-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump INFRNO
+Title = Infernal_Cavern
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump OLDGHZ
+Title = Sapphire_Falls
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump KHB
+Title = Knothole_Base
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAAM
+Title = Great_Forest
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPABM
+Title = Lake
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPACM
+Title = Ice_Palace_1
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPADM
+Title = Ice_Palace_2
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAEM
+Title = Volcano
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAFM
+Title = Echidnapolis
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAGM
+Title = Sky_Lab
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAHM
+Title = Mechanical_Madness
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAIM
+Title = Robotopolis
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAJM
+Title = Robo_Base
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAKM
+Title = Space_Chase_1
+Authors = SRB2_Version_2.0-2.1_(Midi_only/Unused)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPALM
+Title = Space_Chase_2
+Authors = SRB2_Version_2.0-2.1_(Midi_only/Unused)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAMM
+Title = RingSatellite_1
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPANM
+Title = RingSatellite_2
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAOM
+Title = Lift
+Authors = SRB2_Version_2.0-2.1_(Midi_only/Unused)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAPM
+Title = Last_Land
+Authors = SRB2_Version_2.0-2.1_(Midi_only/Unused)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAQM
+Title = Athenos
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPARM
+Title = Great_Unknown
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPASM
+Title = Void
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPATM
+Title = Woodland_Hill
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAUM
+Title = Rocky_Mountain_(SRB1)
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAPAVM
+Title = Hidden_Palace_(SRB1)
+Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ERZ121
+Title = Egg_Rock_1
+Authors = SRB2_Version_2.0-2.1_(2.1_Midi)
+Soundtestpage = 1
+Soundtestcond = EA
+
+Lump ERZ221
+Title = Egg_Rock_2
+Authors = SRB2_Version_2.0-2.1_(2.1_Midi)
+Soundtestpage = 1
+Soundtestcond = EB
+
+Lump VSMTAL
+Title = Metal_Sonic_Race
+Alttitle = Egg_Rock_3
+Authors = SRB2_Version_2.0-2.1
+Soundtestpage = 1
+Soundtestcond = EC
+
+Lump VSOBRK
+Title = VS_Black_Eggman
+Alttitle = Egg_Rock_Core
+Authors = SRB2_Version_2.1
+Soundtestpage = 1
+Soundtestcond = ED
+
+Lump OATZ
+Title = Azure_Temple
+Authors = SRB2_Version_2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FLORAL
+Title = Floral_Field
+Alttitle = Jade_Coast
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump TOXIC
+Title = Toxic_Plateau
+Alttitle = VS_MR_Boss
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump FLOOD
+Title = Flooded_Cove
+Alttitle = Sunken_Plant
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump CAVERN
+Title = Cavern_Fortress
+Alttitle = Tempest_Valley
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MP_GL2
+Title = Dusty_Wasteland
+Authors = SRB2_Final_Demo-2.2
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAGMA
+Title = Magma_Caves
+Alttitle = Flame_Rift
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump EGGSAT
+Title = Egg_Satellite
+Alttitle = Mystic_Realm
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump BLKHOL
+Title = Black_Hole
+Alttitle = Prismatic_Angel
+Authors = SRB2_Final_Demo-2.1/Mystic_Realm
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ORBHAN
+Title = Orbital_Hangar
+Authors = SRB2_Version_2.1
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MP_GLZ
+Title = Granite_Lake
+Authors = SRB2_Version_2.1-2.2
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump MAP14M
+Title = VS_Fang_The_Sniper
+Authors = SRB2_Version_2.2_Dev
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump ALMAG
+Title = History_Clash
+Alttitle = 2.1_Egg_Satellite_Remade
+Authors = ColbaltBW's_music_remade_Music_Pack
+Soundtestpage = 1
+Soundtestcond = ZZ
+
+Lump SADNES
+Title = The_Old_Museum
+Authors = SRB2_Version_2.1_(Unused)
+Soundtestpage = 1
+Soundtestcond = P0
+
+Lump DM2INT
+Title = SD2_Level_Clear
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P0
+
+Lump STALKS
+Title = Icecap_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P1
+
+Lump COUNTD
+Title = Flying_Battery_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P2
+
+Lump BETWEE
+Title = Flying_Battery_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P3
+
+Lump DOOM
+Title = The_Sonic_Zone
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P4
+
+Lump THE_DA
+Title = Special_Stage_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P5
+
+Lump DDTBLU
+Title = Marble_Garden_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P6
+
+Lump IN_CIT
+Title = Carnival_Night_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P7
+
+Lump DEAD
+Title = Carnival_Night_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P8
+
+Lump STLKS2
+Title = Hydrocity_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = P9
+
+Lump THEDA2
+Title = Hydrocity_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PA
+
+Lump DOOM2
+Title = Launch_Base_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PB
+
+Lump DDTBL2
+Title = Launch_Base_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PC
+
+Lump RUNNI2
+Title = Angel_Island_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PD
+
+Lump DEAD2
+Title = Angel_Island_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PE
+
+Lump STLKS3
+Title = Toxic_Caves
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PF
+
+Lump SHAWN2
+Title = The_Tails_Zone
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PH
+
+Lump MESSAG
+Title = Special_Stage_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PI
+
+Lump COUNT2
+Title = Mushroom_Hill_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PJ
+
+Lump DDTBL3
+Title = Mushroom_Hill_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PK
+
+Lump AMPIE
+Title = Sandopolis_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PL
+
+Lump THEDA3
+Title = Sandopolis_2
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PM
+
+Lump ADRIAN
+Title = Lava_Reef_1
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PN
+
+Lump SKY
+Title = Sky_Sanctuary
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PQ
+
+Lump POKSOC
+Title = Pokemon_Soccer!
+Alttitle = Greenflower
+Authors = VGmusic.com_(Digital_Music_by_SSNTails)
+Soundtestpage = 1
+Soundtestcond = PS
+
+Lump ULTIMA
+Title = The_Knuckles_Zone
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PT
+
+Lump READ_M
+Title = SD2_Credits
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PU
+
+Lump SDBRAK
+Title = VS_Cyber_Brak
+Authors = Information_Unknown
+Soundtestpage = 1
+Soundtestcond = PU
+
+Lump SDEGGM
+Title = VS_Eggmancubus
+Authors = !VIRUS_WARNING!
+Soundtestpage = 1
+Soundtestcond = PU
+
+Lump SDCLER
+Title = Virus_Eliminated!
+Authors = Sonic_Doom_2
+Soundtestpage = 1
+Soundtestcond = PU
+
+Lump GFZSOF
+Title = In_trouble_now
+Alttitle = GFZ_Sad
+Authors = SSNTails
+Soundtestpage = 1
+Soundtestcond = ZW
+
+Lump GGJZZ
+Title = Celebration
+Alttitle = Green_Grove_Jazz
+Authors = Cyan_Helkaraxe
+Soundtestpage = 1
+Soundtestcond = ZW

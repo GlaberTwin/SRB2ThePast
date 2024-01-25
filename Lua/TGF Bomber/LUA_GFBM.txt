@@ -1,0 +1,194 @@
+// TGF Bomber - Ported by Glaber (original LUA) and MIDIMan (TGF movement)
+
+freeslot(
+	"MT_TGFBOMBER",
+	"S_TGFB_FLOAT",
+	"S_TGFB_DROPBOMB",
+	"S_TGFB_DROPBOMB2",
+	"S_TGFBLOOK1",
+	"S_TGFBLOOK2",
+	"S_TGFBZOOM1",
+	"S_TGFBZOOM2",
+	"SPR_TBOM"
+)
+
+local function CustomTGFBomberSpawn(mobj, mapthing)
+	if not (mobj and mobj.valid
+	and mapthing and mapthing.valid)
+		return
+	end
+	
+    local offset
+    
+    if mapthing.z != 0
+        offset = mapthing.z
+    else
+        offset = 33*FRACUNIT
+    end
+    
+    if (mapthing.options & MTF_OBJECTFLIP)
+        if offset != 0
+            mobj.z = mobj.z - offset
+        else
+            mobj.z = mobj.ceilingz
+        end
+    else
+        if offset != 0
+            mobj.z = mobj.z + offset
+        else
+            mobj.z = mobj.floorz
+        end
+    end
+    
+end
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid
+	and mthing and mthing.valid)
+		return
+	end
+	
+	CustomTGFBomberSpawn(mo, mthing)
+	
+	if (mthing.options & MTF_OBJECTSPECIAL)
+		mo.state = S_TGFB_FLOAT
+		mo.flags = $|MF_NOCLIPHEIGHT
+		mo.tgfMovement = true
+		mo.tgfAngle = FixedAngle(mthing.angle*FRACUNIT)
+	end
+end, MT_TGFBOMBER)
+
+// Quick function to check if the nextPosition goes over the endPosition
+local function TGFDifferenceCheck(diff, nextPos, endPos)
+	if abs(diff) >= abs(endPos - nextPos)
+	or 3*abs(diff)/2 >= abs(endPos - nextPos)
+		return endPos
+	end
+	
+	return nextPos + diff
+end
+
+local function TGFMovement(mo, endPos, speed)
+	if not (mo and mo.valid) then return end
+	if not endPos then return end
+	if not speed then return end
+	
+	local nextPos = {x = mo.x, y = mo.y, z = mo.z}
+	
+	local angle = R_PointToAngle2(mo.x, mo.y, endPos.x, endPos.y)
+	local dist = FixedHypot(endPos.x - mo.x, endPos.y - mo.y)
+	local pitch = R_PointToAngle2(0, mo.z, dist, endPos.z)
+	
+	local diff = {
+		x = FixedMul(speed, FixedMul(cos(angle), cos(pitch))), 
+		y = FixedMul(speed, FixedMul(sin(angle), cos(pitch))), 
+		z = FixedMul(speed, sin(pitch))
+	}
+	
+	nextPos.x = TGFDifferenceCheck(diff.x, nextPos.x, endPos.x)
+	nextPos.y = TGFDifferenceCheck(diff.y, nextPos.y, endPos.y)
+	nextPos.z = TGFDifferenceCheck(diff.z, nextPos.z, endPos.z)
+	
+	mo.angle = R_PointToAngle2(0, 0, diff.x, diff.y)
+	
+	P_MoveOrigin(mo, nextPos.x, nextPos.y, nextPos.z)
+	
+	if mo.x == endPos.x and mo.y == mo.y and mo.z == endPos.z
+		return true
+	end
+end
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	// This MobjThinker is only for the minus's TGF movement
+	if mo.health <= 0 or not mo.tgfMovement then return end
+	
+	// Setup variables for the TGF-based movement
+	if not mo.tgfOrigPos
+		mo.tgfOrigPos = {
+			x = mo.x,
+			y = mo.y,
+			z = mo.z,
+		}
+	end
+	
+	local origPos = mo.tgfOrigPos
+	if not mo.tgfPosNum then mo.tgfPosNum = 0 end
+	if not mo.tgfAngle then mo.tgfAngle = 0 end
+	if not mo.tgfPositions
+		mo.tgfPositions = {
+			{x = origPos.x, y = origPos.y, z = origPos.z},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 17*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 17*mo.scale),	z = origPos.z - P_MobjFlip(mo)*15 *mo.scale},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 33*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 33*mo.scale),	z = origPos.z - P_MobjFlip(mo)*36*mo.scale},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 10*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 10*mo.scale),	z = origPos.z - P_MobjFlip(mo)*86*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 56*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 56*mo.scale),	z = origPos.z - P_MobjFlip(mo)*107*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 125*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 125*mo.scale),	z = origPos.z - P_MobjFlip(mo)*90*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 167*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 167*mo.scale),	z = origPos.z - P_MobjFlip(mo)*46*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 175*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 175*mo.scale),	z = origPos.z - P_MobjFlip(mo)*6*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 159*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 159*mo.scale),	z = origPos.z + P_MobjFlip(mo)*23*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 137*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 137*mo.scale),	z = origPos.z + P_MobjFlip(mo)*54*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 79*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 79*mo.scale),	z = origPos.z + P_MobjFlip(mo)*59*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 38*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 38*mo.scale),	z = origPos.z + P_MobjFlip(mo)*37*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 22*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 22*mo.scale),	z = origPos.z + P_MobjFlip(mo)*23*mo.scale},
+			{x = origPos.x - FixedMul(cos(mo.tgfAngle), 3*mo.scale),	y = origPos.y - FixedMul(sin(mo.tgfAngle), 3*mo.scale),		z = origPos.z - P_MobjFlip(mo)*3*mo.scale}
+		}
+	end
+	
+	local speed = 4*mo.scale
+	
+	if mo.tgfPositions and table.maxn(mo.tgfPositions)
+		if mo.tgfPosNum < table.maxn(mo.tgfPositions)
+			if TGFMovement(mo, mo.tgfPositions[mo.tgfPosNum + 1], speed)
+				mo.tgfPosNum = $+1
+			end
+		else
+			// Move towards the beginning path node if the bomber has gone through all of them
+			if TGFMovement(mo, mo.tgfPositions[1], speed)
+				mo.tgfPosNum = 0
+			end
+		end
+	end
+end, MT_TGFBOMBER)
+
+// Make sure A_TGFDropMine does not exist before instantiating it
+local function A_TGFDropMine(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local mine = P_SpawnMobjFromMobj(actor, 0, 0, -actor.info.height/2, actor.info.raisestate)
+	mine.target = actor // So the TGF Bomber doesn't die from its own mine
+	P_SetObjectMomZ(mine, -8*FRACUNIT)
+	
+	S_StartSound(actor, actor.info.attacksound)
+end
+
+// TGF Bomber
+mobjinfo[MT_TGFBOMBER] = {
+	//$Name "TGF Bomber"
+	//$Sprite TBOMA0
+	//$Category TGF/Concept Enemies
+	//$Flags4Text TGF Behavior
+	doomednum = 156,
+	spawnstate = S_TGFBLOOK1,
+	spawnhealth = 1,
+	seestate = S_TGFBZOOM1,
+	reactiontime = 32,
+	attacksound = sfx_s3k51,
+	painsound = sfx_dmpain,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 1*FRACUNIT,
+	radius = 20*FRACUNIT,
+	height = 50*FRACUNIT,
+	raisestate = MT_RETROBOBMMINE,
+	flags = MF_SLIDEME|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+
+states[S_TGFB_FLOAT] =		{SPR_TBOM,	A|FF_ANIMATE,				105,	nil,			1,	1,	S_TGFB_DROPBOMB}
+states[S_TGFB_DROPBOMB] =	{SPR_TBOM,	C|FF_ANIMATE|FF_FULLBRIGHT,	24,		nil,			12,	2,	S_TGFB_DROPBOMB2}
+states[S_TGFB_DROPBOMB2] =	{SPR_TBOM,	A,							0,		A_TGFDropMine,	0,	0,	S_TGFB_FLOAT}
+	
+states[S_TGFBLOOK1] = {SPR_TBOM, A, 4, A_Look, 0, 0, S_TGFBLOOK2}
+states[S_TGFBLOOK2] = {SPR_TBOM, B, 4, A_Look, 0, 0, S_TGFBLOOK1}
+states[S_TGFBZOOM1] = {SPR_TBOM, A, 1, A_JetbThink, 0, 0, S_TGFBZOOM2}
+states[S_TGFBZOOM2] = {SPR_TBOM, B, 1, A_JetbThink, 0, 0, S_TGFBZOOM1}

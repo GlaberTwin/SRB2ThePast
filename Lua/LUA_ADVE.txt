@@ -1,0 +1,1181 @@
+// Final Demo Adventure Mode - Ported from 1.09.4
+
+// Special thanks to amperbee/Rapidgame7 for making me aware of the searchBlockmap 
+// function, and also for the tip on creating custom cameras
+
+// Special thanks to Flame for helping me figure out the horizontal momentum 
+// issue mentioned in the function P_LightDash, as well as coming up with a solution 
+// for the camera getting stuck on walls, one that I ultimately did not use...
+// I appreciate the help, though!
+// Flame also suggested that I use a different method of searching bosses in a 
+// stage than what I was using before, so thanks again!
+
+// Special thanks to Golden for allowing me to use their custom camera code as a 
+// base for mine (pre-1.2)
+
+// Special thanks to Glaber for the suggestion of Amy's hammer jump
+
+// Special thanks to antonretrojr and lumo (SRB2 Discord) for making me aware of 
+// some bugs when playing as Fang (I accidentally multiplied player.viewheight by 
+// FRACUNIT in the camera reset code when I didn't need to)
+
+// Special thanks to D00D64 for reminding me that the forced old analog could be 
+// turned off in the original Adventure Mode, and also for Scaledflower Zone, which 
+// I used exstensively to fix scale-related bugs
+
+/*
+There are certain bugs here that have not been fixed to be as close to the 
+original code as possible. Here is a list of some known ones:
+
+-The falling animation interrupts the gasp animation.
+-Using the homing attack near an inaccessible item/enemy can softlock the player 
+	temporarily.
+-Using the lightdash in a similar vein can also softlock the player temporarily.
+-The "hit ground" sound does not play when standing on an object with the 
+	MF_SOLID flag. This behavior was also present in 1.09.4, and was apparently 
+	intentional, according to the code.
+-The camera does not readjust its angle for players currently climbing.
+
+Here are some other facts:
+
+-The "hit ground" sound has been slightly edited from its 1.09.4 counterpart to 
+	have less of a delay.
+-The boss facing functionality differs slightly from the original code due to 
+	the vanilla camera's angle being read-only in Lua.
+
+********************************************************************************
+If you want to remove the "toggleable" function of this Lua, please follow the 
+instructions shown in any comments with three slashes (instead of two)
+********************************************************************************
+*/
+
+/// Remove the following two lines
+// This allows the user to toggle Adventure Mode at any point in the game
+rawset(_G, "CV_AdventureMode", CV_RegisterVar({"adventuremode", "Off", CV_NETVAR, CV_OnOff}))
+
+local CV_AdventureControl = CV_RegisterVar({"adventurecontrol", "On", nil, CV_OnOff})
+local CV_AdventureControl2 = CV_RegisterVar({"adventurecontrol2", "On", nil, CV_OnOff})
+
+// Prevents the player from going too fast when lightdashing
+local MAXMOVE = 60*FRACUNIT/NEWTICRATERATIO
+
+// *** Replace P_AproxDistance with a custom function when it gets removed in 2.3 (possibly?) ***
+
+local function FDAdv_Valid(thing)
+	return (thing and thing.valid)
+end
+
+freeslot("TOL_FDADVENTURE", "sfx_sahitg", "MT_FDADVENTURECAM")
+
+mobjinfo[MT_FDADVENTURECAM] = {
+	doomednum = -1,
+	spawnstate = S_INVISIBLE,
+	spawnhealth = 1000,
+	speed = 1000,
+	radius = 20*FRACUNIT,
+	height = 16*FRACUNIT,
+	flags = MF_NOGRAVITY|MF_SLIDEME|MF_NOCLIPTHING
+}
+
+local FD_InAdventure = false
+
+// Make FD_InAdventure netsafe (hopefully)
+addHook("NetVars", function(network)
+	FD_InAdventure = network($)
+end)
+
+// Toggle the solidity of the monitors depending on if the stage is in "Adventure Mode" or not
+addHook("ThinkFrame", function()
+	local prevAdventure = FD_InAdventure
+	
+	if (maptol & TOL_FDADVENTURE)
+	or CV_AdventureMode.value
+	and not FD_InAdventure then
+		FD_InAdventure = true
+	elseif FD_InAdventure then
+		FD_InAdventure = false
+	end
+	
+	if FD_InAdventure and not prevAdventure then
+		for mo2 in mobjs.iterate() do
+			if not FDAdv_Valid(mo2) then continue end
+			
+			if (mo2.flags & MF_MONITOR) and mo2.health > 0 then
+				mo2.flags = $ & ~MF_SOLID
+			end
+		end
+	elseif not FD_InAdventure and prevAdventure then
+		for mo2 in mobjs.iterate() do
+			if not FDAdv_Valid(mo2) then continue end
+			
+			if (mo2.flags & MF_MONITOR) and mo2.health > 0 and (mo2.info.flags & MF_SOLID) then
+				mo2.flags = $|MF_SOLID
+			end
+		end
+	end
+end)
+
+// Quick function to get the given player's camera
+local function P_FDGetCamera(player)
+	if not player and player.valid then return end
+	
+	if splitscreen and player == secondarydisplayplayer then
+		return camera2
+	elseif player == consoleplayer then
+		return camera
+	end
+end
+
+// Finds a boss to aim the camera at
+local function P_FDFindBossTarget(pmo, mo2)
+	if not (FDAdv_Valid(pmo) and FDAdv_Valid(mo2)) then
+		return
+	end
+	
+	if (mo2.flags & MF_BOSS) and mo2.health > 0
+		// Originally, the player's camera's angle would change, but since 
+		// Lua has no way of doing this (currently), a custom camera is used instead (pre-1.2)
+		if FixedHypot(mo2.x - pmo.x, mo2.y - pmo.y) < 3072*pmo.scale and P_CheckSight(pmo, mo2) then
+			pmo.player.fdbosstarget = mo2
+		else
+			pmo.player.fdbosstarget = nil
+		end
+		return true
+	end
+end
+
+// P_ResetCamera, ported from 1.09.4
+local function P_FDResetCamera(player, thiscam)
+	if not (FDAdv_Valid(player) and FDAdv_Valid(player.mo) and FDAdv_Valid(thiscam)) then return end
+	
+	local x, y, z
+	
+	if player.mo.health <= 0 then return end
+	
+	//thiscam.chase = true - Probably not needed
+	x = player.mo.x
+	y = player.mo.y
+	z = player.mo.z + player.viewheight
+	
+	// set bits for the camera
+	P_SetOrigin(thiscam, x, y, z)
+	
+	thiscam.angle = player.mo.angle
+	thiscam.aiming = 0
+	
+	//thiscam.subsector = R_PointInSubsector(thiscam.x, thiscam.y) - subsector can't be assigned in Lua
+	
+	thiscam.radius = 20*player.mo.scale
+	thiscam.height = 16*player.mo.scale
+end
+
+// P_MoveChaseCamera, ported from 1.09.4, with some enhancements from 2.2
+local function P_FDMoveChaseCamera(player, thiscam, netcalled)
+	if not (FDAdv_Valid(player) and FDAdv_Valid(player.mo) and FDAdv_Valid(thiscam)) then return end
+	
+	local angle = 0
+	local focusangle
+	local focusaiming
+	local x, y, z, dist, distxy, distz, viewpointx, viewpointy
+	local slopez = 0
+	local camSpeed, sessionAnalog, camDist, camHeight
+	local camStill, camOrbit, camAdjust, camTurnMult//, camRotate
+	local mo
+	local sign
+	local newsubsec
+	
+	// Check chasecam values
+	
+	// Do not run this code for spectators or bots
+	if player.spectator or player.bot then return end
+	
+	mo = player.mo
+	
+	if not FDAdv_Valid(mo) then return end
+	
+	if player.exiting then
+		if FDAdv_Valid(mo.target) and mo.target.type == MT_SIGN and mo.target.spawnpoint
+		and not ((gametyperules & GTR_FRIENDLY) and (netgame or multiplayer) and CV_FindVar("exitmove").value)
+		and not (twodlevel or (mo.flags2 & MF2_TWOD)) then
+			sign = mo.target
+		end
+	end
+	
+	// Do I really need to be constantly setting the camera's radius and height?
+	//thiscam.radius = 20*mo.scale
+	//thiscam.height = 16*mo.scale
+	
+	local playerNum = ""
+	if splitscreen and player == secondarydisplayplayer then playerNum = "2" end
+	
+	camStill = CV_FindVar("cam"..playerNum.."_still").value
+	sessionAnalog = CV_FindVar("sessionanalog"..playerNum).value
+	camDist = FixedMul(CV_FindVar("cam"..playerNum.."_dist").value, mo.scale)
+	camHeight = FixedMul(CV_FindVar("cam"..playerNum.."_height").value, mo.scale)
+	camSpeed = CV_FindVar("cam"..playerNum.."_speed").value
+	camOrbit = CV_FindVar("cam"..playerNum.."_orbit").value
+	camAdjust = CV_FindVar("cam"..playerNum.."_adjust").value
+	camTurnMult = CV_FindVar("cam"..playerNum.."_turnmultiplier").value
+	//camRotate = CV_FindVar("cam"..playerNum.."_rotate").value
+	
+	// netcalled not necessary?
+	
+	if FDAdv_Valid(sign) then
+		focusangle = FixedAngle(sign.spawnpoint.angle * FRACUNIT) + ANGLE_180
+		focusaiming = 0
+	else
+		focusangle = player.mo.angle
+		focusaiming = player.aiming
+	end
+	
+	// Not needed, because momentum-based movement is already handled by the game
+	//P_FDCameraThinker(thiscam)
+	
+	if twodlevel or (mo.flags2 & MF2_TWOD) then
+		angle = ANGLE_90
+	elseif camStill or player.playerstate == PST_DEAD then
+		angle = thiscam.angle
+	//elseif NIGHTS STUFF
+	elseif not FDAdv_Valid(sign) then
+		angle = R_PointToAngle2(thiscam.x, thiscam.y, mo.x, mo.y)
+		
+		// If in SA mode, keep focused on the boss
+		// ...except we do it better. ;) Only focus boss on XY.
+		// For Z, keep looking at player.
+		if (maptol & TOL_FDADVENTURE) 
+		or CV_AdventureMode.value /// Remove this line
+		then
+			if player.fdbosstarget ~= -1 and FDAdv_Valid(player.fdbosstarget)
+				angle = R_PointToAngle2(thiscam.x, thiscam.y, player.fdbosstarget.x, player.fdbosstarget.y)
+			end
+		end
+	else
+		angle = focusangle// + FixedAngle(camrotate*FRACUNIT) // Might need this later
+	end
+	
+	if twodlevel or (mo.flags2 & MF2_TWOD) then
+		dist = 480*mo.scale // *FRACUNIT is a replacement for <<FRACBITS
+	else
+		dist = camDist
+		
+		if FDAdv_Valid(sign) then
+			camHeight = mo.scale * (2^7)
+			camSpeed = FRACUNIT/12
+		else
+			dist = 6*$/5//FixedMul($, 6*FRACUNIT/5)
+			camHeight = 6*$/5//FixedMul($, 6*FRACUNIT/5)
+			
+			// If you wish to emulate the Final Demo dist and height values relative to the 2.2.10 defaults,
+			// use these values
+			// dist = $
+			// height = 8*$/5
+		end
+		
+		if player.climbing or player.exiting or player.playerstate == PST_DEAD 
+		or (player.powers[pw_carry] == CR_ROPEHANG or player.powers[pw_carry] == CR_GENERIC or player.powers[pw_carry] == CR_MACESPIN) then
+			dist = $*2
+		end
+	end
+	
+	if not FDAdv_Valid(sign) and not (twodlevel or (mo.flags2 & MF2_TWOD))
+		dist = FixedMul(dist, player.camerascale)
+	end
+	
+	if not (twodevel or (mo.flags2 & MF2_TWOD)) and not player.powers[pw_carry] == CR_NIGHTSMODE then // "This block here is like 90% Lach's work, thanks bud" --2.2.9 Code
+		if camAdjust then
+			if not (mo.eflags & MFE_JUSTHITFLOOR) and P_IsObjectOnGround(mo) // Check that the player is grounded
+			and thiscam.ceilingz - thiscam.floorz >= P_GetPlayerHeight(player) then // Check that camera's sector is large enough for the player to fit into, at least
+				if (mo.eflags & MFE_VERTICALFLIP) then // if player is upside-down
+					slopez = $+min(thiscam.ceilingz - mo.z, 0)
+				else // player is not upside-down
+					slopez = $+max(thiscam.floorz - mo.z, 0)
+				end
+			end
+		end
+	end
+	
+	if camOrbit then
+		if CV_FindVar("renderer").value == 2 and not CV_FindVar("gr_shearing").value then
+			distxy = FixedMul(dist, cos(focusaiming))
+		else
+			distxy = dist
+		end
+		
+		distz = -FixedMul(dist, sin(focusaiming)) + slopez
+	else
+		distxy = dist
+		distz = slopez
+	end
+	
+	if FDAdv_Valid(sign) then
+		x = sign.x - FixedMul(cos(angle), distxy)
+		y = sign.y - FixedMul(sin(angle), distxy)
+	else
+		local angleTurn = 0
+		
+		if not (player.fdbosstarget ~= -1 and FDAdv_Valid(player.fdbosstarget))
+		and not ((twodlevel or (mo.flags2 & MF2_TWOD)) and not camStill) then
+			local JOYAXISRANGE = 1023
+			
+			if splitscreen and player == secondarydisplayplayer then
+				if input.gameControl2Down(GC_TURNLEFT) then angleTurn = $ + camTurnMult*1280 end
+				if input.gameControl2Down(GC_TURNRIGHT) then angleTurn = $ - camTurnMult*1280 end
+				
+				local joyTurn = input.joy2Axis(JA_TURN)
+				if abs(joyTurn) >= CV_FindVar("joy_deadzone2").value/64 then angleTurn = $ - (((joyTurn*1280)>>10)*camTurnMult) end
+				
+				if mouse2.dx then angleTurn = $ - (mouse2.dx*8)<<16 end
+			else//if player == consoleplayer
+				if input.gameControlDown(GC_TURNLEFT) then angleTurn = $ + camTurnMult*1280 end
+				if input.gameControlDown(GC_TURNRIGHT) then angleTurn = $ - camTurnMult*1280 end
+				
+				local joyTurn = input.joyAxis(JA_TURN)
+				if abs(joyTurn) >= CV_FindVar("joy_deadzone").value/64 then angleTurn = $ - (((joyTurn*1280)>>10)*camTurnMult) end
+				
+				if mouse.dx then angleTurn = $ - (mouse.dx*8)<<16 end
+			end
+			
+			if camSpeed then
+				angle = $ + FixedDiv(angleTurn, 2*camSpeed)
+			end
+		end
+		
+		x = mo.x - FixedMul(cos(angle), distxy)
+		y = mo.y - FixedMul(sin(angle), distxy)
+	end
+	
+	if FDAdv_Valid(sign) then
+		if (player.mo.eflags & MFE_VERTICALFLIP) then
+			z = sign.ceilingz - player.viewheight - camHeight
+		else
+			z = sign.floorz + player.viewheight + camHeight
+		end
+	else
+		if (player.mo.eflags & MFE_VERTICALFLIP) then
+			z = mo.z + mo.height - player.viewheight - camHeight + distz
+		else
+			z = mo.z + player.viewheight + camHeight + distz
+		end
+	end
+	
+	// move camera down to move under lower ceilings
+	newsubsec = R_PointInSubsectorOrNil((mo.x + thiscam.x) / 2, (mo.y + thiscam.y) / 2)
+	
+	local thiscamfloorz
+	local thiscamceilingz
+	
+	if not FDAdv_Valid(newsubsec) then
+		// Cameras use the heightsec's height rather than the actual sector heights.
+		// If you can see through it, why not move the camera through it too?
+		if mo.subsector.sector.ceilingheight - thiscam.height < z then
+			if mo.subsector.sector.heightsec ~= nil then
+				thiscamceilingz = mo.subsector.sector.heightsec.ceilingheight
+			else
+				thiscamceilingz = mo.subsector.sector.ceilingheight
+			end
+			z = thiscamceilingz - thiscam.height - 11*mo.scale
+		end
+	else
+		// Cameras use the heightsec's height rather than the actual sector heights.
+		// If you can see through it, why not move the camera through it too?
+		if newsubsec.sector.heightsec ~= nil then
+			thiscamfloorz = newsubsec.sector.heightsec.floorheight
+			thiscamceilingz = newsubsec.sector.heightsec.ceilingheight
+		else
+			thiscamfloorz = newsubsec.sector.floorheight
+			thiscamceilingz = newsubsec.sector.ceilingheight
+		end
+		
+		// camera fit?
+		if thiscamceilingz ~= thiscamfloorz
+		and thiscamceilingz - thiscam.height < z then
+			// no fit
+			z = thiscamceilingz - thiscam.height - 11*mo.scale
+			// is the camera fit is there own sector
+		end
+		
+		// Make the camera a tad smarter with 3d floors
+		for rover in newsubsec.sector.ffloors() do
+			if (rover.flags & FF_SOLID) and (rover.flags & FF_RENDERALL) and (rover.flags & FF_EXISTS) then
+				if rover.bottomheight - thiscam.height < z
+				and thiscam.z < rover.bottomheight then
+					z = rover.bottomheight - thiscam.height - 11*mo.scale
+				elseif rover.topheight + thiscam.height > z
+				and thiscam.z > rover.topheight then
+					z = rover.topheight
+				end
+				
+				if (mo.z >= rover.topheight and thiscam.z < rover.bottomheight)
+				or ((mo.z < rover.bottomheight and mo.z + mo.height < rover.topheight)
+				and thiscam.z >= rover.topheight)
+				and not FDAdv_Valid(sign) then
+					// Can't see
+					P_FDResetCamera(player, thiscam)
+				end
+			end
+		end
+	end
+	
+	// TO-DO: Add support for polyobjects, maybe?
+	
+	newsubsec = R_PointInSubsector(thiscam.x, thiscam.y)
+	// Cameras use the heightsec's height rather than the actual sector heights.
+	// If you can see through it, why not move the camera through it too?
+	if newsubsec.sector.heightsec ~= nil then
+		thiscamceilingz = newsubsec.sector.heightsec.ceilingheight
+	else
+		thiscamceilingz = newsubsec.sector.ceilingheight
+	end
+	
+	if thiscamceilingz - thiscam.height < z
+		z = thiscamceilingz - thiscam.height - 11*mo.scale
+	end
+	
+	dist = 64*mo.scale // Originally << FRACBITS
+	if FDAdv_Valid(sign) then
+		viewpointx = sign.x + FixedMul(cos(angle), dist)
+		viewpointy = sign.y + FixedMul(sin(angle), dist)
+	else
+		viewpointx = mo.x + FixedMul(cos(angle), dist)
+		viewpointy = mo.y + FixedMul(sin(angle), dist)
+	end
+	
+	if not camStill then
+		thiscam.angle = R_PointToAngle2(thiscam.x, thiscam.y, viewpointx, viewpointy)
+	end
+	
+	if twodlevel or (mo.flags2 & MF2_TWOD) then
+		thiscam.angle = angle
+	end	
+	
+	// follow the player
+	if (player.playerstate ~= PST_DEAD and camSpeed ~= 0
+	and (R_PointToDist2(thiscam.x, 0, mo.x, 0) > camDist*3 
+	or R_PointToDist2(thiscam.y, 0, mo.y, 0) > camDist*3 
+	or R_PointToDist2(thiscam.z, 0, mo.z, 0) > camDist*3)
+	and not FDAdv_Valid(sign)) then
+		P_FDResetCamera(player, thiscam)
+	end
+	
+	if twodlevel then
+		thiscam.momx = x - thiscam.x
+		thiscam.momy = y - thiscam.y
+		thiscam.momz = z - thiscam.z
+	else
+		thiscam.momx = FixedMul(x - thiscam.x, camSpeed)
+		thiscam.momy = FixedMul(y - thiscam.y, camSpeed)
+		
+		if GetSecSpecial(thiscam.subsector.sector.special, 1) == 6
+		and thiscam.z < thiscam.subsector.sector.floorheight + 256*mo.scale
+		and FixedMul(z - thiscam.z, camSpeed) < 0 then
+			thiscam.momz = 0 // Don't go down a death pit
+		else
+			thiscam.momz = FixedMul(z - thiscam.z, camSpeed)
+		end
+	end
+	
+	// compute aiming to look at the viewed point
+	dist = FixedHypot(viewpointx - thiscam.x, viewpointy - thiscam.y)
+	
+	if (player.mo.eflags & MFE_VERTICALFLIP) then
+		if FDAdv_Valid(sign) then
+			angle = R_PointToAngle2(0, thiscam.z + thiscam.height, dist, sign.ceilingz - P_GetPlayerHeight(player))
+		else
+			angle = R_PointToAngle2(0, thiscam.z + thiscam.height, dist, (mo.z + mo.height) - P_GetPlayerHeight(player)/2)
+		end
+		//angle = R_PointToAngle2(0, thiscam.z + thiscam.height, dist, (sign and sign.ceilingz or (mo.z + (mo.height / 2))) + sin(player.aiming) * 64)
+	else
+		if FDAdv_Valid(sign) then
+			angle = R_PointToAngle2(0, thiscam.z, dist, sign.floorz + P_GetPlayerHeight(player))
+		else
+			angle = R_PointToAngle2(0, thiscam.z, dist, mo.z + P_GetPlayerHeight(player)/2)
+		end
+		//angle = R_PointToAngle2(0, thiscam.z, dist, (sign and sign.floorz or (mo.z + (mo.height / 2))) + sin(player.aiming) * 64)
+	end
+	
+	if player.playerstate ~= PST_DEAD then
+		if focusaiming < ANGLE_180 then
+			angle = $ + focusaiming/2
+		else
+			angle = $ + InvAngle(InvAngle(focusaiming)/2)
+		end
+	end
+	
+	if not thiscam.aiming then thiscam.aiming = 0 end
+	
+	if (twodlevel or (mo.flags2 & MF2_TWOD)) or not camStill then // Keep the view still...
+		// Replacement for G_ClipAimingPitch(angle)
+		local limitangle = ANGLE_90 - 1
+		
+		if angle > limitangle then
+			angle = -limitangle
+		elseif angle < -limitangle then
+			angle = -limitangle
+		end
+		// Replacement for G_ClipAimingPitch(angle)
+		dist = thiscam.aiming - angle
+		thiscam.aiming = $ - (dist / (2^3))
+	end
+	
+	if (player.playerstate == PST_DEAD or player.playerstate == PST_REBORN) then
+		// Don't let the camera match your movement
+		thiscam.momz = 0
+		
+		// Only let the camera go a little bit downwards
+		if not (mo.eflags & MFE_VERTICALFLIP) and thiscam.aiming < ANGLE_337h and thiscam.aiming > ANGLE_180 then
+			thiscam.aiming = ANGLE_337h
+		elseif (mo.eflags & MFE_VERTICALFLIP) and thiscam.aiming > ANGLE_22h and thiscam.aiming < ANGLE_180 then
+			thiscam.aiming = ANGLE_22h
+		end
+	end
+end
+
+
+sfxinfo[sfx_sahitg].caption = "Hit ground"
+
+// Show the "ACTIVATE LIGHT DASH" prompt when in the vicinity of a ring
+hud.add(function(v, stplyr)
+	if ((maptol & TOL_FDADVENTURE) 
+	or CV_AdventureMode.value) /// Remove this line
+	and stplyr.fdlightdashallowed then
+		local activateText = "ACTIVATE"
+		local lightdashText = "LIGHT DASH"
+		v.drawFill(224, 6, 72, 12, 103|V_SNAPTOTOP|V_SNAPTORIGHT|V_PERPLAYER) // Color was originally 119
+		v.drawString(260, 8, activateText, V_TRANSLUCENT|V_SNAPTOTOP|V_SNAPTORIGHT|V_PERPLAYER, "center")
+		v.drawString(260, 20, lightdashText, V_TRANSLUCENT|V_SNAPTOTOP|V_SNAPTORIGHT|V_PERPLAYER, "center")
+	end
+end, "game")
+
+// P_LightDash - ported from 1.09.4
+local function P_FDLightDash(source, enemy) // Home in on your target
+	if not (FDAdv_Valid(source) and FDAdv_Valid(enemy)) then return end
+	
+	local dist
+	local dest
+	
+	if not FDAdv_Valid(source.tracer) then
+		return // Nothing to home in on!
+	end
+	
+	// adjust direction
+	dest = source.tracer
+	
+	if not FDAdv_Valid(dest) then return end
+	
+	// change angle
+	source.angle = R_PointToAngle2(source.x, source.y, enemy.x, enemy.y)
+	if FDAdv_Valid(source.player) then source.player.drawangle = source.angle end
+	
+	// change slope
+	dist = P_AproxDistance(P_AproxDistance(dest.x - source.x, dest.y - source.y), dest.z - source.z)
+	
+	if dist < 1 then dist = 1 end
+	
+	local playerdistx = FixedDiv((dest.x - source.x), dist)
+	local playerdisty = FixedDiv((dest.y - source.y), dist)
+	local playerdistz = FixedDiv((dest.z - source.z), dist)
+	
+	local maxMoveScaled = FixedMul(MAXMOVE, source.scale)
+	
+	// FixedTrunc is required to mitigate an issue where the player has too much 
+	// horizontal momentum on that one loop of rings in the SA Example level.
+	// It's stupid, but it somewhat works.
+	source.momx = FixedTrunc(FixedMul(playerdistx, maxMoveScaled))
+	source.momy = FixedTrunc(FixedMul(playerdisty, maxMoveScaled))
+	source.momz = FixedTrunc(FixedMul(playerdistz, maxMoveScaled))
+end
+
+// P_RingNearby and P_LookForRings might need to be combined to reduce lag in large levels
+local function P_RingNearby(player) // Is a ring in range?
+	local closest = nil
+	
+	// Use a searchBlockmap function call instead of a mobjs.iterate loop to 
+	// improve performance in large maps
+	searchBlockmap("objects", function(pmo, mo)
+		if not FDAdv_Valid(mo) then return end
+		
+		if mo.health <= 0 or mo.state == S_NULL then return end
+		
+		if not (mo.type == MT_RING or mo.type == MT_COIN or mo.info.fdadvRing) then
+			return
+		end
+		
+		if P_AproxDistance(P_AproxDistance(pmo.x-mo.x, pmo.y-mo.y),
+		pmo.z-mo.z) > 192*pmo.scale then // Out of range
+			return
+		end
+		
+		if not P_CheckSight(pmo, mo) then // Out of sight
+			return
+		end
+		
+		if closest and P_AproxDistance(P_AproxDistance(pmo.x-mo.x, pmo.y-mo.y),
+		pmo.z-mo.z) > P_AproxDistance(P_AproxDistance(pmo.x-closest.x,
+		pmo.y-closest.y), pmo.z-closest.z) then
+			return
+		end
+		
+		// Found a target
+		closest = mo
+	end, player.mo,
+	player.mo.x - 192*player.mo.scale, player.mo.x + 192*player.mo.scale,
+	player.mo.y - 192*player.mo.scale, player.mo.y + 192*player.mo.scale)
+	
+	if closest then return true end
+	
+	return false
+end
+
+local function P_LookForRings(player)
+	local found = false
+	
+	player.mo.target = nil
+	player.mo.tracer = nil
+	
+	// Use a searchBlockmap function call instead of a mobjs.iterate loop to 
+	// improve performance in large maps
+	searchBlockmap("objects", function(pmo, mo)
+		if not FDAdv_Valid(mo) then return end
+		
+		if mo.health <= 0 or mo.state == S_NULL then return end
+		
+		if not (mo.type == MT_RING or mo.type == MT_COIN or mo.info.fdadvRing) then
+			return
+		end
+		
+		if P_AproxDistance(P_AproxDistance(pmo.x-mo.x, pmo.y-mo.y),
+		pmo.z-mo.z) > 192*pmo.scale then // Out of range
+			return
+		end
+		
+		if not P_CheckSight(pmo, mo) then // Out of sight
+			return
+		end
+		
+		if pmo.target and P_AproxDistance(P_AproxDistance(pmo.x-mo.x,
+		pmo.y-mo.y), pmo.z-mo.z) > 
+		P_AproxDistance(P_AproxDistance(pmo.x-pmo.target.x,
+		pmo.y-pmo.target.y), pmo.z-pmo.target.z) then
+			return
+		end
+		
+		// Found a target
+		found = true
+		pmo.target = mo
+		pmo.tracer = mo
+	end, player.mo,
+	player.mo.x - 192*player.mo.scale, player.mo.x + 192*player.mo.scale,
+	player.mo.y - 192*player.mo.scale, player.mo.y + 192*player.mo.scale)
+	
+	if found then
+		P_ResetPlayer(player)
+		player.fdhoming = 0
+		player.mo.state = S_PLAY_FALL
+		P_ResetScore(player)
+		P_FDLightDash(player.mo, player.mo.target)
+		return
+	end
+	player.mo.momx = $/2//FixedDiv($, 2*FRACUNIT)
+	player.mo.momy = $/2//FixedDiv($, 2*FRACUNIT)
+	player.mo.momz = $/2//FixedDiv($, 2*FRACUNIT)
+	player.fdlightdash = false
+end
+
+// Set up every FDAdventure-related player variable
+addHook("PlayerSpawn", function(player)
+	if ((maptol & TOL_FDADVENTURE) or CV_AdventureMode.value)
+	and player.inadventure then
+		player.inadventure = false
+	end
+end)
+
+// Give Amy her "hammer jump" from SA1
+addHook("SpinSpecial", function(player)
+	if not (FDAdv_Valid(player) and FDAdv_Valid(player.mo)) then return end
+	
+	if (maptol & TOL_FDADVENTURE) 
+	or CV_AdventureMode.value /// Remove this line
+	then
+		if player.mo.skin == "amy" 
+		and P_IsObjectOnGround(player.mo) 
+		and player.speed >= FixedMul(player.runspeed, 3*player.mo.scale/4)
+		and not (player.pflags & PF_SPINDOWN)
+		and not (player.pflags & PF_FULLSTASIS) then
+			P_SetObjectMomZ(player.mo, FixedDiv(player.speed, player.mo.scale)/2, false)
+			for i = 0, 7, 1 do
+				local heart = P_SpawnMobjFromMobj(
+					player.mo, 
+					30*cos(player.drawangle + i*ANGLE_45), 
+					30*sin(player.drawangle + i*ANGLE_45), 
+					8*FRACUNIT, 
+					player.thokitem
+				)
+				heart.target = player.mo
+				//P_SetScale(heart, player.mo.scale/2)
+				heart.scale = $/2
+				P_InstaThrust(heart, player.drawangle + i*ANGLE_45, 15*heart.scale)
+			end
+			S_StartSound(player.mo, sfx_s3k42)
+			S_StartSound(player.mo, sfx_s3k8b)
+			player.pflags = $|PF_JUMPED|PF_NOJUMPDAMAGE|PF_THOKKED
+			player.mo.state = S_PLAY_TWINSPIN
+			player.fdamyhammerspin = true
+		end
+	end
+end)
+
+// Give each character an ability representative of their Adventure counterparts
+addHook("AbilitySpecial", function(player)
+	if not (FDAdv_Valid(player) and FDAdv_Valid(player.mo)) then return end
+	
+	if (maptol & TOL_FDADVENTURE) 
+	or CV_AdventureMode.value /// Remove this line
+	then
+		// Thokking characters (including twinspin) get a homing attack
+		if player.charability == CA_THOK or player.charabilty == CA_JUMPTHOK
+		or player.charability == CA_DOUBLEJUMP or player.charability == CA_TWINSPIN then
+			if not player.fdhoming and (player.pflags & PF_JUMPED) and not (player.pflags & PF_THOKKED) then
+				player.mo.tracer = P_LookForEnemies(player)
+				if FDAdv_Valid(player.mo.tracer) then
+					if player.fdamyhammerspin then
+						player.fdamyhammerspin = false
+					end
+					player.fdhoming = 3*TICRATE
+				end
+			end
+		// Flying and swimming characters get "hold-fly"
+		elseif not (player.powers[pw_tailsfly] or (player.pflags & PF_THOKKED)) and
+		(player.charability == CA_FLY or player.charability == CA_SWIM) then
+			player.mo.state  = S_PLAY_FLY
+			
+			player.powers[pw_tailsfly] = tailsflytics/2 + 1
+			
+			player.pflags = $ & ~(PF_JUMPED|PF_NOJUMPDAMAGE|PF_SPINNING|PF_STARTDASH)
+			if player.bot == 1 then
+				player.pflags = $|PF_THOKKED
+			else
+				player.pflags = $|PF_THOKKED|PF_CANCARRY
+			end
+		end
+	end
+end)
+
+/// Uncomment this chunk of code
+/*
+// Make every monitor in an Adventure Mode stage not solid
+addHook("MobjSpawn", function(mobj)
+	if ((maptol & TOL_FDADVENTURE) and (mobj.flags & MF_MONITOR) then
+		mobj.flags = $ & ~MF_SOLID
+		mobj.wasSolid = true
+	end
+end)
+*/
+
+// Handles spring collision in Adventure Mode stages
+addHook("MobjMoveCollide", function(tmthing, thing)
+	if not (FDAdv_Valid(tmthing) and FDAdv_Valid(thing)) then return end
+	
+	if (maptol & TOL_FDADVENTURE) 
+	or CV_AdventureMode.value /// Remove this line
+	then
+		if tmthing.z <= thing.z + thing.height
+		and thing.z <= tmthing.z + tmthing.height then
+			if (thing.flags & MF_SPRING) and tmthing.player and tmthing.player.fdhoming then
+				tmthing.player.fdhoming = 0
+				P_MoveOrigin(tmthing, thing.x, thing.y, tmthing.z)
+				// Don't stop the player's horizontal movement if they are touching a horizontal or diagonal spring
+				if not thing.info.damage then
+					tmthing.momx = 0
+					tmthing.momy = 0
+				end
+			end
+		end
+	end
+end, MT_PLAYER)
+
+// Certain objects have special touch properties in Adventure Mode
+addHook("TouchSpecial", function(special, toucher)
+	if not (FDAdv_Valid(special) and FDAdv_Valid(toucher) and FDAdv_Valid(toucher.player)) then return end
+	
+	if (maptol & TOL_FDADVENTURE) 
+	or CV_AdventureMode.value /// Remove this line
+	then
+		if special.type == MT_RING 
+		or special.type == MT_FLINGRING
+		or special.type == MT_COIN
+		or special.type == MT_FLINGCOIN then
+			// Refill the player's lightdash when they touch a ring while performing a lightdash
+			if toucher.player.fdlightdash then
+				toucher.player.fdlightdash = TICRATE
+			end
+		// Cancel the player's homing attack if they hit a DSZ mine or a Fake Sea Egg
+		elseif special.type == MT_BIGMINE
+		or special.type == MT_FAKEMOBILE then
+			toucher.player.fdhoming = 0
+			if (toucher.player.pflags & PF_THOKKED) then
+				toucher.player.pflags = $ & ~PF_THOKKED
+			end
+		// Cancel the player's homing attack if they hit the front of an Egg Guard's shield
+		elseif special.type == MT_EGGSHIELD then
+			local angle = R_PointToAngle2(special.x, special.y, toucher.x, toucher.y) - special.angle
+			// Blocked by the shield?
+			if not (angle > ANGLE_90 and angle < ANGLE_270) then
+				toucher.player.fdhoming = 0
+				if (toucher.player.pflags & PF_THOKKED) then
+					toucher.player.pflags = $ & ~PF_THOKKED
+				end
+			end
+		end
+	end
+end)
+
+// Stops the player in their tracks when damaged in a homing attack
+addHook("MobjDamage", function(mo)
+	if not FDAdv_Valid(mo) then return end
+	
+	if (maptol & TOL_FDADVENTURE) 
+	or CV_AdventureMode.value /// Remove this line
+	then
+		if FDAdv_Valid(mo.player) then mo.player.fdhoming = 0 end
+	end
+end, MT_PLAYER)
+
+// Force the player's angleturn value to match that of the custom camera's angle
+addHook("PlayerCmd", function(player, cmd)
+	if not FDAdv_Valid(player) then return end
+	
+	local advControl, chaseCam = CV_AdventureControl.value, "chasecam"
+	
+	if splitscreen and player == secondarydisplayplayer then
+		advControl = CV_AdventureControl2.value
+		chaseCam = $.."2"
+	end
+	
+	if (maptol & TOL_FDADVENTURE) 
+	or CV_AdventureMode.value /// Remove this line
+	then
+		if FDAdv_Valid(player.fdadventurecam) and advControl then
+			if CV_FindVar(chaseCam).value then
+				cmd.angleturn = player.fdadventurecam.angle>>16
+			end
+		end
+	end
+end)
+
+// The main player code for FD Adventure Mode
+addHook("PlayerThink", function(player)
+	local configanalog, sessionanalog, directionchar, chaseCam, advControl
+	local resetDown
+	local playerNum = ""
+			
+	if splitscreen and player == secondarydisplayplayer then
+		advControl = CV_AdventureControl2.value
+		resetDown = input.gameControl2Down(GC_CAMRESET)
+	else//if player == consoleplayer
+		advControl = CV_AdventureControl.value
+		resetDown = input.gameControlDown(GC_CAMRESET)
+	end
+	
+	configanalog = CV_FindVar("configanalog"..playerNum).value
+	sessionanalog = CV_FindVar("sessionanalog"..playerNum).value
+	directionchar = CV_FindVar("directionchar"..playerNum).value
+	chaseCam = CV_FindVar("chasecam"..playerNum).value
+	
+	if (maptol & TOL_FDADVENTURE) 
+	or CV_AdventureMode.value /// Remove this line
+	then
+		// Prevent this code from running at all if the player is not valid, a 
+		// spectator, a bot, or they simply have no health.
+		// Keep the camera code separate from this so it can track the player when they die
+		if not (FDAdv_Valid(player) and FDAdv_Valid(player.mo)) or player.spectator or player.bot 
+		or player.powers[pw_carry] == CR_NIGHTSMODE then
+			if player.fdlightdashallowed == true then
+				player.fdlightdashallowed = false
+			end
+			return
+		end
+		
+		if not player.inadventure then
+			player.fdlightdash = false
+			player.fdhoming = 0
+			player.fdprevmomz = 0
+			
+			// Check for bosses at the beginning of the map, and if there are none, 
+			// prevent the player from continually searching the map
+			for mo2 in mobjs.iterate() do
+				if P_FDFindBossTarget(player.mo, mo2) then
+					break
+				end
+				
+				// This should only run if the above check fails
+				player.fdbosstarget = -1
+			end
+			
+			player.inadventure = true
+		end
+		
+		if not FDAdv_Valid(player.fdadventurecam) then
+			player.fdadventurecam = P_SpawnMobjFromMobj(player.mo, 0, 0, 0, MT_FDADVENTURECAM)
+		end
+		
+		// Force strafing on the player to emulate Final Demo's analog control 
+		// scheme, unless the player is in first-person (pre-1.2)
+		/*
+		if chaseCam 
+		and advControl
+			player.pflags = $|PF_FORCESTRAFE
+		elseif (player.pflags & PF_FORCESTRAFE)
+			player.pflags = $ & ~PF_FORCESTRAFE
+		end
+		*/
+		
+		if player.playerstate == PST_LIVE then
+			if advControl and chaseCam then
+				// Force the player to be in an emulation of "old analog"
+				// It uses Simple's control scheme, with old analog's player.drawangle
+				player.pflags = $|PF_ANALOGMODE|PF_DIRECTIONCHAR
+			else
+				if not (configanalog or sessionanalog) and (player.pflags & PF_ANALOGMODE) then
+					player.pflags = $ & ~PF_ANALOGMODE
+				end
+				
+				if not directionchar and (player.pflags & PF_DIRECTIONCHAR) then
+					player.pflags = $ & ~PF_DIRECTIONCHAR
+				end
+			end
+			
+			// Play the "hit ground" sound effect when the player lands
+			// (Does not apply to solid objects)
+			// The "and" operator is needed to prevent the rare instance where floating 
+			// after falling as Super Sonic can play the "hit ground" sound effect
+			if P_IsObjectOnGround(player.mo) and (player.mo.eflags & MFE_ONGROUND) then
+				if P_MobjFlip(player.mo)*player.fdprevmomz < -2*FRACUNIT and player.mo.momz == 0 then
+					S_StartSound(player.mo, sfx_sahitg)
+				end
+			end
+			
+			// Force Metal Sonic to use the thok, as per SADX
+			// Make sure he can't multi-thok
+			if player.mo.skin == "metalsonic" then
+				player.charability = CA_THOK
+				player.charflags = $ & ~SF_MULTIABILITY
+			end
+			
+			// If in the air and not from jumping, etc.
+			// Play the super-overused Adventure falling animation
+			// -- 1.09.4 code
+			if not P_IsObjectOnGround(player.mo) and P_MobjFlip(player.mo)*player.mo.momz < 0 
+			and not player.powers[pw_flashing] and player.mo.health > 0 then
+				if not ((player.pflags & PF_JUMPED) or (player.pflags & PF_THOKKED) or (player.pflags & PF_SPINNING) 
+				or player.powers[pw_tailsfly] or (player.pflags & PF_GLIDING) or (player.pflags & PF_BOUNCING) or player.climbing)
+				and player.powers[pw_carry] == CR_NONE then
+					if player.mo.state ~= S_PLAY_FALL then
+						player.mo.state = S_PLAY_FALL
+					end
+				end
+			end
+			
+			// Give the player a homing attack if their character's primary ability 
+			// involves their rolling animation
+			if player.charability == CA_THOK or player.charability == CA_JUMPTHOK
+			or player.charability == CA_DOUBLEJUMP or player.charability == CA_TWINSPIN then
+				// If you've got a target, chase after it!
+				if player.fdhoming and FDAdv_Valid(player.mo.tracer) then
+					P_SpawnThokMobj(player)
+					//mobj.floorz = mobj.z
+					//mobj.ceilingz = mobj.z+mobj.height
+					P_HomingAttack(player.mo, player.mo.tracer)
+					
+					// But if you don't, then stop homing.
+					if player.mo.tracer.health <= 0 or (player.mo.tracer.flags2 & MF2_FRET) then
+						if (player.mo.eflags & MFE_UNDERWATER) then
+							P_SetObjectMomZ(player.mo, (457*FRACUNIT)/72, false)
+						else
+							P_SetObjectMomZ(player.mo, 10*FRACUNIT/NEWTICRATERATIO, false) // NEWTICRATERATIO should be 1
+						end
+						
+						player.mo.momx = 0
+						player.mo.momy = 0
+						player.fdhoming = 0
+						
+						if (player.mo.tracer.flags2 & MF2_FRET) then
+							// Prevent the player from going the wrong direction after hitting a boss or multi-hit enemy
+							player.mo.angle = player.drawangle
+							P_InstaThrust(player.mo, player.mo.angle, -((player.speed/FRACUNIT) * (2^(FRACBITS-3))))
+						end
+						
+						if not (player.mo.tracer.flags & MF_BOSS) then player.pflags = $ & ~PF_THOKKED end
+					end
+				end
+				
+				if not (player.pflags & PF_JUMPED) then player.fdhoming = 0 end
+			// Force flying and swimming characters to hold the jump button to fly.
+			// Also force gliding-and-climbing characters to have "Spidey-Knux" capabilities.
+			elseif player.charability == CA_FLY or player.charability == CA_SWIM or player.charability == CA_GLIDEANDCLIMB then
+				if not ((skins[player.mo.skin].flags & SF_MULTIABILITY) and (player.charflags & SF_MULTIABILITY)) then
+					player.charflags = $|SF_MULTIABILITY
+				end
+			end
+			
+			// Allow Amy to spin multiple times in the air after a hammer jump
+			if player.mo.skin == "amy" then
+				if P_IsObjectOnGround(player.mo) and player.fdamyhammerspin and player.mo.state ~= S_PLAY_TWINSPIN then
+					player.fdamyhammerspin = false
+				end
+				
+				if player.fdamyhammerspin and (player.pflags & PF_THOKKED) and player.mo.state ~= S_PLAY_TWINSPIN then
+					player.pflags = $ & ~PF_THOKKED
+				end
+			else
+				if player.fdamyhammerspin then player.fdamyhammerspin = nil end
+			end
+		end
+			
+		// Allow the player to perform the light dash using the "toss flag" button
+		if P_RingNearby(player) then
+			player.fdlightdashallowed = true
+			
+			if (player.cmd.buttons & BT_TOSSFLAG) then
+				if not (player.pflags & PF_ATTACKDOWN) then
+					player.fdlightdash = TICRATE
+					player.pflags = $|PF_ATTACKDOWN
+				end
+			elseif not (player.cmd.buttons & BT_ATTACK) then
+				player.pflags = $ & ~PF_ATTACKDOWN
+			end
+		else
+			player.fdlightdashallowed = false
+		end
+		
+		// Home in on the nearest ring if the player is currently light dashing
+		if player.fdlightdash and player.mo.health > 0 then
+			P_LookForRings(player)
+			player.powers[pw_flashing] = 2
+		end
+		
+		// CUSTOM CAMERA CODE - Slightly based off of Golden's custom camera code on the SRB2 Discord (pre-1.2)
+		
+		// Only use the custom camera
+		if chaseCam and advControl and FDAdv_Valid(player.fdadventurecam) then
+			if not player.fdpressedreset and resetDown then
+				P_FDResetCamera(player, player.fdadventurecam)
+			end
+		end
+		
+		// If in SA mode, keep focused on the boss
+		// ...except we do it better. ;) Only focus boss on XY.
+		// For Z, keep looking at player.
+		if player.fdbosstarget == nil then
+			searchBlockmap("objects", function(pmo, mo2)
+				if P_FDFindBossTarget(pmo, mo2) then return true end
+			end, 
+			player.mo,
+			player.mo.x - 3072*player.mo.scale, player.mo.x + 3072*player.mo.scale,
+			player.mo.y - 3072*player.mo.scale, player.mo.y + 3072*player.mo.scale)
+		end
+		
+		// Reset the player's fdbosstarget if its health is gone
+		if player.fdbosstarget ~= -1 and FDAdv_Valid(player.fdbosstarget)
+			if player.fdbosstarget.health <= 0
+				player.fdbosstarget = nil
+			end
+		end
+		
+		// This code should only run when the player is alive
+		if player.playerstate == PST_LIVE then
+			// Ideally, the player should not be facing the wrong way when being carried
+			if player.powers[pw_carry] == CR_NONE and advControl and not player.exiting then
+				player.drawangle = player.mo.angle
+			end
+			
+			if player.fdhoming then
+				// Prevent the player from going forwards when hitting a boss while facing backwards
+				player.pflags = $|PF_FULLSTASIS
+				player.fdhoming = $-1
+			end
+			
+			if player.fdlightdash then player.fdlightdash = $-1 end
+			
+			// Use this for determining whether to play the SA "hit ground" sound or not
+			player.fdprevmomz = player.mo.momz
+			
+			player.fdpressedreset = resetDown
+		end
+	else
+		// Revert the player's abilities to their original abilities before 
+		if player.inadventure then
+			// Remove the character's multi-ability if their skin doesn't use it and they currently have it
+			if not (skins[player.mo.skin].flags & SF_MULTIABILITY) and (player.charflags & SF_MULTIABILITY) then
+				player.charflags = $ & ~SF_MULTIABILITY
+			// Add the character's multi-ability if their skin uses it and they currently don't have it
+			elseif (skins[player.mo.skin].flags & SF_MULTIABILITY) and not (player.charflags & SF_MULTIABILITY) then
+				player.charflags = $|SF_MULTIABILITY
+			end
+			
+			// Make sure the character has their correct ability
+			if player.charability ~= skins[player.mo.skin].ability then player.charability = skins[player.mo.skin].ability end
+			
+			player.pflags = $ & ~PF_FORCESTRAFE
+			
+			if configanalog or sessionanalog then
+				if directionchar then
+					player.pflags = $|PF_ANALOGMODE|PF_DIRECTIONCHAR
+				else
+					player.pflags = $|PF_ANALOGMODE & ~PF_DIRECTIONCHAR
+				end
+			else
+				if directionchar then
+					player.pflags = $|PF_DIRECTIONCHAR & ~PF_ANALOGMODE
+				else
+					player.pflags = $ & ~(PF_ANALOGMODE|PF_DIRECTIONCHAR)
+				end
+			end
+			
+			player.fdlightdash = nil
+			player.fdhoming = nil
+			player.fdprevmomz = nil
+			player.fdbosstarget = nil
+			
+			if FDAdv_Valid(player.fdadventurecam) then
+				P_RemoveMobj(player.fdadventurecam)
+			end
+			
+			player.inadventure = false
+		end
+	end
+end)
+
+addHook("PostThinkFrame", function()
+	if not ((maptol & TOL_FDADVENTURE)
+	or CV_AdventureMode.value) /// Remove this line
+		return
+	end
+	
+	for player in players.iterate
+		if not (player and player.valid) then continue end
+		
+		if splitscreen and player == secondarydisplayplayer and not CV_AdventureControl2.value
+			continue
+		elseif not CV_AdventureControl.value
+			continue
+		end
+		
+		// Only move the camera if it is valid
+		if player.fdadventurecam and player.fdadventurecam.valid
+			P_FDMoveChaseCamera(player, player.fdadventurecam, false)
+			
+			local fdadventurecam = player.fdadventurecam
+			local playerCamera = P_FDGetCamera(player)
+			
+			if playerCamera
+				P_TeleportCameraMove(playerCamera, fdadventurecam.x, fdadventurecam.y, fdadventurecam.z)
+				//camera.momx = fdadventurecam.momx
+				//camera.momy = fdadventurecam.momy
+				//camera.momz = fdadventurecam.momz
+				playerCamera.angle = fdadventurecam.angle
+				if not fdadventurecam.aiming then fdadventurecam.aiming = 0 end
+				playerCamera.aiming = fdadventurecam.aiming
+			end
+		end
+	end
+end)

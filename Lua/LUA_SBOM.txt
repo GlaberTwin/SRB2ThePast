@@ -1,0 +1,47 @@
+//Egg Bomb Made by Glaber, fixed by Midiman
+freeslot("MT_EGGBOMB", "S_EBOMB1", "S_EBOMB2", "S_EBOMB_EXPLODE1", "S_EBOMB_EXPLODE2")
+
+addHook("MobjCollide", SD2_EnemyMobjCollide, MT_EGGBOMB)
+addHook("MobjDamage", SD2_MobjDamage, MT_EGGBOMB)
+addHook("MobjDeath", SD2_MobjDeath, MT_EGGBOMB)
+
+local function SD2_Explode(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	actor.flags2 = $|MF2_EXPLOSION // This is so the SD2 enemies know to use the radius check
+	A_Scream(actor)
+	A_Explode(actor, var1, var2)
+end
+
+mobjinfo[MT_EGGBOMB] = {
+	//$Name "Egg Bomb"
+	//$Sprite NPLMA0
+	//$Category Bots on Mobius
+	doomednum =  2035,
+	spawnstate = S_EBOMB1,
+	spawnhealth = 1,
+	seestate = 0,
+	seesound = 0,
+	reactiontime = 8,
+	attacksound = 0,
+	painstate = S_EBOMB_EXPLODE1,
+	painchance = 0,
+	painsound = 0,
+	meleestate = 0,
+	missilestate = 0,
+	deathstate = S_EBOMB_EXPLODE1,
+	deathsound = sfx_s3k4e,
+	xdeathstate = 0,
+	speed = 0,
+	radius = 10*FRACUNIT,
+	height = 42*FRACUNIT,
+	mass = 100,
+	damage = 256*FRACUNIT,
+	activesound = 0,
+	flags = MF_SOLID|MF_ENEMY|MF_SHOOTABLE
+}
+
+states[S_EBOMB1] =	{SPR_NPLM,	A,	6,	nil,	0,	0,	S_EBOMB2}
+states[S_EBOMB2] =	{SPR_NPLM,	B,	6,	nil,	0,	0,	S_EBOMB1}
+states[S_EBOMB_EXPLODE1] =	{SPR_BARX,	A|FF_FULLBRIGHT,	3,	A_SetObjectFlags,	MF_NOCLIP|MF_NOGRAVITY|MF_NOBLOCKMAP,	0,	S_EBOMB_EXPLODE2}
+states[S_EBOMB_EXPLODE2] =	{SPR_BARX,	B|FF_FULLBRIGHT,	2,	SD2_Explode,		0,										0,	S_TNTBARREL_EXPL4}

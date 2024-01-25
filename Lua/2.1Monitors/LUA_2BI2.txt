@@ -1,0 +1,4 @@
+-- 2.1 Invincibility Monitor Commonalities - Ported by MIDIMan
+-- Only use with LUA_2BXI and LUA_2BX1
+
+freeslot("SPR_2BXI")

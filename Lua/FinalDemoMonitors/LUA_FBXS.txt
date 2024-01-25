@@ -1,0 +1,58 @@
+-- Final Demo Speed Shoes Box - Ported by MIDIMan
+-- Use with LUA_FBOX
+
+freeslot(
+	"SPR_FBXS",
+	"MT_FDBOX_SHOES",
+	"MT_FDBOX_SHOES_ICON",
+	"S_FDBOX_SHOES_IDLE",
+	"S_FDBOX_SHOES_ICON1",
+	"S_FDBOX_SHOES_ICON2"
+)
+
+addHook("MobjFuse", RM_FDMonitorFuseThink, MT_FDBOX_SHOES)
+addHook("MapThingSpawn", RM_FDMonitorTypeSpawn, MT_FDBOX_SHOES)
+
+mobjinfo[MT_FDBOX_SHOES] = {
+	--$Name Final Demo Super Sneakers
+	--$Sprite FBXSA0
+	--$Category Monitors
+	--$Flags4Text Random (Strong)
+	--$Flags8Text Random (Weak) / Random (Pre-2.0)
+	--$ParameterText Behavior
+	--$Arg1 Respawn behavior
+	--$Arg1Type 11
+	--$Arg1Enum monitorrespawn
+	--$Arg3 Era
+	--$Arg3Type 11
+	--$Arg3Enum {0 = "2.0"; 1 = "1.09-1.09.4"; 2 = "1.08"; 3 = "2K3-1.04";}
+	doomednum = 466,
+	spawnstate = S_FDBOX_SHOES_IDLE,
+	spawnhealth = 1,
+	painstate = S_FDBOX_SHOES_IDLE,
+	deathstate = S_FDBOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	speed = 1,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_FDBOX_SHOES_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_FDBOX_SHOES_IDLE] =	{SPR_FBXS,	A,	2,	nil,	0,	0,	S_FDBOX_FLICKER}
+
+mobjinfo[MT_FDBOX_SHOES_ICON] = {
+	doomednum = -1,
+	spawnstate = S_FDBOX_SHOES_ICON1,
+	spawnhealth = 1,
+	seesound = sfx_itemup,
+	reactiontime = 10,
+	speed = 4*FRACUNIT,	-- Originally 2*FRACUNIT; Changed to match pre-2.1's speed
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_FDBOX_SHOES_ICON1] =	{SPR_FBXS,	B,	18,	nil,				0,	0,	S_FDBOX_SHOES_ICON2}
+states[S_FDBOX_SHOES_ICON2] =	{SPR_FBXS,	B,	18,	A_SuperSneakers,	0,	0,	S_NULL}

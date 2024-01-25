@@ -1,0 +1,86 @@
+// TGF Red Crawla - Ported by Glaber (original SOC) and MIDIMan (TGF movement and conversion to Lua)
+
+//Red Crawla TGF
+freeslot(
+	"MT_REDCRAWLATGF",
+	"S_TGRC_TGFMOVEMENT",
+	"S_TGRC_STND",
+	"S_TGRC_STND2",
+	"S_TGRC_RUN",
+	"S_TGRC_RUN2",
+	"S_TGRC_RUN3",
+	"S_TGRC_RUN4",
+	"S_TGRC_RUN5",
+	"S_TGRC_RUN6",
+	"S_TGRC_RUN7",
+	"SPR_TGRC"
+)
+
+local TGF_REDCRAWLA_TIMER = 62
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid
+	and mthing and mthing.valid)
+		return
+	end
+	
+	if (mthing.options & MTF_OBJECTSPECIAL)
+		mo.state = S_TGRC_TGFMOVEMENT
+	end
+end, MT_REDCRAWLATGF)
+
+addHook("MobjSpawn", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	mo.tgfTimer = TGF_REDCRAWLA_TIMER
+end, MT_REDCRAWLATGF)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	// This code is only meant for the TGF movement
+	if mo.state ~= S_TGRC_TGFMOVEMENT then return end
+	
+	// Make the crawla move
+	P_InstaThrust(mo, mo.angle, 4*mo.scale)
+	
+	if mo.tgfTimer
+		// Decrement the TGF timer if it is not 0
+		mo.tgfTimer = $-1
+	else
+		// Otherwise flip the crawla 180 degrees and reset the timer
+		mo.tgfTimer = TGF_REDCRAWLA_TIMER
+		mo.angle = $ + ANGLE_180
+	end
+end, MT_REDCRAWLATGF)
+
+mobjinfo[MT_REDCRAWLATGF] = {
+	//$Name "TGF Red Crawla"
+	//$Sprite TGRCA1
+	//$Category TGF/Concept Enemies
+	//$Flags4Text TGF Movement
+	doomednum = 4030,
+	spawnstate = S_TGRC_STND,
+	spawnhealth = 1,
+	seestate = S_TGRC_RUN,
+	reactiontime = 32,
+	//painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 15*FRACUNIT,
+	height = 32*FRACUNIT,
+	//mass = 100,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY
+}
+
+states[S_TGRC_TGFMOVEMENT] =	{SPR_TGRC,	H|FF_ANIMATE,	-1,	nil,	1,	1,	S_TGRC_TGFMOVEMENT}
+
+states[S_TGRC_STND] =	{SPR_TGRC,	A,	5,	A_Look,		0,	0,	S_TGRC_STND} // Only one state is needed, since both states in SRB2XMAS used the same frame
+states[S_TGRC_RUN] =	{SPR_TGRC,	A,	1,	A_Chase,	0,	0,	S_TGRC_RUN2}
+states[S_TGRC_RUN2] =	{SPR_TGRC,	B,	1,	A_Chase,	0,	0,	S_TGRC_RUN3}
+states[S_TGRC_RUN3] =	{SPR_TGRC,	C,	1,	A_Chase,	0,	0,	S_TGRC_RUN4}
+states[S_TGRC_RUN4] =	{SPR_TGRC,	D,	1,	A_Chase,	0,	0,	S_TGRC_RUN5}
+states[S_TGRC_RUN5] =	{SPR_TGRC,	E,	1,	A_Chase,	0,	0,	S_TGRC_RUN6}
+states[S_TGRC_RUN6] =	{SPR_TGRC,	F,	1,	A_Chase,	0,	0,	S_TGRC_RUN7}
+states[S_TGRC_RUN7] =	{SPR_TGRC,	G,	1,	A_Chase,	0,	0,	S_TGRC_RUN}

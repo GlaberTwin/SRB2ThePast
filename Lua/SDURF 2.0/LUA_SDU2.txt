@@ -1,0 +1,34 @@
+// Fishy 2.0 - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SDURF2",
+	"S_SDURF1",
+	"S_SDURF2",
+	"S_SDURF3",
+	"S_SDURF4",
+	"SPR_SDR2"
+)
+
+mobjinfo[MT_SDURF2] = {
+	//$Name Stupid Dumb Unnamed Robo Fish 2.0
+	//$Sprite SDR2A0
+	//$Category Retro Enemies
+	doomednum = 148,
+	spawnstate = S_SDURF2,
+	spawnhealth = 1,
+	seestate = S_SDURF1,
+	reactiontime = 8,
+	meleestate = S_SDURF3,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	xdeathstate = S_SDURF4,
+	radius = 8*FRACUNIT,
+	height = 28*FRACUNIT,
+	damage = 1,
+	flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+
+states[S_SDURF1] =	{SPR_SDR2,	B,	1,	nil,		0,	0,	S_SDURF2}
+states[S_SDURF2] =	{SPR_SDR2,	B,	1,	A_FishJump,	0,	0,	S_SDURF1}
+states[S_SDURF3] =	{SPR_SDR2,	A,	1,	nil,		0,	0,	S_SDURF4}
+states[S_SDURF4] =	{SPR_SDR2,	A,	1,	A_FishJump,	0,	0,	S_SDURF3}

@@ -1,0 +1,37 @@
+// SRB1 SWAT Bot - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_GRAYBOT",
+	"S_SRB1_GRAYBOT1",
+	"S_SRB1_GRAYBOT2",
+	"S_SRB1_GRAYBOT3",
+	"S_SRB1_GRAYBOT4",
+	"S_SRB1_GRAYBOT5",
+	"S_SRB1_GRAYBOT6",
+	"SPR_SRBI"
+)
+
+mobjinfo[MT_SRB1_GRAYBOT] = {
+	//$Name SWAT Bot
+	//$Sprite SRBIA1
+	//$Category SRB1 Enemies
+	doomednum = 4009,
+	spawnstate = S_SRB1_GRAYBOT1,
+	spawnhealth = 1,
+	seestate = S_SRB1_GRAYBOT1,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3*FRACUNIT,
+	radius = 21*FRACUNIT,
+	height = 69*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_FLOAT
+}
+
+states[S_SRB1_GRAYBOT1] =	{SPR_SRBI,	A,	4,	A_MoveAbsolute,	0,		7,	S_SRB1_GRAYBOT2}
+states[S_SRB1_GRAYBOT2] =	{SPR_SRBI,	B,	4,	A_MoveAbsolute,	0,		7,	S_SRB1_GRAYBOT3}
+states[S_SRB1_GRAYBOT3] =	{SPR_SRBI,	A,	4,	A_MoveAbsolute,	0,		7,	S_SRB1_GRAYBOT4}
+states[S_SRB1_GRAYBOT4] =	{SPR_SRBI,	B,	4,	A_MoveAbsolute,	180,	7,	S_SRB1_GRAYBOT5}
+states[S_SRB1_GRAYBOT5] =	{SPR_SRBI,	A,	4,	A_MoveAbsolute,	180,	7,	S_SRB1_GRAYBOT6}
+states[S_SRB1_GRAYBOT6] =	{SPR_SRBI,	B,	4,	A_MoveAbsolute,	180,	7,	S_SRB1_GRAYBOT1}

@@ -1,0 +1,116 @@
+freeslot(
+	"MT_OUNIDUS",
+	"S_UNIDUS_STND",
+	"S_UNIDUS_RUN",
+	"MT_21UNIDUS_BALL",
+	"S_21UNIDUS_BALL",
+	"SPR_OUNI"
+	)
+//Leave out SPR_OUNI if useing with midiman's Eggmobile bosses unless this lua is placed first.
+
+local function CustomOrbieSpawn(mobj, mapthing)
+    local offset
+    
+    if mapthing.z != 0
+        offset = mapthing.z
+    else
+        offset = 12*FRACUNIT
+    end
+    
+    if (mapthing.options & MTF_OBJECTFLIP)
+        if offset != 0
+            mobj.z = mobj.z - offset
+        else
+            mobj.z = mobj.ceilingz
+        end
+    else
+        if offset != 0
+            mobj.z = mobj.z + offset
+        else
+            mobj.z = mobj.floorz
+        end
+    end
+    
+end
+
+addHook("MapThingSpawn", CustomOrbieSpawn, MT_OUNIDUS)
+
+//UNIDUS ball spawn code
+--Code translated by glaber with help from chaoloveicemdboy, CEO of le sus ?, and Monster Iystyn
+addHook("MobjSpawn", function(mobj)
+	local ball
+	// Spawn "damage" number of "painchance" spikeball mobjs
+	// threshold is the distance they should keep from the MT_OUNIDUS (touching radius + ball painchance)
+	for i = 0,mobj.info.damage
+		
+		ball = P_SpawnMobj(mobj.x, mobj.y, mobj.z, mobj.info.painchance)
+		ball.destscale = mobj.scale
+		P_SetScale(ball, mobj.scale)
+		ball.target = mobj
+		ball.movedir = FixedAngle(FixedMul(FixedDiv(i<<FRACBITS, mobj.info.damage<<FRACBITS), 360<<FRACBITS))
+		ball.threshold = ball.radius + mobj.radius + FixedMul(ball.info.painchance, ball.scale)
+
+		local var1, var2 = states[ball.state].var1, states[ball.state].var2
+		states[ball.state].action(ball, var1, var2)
+	end
+end, MT_OUNIDUS)
+
+
+// Old Unidus
+mobjinfo[MT_OUNIDUS] = {
+		//$Name "Old Unidus"
+		//$Sprite OUNIA1
+		//$Category Retro Enemies
+        doomednum = 159,
+        spawnstate = S_UNIDUS_STND,
+        spawnhealth = 1,
+        seestate = S_UNIDUS_RUN,
+        seesound = sfx_None,
+        reactiontime = 32,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = MT_21UNIDUS_BALL,
+        painsound = sfx_None,
+		missilestate = S_NULL,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 2,
+        radius = 18*FRACUNIT,
+        height = 36*FRACUNIT,
+        dispoffset = 0,
+        mass = 4*FRACUNIT,
+        damage = 5,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+	
+states[S_UNIDUS_STND] = {SPR_OUNI, A, 4, A_Look, 0, 0, S_UNIDUS_STND}
+states[S_UNIDUS_RUN] = {SPR_OUNI, A, 1, A_Chase, 0, 0, S_UNIDUS_RUN}
+
+// 2.1 Unidus Spikeball, code modified from Midiman's 2.1 eggmobile spike ball code.
+
+mobjinfo[MT_21UNIDUS_BALL] = {
+	doomednum = -1,
+	spawnstate = S_21UNIDUS_BALL,
+	spawnhealth = 1,
+	seesound = sfx_None,
+	reactiontime = 1,
+	painchance = 20*FRACUNIT,
+	speed = 2*FRACUNIT,
+	radius = 13*FRACUNIT,
+	height = 26*FRACUNIT,
+	damage = 8*FRACUNIT,
+	mass = DMG_SPIKE,
+	flags = MF_PAIN|MF_NOGRAVITY|MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOCLIPTHING
+}
+
+// Replace A_UnidusBall with a 2.1 variant, if it changes in the future
+states[S_21UNIDUS_BALL] = {SPR_OUNI, B, 1, A_UnidusBall, 1, 0, S_21UNIDUS_BALL}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OUNIDUS] = 6    // Makes MT_OUNIDUS give Needle

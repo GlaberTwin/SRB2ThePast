@@ -1,0 +1,65 @@
+-- TGF Time Power-Up - "Ported" by MIDIMan
+-- Use with LUA_TBOX
+
+freeslot(
+	"SPR_TBXT",
+	"MT_TGFBOX_TIME_SPECIAL",
+	"S_TGFBOX_TIME_BREAK",
+	"S_TGFBOX_TIME_SPECIAL_IDLE",
+	"S_TGFBOX_TIME_SPECIAL_DEATH"
+)
+
+function A_GiveTime(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	-- Do not give the player more time if they are outside of a Special Stage
+	if not G_IsSpecialStage(gamemap) then
+		S_StopSound(actor)
+		S_StartSound(actor, sfx_lose)
+		return
+	end
+	
+	local target = actor.target
+	
+	if target and target.valid and target.player and target.player.valid then
+		if var1 then
+			target.player.nightstime = $+(var1)
+		else
+			target.player.nightstime = $+(15*TICRATE)
+		end
+	end
+	
+	S_StartSound(actor, sfx_tgfbng) -- Replace sfx_tgfbng if you decide to use something else
+end
+
+local function RM_TGFGiveTime(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	RM_TGFMonitorGiveAbility(actor, A_GiveTime, var1, var2)
+end
+
+addHook("MapThingSpawn", RM_TGFPowerUpSetup, MT_TGFBOX_TIME_SPECIAL)
+addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_TIME_SPECIAL)
+addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_TIME_SPECIAL)
+
+mobjinfo[MT_TGFBOX_TIME_SPECIAL] = {
+	--$Name TGF Time Bonus (Power-Up)
+	--$Sprite TBXTA0
+	--$Category Monitors
+	--$Flags8Text Float
+	--$Arg0 Float?
+	--$Arg0Tooltip "This raises the object by 24 fracunits."
+	--$Arg0Type 11
+	--$Arg0Enum yesno
+	doomednum = 517,
+	spawnstate = S_TGFBOX_TIME_SPECIAL_IDLE,
+	spawnhealth = 1,
+	reactiontime = 5,
+	painstate = S_TGFBOX_TIME_SPECIAL_IDLE,
+	deathstate = S_TGFBOX_TIME_SPECIAL_DEATH,
+	radius = 14*FRACUNIT,
+	height = 26*FRACUNIT,
+	flags = MF_SPECIAL|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_TGFBOX_TIME_SPECIAL_IDLE] =	{SPR_TBXT,	A,	-1,	nil,			0,	0,	S_NULL}
+states[S_TGFBOX_TIME_SPECIAL_DEATH] =	{SPR_NULL,	A,	-1,	RM_TGFGiveTime,	0,	0,	S_NULL}

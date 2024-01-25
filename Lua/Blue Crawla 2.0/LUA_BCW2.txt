@@ -1,0 +1,40 @@
+// Blue Crawla 2.0 - Ported by Glaber (original SOC) and MIDIMan (fixes and conversion to Lua)
+
+freeslot(
+	"MT_BLUECRAWLA2",
+	"S_BCW2_STND",
+	"S_BCW2_RUN1",
+	"S_BCW2_RUN2",
+	"S_BCW2_RUN3",
+	"S_BCW2_RUN4",
+	"S_BCW2_RUN5",
+	"S_BCW2_RUN6",
+	"SPR_BCW2"
+)
+
+mobjinfo[MT_BLUECRAWLA2] = {
+	//$Name Blue Crawla 2.0
+	//$Sprite BCW2A1
+	//$Category Retro Enemies
+	doomednum = 146,
+	spawnstate = S_BCW2_STND,
+	spawnhealth = 1,
+	seestate = S_BCW2_RUN1,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 24*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+
+states[S_BCW2_STND] =	{SPR_BCW2,	A,	5,	A_Look,	0,	0,	S_BCW2_STND}
+
+states[S_BCW2_RUN1] =	{SPR_BCW2,	A,	3,	A_Chase,	0,	0,	S_BCW2_RUN2}
+states[S_BCW2_RUN2] =	{SPR_BCW2,	B,	3,	A_Chase,	0,	0,	S_BCW2_RUN3}
+states[S_BCW2_RUN3] =	{SPR_BCW2,	C,	3,	A_Chase,	0,	0,	S_BCW2_RUN4}
+states[S_BCW2_RUN4] =	{SPR_BCW2,	D,	3,	A_Chase,	0,	0,	S_BCW2_RUN5}
+states[S_BCW2_RUN5] =	{SPR_BCW2,	E,	3,	A_Chase,	0,	0,	S_BCW2_RUN6}
+states[S_BCW2_RUN6] =	{SPR_BCW2,	F,	3,	A_Chase,	0,	0,	S_BCW2_RUN1}

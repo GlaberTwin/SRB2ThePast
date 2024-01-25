@@ -1,0 +1,34 @@
+// SRB1 Crawla - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_CRAWLA",
+	"S_SRB1_CRAWLA1",
+	"S_SRB1_CRAWLA2",
+	"S_SRB1_CRAWLA3",
+	"S_SRB1_CRAWLA4",
+	"SPR_SRBA"
+)
+
+mobjinfo[MT_SRB1_CRAWLA] = {
+	//$Name SRB1 Crawla
+	//$Sprite SRBAA1
+	//$Category SRB1 Enemies
+	doomednum = 4000,
+	spawnstate = S_SRB1_CRAWLA1,
+	spawnhealth = 1,
+	seestate = S_SRB1_CRAWLA2,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 20*FRACUNIT,
+	height = 40*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY
+}
+
+states[S_SRB1_CRAWLA1] =	{SPR_SRBA,	A,	5,	A_Look,	0,	0,	S_SRB1_CRAWLA1}
+
+states[S_SRB1_CRAWLA2] =	{SPR_SRBA,	A,	3,	A_Chase,	0,	0,	S_SRB1_CRAWLA3}
+states[S_SRB1_CRAWLA3] =	{SPR_SRBA,	B,	3,	A_Chase,	0,	0,	S_SRB1_CRAWLA4}
+states[S_SRB1_CRAWLA4] =	{SPR_SRBA,	C,	3,	A_Chase,	0,	0,	S_SRB1_CRAWLA2}

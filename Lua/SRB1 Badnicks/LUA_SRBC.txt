@@ -1,0 +1,32 @@
+// SRB1 Pyrin - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_ROBOFISH",
+	"S_SRB1_ROBOFISH1",
+	"S_SRB1_ROBOFISH2",
+	"S_SRB1_ROBOFISH3",
+	"SPR_SRBC"
+)
+
+mobjinfo[MT_SRB1_ROBOFISH] = {
+	//$Name Pyrin
+	//$Sprite SRBCA1
+	//$Category SRB1 Enemies
+	doomednum = 4002,
+	spawnstate = S_SRB1_ROBOFISH1,
+	spawnhealth = 1,
+	seestate = S_SRB1_ROBOFISH2,
+	reactiontime = 2,
+	painchance = 3072,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 4*FRACUNIT,
+	radius = 22*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_SLIDEME
+}
+
+states[S_SRB1_ROBOFISH1] =	{SPR_SRBC,	A,	2,	A_Look,	0,	0,	S_SRB1_ROBOFISH1}
+
+states[S_SRB1_ROBOFISH2] =	{SPR_SRBC,	A,	2,	A_BuzzFly,	0,	0,	S_SRB1_ROBOFISH3}
+states[S_SRB1_ROBOFISH3] =	{SPR_SRBC,	B,	2,	A_BuzzFly,	0,	0,	S_SRB1_ROBOFISH2}

@@ -1,0 +1,29 @@
+// SRB1 Turret - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_UFO",
+	"S_SRB1_UFO1",
+	"S_SRB1_UFO2",
+	"SPR_SRBH"
+)
+
+mobjinfo[MT_SRB1_UFO] = {
+	//$Name SRB1 Turret
+	//$Sprite SRBHA0
+	//$Category SRB1 Enemies
+	doomednum = 4008,
+	spawnstate = S_SRB1_UFO1,
+	spawnhealth = 1,
+	seestate = S_SRB1_UFO1,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3*FRACUNIT,
+	radius = 24*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_FLOAT|MF_SPAWNCEILING
+}
+
+states[S_SRB1_UFO1] =	{SPR_SRBH,	A,	16,	A_MoveAbsolute,	180,	5,	S_SRB1_UFO2}
+states[S_SRB1_UFO2] =	{SPR_SRBH,	A,	16,	A_MoveAbsolute,	0,		5,	S_SRB1_UFO1}

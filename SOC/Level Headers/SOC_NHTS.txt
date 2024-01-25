@@ -1,0 +1,254 @@
+#NiGHTS Level Headers
+
+#DEVELOPMENT
+
+Level ND
+Levelname = NiGHTS DEV
+interscreen = EGGPIC
+Subtitle = Where it all began
+MusicInter = LCLEAR
+Act = 0
+Music = SPHZ
+NextLevel = NZ
+TypeOfLevel = Singleplayer,NiGHTS
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+NiGHTSAttack = false
+NoVisitNeeded = false
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:1
+
+
+
+
+#SPRING HILL
+
+Level N0
+Levelname = Spring Hill
+Subtitle = Version 1.01-1.04
+Gravity = 0.28
+MusicInter = LCLEAR
+Music = SHZ
+NextLevel = NZ
+TypeOfLevel = Singleplayer,Co-op,NiGHTS
+SkyNum = 29
+NiGHTSAttack = false
+NoVisitNeeded = false
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:2
+
+Level N1
+Levelname = Spring Hill
+Subtitle = Version 1.08
+MusicInter = LCLEAR
+Gravity = 0.28
+Music = SHZ
+NextLevel = NZ
+TypeOfLevel = Singleplayer,Co-op,NiGHTS
+SkyNum = 29
+NiGHTSAttack = false
+NoVisitNeeded = false
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:3
+
+Level N2
+Levelname = Spring Hill
+Subtitle = Version 1.09.4-2.0.7
+MusicInter = LCLEAR
+Gravity = 0.28
+Music = SHZ
+NextLevel = NZ
+TypeOfLevel = Singleplayer,Co-op,NiGHTS
+SkyNum = 29
+NiGHTSAttack = false
+NoVisitNeeded = false
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:4
+
+Level N3
+Levelname = Spring Hill
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = SHZ
+Gravity = 0.28
+TypeOfLevel = Singleplayer,Co-op,NiGHTS
+SkyNum = 29
+NiGHTSAttack = true
+NoVisitNeeded = false
+Grades1 = 20000,40000,60000,80000,100000,170000
+NextLevel = NZ
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:5
+
+
+
+
+#1.09.4 XMAS
+Level NE
+Levelname = Spring Hill
+Subtitle = Version 1.09.4 (Christmas)
+Gravity = 0.28
+MusicInter = LCLEAR
+Music = MAPA8M
+NextLevel = NZ
+TypeOfLevel = Singleplayer,Co-op,NiGHTS,Christmas
+SkyNum = 17
+NiGHTSAttack = false
+NoVisitNeeded = false
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:6
+
+
+
+
+#SLUMBER CIRCUIT
+
+Level N4
+Levelname = Slumber Circuit
+Subtitle = Version 1.09.4-2.0.7
+MusicInter = LCLEAR
+Music = SPC109
+NextLevel = NZ
+TypeOfLevel = Singleplayer,Co-op,NiGHTS
+Weather = 0
+SkyNum = 50
+NiGHTSAttack = false
+NoVisitNeeded = false
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:7
+
+
+
+
+#2.1 MAPS
+
+Level N5
+LevelName = Floral Field
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = FLORAL
+TypeOfLevel = Singleplayer,NiGHTS
+NiGHTSAttack = true
+NoVisitNeeded = true
+SkyNum = 2
+Grades1 = 45000,70000,90000,100000,125000,200000
+NextLevel = NZ
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:8
+
+Level N6
+LevelName = Toxic Plateau
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = TOXIC
+TypeOfLevel = Singleplayer,NiGHTS
+NoVisitNeeded = true
+NiGHTSAttack = true
+SkyNum = 3
+Grades1 = 90000,100000,110000,125000,150000,225000
+NextLevel = NZ
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:9
+
+Level N7
+LevelName = Flooded Cove
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = FLOOD
+TypeOfLevel = Singleplayer,NiGHTS
+NoVisitNeeded = true
+NiGHTSAttack = true
+SkyNum = 7
+Grades1 = 60000,70000,75000,85000,100000,210000
+NextLevel = NZ
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:10
+
+Level N8
+LevelName = Cavern Fortress
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = CAVERN
+TypeOfLevel = Singleplayer,NiGHTS
+NoVisitNeeded = true
+NiGHTSAttack = true
+Weather = 1
+SkyNum = 27
+Grades1 = 50000,75000,90000,100000,125000,200000
+NextLevel = NZ
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:11
+
+Level N9
+LevelName = Dusty Wasteland
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = MP_GL2
+TypeOfLevel = Singleplayer,NiGHTS
+NoVisitNeeded = true
+NiGHTSAttack = true
+SkyNum = 13
+Grades1 = 25000,30000,32500,35000,45000,75000
+NextLevel = NZ
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:12
+
+Level NA
+LevelName = Magma Caves
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = MAGMA
+TypeOfLevel = Singleplayer,NiGHTS
+NoVisitNeeded = true
+NiGHTSAttack = true
+SkyNum = 11
+Grades1 = 70000,75000,80000,90000,100000,125000
+NextLevel = NZ
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:13
+
+Level NB
+LevelName = Egg Satellite
+Subtitle = NiGHTS Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = EGGSAT
+TypeOfLevel = Singleplayer,NiGHTS
+NoVisitNeeded = true
+NiGHTSAttack = true
+SkyNum = 22
+Grades1 = 70000,75000,80000,85000,90000,160000
+NextLevel = NZ
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:14
+
+Level NC
+LevelName = Black Hole
+Subtitle = Version 2.1-2.1.25
+MusicInter = LCLEAR
+Music = BLKHOL
+TypeOfLevel = Singleplayer,NiGHTS
+NiGHTSAttack = true
+NoVisitNeeded = false
+SkyNum = 99
+Hidden = true
+Grades1 = 70000,75000,80000,85000,90000,160000
+NextLevel = NZ
+Unlockable = 21
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = NZ:15

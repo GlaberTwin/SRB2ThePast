@@ -1,0 +1,56 @@
+//Tatsuru's Nospin only Teleport, A.K.A. "Fake Teleport"
+//Use with Linedef action 443 with NOSPINJUMPTELE as the front texture names.
+//Made by Tatsuru with help from Glaber, amperbee, and Monster Iestyn
+//Updated for 2.2.11 by MIDIMan (WIP)
+
+addHook("LinedefExecute", function(line, mo, sec)
+  if not (mo.player) return end -- Abort if it's not a player triggering
+  if not (mo.player.charflags & SF_NOJUMPSPIN) return end -- Abort if they roll on jump
+
+  local csec = line.frontsector -- Get control sector
+  local cline
+
+	//print ("Comming up next, Power Rangers Light Speed Rescue!") //Old test message
+  for i = 0, #csec.lines - 1 -- Try to find type 499 - Fake Teleport
+    if csec.lines[i].special == 499 then cline = csec.lines[i]
+	end
+  end
+	
+	assert(cline, "Fake teleport special not found")
+	//if not cline return end -- Not found? Bail out //commented out as a just in case
+
+  if cline.flags & ML_EFFECT3 -- Peg Midtexture
+    local x, y, z
+
+    x = cline.frontside.textureoffset
+    y = cline.frontside.rowoffset
+    z = csec.ceilingheight
+
+    P_SetOrigin(mo, mo.x + x, mo.y + y, mo.z + z)
+  else
+    for s in sectors.iterate
+      if not s.tag continue end
+      if s.tag != cline.tag continue end
+      
+      for smo in s.thinglist()
+        if smo.type != MT_TELEPORTMAN continue end
+        
+        P_SetOrigin(mo, smo.x, smo.y, smo.z)
+        
+        if not (cline.flags & ML_NOCLIMB) then mo.angle = smo.angle end -- Not Climbable
+
+        if not (cline.flags & ML_EFFECT4) -- Solid Midtexture
+          mo.momx = 0
+          mo.momy = 0
+          mo.momz = 0
+          P_ResetPlayer(mo.player)
+        end
+
+        if not (cline.flags & ML_BLOCKMONSTERS) -- Block Eneies
+          S_StartSound(smo, sfx_mixup)
+          P_FlashPal(mo.player, PAL_MIXUP, 5)
+        end
+      end
+    end
+  end
+end, "NOSPINJUMPTELE")

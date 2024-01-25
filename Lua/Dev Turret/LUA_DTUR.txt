@@ -1,0 +1,75 @@
+// XMAS (0.96) Turret - Ported by Glaber (original SOC) and MIDIMan (accuracy fixes and conversion to Lua)
+
+freeslot(
+	"MT_OLD_TURRET",
+	"S_POPUPTURRET_SCAN",
+	"S_POPUPTURRET_SIGHT",
+	"S_POPUPTURRET_TRYCHASE", // The turret does not actually move, but it uses A_Chase anyway
+	"S_POPUPTURRET_FIRE",
+	"S_POPUPTURRET_FIRE2",
+	"S_POPUPTURRET_FIRE3",
+	"S_POPUPTURRET_REFIRE",
+	"SPR_TUR2"
+)
+
+local function Turret_Attack(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	if not (actor.target and actor.target.valid) then return end
+	
+	A_FaceTarget(actor)
+	
+	if actor.info.attacksound then S_StartSound(actor, actor.info.attacksound) end
+	
+	if actor.info.raisestate then
+		P_SpawnMissile(actor, actor.target, actor.info.raisestate)
+	end
+end
+
+local function Turret_Refire(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	A_FaceTarget(actor)
+	
+	if P_RandomByte() < 10 then return end
+	
+	if not (actor.target and actor.target.valid)
+	or not P_CheckSight(actor, actor.target) then
+		actor.state = actor.info.seestate
+	end
+end
+
+mobjinfo[MT_OLD_TURRET] = {
+	//$Name Grand Egg Turret
+	//$Sprite TUR2A1
+	//$Category Retro Enemies
+	doomednum = 4044,
+	spawnstate = S_POPUPTURRET_SCAN,
+	spawnhealth = 1,
+	seestate = S_POPUPTURRET_SIGHT,
+	reactiontime = 8,
+	painchance = 128,
+	attacksound = sfx_trfire,
+	missilestate = S_POPUPTURRET_FIRE,
+	deathstate = S_XPLD1,
+	deathsound = sfx_pop,
+	radius = 24*FRACUNIT, // Originally 12*FRACUNIT (Glaber) and 54*FRACUNIT (SRB2XMAS)
+	height = 48*FRACUNIT,
+	raisestate = MT_JETTBULLET,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY
+}
+
+states[S_POPUPTURRET_SCAN] =	{SPR_TUR2,	A,	10,	A_Look,	0,	0,	S_POPUPTURRET_SCAN}
+
+states[S_POPUPTURRET_SIGHT] =		{SPR_TUR2,	A,	20,	nil,		0,	0,	S_POPUPTURRET_TRYCHASE}
+states[S_POPUPTURRET_TRYCHASE] =	{SPR_TUR2,	A,	3,	A_Chase,	0,	0,	S_POPUPTURRET_TRYCHASE}
+
+states[S_POPUPTURRET_FIRE] =	{SPR_TUR2,	A|FF_FULLBRIGHT,	80,	A_FaceTarget,	0,	0,	S_POPUPTURRET_FIRE2}
+states[S_POPUPTURRET_FIRE2] =	{SPR_TUR2,	A|FF_FULLBRIGHT,	32,	Turret_Attack,	0,	0,	S_POPUPTURRET_FIRE3}
+states[S_POPUPTURRET_FIRE3] =	{SPR_TUR2,	A|FF_FULLBRIGHT,	32,	nil,			0,	0,	S_POPUPTURRET_REFIRE}
+states[S_POPUPTURRET_REFIRE] =	{SPR_TUR2,	A|FF_FULLBRIGHT,	8,	Turret_Refire,	0,	0,	S_POPUPTURRET_FIRE2}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OLD_TURRET] = -4    // Makes MT_OLD_TURRET give Gun

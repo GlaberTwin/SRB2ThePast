@@ -1,0 +1,4 @@
+-- 2.1 Red Monitor Commonalities - Ported by MIDIMan
+-- Only use with LUA_2BXK and LUA_2BXE
+
+freeslot("SPR_2BXK")

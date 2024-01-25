@@ -1,0 +1,165 @@
+#Unlockables Level Headers
+
+#MARIO KOOPA BLAST
+
+Level U2
+Levelname = Mario Goomba Blast
+subtitle = Demo 4
+interscreen = FDINTERP
+MusicInter = LCLEAR
+Act = 1
+NoZone = 1
+Music = MARIO6
+NextLevel = UZ
+TypeOfLevel = Singleplayer,Co-op,Race,Mario
+Weather = 0
+SkyNum = 31
+RecordAttack = 0
+hidden = 1
+hidden = 1
+Lua.TPHub = UZ:1
+
+Level U3
+Levelname = Mario Koopa Blast
+Act = 1
+subtitle = Versions 1.01-2.0.7
+MusicInter = LCLEAR
+Interscreen = FDINTERP
+Music = MARIO3
+NextLevel = U4
+Hidden = 1
+TypeOfLevel = Singleplayer,Co-op,Mario
+SkyNum = 31
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = UZ:2
+
+Level U4
+Levelname = Mario Koopa Blast
+Act = 2
+subtitle = Versions 1.01-2.0.7
+Interscreen = FDINTERP
+Music = MARIO4
+NextLevel = U5
+Hidden = 1
+TypeOfLevel = Singleplayer,Co-op,Mario,2D
+SkyNum = 31
+SaveGame = true
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = UZ:2
+
+Level U5
+Levelname = Mario Koopa Blast
+Act = 3
+Interscreen = FDINTERP
+subtitle = Versions 1.01-2.0.7
+Music = MARIO5
+NextLevel = UZ
+Hidden = 1
+TypeOfLevel = Singleplayer,Co-op,Mario,2D
+SkyNum = 31
+SaveGame = true
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = UZ:2
+
+
+
+
+#CHRISTMAS HUNT
+
+Level XC
+Levelname = Christmas Hunt
+subtitle = Version 1.09.4
+MusicInter = LCLEAR
+interscreen = FDINTERP
+Act = 0
+Music = MAPA6M
+NextLevel = UZ
+Hidden = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 2
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = UZ:3
+
+
+
+
+#ADVENTURE EXAMPLE
+Level U8
+Levelname = SA Example
+subtitle = Version 1.09.4
+MusicInter = LCLEAR
+Interscreen = FDINTERP
+Act = 0
+Keywords = SAEX
+Music = MTLHBR
+NextLevel = UZ
+TypeOfLevel = Singleplayer,Co-op,Race,FDAdventure
+SkyNum = 2
+hidden = 1
+Lua.TPHub = UZ:4
+
+
+
+
+#AERIAL GARDEN ZONE
+
+#from CEZ2 2.0
+Level U0
+Levelname = Neo Aerial Garden
+Subtitle = HYPER LEVEL 2.0-2.0.7
+MusicInter = LCLEAR
+Act = 0
+Hidden = 1
+Music = MAPB6M
+NextLevel = CZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+Lua.TPHub = CZ:21
+
+Level U1
+Levelname = Neo Aerial Garden
+Subtitle = HYPER LEVEL 2.0-2.0.7
+MusicInter = LCLEAR
+Act = 0
+Hidden = 1
+Music = MAPB6M
+NextLevel = UZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+Lua.TPHub = UZ:5
+
+Level U6
+Levelname = Aerial Garden
+Subtitle = ~EXTRA~ 2.1-2.1.25
+MusicInter = LCLEAR
+Music = MAPB6M
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = UZ
+SkyNum = 40
+RecordAttack = false
+hidden = 1
+Lua.TPHub = UZ:6
+
+
+
+
+#AZURE TEMPLE ZONE
+
+Level U7
+Levelname = Azure Temple
+Subtitle = ~PHANTASM~ 2.1-2.1.25
+MusicInter = LCLEAR
+Music = OATZ
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = UZ
+SkyNum = 35
+RecordAttack = false
+hidden = 1
+Lua.TPHub = UZ:7

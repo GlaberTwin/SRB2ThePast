@@ -1,0 +1,55 @@
+-- TGF Pity Shield Monitor - "Ported" by MIDIMan
+-- Use with LUA_TBOX
+
+local function RM_TGFGiveShield(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	RM_TGFMonitorGiveAbility(actor, A_GiveShield, var1, var2)
+end
+
+freeslot(
+	"SPR_TBXB",
+	"MT_TGFBOX_SHIELD",
+	"S_TGFBOX_SHIELD_IDLE",
+	"S_TGFBOX_SHIELD_BREAK"
+)
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	if not udmf and (mthing.options & MTF_EXTRA) then return end
+	if udmf and mthing.args[2] then return end
+	
+	mo.rmShieldEra = "TGF"
+end, MT_TGFBOX_SHIELD)
+
+addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_SHIELD)
+
+-- If the monitor has been destroyed by a player's projectile, still play the death sound
+addHook("TouchSpecial", RM_TGFMonitorTouchSpecial, MT_TGFBOX_SHIELD)
+addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_SHIELD)
+
+mobjinfo[MT_TGFBOX_SHIELD] = {
+	--$Name TGF "Basic" Shield
+	--$Sprite TBXBA0
+	--$Category Monitors
+	--$Flags1Text Don't "Era-Swap" Shield
+	--$Flags4Text Big Explosion
+	--$Arg1 Explosion Size
+	--$Arg1Type 11
+	--$Arg1Enum {0 = "Small"; 1 = "Large";}
+	--$Arg2 Era-Swap Shield
+	--$Arg2Type 11
+	--$Arg2Enum yesno
+	doomednum = 513,
+	spawnstate = S_TGFBOX_SHIELD_IDLE,
+	spawnhealth = 1,
+	painstate = S_TGFBOX_SHIELD_IDLE,
+	deathstate = S_TGFBOX_SHIELD_BREAK,
+	deathsound = sfx_pop,
+	radius = 28*FRACUNIT,
+	height = 52*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_TGFBOX_SHIELD_IDLE] =	{SPR_TBXB,	A|FF_ANIMATE,	-1,	nil,				5,			1,	S_NULL}
+states[S_TGFBOX_SHIELD_BREAK] =	{SPR_TBXX,	A,				0,	RM_TGFGiveShield,	SH_PITY,	0,	S_TGFBOX_CHOOSEEXPLOSION}

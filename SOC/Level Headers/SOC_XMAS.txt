@@ -1,0 +1,201 @@
+##SRB2 Christmas Level Headers
+
+Level 928
+levelname = Springin' Around
+act = 0
+Interscreen = INTERpic
+subtitle = v0.90- v0.96
+MusicInter = LCLEAR
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 929
+music = SPNGAR
+SkyNum = 17
+hidden = 1
+Weather = 0
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 929
+levelname = Blustery Day
+subtitle = v0.90- v0.96
+MusicInter = LCLEAR
+act = 0
+Interscreen = INTERpic
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 930
+music = blustr
+SkyNum = 17
+hidden = 1
+Weather = 0
+PRECUTSCENENUM = 27
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+
+Level 930
+levelname = Snow Mountain
+subtitle = v0.90- v0.96
+MusicInter = LCLEAR
+act = 0
+Interscreen = INTERpic
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 931
+music = SNOMTN
+SkyNum = 17
+hidden = 1
+Weather = 0
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 931
+levelname = Gleaming Glacier
+subtitle = v0.90- v0.96
+MusicInter = LCLEAR
+act = 0
+Interscreen = INTERpic
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 932
+music = GLEEMI
+SkyNum = 17
+hidden = 1
+weather = 0
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 932
+levelname = Egg Base
+subtitle = v0.90- v0.96
+MusicInter = LCLEAR
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 933
+music = EGGB
+SkyNum = 17
+hidden = 1
+weather = 0
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 933
+levelname = Egg Arena
+subtitle = v0.90- v0.96
+MusicInter = LCLEAR
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 934
+music = EGGA
+SkyNum = 17
+hidden = 1
+weather = 0
+PRECUTSCENENUM = 28
+BonusType = Boss
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 934
+levelname = Close Corners
+subtitle = v0.96
+MusicInter = LCLEAR
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 935
+music = CLOCNR
+SkyNum = 17
+hidden = 1
+Weather = 0
+PRECUTSCENENUM = 29
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 935
+levelname = Christmas Factory
+subtitle = v0.96
+MusicInter = LCLEAR
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 936
+music = XMASFA
+SkyNum = 17
+hidden = 1
+Weather = 0
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 936
+levelname = Snow Valley
+subtitle = v0.96
+MusicInter = LCLEAR
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 937
+music = SNOWVA
+SkyNum = 17
+hidden = 1
+Weather = 0
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 937
+levelname = Final Boss
+subtitle = v0.96
+MusicInter = LCLEAR
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op,Race
+NextLevel = 1
+music = VSFBOS
+SkyNum = 17
+hidden = 1
+Weather = 0
+CutsceneNum = 32
+BonusType = Boss
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 938
+levelname = Emerald Coast
+subtitle = v0.96
+MusicInter = LCLEAR
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 937
+music = ECZA1
+skynum = 25
+weather = 0
+Hidden = 1
+PRECUTSCENENUM = 30
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:16
+
+Level 939
+levelname = Sonic's Nightmare
+subtitle = v0.96
+MusicInter = LCLEAR
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op,Race
+nextlevel = 937
+music = NGHTMR
+SkyNum = 17
+hidden = 1
+Weather = 0
+Hidden = 1
+PRECUTSCENENUM = 31
+palette = 1032
+Lua.TPHub = 1:16

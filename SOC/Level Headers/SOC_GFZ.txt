@@ -1,0 +1,488 @@
+##Green Flower Zone Level Headers
+
+##DEBUT
+
+Level 316
+Levelname = Debut Greenflower
+Subtitle = Version .93 Christmas
+interscreen = INTERPIC
+MusicInter = LCLEAR
+Act = 1
+Music = ROCKYM
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+NoSSMusic = 1
+PrecutsceneNum = 40
+Weather = 0
+palette = 1032
+Lua.TPHub = GZ:1
+
+
+
+
+##DEMO
+
+Level 317
+Levelname = Greenflower
+Subtitle = Demo 1
+interscreen = SONICPIC
+MusicInter = LCLEAR
+Act = 1
+Music = OGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 32
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 8
+Weather = 0
+palette = 1032
+Lua.TPHub = GZ:2
+
+Level 318
+Levelname = Greenflower
+Subtitle = Demos 2 & 3
+interscreen = SONICPIC
+MusicInter = LCLEAR
+Act = 1
+Music = OGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 9
+Weather = 0
+palette = 1032
+Lua.TPHub = GZ:5
+
+Level 319
+Levelname = Greenflower
+Subtitle = Demos 2 & 3
+interscreen = TAILSPIC
+MusicInter = LCLEAR
+Act = 2
+Music = OGFZ2
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+RecordAttack = 0
+PrecutsceneNum = 10
+hidden = 1
+palette = 1032
+Lua.TPHub = GZ:6
+
+Level 320
+Levelname = Greenflower
+Act = 3
+Subtitle = Demos 2-4
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Music = VSTBOS
+hidden = 1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+PrecutsceneNum = 11
+BonusType = Boss
+WarningTitle = true
+palette = 1032
+Lua.TPHub = GZ:7
+
+Level 321
+Levelname = Greenflower
+Act = 1
+Subtitle = Demo 4
+interscreen = SONICPIC
+MusicInter = LCLEAR
+Music = OGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+PrecutsceneNum = 12
+hidden = 1
+palette = 1032
+Lua.TPHub = GZ:8
+
+Level 322
+Levelname = Greenflower
+Act = 2
+Subtitle = Demo 4
+interscreen = TAILSpic
+MusicInter = LCLEAR
+Music = OGFZ2
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 13
+palette = 1032
+Lua.TPHub = GZ:9
+
+
+
+
+##FINAL DEMO
+
+Level 323
+Levelname = Greenflower
+Act = 1
+Subtitle = Version 1.01-1.04
+MusicInter = LCLEAR
+interscreen = FDINTERP
+Music = FDGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 14
+Lua.TPHub = GZ:10
+
+Level G8
+Levelname = Greenflower
+Act = 2
+Subtitle = Version 1.01-1.08
+MusicInter = LCLEAR
+interscreen = FDINTERP
+Music = FDGFZ2
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 15
+Lua.TPHub = GZ:11
+
+Level 325
+Levelname = Greenflower
+Act = 1
+Subtitle = Version 1.08
+MusicInter = LCLEAR
+interscreen = FDINTERP
+Music = FDGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 16
+Lua.TPHub = GZ:12
+
+Level 326
+Levelname = Greenflower
+interscreen = FDINTERP
+subtitle = Version 1.09.4
+MusicInter = LCLEAR
+Act = 1
+Music = FDGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 18
+Lua.TPHub = GZ:15
+
+Level GB
+Levelname = Greenflower
+interscreen = FDINTERP
+subtitle = Version 1.09.4
+MusicInter = LCLEAR
+Act = 2
+Music = FDGFZ2
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 19
+Lua.TPHub = GZ:14
+
+Level GC
+Levelname = Greenflower
+interscreen = FDINTERP
+subtitle = Versions 1.01-1.09.4
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 45
+Lua.TPHub = GZ:13
+
+
+
+
+##SRB2FUN
+
+Level GD
+Levelname = Greenflower
+interscreen = FDINTERP
+subtitle = Version 1.1/SRB2Fun Beta
+MusicInter = LCLEAR
+Act = 1
+Music = FDGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+BonusType = Normal
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 20
+Lua.TPHub = GZ:16
+
+Level GE
+Levelname = Greenflower
+interscreen = FDINTERP
+subtitle = Version 1.1/SRB2Fun Beta
+MusicInter = LCLEAR
+Act = 2
+Music = FDGFZ2
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+BonusType = Normal
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 21
+Lua.TPHub = GZ:17
+
+
+
+
+##2.0
+
+Level GF
+Levelname = Greenflower
+interscreen = FDINTERP
+subtitle = Versions 1.1-2.0.7
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 22
+Lua.TPHub = GZ:18
+
+
+Level GI
+Levelname = Greenflower
+subtitle = Versions 2.0-2.0.7
+MusicInter = LCLEAR
+Act = 1
+Music = FDGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+BonusType = Normal
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 23
+Lua.TPHub = GZ:20
+
+Level GJ
+Levelname = Greenflower
+subtitle = Versions 2.0-2.0.7
+MusicInter = LCLEAR
+Act = 2
+Music = FDGFZ2
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+BonusType = Normal
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 70
+Lua.TPHub = GZ:19
+
+
+
+
+##SAGE
+
+Level GG
+Levelname = Greenflower
+Subtitle = SAGE 2000
+MusicInter = LCLEAR
+interscreen = SONICPIC
+Act = 1
+Music = OGFZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 32
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 48
+Weather = 0
+palette = 1032
+Lua.TPHub = GZ:3
+
+Level GH
+Levelname = Greenflower
+Subtitle = SAGE 2000
+MusicInter = LCLEAR
+interscreen = TAILSpic
+Act = 2
+Music = OGFZ2
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 32
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 49
+Weather = 0
+palette = 1032
+Lua.TPHub = GZ:4
+
+
+
+
+##1.09.4 XMAS
+
+Level GK
+Levelname = Greenflower
+interscreen = INTERXMS
+MusicInter = LCLEAR
+subtitle = Version 1.09.4(Christmas)
+Act = 1
+Music = MAPA0M
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 2
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 18
+Lua.TPHub = GZ:24
+
+Level GL
+Levelname = Greenflower
+interscreen = INTERXMS
+MusicInter = LCLEAR
+subtitle = Version 1.09.4(Christmas)
+Act = 2
+Music = MAPA1M
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 2
+SkyNum = 17
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 19
+Lua.TPHub = GZ:25
+
+Level GM
+Levelname = Greenflower
+interscreen = INTERXMS
+MusicInter = LCLEAR
+subtitle = Versions 1.01-1.09.4(Christmas)
+Act = 3
+Music = MAPA2M
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op
+Weather = 2
+SkyNum = 17
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 45
+Lua.TPHub = GZ:26
+
+
+
+
+##2.1
+
+Level GO
+Levelname = Greenflower
+subtitle = Versions 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 1
+Music = FDGFZ1
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = GZ
+SkyNum = 2
+RecordAttack = false
+hidden = 1
+PrecutsceneNum = 101
+Lua.TPHub = GZ:21
+
+Level GP
+Levelname = Greenflower
+subtitle = Versions 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 2
+Music = FDGFZ2
+TypeOfLevel = Singleplayer,Co-op,Race
+NextLevel = GZ
+SkyNum = 2
+RecordAttack = false
+hidden = 1
+PrecutsceneNum = 102
+Lua.TPHub = GZ:22
+
+Level GQ
+Levelname = Greenflower
+subtitle = Versions 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = GZ
+SkyNum = 2
+RecordAttack = false
+hidden = 1
+BonusType = Boss
+PrecutsceneNum = 103
+Lua.TPHub = GZ:23
+
+
+
+
+##GAUNTLET
+
+Level GN
+Levelname = Greenflower
+interscreen = FDINTERP
+subtitle = GAUNTLET
+Act = 3
+Music = VSOBOS
+ForceResetMusic = 1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 104
+Lua.TPHub = GZ:27

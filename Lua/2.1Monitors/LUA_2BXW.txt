@@ -1,0 +1,66 @@
+-- 2.1 Whirlwind Shield Box - Ported by MIDIMan
+-- Use with LUA_2BOX and LUA_2BY2
+
+freeslot(
+	"MT_21BOX_WHIRLWIND",
+	"MT_21BOX_WHIRLWIND_ICON",
+	"S_21BOX_WHIRLWIND_IDLE",
+	"S_21BOX_WHIRLWIND_ICON_APPEAR",
+	"S_21BOX_WHIRLWIND_ICON_SPIN",
+	"S_21BOX_WHIRLWIND_ICON_LEAVE"
+)
+
+addHook("MobjFuse", RM_21MonitorFuseThink, MT_21BOX_WHIRLWIND)
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_21MonitorTypeSpawn(mo, mthing)
+	
+	if ultimatemode and mo and mo.valid then
+		P_RemoveMobj(mo)
+	end
+end, MT_21BOX_WHIRLWIND)
+
+mobjinfo[MT_21BOX_WHIRLWIND] = {
+	--$Name 2.1 Whirlwind Shield
+	--$Sprite 2BXWA0
+	--$Category Monitors
+	--$Flags4Text Random (Strong)
+	--$Flags8Text Random (Weak)
+	--$Arg1 Respawn behavior
+	--$Arg1Type 11
+	--$Arg1Enum monitorrespawn
+	--$Arg2 Era-Swap Shield
+	--$Arg2Type 11
+	--$Arg2Enum yesno
+	doomednum = 489,
+	spawnstate = S_21BOX_WHIRLWIND_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_WHIRLWIND_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	speed = 1,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_WHIRLWIND_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_WHIRLWIND_IDLE] =	{SPR_2BXW,	A,	2,	nil,	0,	0,	S_21BOX_FLICKER}
+
+mobjinfo[MT_21BOX_WHIRLWIND_ICON] = {
+	doomednum = -1,
+	spawnstate = S_21BOX_WHIRLWIND_ICON_APPEAR,
+	spawnhealth = 1,
+	seesound = sfx_shield,
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_21BOX_WHIRLWIND_ICON_APPEAR] =	{SPR_2BXW,	B,				4,	nil,			0,				0,	S_21BOX_WHIRLWIND_ICON_SPIN}
+states[S_21BOX_WHIRLWIND_ICON_SPIN] =	{SPR_2BXW,	C|FF_ANIMATE,	12,	nil,			2,				4,	S_21BOX_WHIRLWIND_ICON_LEAVE}
+states[S_21BOX_WHIRLWIND_ICON_LEAVE] =	{SPR_2BXW,	B,				18,	A_GiveShield,	SH_WHIRLWIND,	0,	S_NULL}

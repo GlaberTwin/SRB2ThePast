@@ -1,0 +1,457 @@
+-- Final Demo Monitor Commonalities - Ported by MIDIMan
+-- Use with the other LUA_FBX* scripts
+-- It is important to note that, even though these are labelled as "Final Demo" boxes, 
+-- some of them come from the 2.0 era
+
+--[[
+A few notes regarding multiplayer monitors between versions:
+1.01-1.04 - Monitors could be switched on or off (Eggman was an option)
+1.08-2.0 - Monitors could be set between off, low, medium, and high (Eggman was not an option)
+2.1-present - Monitors could be set as percentages
+
+In versions 1.08-1.09.4, players can cause a "segment violation" by setting all 
+the monitor toggles to "High", starting a race with "Random" monitors only, and 
+breaking a monitor. This is caused by the array that stores the random chances 
+being too small. This bug has not been replicated for obvious reasons.
+]]
+
+freeslot(
+	"SPR_FBOX",
+	"S_FDBOX_FLICKER",
+	"S_FDBOX_EXPLOSION1",
+	"S_FDBOX_EXPLOSION2"
+)
+
+-- Change the current mo type to something else
+local function RM_ChangeMobj(mo, newtype)
+	if not (mo and mo.valid) then return end
+	if not newtype then return end
+	
+	local fdAltOption = mo.rmFDAltOption
+	
+	mo.type = newtype
+	
+	mo.radius = FixedMul(mo.scale, mo.info.radius)
+	mo.height = FixedMul(mo.scale, mo.info.height)
+	mo.flags = mo.info.flags
+	
+	mo.health = mo.info.spawnhealth
+	
+	mo.reactiontime = mo.info.reactiontime
+	
+	mo.state = mo.info.spawnstate
+end
+
+-- Change the monitor's type based on the flags given, the current gametype and its settings
+rawset(_G, "RM_FDMonitorTypeSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	if udmf then
+		local fdaltoption = mthing.args[3]
+		if fdaltoption == 1 then -- 1.09-1.09.4 behavior
+			mo.rmFDAltOption = 1
+		elseif fdaltoption == 2 then -- 1.08 behavior
+			mo.rmFDAltOption = 2
+		elseif fdaltoption > 2 then -- 2K3-1.04 behavior
+			mo.rmFDAltOption = 3
+		end
+		
+		if not mthing.args[2] then
+			if (mo.rmFDAltOption or 0) > 1 then
+				mo.rmShieldEra = "FINALDEMO"
+			elseif (mo.rmFDAltOption or 0) == 1 then
+				mo.rmShieldEra = "LATEFINALDEMO"
+			else
+				mo.rmShieldEra = "2.0"
+			end
+		end
+		
+		if mthing.args[1] and mo.info.speed ~= 0 then
+			if mthing.args[1] == 1 then
+				mo.flags2 = $|MF2_AMBUSH
+			elseif mthing.args[1] == 2 then
+				mo.flags2 = $|MF2_STRONGBOX
+			end
+		end
+	else
+		if mthing.extrainfo == 1 then -- 1.09-1.09.4 behavior
+			mo.rmFDAltOption = 1
+		elseif mthing.extrainfo == 2 then -- 1.08 behavior
+			mo.rmFDAltOption = 2
+		elseif mthing.extrainfo > 2 then -- 2K3-1.04 behavior
+			mo.rmFDAltOption = 3
+		end
+		
+		if not (mthing.options & MTF_EXTRA) then
+			if (mo.rmFDAltOption or 0) > 1 then
+				mo.rmShieldEra = "FINALDEMO"
+			elseif (mo.rmFDAltOption or 0) == 1 then
+				mo.rmShieldEra = "LATEFINALDEMO"
+			else
+				mo.rmShieldEra = "2.0"
+			end
+		end
+	end
+	
+-- 	if (mthing.options & MTF_OBJECTSPECIAL) -- 2.0 behavior
+-- 		mo.flags2 = $|MF2_STRONGBOX
+-- 	end
+	
+-- 	if (mthing.options & MTF_AMBUSH)
+-- 		mo.flags2 = $|MF2_AMBUSH
+-- 	end
+	
+	-- Set powerup boxes to user settings for race and competition.
+	-- Note: Competition mode is based off of the "Classic Race" mode from the 
+	-- pre-2.1 eras of SRB2
+	if gametype == GT_RACE or gametype == GT_COMPETITION then
+		local compboxes = CV_FindVar("competitionboxes").value
+		if compboxes then -- not Normal
+			
+			if compboxes == 1 then -- Random
+				RM_ChangeMobj(mo, MT_FDBOX_QUESTION)
+			elseif compboxes == 2 then -- Teleports (Doesn't work in 2.2)
+				RM_ChangeMobj(mo, MT_FDBOX_MIXUP)
+			elseif compboxes == 3 then -- None
+				P_RemoveMobj(mo) -- Don't spawn!
+			end
+		end
+	-- Set powerup boxes to user settings for other netplay modes
+	elseif gametype ~= GT_COOP
+		local matchboxes = CV_FindVar("matchboxes").value
+		if matchboxes then -- not Normal
+			if matchboxes == 1 then -- Random
+				RM_ChangeMobj(mo, MT_FDBOX_QUESTION)
+			elseif compboxes == 2 then -- Teleports (Doesn't work in 2.2)
+				RM_ChangeMobj(mo, MT_FDBOX_MIXUP)
+			elseif matchboxes == 3 then -- Don't spawn
+				P_RemoveMobj(mo)
+			else -- Non-random
+				if mo.type == MT_FDBOX_QUESTION then
+					P_RemoveMobj(mo) -- don't spawn in Non-Random
+					return
+				end
+				
+				mthing.options = $ & ~(MTF_AMBUSH|MTF_OBJECTSPECIAL)
+-- 				mthing.args[1] = 0 -- Doesn't work
+				mo.flags2 = $ & ~(MF2_AMBUSH|MF2_STRONGBOX)
+			end
+		end
+	end
+end)
+
+--
+local function RM_DetermineShieldVariants(mo)
+	if not (mo and mo.valid) then return end
+	
+	local shields = {}
+	-- [1] = jumpshield
+	-- [2] = watershield
+	-- [3] = fireforceshield
+	-- [4] = bombshield
+	
+	if mo.rmFDAltOption then
+		if mo.rmFDAltOption >= 2 then -- 1.08 and below shields
+			shields[1] = MT_FDBOX_BLUE
+			shields[2] = MT_FDBOX_GREEN
+		else -- 1.09-1.09.4 shields
+			shields[1] = MT_FDBOX_WHITE
+			shields[2] = MT_FDBOX_BLUE
+		end
+		shields[3] = MT_FDBOX_RED
+		shields[4] = MT_FDBOX_BLACK
+	else -- 2.0 shields
+		shields[1] = MT_FDBOX_WHITE
+		shields[2] = MT_FDBOX_GREEN
+		shields[3] = MT_FDBOX_BLUE
+		shields[4] = MT_FDBOX_RED
+	end
+	
+	return shields
+end
+
+-- Handle how Final Demo monitors respawn in Multiplayer gametypes (CHANGE THIS)
+rawset(_G, "RM_FDMonitorFuseThink", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	local newmobj, boxtype
+	
+	if ((mo.flags2 & (MF2_AMBUSH|MF2_STRONGBOX)) and mo.info.damage ~= MT_UNKNOWN) then
+		local spawnchance = {}
+		local numchoices, i = 0, 0
+		local altoption = mo.rmFDAltOption
+		
+		if altoption == nil then
+			altoption = -1
+		end
+		
+		local function SETMONITORCHANCES(boxtype, strongboxamt, weakboxamt)
+			local boxamt = 0 -- Off
+			
+			if (mo.flags2 & MF2_STRONGBOX) and altoption < 1 then
+				boxamt = strongboxamt
+			else
+				if altoption > 2 then -- Pre-1.08 behavior
+					if weakboxamt then
+						boxamt = 1
+					end
+				elseif altoption > 0 then
+					if weakboxamt > 6 then -- High
+						boxamt = 3
+					elseif weakboxamt > 3 then -- Medium
+						boxamt = 2
+					elseif weakboxamt > 0 then -- Low
+						boxamt = 1
+					end
+				else
+					boxamt = weakboxamt
+				end
+			end
+			
+			if not boxamt then
+				boxamt = -1
+			end
+			
+			if boxamt > 0 then -- Prevent a possible endless loop
+				for i = boxamt, 1, -1 do
+					spawnchance[numchoices+1] = boxtype
+					numchoices = $+1
+				end
+			end
+		end
+		
+		local shields = RM_DetermineShieldVariants(mo)
+		
+		if altoption > 0 then
+			SETMONITORCHANCES(MT_FDBOX_RING,		0,	CV_FindVar("tv_superring").value)
+			SETMONITORCHANCES(MT_FDBOX_SRING,		0,	CV_FindVar("tv_recycler").value)
+			SETMONITORCHANCES(MT_FDBOX_SHOES,		0,	CV_FindVar("tv_supersneaker").value)
+			SETMONITORCHANCES(MT_FDBOX_INVIN,		0,	CV_FindVar("tv_invincibility").value)
+			SETMONITORCHANCES(shields[1],			0,	CV_FindVar("tv_jumpshield").value)
+			SETMONITORCHANCES(shields[2],			0,	CV_FindVar("tv_watershield").value)
+			SETMONITORCHANCES(MT_FDBOX_YELLOW,		0,	CV_FindVar("tv_ringshield").value)
+			SETMONITORCHANCES(shields[3],			0,	CV_FindVar("tv_forceshield").value)
+			SETMONITORCHANCES(shields[4],			0,	CV_FindVar("tv_bombshield").value)
+			if gametype == GT_RACE then
+				SETMONITORCHANCES(MT_FDBOX_1UP,		0,	CV_FindVar("tv_1up").value)
+			end
+			if altoption > 2 then -- Pre-1.08 behavior
+				SETMONITORCHANCES(MT_FDBOX_EGGMAN,	0,	CV_FindVar("tv_eggman").value)
+			end
+			SETMONITORCHANCES(MT_FDBOX_MIXUP,		0,	CV_FindVar("tv_teleporter").value)
+		else
+			--			Type				  SRM  WRM
+			SETMONITORCHANCES(MT_FDBOX_RING,	0,	16)
+			SETMONITORCHANCES(MT_FDBOX_SHOES,	0,	14)
+			SETMONITORCHANCES(MT_FDBOX_INVIN,	6,	 0)
+			SETMONITORCHANCES(shields[1],		12,	12)
+			SETMONITORCHANCES(shields[2],		12,	12)
+			SETMONITORCHANCES(MT_FDBOX_YELLOW,	8,	 2)
+			SETMONITORCHANCES(shields[3],		12,	 4)
+			SETMONITORCHANCES(shields[4],		8,	 0)
+			SETMONITORCHANCES(MT_FDBOX_MIXUP,	0,	 2)
+			SETMONITORCHANCES(MT_FDBOX_RECYCLE,	0,	 2)
+			SETMONITORCHANCES(MT_FDBOX_1UP,		6,	 0)
+			-- =======================================
+			--			Total				   64 	64
+		end
+		
+		--[[
+		--				  Type				  SRM  WRM
+		SETMONITORCHANCES(MT_21BOX_SHOES,		0,	10) -- Super Sneakers
+		SETMONITORCHANCES(MT_21BOX_INVIN,		2,	 0) -- Invincibility
+		SETMONITORCHANCES(MT_21BOX_WHIRLWIND,	3,	 8) -- Whirlwind Shield
+		SETMONITORCHANCES(MT_21BOX_ELEMENTAL,	3,	 8) -- Elemental Shield
+		SETMONITORCHANCES(MT_21BOX_ATTRACT,		2,	 0) -- Attraction Shield
+		SETMONITORCHANCES(MT_21BOX_FORCE,		3,	 3) -- Force Shield
+		SETMONITORCHANCES(MT_21BOX_ARMAGEDDON,	2,	 0) -- Armageddon Shield
+		SETMONITORCHANCES(MT_21BOX_MIXUP,		0,	 1) -- Teleporters
+		SETMONITORCHANCES(MT_21BOX_RECYCLE,		0,	 1) -- Recycler
+		SETMONITORCHANCES(MT_21BOX_1UP,			1,	 1) -- 1-Up
+		-- ===========================================
+		--				  Total				   16	32
+		]]
+		
+		if numchoices == 0 then
+			print("Note: All monitors turned off.")
+		else
+			boxtype = spawnchance[(P_RandomByte()%numchoices)+1]
+		end
+	end
+	
+	if boxtype == nil then
+		boxtype = mo.type
+	end
+	
+	newmobj = P_SpawnMobjFromMobj(mo, 0, 0, 0, boxtype)
+		
+	-- Transfer flags2 (strongbox, objectflip)
+	newmobj.flags2 = mo.flags2
+	
+	-- Transfer rmFDAltOption (if the monitor is not a 2.0 variant)
+	if mo.rmFDAltOption then newmobj.rmFDAltOption = mo.rmFDAltOption end
+	-- Transfer shield era as well
+	newmobj.rmShieldEra = mo.rmShieldEra
+	
+	P_RemoveMobj(mo) -- make sure they disappear
+	
+	return true
+end)
+
+-- Randomly choose a monitor based on the user's settings and the monitor
+local function RM_FDRandomBoxChance(mo)
+	if not (mo and mo.valid) then return end
+	
+	local spawnchance = {}
+	local numchoices, i = 0, 0
+	local jumpshield, watershield, fireforceshield, bombshield
+	
+	local function QUESTIONBOXCHANCES(boxtype, cvar)
+		local boxset = cvar.value
+		local maxvalue = -1 -- Off
+		local altoption = mo.rmFDAltOption
+		
+		if altoption == nil then altoption = -1 end
+		
+		if altoption < 3 then
+			if boxset > 6 then -- High
+				maxvalue = 3
+			elseif boxset > 3 then -- Medium
+				maxvalue = 2
+			elseif boxset > 0 then -- Low
+				maxvalue = 1
+			end
+		elseif boxset > 0 then
+			maxvalue = 1 -- Yes
+		end
+		
+		if maxvalue > 0 then -- Prevent a possible endless loop
+			for i = maxvalue, 1, -1 do
+				spawnchance[numchoices+1] = boxtype
+				numchoices = $+1
+			end
+		end
+	end
+	
+	if mo.rmFDAltOption then
+		if mo.rmFDAltOption >= 2 then -- 1.08 and below shields
+			jumpshield = MT_FDBOX_BLUE_ICON
+			watershield = MT_FDBOX_GREEN_ICON
+		else -- 1.09-1.09.4 shields
+			jumpshield = MT_FDBOX_WHITE_ICON
+			watershield = MT_FDBOX_BLUE_ICON
+		end
+		fireforceshield = MT_FDBOX_RED_ICON
+		bombshield = MT_FDBOX_BLACK_ICON
+	else -- 2.0 shields
+		jumpshield = MT_FDBOX_WHITE_ICON
+		watershield = MT_FDBOX_GREEN_ICON
+		fireforceshield = MT_FDBOX_BLUE_ICON
+		bombshield = MT_FDBOX_RED_ICON
+	end
+	
+	QUESTIONBOXCHANCES(MT_FDBOX_RING_ICON,			CV_FindVar("tv_superring"))
+	if mo.rmFDAltOption then -- Pre-2.0 Behavior (for Silver Ring)
+		QUESTIONBOXCHANCES(MT_FDBOX_SRING_ICON,		CV_FindVar("tv_recycler"))
+	end
+	QUESTIONBOXCHANCES(MT_FDBOX_SHOES_ICON,			CV_FindVar("tv_supersneaker"))
+	QUESTIONBOXCHANCES(MT_FDBOX_INVIN_ICON,			CV_FindVar("tv_invincibility"))
+	QUESTIONBOXCHANCES(jumpshield,					CV_FindVar("tv_jumpshield"))
+	QUESTIONBOXCHANCES(watershield,					CV_FindVar("tv_watershield"))
+	QUESTIONBOXCHANCES(MT_FDBOX_YELLOW_ICON,		CV_FindVar("tv_ringshield"))
+	QUESTIONBOXCHANCES(fireforceshield,				CV_FindVar("tv_forceshield"))
+	QUESTIONBOXCHANCES(bombshield,					CV_FindVar("tv_bombshield"))
+	QUESTIONBOXCHANCES(MT_FDBOX_1UP_ICON,			CV_FindVar("tv_1up"))
+	QUESTIONBOXCHANCES(MT_FDBOX_EGGMAN_ICON,		CV_FindVar("tv_eggman"))
+	QUESTIONBOXCHANCES(MT_FDBOX_MIXUP_ICON,			CV_FindVar("tv_teleporter"))
+	if not mo.rmFDAltOption then -- 2.0 behavior
+		QUESTIONBOXCHANCES(MT_FDBOX_RECYCLE_ICON,	CV_FindVar("tv_recycler"))
+	end
+	
+	if numchoices == 0
+		print("Note: All monitors turned off.")
+		return MT_NULL
+	end
+	
+	return spawnchance[(P_RandomByte()%numchoices)+1]
+end
+
+-- Variant of A_MonitorPop that doesn't spawn an explosion
+function A_FDMonitorPop(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+-- 	local remains
+	local item
+-- 	local random
+-- 	local newbox
+	
+	-- de-solidify
+	actor.flags = $|MF_NOCLIP & ~MF_SOLID
+	
+-- 	remains = P_SpawnMobj(actor.x, actor.y, actor.z, actor.info.speed)
+	
+	if actor.info.deathsound then
+		S_StartSound(actor, actor.info.deathsound)
+	end
+	
+	if actor.info.damage == MT_UNKNOWN then
+		item = RM_FDRandomBoxChance(actor)
+	else
+		item = actor.info.damage
+	end
+	
+	if item ~= nil then
+		local newmobj
+		newmobj = P_SpawnMobjFromMobj(actor, 0, 0, 13*FRACUNIT, item)
+		newmobj.target = actor.target -- Transfer target
+		
+		-- Might not be needed if using P_SpawnMobjFromMobj
+-- 		if (actor.eflags & MFE_VERTICALFLIP)
+-- 			newmobj.eflags = $|MFE_VERTICALFLIP
+-- 		end
+		
+		-- Let the icon give the player the correct shield based on the monitor's options
+		if actor.rmFDAltOption then newmobj.rmFDAltOption = actor.rmFDAltOption end
+		newmobj.rmShieldEra = actor.rmShieldEra
+		
+		-- Only display the player's 1up icon instead of the monitor's if the monitor is set to do so
+		if item == MT_FDBOX_1UP_ICON then
+			if newmobj.rmFDAltOption then
+				if newmobj.rmFDAltOption >= 2 then return end
+			end
+			
+			if actor.tracer then -- Remove the old lives icon.
+				P_RemoveMobj(actor.tracer)
+			end
+			
+			if not newmobj.target
+			or not newmobj.target.player
+			or not newmobj.target.skin
+			or skins[newmobj.target.skin].sprites[SPR2_LIFE].numframes == 0 then
+				-- No lives icon for this player, use the default
+			else -- Spawn the lives icon
+				local livesico = P_SpawnMobjFromMobj(newmobj, 0, 0, 0, MT_OVERLAY)
+				livesico.target = newmobj
+				newmobj.tracer = livesico
+				
+				livesico.color = newmobj.target.player.mo.color
+				livesico.skin = newmobj.target.skin
+				livesico.state = newmobj.info.seestate
+				
+				-- Use the new 2.2.9 sprite scaling variables to make the life icon fit inside the Final Demo monitor
+				livesico.spritexscale = 3*FRACUNIT/4
+				livesico.spriteyscale = 3*FRACUNIT/4
+				
+				-- We're using the overlay, so use the overlay 1up frame (no text)
+				newmobj.frame = D
+			end
+		end
+	else
+-- 		print("Powerup item not defined in 'damage' field for A_FDMonitorPop\n")
+	end
+end
+
+states[S_FDBOX_FLICKER] =	{SPR_FBOX,	A,	1,	nil,	0,	0,	S_SPAWNSTATE}
+
+states[S_FDBOX_EXPLOSION1] =	{SPR_FBOX,	B|FF_ANIMATE,	8,	A_FDMonitorPop,	4,	2,	S_FDBOX_EXPLOSION2}
+states[S_FDBOX_EXPLOSION2] =	{SPR_FBOX,	F,				-1,	nil,			0,	0,	S_NULL}

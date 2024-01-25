@@ -1,0 +1,4 @@
+-- 2.1 Blue Monitor Commonalities - Ported by MIDIMan
+-- Only use with LUA_2BXB and LUA_2BXU
+
+freeslot("SPR_2BXB")

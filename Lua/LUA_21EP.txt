@@ -1,0 +1,568 @@
+-- 2.1 Eggscalibur - Ported from 2.1.25
+-- PLEASE LOAD LUA_CMMN AND LUA_OMCE BEFORE THIS
+
+freeslot(
+	-- Sprites
+	"SPR_21EP",
+	"SPR_OEFR",
+	-- Objects
+	"MT_21JETFLAME",
+	"MT_21EGGMOBILE4",
+	"MT_21EGGMOBILE4_MACE",
+	-- States
+	"S_21JETFLAME1",
+	"S_21JETFLAME2",
+	"S_21EGGMOBILE4_STND",
+	"S_21EGGMOBILE4_LATK1",
+	"S_21EGGMOBILE4_LATK2",
+	"S_21EGGMOBILE4_LATK3",
+	"S_21EGGMOBILE4_LATK4",
+	"S_21EGGMOBILE4_LATK5",
+	"S_21EGGMOBILE4_LATK6",
+	"S_21EGGMOBILE4_RATK1",
+	"S_21EGGMOBILE4_RATK2",
+	"S_21EGGMOBILE4_RATK3",
+	"S_21EGGMOBILE4_RATK4",
+	"S_21EGGMOBILE4_RATK5",
+	"S_21EGGMOBILE4_RATK6",
+	"S_21EGGMOBILE4_RAISE1",
+	"S_21EGGMOBILE4_RAISE2",
+	"S_21EGGMOBILE4_RAISE3",
+	"S_21EGGMOBILE4_RAISE4",
+	"S_21EGGMOBILE4_RAISE5",
+	"S_21EGGMOBILE4_RAISE6",
+	"S_21EGGMOBILE4_RAISE7",
+	"S_21EGGMOBILE4_RAISE8",
+	"S_21EGGMOBILE4_RAISE9",
+	"S_21EGGMOBILE4_RAISE10",
+	"S_21EGGMOBILE4_PAIN",
+	"S_21EGGMOBILE4_DIE1",
+	"S_21EGGMOBILE4_DIE2",
+	"S_21EGGMOBILE4_DIE3",
+	"S_21EGGMOBILE4_DIE4",
+	"S_21EGGMOBILE4_FLEE1",
+	"S_21EGGMOBILE4_FLEE2",
+	"S_21EGGMOBILE4_MACE"
+)
+
+-- 2.1 Eggscalibur
+
+function A_EggscaliburFlame(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local jetz
+	if (actor.eflags & MFE_VERTICALFLIP) then
+		jetz = actor.z + actor.height + FixedMul(50*FRACUNIT - mobjinfo[MT_21JETFLAME].height, actor.scale)
+	else
+		jetz = actor.z - FixedMul(50*FRACUNIT, actor.scale)
+	end
+	local filler = P_SpawnMobj(actor.x, actor.y, jetz, MT_21JETFLAME)
+	if filler and filler.valid then
+		filler.target = actor
+		-- Boss 4 already uses its tracer for other things
+-- 		filler.destscale = actor.scale
+-- 		P_SetScale(filler, filler.destscale)
+		filler.scale = actor.scale
+		if (actor.eflags & MFE_VERTICALFLIP) then
+			filler.eflags = $|MFE_VERTICALFLIP
+			filler.flags2 = $|MF2_OBJECTFLIP
+		end
+	end
+end
+
+-- 2.1 Jet Flame (for Eggscalibur)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if not (mo.target and mo.target.valid) -- if you have no target
+	or (not (mo.target.flags & MF_BOSS) and mo.target.health <= 0) then
+		P_RemoveMobj(mo)
+		return
+	end
+	
+	P_MoveOrigin(mo, mo.target.x, mo.target.y, mo.target.z - FixedMul(50*FRACUNIT, mo.target.scale))
+end, MT_21JETFLAME)
+
+mobjinfo[MT_21JETFLAME] = {
+	doomednum = -1,
+	spawnstate = S_21JETFLAME1,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	speed = 1,
+	radius = 20*FRACUNIT,
+	height = 32*FRACUNIT,
+	mass = DMG_FIRE,
+	flags = MF_NOGRAVITY|MF_PAIN|MF_FIRE|MF_NOCLIPHEIGHT
+}
+
+states[S_21JETFLAME1] = {SPR_OEFR, FF_FULLBRIGHT|A, 1, nil, 0, 0, S_21JETFLAME2}
+states[S_21JETFLAME2] = {SPR_OEFR, FF_FULLBRIGHT|B, 1, nil, 0, 0, S_21JETFLAME1}
+
+-- P_Boss4MoveCage ported from 2.1.25
+local function RB_21Boss4MoveCage(mo, delta)
+	if not (mo and mo.valid) then return end
+	local tag = 65534
+	if udmf and mo.spawnpoint and mo.spawnpoint.valid then tag = mo.spawnpoint.args[6] end
+	if not tag then return end -- Don't move the entire map!
+	-- Fixes a bug where sector.tag does not match up with the tag given
+	if tag < 0 then tag = $ + UINT16_MAX + 1 end
+	
+	-- I would use sectors.tagged here, but it complains about the tag being "out of range", so...
+	for sector in sectors.iterate do
+		if sector.tag ~= tag then
+			continue
+		end
+		sector.floorheight = $+delta
+		sector.ceilingheight = $+delta
+	end
+	
+	for sector in sectors.iterate do
+		if sector.tag == tag then return #sector end
+	end
+	
+	return false
+end
+
+-- P_Boss4MoveSpikeballs ported from 2.1.25
+local function RB_21Boss4MoveSpikeballs(mo, angle, fz)
+	if not (mo and mo.valid) then return end
+	
+	local s
+	local base = mo
+	local seg
+	local dist = mo.watertop+(16*(2^FRACBITS))
+	local bz = mo.watertop+(16*(2^FRACBITS))
+	base = base.tracer
+	while (base and base.valid) do
+		seg = base
+		dist = 172*FRACUNIT
+		s = 8
+		while (seg and seg.valid) do
+			s = $-1
+			P_MoveOrigin(seg, mo.x + P_ReturnThrustX(mo, angle, dist), mo.y + P_ReturnThrustY(mo, angle, dist), bz + FixedMul(fz, FixedDiv(s*(2^FRACBITS), 9*(2^FRACBITS))))
+			seg = seg.hnext
+			dist = $+(124*FRACUNIT)
+		end
+		-- Similar to ANG60*2
+		angle = $ + 0x55555555 -- Replacement for ANGLE_MAX/3 since ANGLE_MAX = -1 in Lua
+		base = base.tracer
+	end
+end
+
+-- P_Boss4PinchSpikeballs ported from 2.1.25
+local function RB_21Boss4PinchSpikeballs(mo, angle, fz)
+	if not (mo and mo.valid) then return end
+	
+	local s
+	local base = mo
+	local seg
+	local dist = mo.watertop+(16*(2^FRACBITS))
+	local bz = mo.watertop+(16*(2^FRACBITS))
+	base = base.tracer
+	while (base and base.valid) do
+		seg = base
+		dist = 112*FRACUNIT
+		s = 10
+		while seg do
+			s = $-1
+			P_MoveOrigin(seg, seg.x, seg.y, bz + FixedMul(fz, FixedDiv(s*(2^FRACBITS), 9*(2^FRACBITS))))
+			P_TryMove(seg, mo.x + P_ReturnThrustX(mo, angle, dist), mo.y + P_ReturnThrustY(mo, angle, dist), true)
+			seg = seg.hnext
+			dist = $+(132*FRACUNIT)
+		end
+		angle = $+(ANG60*2)
+		base = base.tracer
+	end
+end
+
+-- P_Boss4DestroyCage ported from 2.1.25
+local function RB_21Boss4DestroyCage(mo)
+	if not (mo and mo.valid) then return end
+	local tag = 65534
+	if udmf and mo.spawnpoint and mo.spawnpoint.valid then tag = mo.spawnpoint.args[6] end
+	if not tag then return end -- Don't move the entire map!
+-- 	local snum, nextt
+	-- Fixes a bug where sector.tag does not match up with the tag given
+	if tag < 0 then tag = $ + UINT16_MAX + 1 end
+	
+	-- This will be the final iteration of sector tag
+	-- We'll destroy the tag list as we go.
+-- 	for sector in sectors.iterate do
+-- 		if sector.tag == tag then
+-- 			nextt = #sector
+-- 			break
+-- 		end
+-- 	end
+	
+	-- Destroy the FOFs.
+	for sector in sectors.iterate do
+		if not (sector and sector.valid) then continue end
+		for rover in sector.ffloors() do
+			if not (rover and rover.valid) then continue end
+			if (rover.fofflags & FOF_EXISTS) and rover.sector.tag == tag then
+				if (rover.fofflags & FOF_RENDERALL) then -- checking for FF_RENDERANY.
+					EV_CrumbleChain(sector, rover) -- This FOF is visible to some extent? Crumble it.
+				else -- Completely invisible FOF
+					-- no longer exists (can't collide with again)
+					rover.fofflags = $ & ~FOF_EXISTS
+				end
+			end
+		end
+	end
+end
+
+-- P_Boss4PopSpikeBalls ported from 2.1.25
+local function RB_21Boss4PopSpikeballs(mo)
+	if not (mo and mo.valid) then return end
+	
+	local base = mo.tracer
+	local seg, nextt
+	mo.tracer = nil
+	while (base and base.valid) do
+		nextt = base.tracer
+		base.tracer = nil
+		seg = base
+		while seg do
+			if seg.health then
+				P_KillMobj(seg, nil, nil)
+			end
+			seg = seg.hnext
+		end
+		base = nextt
+	end
+end
+
+-- Ported BossThinker behavior for 2.1 Eggscalibur from 2.1.25
+addHook("BossThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.state == mo.info.spawnstate then
+		if mo.health > mo.info.damage or mo.movedir == 4 then
+			mo.flags2 = $ & ~MF2_FRET
+		end
+		mo.reactiontime = 0 -- Drop the cage immediately.
+	end
+	
+	-- Oh no, we dead? D:
+	if not mo.health then
+		if mo.tracer and mo.tracer.valid then -- need to clean up!
+			RB_21Boss4DestroyCage(mo) -- Just in case pinch phase was skipped
+			RB_21Boss4PopSpikeballs(mo)
+		end
+		return true
+	end
+	
+	-- movedir == battle stage:
+	--   0: initialization
+	--   1: phase 1 forward
+	--   2: phase 1 reverse
+	--   3: pinch rise
+	--   4: pinch phase
+	-- WELCOME to your DOOM!
+	if mo.movedir == 0 then
+		-- For this stage only:
+		-- movecount == cage height
+		-- threshold == cage momz
+		if mo.movecount == 0 then -- Initialize stage!
+			local z
+			local i, arm
+			local seg = mo
+			local base = mo
+			-- First frame init, spawn all the things.
+			mo.watertop = mo.z
+			z = mo.z + mo.height/2 - mobjinfo[MT_21EGGMOBILE4_MACE].height/2
+			for arm = 0, 2, 1 do
+				seg = P_SpawnMobj(mo.x, mo.y, z, MT_21EGGMOBILE4_MACE)
+				base.tracer = seg
+				base = seg
+				seg.target = mo
+				for i = 0, 8, 1 do
+					seg.hnext = P_SpawnMobj(mo.x, mo.y, z, MT_21EGGMOBILE4_MACE)
+					seg.hnext.hprev = seg
+					seg = seg.hnext
+				end
+			end
+			-- Move the cage up to the sky.
+			mo.movecount = 800*FRACUNIT
+			if not RB_21Boss4MoveCage(mo, mo.movecount) then
+				mo.movecount = 0
+				mo.threshold = 3*TICRATE
+				mo.extravalue1 = 1
+				mo.movedir = $+1 -- We don't have a cage, just continue
+			else
+				RB_21Boss4MoveSpikeballs(mo, 0, mo.movecount)
+			end
+		else -- Cage slams down over Eggman's head!
+			local oldz = mo.movecount
+			mo.threshold = $-(5*FRACUNIT)
+			mo.movecount = $+mo.threshold
+			if mo.movecount < 0 then mo.movecount = 0 end
+			RB_21Boss4MoveCage(mo, mo.movecount - oldz)
+			RB_21Boss4MoveSpikeballs(mo, 0, mo.movecount)
+			if mo.movecount == 0 then
+				mo.threshold = 3*TICRATE
+				mo.extravalue1 = 1
+				-- UDMF support for cage drop!
+				local cagedroptag = LE_BOSS4DROP
+				if udmf and mo.spawnpoint and mo.spawnpoint.valid then cagedroptag = mo.spawnpoint.args[5] end
+				P_LinedefExecute(cagedroptag, mo, nil)
+				mo.movedir = $+1 -- Initialization complete, next phase!
+			end
+		end
+		return true
+	-- Normal operation
+	elseif mo.movedir == 1 or mo.movedir == 2 then
+		--print("do nothing")
+	-- Pinch phase init!
+	elseif mo.movedir == 3 then
+		local z
+		if mo.z < mo.watertop+(512*(2^FRACBITS)) then
+			mo.momz = 8*FRACUNIT
+		else
+			mo.momz = 0
+			mo.movedir = $+1
+		end
+		mo.movecount = $+(400*(FRACBITS / 2))
+		mo.movecount = $%(360*FRACUNIT)
+		z = mo.z - mo.watertop - mobjinfo[MT_21EGGMOBILE4_MACE].height - mo.height/2
+		if z < 0 then -- We haven't risen high enough to pull the spikeballs along yet
+			RB_21Boss4MoveSpikeballs(mo, FixedAngle(mo.movecount), 0) -- So don't pull the spikeballs along yet.
+		else
+			RB_21Boss4PinchSpikeballs(mo, FixedAngle(mo.movecount), z)
+		end
+		return true
+	-- Pinch phase!
+	elseif mo.movedir == 4 then
+		if mo.z < (mo.watertop + ((512+128*(mo.info.damage - mo.health))*(2^FRACBITS))) then
+			mo.momz = 8*FRACUNIT
+		else
+			mo.momz = 0
+		end
+		mo.movecount = $+((800 + 800*(mo.info.damage - mo.health)) * (2^(FRACBITS/2)))
+		mo.movecount = $%(360*FRACUNIT)
+		RB_21Boss4PinchSpikeballs(mo, FixedAngle(mo.movecount), mo.z - mo.watertop - mobjinfo[MT_21EGGMOBILE4_MACE].height - mo.height/2)
+		
+		if not (mo.target and mo.target.valid and mo.target.health) then
+			P_SupermanLook4Players(mo)
+		end
+		A_FaceTarget(mo)
+		return true
+	else -- ?????
+		return true
+	end
+	
+	-- Haahahahahaaa, and let the FUN.. BEGIN!
+	-- movedir   == arms direction
+	-- movecount == arms angle
+	-- threshold == countdown to next attack
+	-- reactiontime == cage raise, speed burst
+	-- movefactor == cage z
+	-- friction == turns until helm lift
+
+	-- Raise the cage!
+	if mo.reactiontime == 1 then
+		local oldz = mo.movefactor
+		mo.movefactor = $+(8*FRACUNIT)
+		if mo.movefactor > 128*FRACUNIT then
+			mo.movefactor = 128*FRACUNIT
+		end
+		RB_21Boss4MoveCage(mo, mo.movefactor - oldz)
+	-- Drop the cage!
+	elseif mo.movefactor then
+		local oldz = mo.movefactor
+		mo.movefactor = $-(4*FRACUNIT)
+		if mo.movefactor < 0 then mo.movefactor = 0 end
+		RB_21Boss4MoveCage(mo, mo.movefactor - oldz)
+		if not mo.movefactor then
+			if mo.health <= mo.info.damage then
+				-- Proceed to pinch phase!
+				RB_21Boss4DestroyCage(mo)
+				mo.movedir = 3
+				-- UDMF support for pinch phase!
+				local pinchtag = LE_PINCHPHASE
+				if udmf and mo.spawnpoint and mo.spawnpoint.valid then pinchtag = mo.spawnpoint.args[4] end
+				P_LinedefExecute(pinchtag, mo, nil)
+				return true
+			end
+			-- UDMF support for cage drop!
+			local cagedroptag = LE_BOSS4DROP
+			if udmf and mo.spawnpoint and mo.spawnpoint.valid then cagedroptag = mo.spawnpoint.args[5] end
+			P_LinedefExecute(cagedroptag, mo, nil)
+		end
+	end
+	local movespeed = 170 * (2 ^ (FRACBITS / 2))
+	if mo.reactiontime == 2 then
+		movespeed = $*3
+	end
+	if mo.movedir == 2 then
+		mo.movecount = $-movespeed
+	else
+		mo.movecount = $+movespeed
+	end
+		
+	mo.movecount = $%(360*FRACUNIT)
+	RB_21Boss4MoveSpikeballs(mo, FixedAngle(mo.movecount), mo.movefactor)
+	
+	local extravalue1Set = false
+	
+	-- Check for attacks, always tick the timer even while animating!!
+	if not (mo.flags2 & MF2_FRET) -- but pause for pain so we don't interrupt pinch phase, eep!
+	and mo.threshold <= 0 then -- Make sure this code still runs in the rare case that mo.threshold goes below 0
+		-- 5 -> 2.5 second timer
+		mo.threshold = 5*TICRATE - (TICRATE/2)*(mo.info.spawnhealth - mo.health)
+		if mo.threshold < 1 then mo.threshold = 1 end
+		
+		if mo.extravalue1 == 0 then
+			mo.state = mo.info.raisestate
+			mo.extravalue1 = 3
+			extravalue1Set = true
+		else
+			if mo.reactiontime == 1 then -- Cage is raised?
+				mo.reactiontime = 0 -- Drop it!
+			end
+			local randomValue = P_RandomKey(10)
+			-- Telegraph Right (Speed Up!!)
+			if randomValue == 1
+			or randomValue == 3
+			or randomValue == 4
+			or randomValue == 5
+			or randomValue == 6 then
+				mo.state = mo.info.missilestate
+			-- Telegraph left (Reverse Direction)
+			else
+				mo.state = mo.info.meleestate
+			end
+		end
+		if not extravalue1Set then mo.extravalue1 = $-1 end
+	end
+	mo.threshold = $-1
+	
+	-- Leave if animating.
+	if mo.state ~= mo.info.spawnstate then return true end
+	
+	-- Map allows us to get killed despite cage being down?
+	if mo.health <= mo.info.damage then
+	-- Proceed to pinch phase!
+		RB_21Boss4DestroyCage(mo)
+		-- spawn jet's flame now you're flying upwards
+		-- tracer is already used, so if this ever gets reached again we've got problems
+		A_EggscaliburFlame(mo, 0, 0)
+		mo.movedir = 3
+		-- UDMF support for pinch phase!
+		local pinchtag = LE_PINCHPHASE
+		if udmf and mo.spawnpoint and mo.spawnpoint.valid then pinchtag = mo.spawnpoint.args[4] end
+		P_LinedefExecute(pinchtag, mo, nil)
+		return true
+	end
+	
+	mo.reactiontime = 0 -- Drop the cage if it hasn't been dropped already.
+	if not (mo.target and mo.target.valid) or not mo.target.health then
+		P_SupermanLook4Players(mo)
+	end
+	A_FaceTarget(mo)
+	
+	return true -- Do not use the GenericBossThinker
+end, MT_21EGGMOBILE4)
+
+addHook("BossDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	A_21BossDeath(mo)
+	return true
+end, MT_21EGGMOBILE4)
+
+mobjinfo[MT_21EGGMOBILE4] = {
+	--$Name 2.1 Eggscalibur
+	--$Sprite 21EPA1
+	--$Category Bosses
+	--$Flags4Text End level on death
+	--$Arg0 Boss ID
+	--$Arg1 End level on death?
+	--$Arg1Type 11
+	--$Arg1Enum noyes
+	--$Arg2 Death trigger tag
+	--$Arg2Type 15
+	--$Arg3 Victory trigger tag
+	--$Arg3Type 15
+	--$Arg4 Pinch trigger tag
+	--$Arg4Type 15
+	--$Arg5 Cage drop trigger tag
+	--$Arg5Type 15
+	--$Arg6 Cage FOF(s) tag
+	--$Arg6Type 13
+	doomednum = 229,
+	spawnstate = S_21EGGMOBILE4_STND,
+	spawnhealth = 8,
+	painstate = S_21EGGMOBILE4_PAIN,
+	painsound = sfx_dmpain,
+	meleestate = S_21EGGMOBILE4_LATK1,
+	missilestate = S_21EGGMOBILE4_RATK1,
+	deathstate = S_21EGGMOBILE4_DIE1,
+	xdeathstate = S_21EGGMOBILE4_FLEE1,
+	deathsound = sfx_cybdth,
+	radius = 24*FRACUNIT,
+	height = 76*FRACUNIT,
+	damage = 3,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY|MF_BOSS|MF_NOCLIPHEIGHT,
+	raisestate = S_21EGGMOBILE4_RAISE1
+}
+
+states[S_21EGGMOBILE4_STND] =	{SPR_21EP,	A,	-1,	nil,	0,	0,	S_NULL}
+
+states[S_21EGGMOBILE4_LATK1] =	{SPR_21EP,	B,	3,	nil,			0,			0,	S_21EGGMOBILE4_LATK2}
+states[S_21EGGMOBILE4_LATK2] =	{SPR_21EP,	C,	15,	nil,			0,			0,	S_21EGGMOBILE4_LATK3}
+states[S_21EGGMOBILE4_LATK3] =	{SPR_21EP,	D,	2,	nil,			0,			0,	S_21EGGMOBILE4_LATK4}
+states[S_21EGGMOBILE4_LATK4] =	{SPR_21EP,	E,	4,	nil,			0,			0,	S_21EGGMOBILE4_LATK5}
+-- Replace A_Boss4Reverse with A_21Boss4Reverse if it changes in the future
+states[S_21EGGMOBILE4_LATK5] =	{SPR_21EP,	E,	50,	A_Boss4Reverse,	sfx_mswing,	0,	S_21EGGMOBILE4_LATK6}
+states[S_21EGGMOBILE4_LATK6] =	{SPR_21EP,	F,	2,	nil,			0,			0,	S_21EGGMOBILE4_STND}
+
+states[S_21EGGMOBILE4_RATK1] =	{SPR_21EP,	G,	3,		nil,			0,			0,	S_21EGGMOBILE4_RATK2}
+states[S_21EGGMOBILE4_RATK2] =	{SPR_21EP,	H,	15,		nil,			0,			0,	S_21EGGMOBILE4_RATK3}
+states[S_21EGGMOBILE4_RATK3] =	{SPR_21EP,	I,	2,		nil,			0,			0,	S_21EGGMOBILE4_RATK4}
+states[S_21EGGMOBILE4_RATK4] =	{SPR_21EP,	J,	4,		nil,			0,			0,	S_21EGGMOBILE4_RATK5}
+-- Replace A_Boss4SpeedUp with A_21Boss4SpeedUp if it changes in the future
+states[S_21EGGMOBILE4_RATK5] =	{SPR_21EP,	J,	150,	A_Boss4SpeedUp,	sfx_mswing,	0,	S_21EGGMOBILE4_RATK6}
+states[S_21EGGMOBILE4_RATK6] =	{SPR_21EP,	K,	2,		nil,			0,			0,	S_21EGGMOBILE4_STND}
+
+-- Replace A_Boss4Raise with A_21Boss4Raise if it changes in the future
+states[S_21EGGMOBILE4_RAISE1] =		{SPR_21EP,	A,	20,	A_Boss4Raise,	sfx_doord1,	0,	S_21EGGMOBILE4_RAISE2}
+states[S_21EGGMOBILE4_RAISE2] =		{SPR_21EP,	N,	10,	nil,			0,			0,	S_21EGGMOBILE4_RAISE3}
+states[S_21EGGMOBILE4_RAISE3] =		{SPR_21EP,	O,	10,	nil,			0,			0,	S_21EGGMOBILE4_RAISE4}
+states[S_21EGGMOBILE4_RAISE4] =		{SPR_21EP,	N,	10,	nil,			0,			0,	S_21EGGMOBILE4_RAISE5}
+states[S_21EGGMOBILE4_RAISE5] =		{SPR_21EP,	O,	10,	nil,			0,			0,	S_21EGGMOBILE4_RAISE6}
+states[S_21EGGMOBILE4_RAISE6] =		{SPR_21EP,	N,	10,	nil,			0,			0,	S_21EGGMOBILE4_RAISE7}
+states[S_21EGGMOBILE4_RAISE7] =		{SPR_21EP,	O,	10,	nil,			0,			0,	S_21EGGMOBILE4_RAISE8}
+states[S_21EGGMOBILE4_RAISE8] =		{SPR_21EP,	N,	10,	nil,			0,			0,	S_21EGGMOBILE4_RAISE9}
+states[S_21EGGMOBILE4_RAISE9] =		{SPR_21EP,	O,	10,	nil,			0,			0,	S_21EGGMOBILE4_RAISE10}
+states[S_21EGGMOBILE4_RAISE10] =	{SPR_21EP,	N,	10,	nil,			0,			0,	S_21EGGMOBILE4_STND}
+
+states[S_21EGGMOBILE4_PAIN] =	{SPR_21EP,	L,	24,	A_Pain,	0,	0,	S_21EGGMOBILE4_STND}
+
+states[S_21EGGMOBILE4_DIE1] =	{SPR_21EP,	M,	8,	A_Fall,			0,	0,						S_21EGGMOBILE4_DIE2}
+states[S_21EGGMOBILE4_DIE2] =	{SPR_21EP,	M,	8,	A_BossScream,	0,	MT_BOSSEXPLODE,			S_21EGGMOBILE4_DIE3}
+states[S_21EGGMOBILE4_DIE3] =	{SPR_21EP,	M,	0,	A_Repeat,		12,	S_21EGGMOBILE4_DIE2,	S_21EGGMOBILE4_DIE4}
+states[S_21EGGMOBILE4_DIE4] =	{SPR_21EP,	M,	-1,	A_BossDeath,	0,	0,						S_NULL}
+
+states[S_21EGGMOBILE4_FLEE1] =	{SPR_21EP,	N,	5,	nil,	0,	0,	S_21EGGMOBILE4_FLEE2}
+states[S_21EGGMOBILE4_FLEE2] =	{SPR_21EP,	O,	5,	nil,	0,	0,	S_21EGGMOBILE4_FLEE1}
+
+-- 2.1 Eggscalibur Mace
+
+mobjinfo[MT_21EGGMOBILE4_MACE] = {
+	doomednum = -1,
+	spawnstate = S_21EGGMOBILE4_MACE,
+	spawnhealth = 1000,
+	reactiontime = 8,
+	deathstate = S_BOSSEXPLODE,
+	deathsound = sfx_cybdth,
+	speed = 48*FRACUNIT,
+	radius = 34*FRACUNIT,
+	height = 68*FRACUNIT,
+	mass = DMG_SPIKE,
+	damage = 1,
+	activesound = sfx_mswing,
+	flags = MF_PAIN|MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOGRAVITY
+}
+
+states[S_21EGGMOBILE4_MACE] =	{SPR_21MC,	D,	-1,	nil,	0,	0,	S_NULL}

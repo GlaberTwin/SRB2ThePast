@@ -1,0 +1,420 @@
+##Beta Quest Level Headers
+
+Level 3
+Levelname = Greenflower
+Subtitle = Beta Quest
+interscreen = SONICPIC
+MusicInter = LCLEAR
+Act = 1
+Music = OGFZ1
+NextLevel = 4
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+Weather = 0
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 4
+Levelname = Greenflower
+Subtitle = Beta Quest
+interscreen = TAILSPIC
+MusicInter = LCLEAR
+Act = 2
+Music = OGFZ2
+NextLevel = 5
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 5
+Levelname = Greenflower
+Act = 3
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Music = VSTBOS
+NextLevel = 6
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+SkyNum = 2
+WarningTitle = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 6
+Levelname = Techno Hill
+interscreen = KNUXPIC
+MusicInter = LCLEAR
+Act = 1
+Subtitle = Beta Quest
+Music = OTHZ1
+NextLevel = 7
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 7
+Levelname = Techno Hill
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Subtitle = Beta Quest
+Music = OTHZ2
+NextLevel = 8
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 8
+Levelname = Techno Hill
+interscreen = EGGPIC
+Subtitle = Beta Quest
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = 9
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 9
+Levelname = Deep Sea
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Subtitle = Beta Quest
+Music = ODSZ1
+NextLevel = 10
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 10
+Levelname = Deep Sea
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = ODSZ2
+NextLevel = 11
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+weather = 0
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 11
+Levelname = Deep Sea
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = 12
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+WarningTitle = true
+RecordAttack = 0
+hidden = 1
+weather = 0
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 12
+Levelname = Mine Maze
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = OMMZ1
+NextLevel = 13
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 13
+Levelname = Mine Maze
+Subtitle = Beta Quest
+interscreen = EGGPIC
+Act = 2
+Music = OMMZ2
+NextLevel = 14
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 14
+Levelname = Mine Maze
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = 15
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+WarningTitle = true
+RecordAttack = 0
+hidden = 1
+weather = 0
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 15
+Levelname = Rocky Mountain
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = ROCKYM
+NextLevel = 16
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 16
+Levelname = Rocky Mountain
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = ROCKY2
+NextLevel = 17
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 17
+Levelname = Rocky Mountain
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = 18
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+BonusType = Boss
+WarningTitle = true
+RecordAttack = 0
+hidden = 1
+weather = 0
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 18
+Levelname = Red Volcano
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = ORVZ1
+NextLevel = 19
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 19
+Levelname = Red Volcano
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = ORVZ2
+NextLevel = 20
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 20
+Levelname = Red Volcano
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = 21
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 21
+Levelname = Dark City
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = ODCZ1
+NextLevel = 22
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 22
+Levelname = Dark City
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = ODCZ2
+NextLevel = 23
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 23
+Levelname = Dark City
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = 24
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 24
+Levelname = Doom Ship
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = ODOOMS
+NextLevel = 25
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 25
+Levelname = Doom Ship
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = 26
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+WarningTitle = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 26
+Levelname = Egg Rock
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Music = RRZ
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 21
+RecordAttack = 0
+hidden = 1
+SaveGame = true
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 27
+Levelname = Speed Highway
+interscreen = EGGPIC
+Subtitle = Beta Quest
+MusicInter = LCLEAR
+Act = 0
+Music = SPHZ
+NextLevel = 11
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17
+
+Level 28
+Levelname = Hidden Palace
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 0
+Music = HPZ
+NextLevel = 17
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 132
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 1:17

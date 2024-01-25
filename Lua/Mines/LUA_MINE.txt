@@ -1,0 +1,144 @@
+freeslot("MT_AQUAMINE", "S_AQUAMINE1", "S_AQUAMINE2", "S_AQUAMINE3", "S_AQUAMINE4", "S_AQUAMINE5", "S_AQUAMINE6", "S_AQUAMINE7", "S_AQUAMINE8","SPR_DSMN", "MT_AIRMINE", "S_AIRMINE1", "S_AIRMINE2", "S_AIRMINE3", "S_AIRMINE4", "S_AIRMINE5", "S_AIRMINE6", "S_AIRMINE7", "S_AIRMINE8")
+
+addHook("MobjThinker", function(mobj)
+	if (mobj.tracer and mobj.tracer.player and mobj.tracer.health > 0
+					and P_AproxDistance(P_AproxDistance(mobj.tracer.x - mobj.x, mobj.tracer.y - mobj.y), mobj.tracer.z - mobj.z) <= mobj.radius * 16)
+					// Home in on the target.
+					P_HomingAttack(mobj, mobj.tracer)
+
+					// Don't let it go out of water
+					if (mobj.z + mobj.height > mobj.watertop)
+						mobj.z = mobj.watertop - mobj.height
+					end
+
+					if (mobj.z < mobj.floorz)
+						mobj.z = mobj.floorz
+					end
+					if (leveltime % mobj.info.painchance == 0)
+						S_StartSound(mobj, mobj.info.activesound)
+					end
+				else
+					// Try to find a player
+					P_LookForPlayers(mobj, mobj.radius * 16, true, true )
+					mobj.momx = $ / 2
+					mobj.momy = $ / 2
+					mobj.momz = $ / 2
+				end
+end, MT_AQUAMINE)
+
+addHook("TouchSpecial", function(special, toucher)
+	// Spawn explosion!
+		P_SpawnMobj(special.x, special.y, special.z, special.info.mass)
+		P_RadiusAttack(special, special, special.info.damage)
+		S_StartSound(special, special.info.deathsound)
+end, MT_AQUAMINE)
+
+
+// 2.0 Aqua Mines, AKA Water Deetons
+mobjinfo[MT_AQUAMINE] = {
+		//$Name "Aqua_Mine"
+		//$Sprite DSMNA1
+        doomednum = 1027,
+        spawnstate = S_AQUAMINE1,
+        spawnhealth = 1,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = TICRATE,
+        painsound = sfx_None,
+		missilestate = S_NULL,
+        deathstate = S_NULL,
+        xdeathstate = S_NULL,
+        deathsound = sfx_None,
+        speed = 2*FRACUNIT,
+        radius = 16*FRACUNIT,
+        height = 32*FRACUNIT,
+        dispoffset = 0,
+        mass = MT_UWEXPLODE,
+        damage = 64*FRACUNIT,
+        activesound = sfx_gbeep,
+		raisestate = S_NULL,
+        flags = MF_SPECIAL|MF_NOGRAVITY
+}
+
+// Aqua Mine
+states[S_AQUAMINE1] = {SPR_DSMN, A, 5, nil, 0, 0, S_AQUAMINE2}
+states[S_AQUAMINE2] = {SPR_DSMN, B, 5, nil, 0, 0, S_AQUAMINE3}
+states[S_AQUAMINE3] = {SPR_DSMN, C, 5, nil, 0, 0, S_AQUAMINE4}
+states[S_AQUAMINE4] = {SPR_DSMN, D, 5, nil, 0, 0, S_AQUAMINE5}
+states[S_AQUAMINE5] = {SPR_DSMN, E, 5, nil, 0, 0, S_AQUAMINE6}
+states[S_AQUAMINE6] = {SPR_DSMN, F, 5, nil, 0, 0, S_AQUAMINE7}
+states[S_AQUAMINE7] = {SPR_DSMN, G, 5, nil, 0, 0, S_AQUAMINE8}
+states[S_AQUAMINE8] = {SPR_DSMN, H, 5, nil, 0, 0, S_AQUAMINE1}
+
+
+//Air Mines
+addHook("MobjThinker", function(mobj)
+	if (mobj.tracer and mobj.tracer.player and mobj.tracer.health > 0
+					and P_AproxDistance(P_AproxDistance(mobj.tracer.x - mobj.x, mobj.tracer.y - mobj.y), mobj.tracer.z - mobj.z) <= mobj.radius * 16)
+					// Home in on the target.
+					P_HomingAttack(mobj, mobj.tracer)
+
+					if (mobj.z < mobj.floorz)
+						mobj.z = mobj.floorz
+					end
+					if (leveltime % mobj.info.painchance == 0)
+						S_StartSound(mobj, mobj.info.activesound)
+					end
+				else
+					// Try to find a player
+					P_LookForPlayers(mobj, mobj.radius * 16, true, true )
+					mobj.momx = $ / 2
+					mobj.momy = $ / 2
+					mobj.momz = $ / 2
+				end
+end, MT_AIRMINE)
+
+addHook("TouchSpecial", function(special, toucher)
+	// Spawn explosion!
+		P_SpawnMobj(special.x, special.y, special.z, special.info.mass)
+		P_RadiusAttack(special, special, special.info.damage)
+		S_StartSound(special, special.info.deathsound)
+end, MT_AIRMINE)
+
+
+// 2.0 AIR Mines
+mobjinfo[MT_AIRMINE] = {
+		//$Name "AIR_Mine"
+		//$Sprite DSMNA1
+        doomednum = 1028,
+        spawnstate = S_AIRMINE1,
+        spawnhealth = 1,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = TICRATE,
+        painsound = sfx_None,
+	missilestate = S_NULL,
+        deathstate = S_NULL,
+        xdeathstate = S_NULL,
+        deathsound = sfx_bexpld,
+        speed = 2*FRACUNIT,
+        radius = 16*FRACUNIT,
+        height = 32*FRACUNIT,
+        dispoffset = 0,
+        mass = MT_BOSSEXPLODE,
+        damage = 64*FRACUNIT,
+        activesound = sfx_gbeep,
+	raisestate = S_NULL,
+        flags = MF_SPECIAL|MF_NOGRAVITY
+}
+
+// AIR Mine
+states[S_AIRMINE1] = {SPR_DSMN, A, 5, nil, 0, 0, S_AIRMINE2}
+states[S_AIRMINE2] = {SPR_DSMN, B, 5, nil, 0, 0, S_AIRMINE3}
+states[S_AIRMINE3] = {SPR_DSMN, C, 5, nil, 0, 0, S_AIRMINE4}
+states[S_AIRMINE4] = {SPR_DSMN, D, 5, nil, 0, 0, S_AIRMINE5}
+states[S_AIRMINE5] = {SPR_DSMN, E, 5, nil, 0, 0, S_AIRMINE6}
+states[S_AIRMINE6] = {SPR_DSMN, F, 5, nil, 0, 0, S_AIRMINE7}
+states[S_AIRMINE7] = {SPR_DSMN, G, 5, nil, 0, 0, S_AIRMINE8}
+states[S_AIRMINE8] = {SPR_DSMN, H, 5, nil, 0, 0, S_AIRMINE1}

@@ -1,0 +1,96 @@
+-- 2.1 Score Boxes - Ported by MIDIMan
+-- Use with LUA_2BOX
+
+freeslot(
+	"SPR_2BXP",
+	"MT_21BOX_SCORE1K",
+	"MT_21BOX_SCORE1K_ICON",
+	"MT_21BOX_SCORE10K",
+	"MT_21BOX_SCORE10K_ICON",
+	"S_21BOX_SCORE1K_IDLE",
+	"S_21BOX_SCORE1K_ICON_APPEAR",
+	"S_21BOX_SCORE1K_ICON_SPIN",
+	"S_21BOX_SCORE1K_ICON_LEAVE",
+	"S_21BOX_SCORE10K_IDLE",
+	"S_21BOX_SCORE10K_ICON_APPEAR",
+	"S_21BOX_SCORE10K_ICON_SPIN",
+	"S_21BOX_SCORE10K_ICON_LEAVE"
+)
+
+-- 2.1 1K Points Box
+
+addHook("MapThingSpawn", RM_21MonitorTypeSpawn, MT_21BOX_SCORE1K)
+
+mobjinfo[MT_21BOX_SCORE1K] = {
+	--$Name 2.1 Score (1,000 Points)
+	--$Sprite 2BXPA0
+	--$Category Monitors
+	doomednum = 497,
+	spawnstate = S_21BOX_SCORE1K_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_SCORE1K_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_SCORE1K_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_SCORE1K_IDLE] =	{SPR_2BXP,	A,	2,	nil,	0,	0,	S_21BOX_FLICKER}
+
+mobjinfo[MT_21BOX_SCORE1K_ICON] = {
+	doomednum = -1,
+	spawnstate = S_21BOX_SCORE1K_ICON_APPEAR,
+	spawnhealth = 1,
+	seesound = sfx_token,
+	reactiontime = 1000,
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_21BOX_SCORE1K_ICON_APPEAR] =	{SPR_2BXP,	B,				4,	nil,			0,	0,	S_21BOX_SCORE1K_ICON_SPIN}
+states[S_21BOX_SCORE1K_ICON_SPIN] =		{SPR_2BXP,	C|FF_ANIMATE,	12,	nil,			2,	4,	S_21BOX_SCORE1K_ICON_LEAVE}
+states[S_21BOX_SCORE1K_ICON_LEAVE] =	{SPR_2BXP,	B,				18,	A_AwardScore,	0,	0,	S_NULL}
+
+-- 2.1 10K Points Box
+
+addHook("MapThingSpawn", RM_21MonitorTypeSpawn, MT_21BOX_SCORE10K)
+
+mobjinfo[MT_21BOX_SCORE10K] = {
+	--$Name 2.1 Score (10,000 Points)
+	--$Sprite 2BXPF0
+	--$Category Monitors
+	doomednum = 498,
+	spawnstate = S_21BOX_SCORE10K_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_SCORE10K_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_SCORE10K_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_SCORE10K_IDLE] =	{SPR_2BXP,	F,	2,	nil,	0,	0,	S_21BOX_FLICKER}
+
+mobjinfo[MT_21BOX_SCORE10K_ICON] = {
+	doomednum = -1,
+	spawnstate = S_21BOX_SCORE10K_ICON_APPEAR,
+	spawnhealth = 1,
+	seesound = sfx_token,
+	reactiontime = 10000,
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_21BOX_SCORE10K_ICON_APPEAR] =	{SPR_2BXP,	G,				4,	nil,			0,	0,	S_21BOX_SCORE10K_ICON_SPIN}
+states[S_21BOX_SCORE10K_ICON_SPIN] =	{SPR_2BXP,	H|FF_ANIMATE,	12,	nil,			2,	4,	S_21BOX_SCORE10K_ICON_LEAVE}
+states[S_21BOX_SCORE10K_ICON_LEAVE] =	{SPR_2BXP,	G,				18,	A_AwardScore,	0,	0,	S_NULL}

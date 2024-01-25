@@ -1,0 +1,96 @@
+// Particle Absorber - Created by Glaber and MIDIMan
+// Some code is borrowed from the 2.1 Metal Sonic port in Retro Bosses
+
+freeslot("MT_PDPARTICLE", "S_PEXIST", "S_VACUUM", "SPR_INVS")
+
+// Force cusval to be 0 on spawn
+addHook("MobjSpawn", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	mobj.cusval = 0
+end, MT_PDPARTICLE)
+
+addHook("MobjThinker", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	// Only run this code if cusval is 0
+	// (In other words, this code should only run once)
+	if mobj.cusval then return end
+	mobj.cusval = 1
+	
+	local last = nil
+	
+	// Run through the thinkers ONCE and find all of the MT_BOSS9GATHERPOINT in the map.
+	// Build a hoop linked list of 'em!
+	for th in mobjs.iterate() do
+		if not (th and th.valid) then continue end
+		if th.type == MT_BOSS9GATHERPOINT then // Replace MT_BOSS9GATHERPOINT if it changes in the future
+			if last and last.valid then
+				last.hnext = th
+			else
+				mobj.hnext = th
+			end
+			th.hprev = last
+			last = th
+		end
+	end
+end, MT_PDPARTICLE)
+
+// Spawn energy particles
+function A_ParticleVacuum(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	local dist = 0
+	
+	local spawner = mobj.hnext
+	while spawner and spawner.valid do
+		dist = FixedHypot(spawner.x - mobj.x, spawner.y - mobj.y)
+		if (P_RandomRange(1,dist/FRACUNIT/16) == 1) then
+			break
+		end
+		spawner = spawner.hnext
+	end
+	if spawner and spawner.valid then
+		local missile = P_SpawnMissile(spawner, mobj, MT_21MSGATHER) // Replace MT_21MSGATHER with MT_MSGATHER if desired
+		missile.momz = FixedDiv(missile.momz, 7*FRACUNIT/4)
+		if dist == 0 then
+			missile.fuse = 0
+		else
+			missile.fuse = dist/FixedHypot(missile.momx, missile.momy)
+		end
+		//if missile.fuse > mobj.fuse then
+			//P_RemoveMobj(missile)
+		//end
+	end
+end
+
+mobjinfo[MT_PDPARTICLE] = {
+		//$Name "Particle Absorber"
+		//$Sprite UNKNA0
+		//$Category Particles
+        doomednum = 342,
+        spawnstate = S_PEXIST,
+        spawnhealth = 1000,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 0,
+        painsound = sfx_None,
+        meleestate = S_NULL,
+        missilestate = S_NULL,
+        deathstate = S_NULL,
+        xdeathstate = S_NULL,
+        deathsound = sfx_None,
+        speed = 1,
+        radius = 8*FRACUNIT,
+        height = 16*FRACUNIT,
+        dispoffset = 0,
+        mass = 4,
+        damage = 0,
+        activesound = sfx_None,
+        flags = MF_NOBLOCKMAP|MF_NOGRAVITY|MF_NOCLIP|MF_NOCLIPHEIGHT,
+        raisestate = S_NULL
+}
+states[S_PEXIST] = {SPR_INVS, A, -1, nil, 1, 1, S_PEXIST}
+states[S_VACUUM] = {SPR_INVS, A, 1, A_ParticleVacuum, 0, 0, S_VACUUM}

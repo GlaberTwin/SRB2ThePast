@@ -1,0 +1,304 @@
+##Metal's Challenge Level Headers
+
+Level O0
+Levelname = Halloween Tech 2
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+palette = 1031
+Act = 0
+NoZone = 1
+Music = HTECH
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 23
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 31:1
+
+Level O1
+levelname = Gleaming Glacier
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+act = 0
+NoZone = 1
+typeoflevel = Singleplayer,Co-op
+nextlevel = 31
+music = GLEEMI
+SkyNum = 17
+weather = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 31:2
+
+Level O2
+levelname = Emerald Coast
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+act = 0
+typeoflevel = Singleplayer,Co-op
+nextlevel = 31
+music = ECZA1
+skynum = 25
+weather = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = 31:3
+
+Level O3
+Levelname = Corrupt Shrine
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = FDDSZ1
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 7
+hidden = 1
+Lua.TPHub = 31:4
+
+Level O4
+Levelname = Castle Eggman
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Act = 2
+Music = FDCEZ2
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 1
+SkyNum = 20
+hidden = 1
+Lua.TPHub = 31:5
+
+Level O5
+levelname = Snow Valley
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Interscreen = INTERpic
+act = 0
+typeoflevel = Singleplayer,Co-op
+nextlevel = 31
+music = SNOWVA
+SkyNum = 17
+hidden = 1
+Weather = 0
+Lua.TPHub = 31:6
+
+Level O6
+Levelname = Techno Hill
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Act = 1
+Music = FDTHZ1
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = 31
+SkyNum = 3
+RecordAttack = false
+hidden = 1
+Lua.TPHub = 31:7
+
+Level O7
+Levelname = Greenflower
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Act = 2
+Music = FDGFZ2
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = 31
+SkyNum = 2
+RecordAttack = false
+hidden = 1
+Lua.TPHub = 31:8
+
+Level O8
+Levelname = Techno Hill
+Act = 2
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = THTGF2
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 31:9
+
+Level O9
+Levelname = Tainted Gorge
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = MAP05M
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 5
+hidden = 1
+Lua.TPHub = 31:10
+
+Level OA
+Levelname = Deep Sea
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Act = 2
+Music = FDDSZ2
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 31:11
+
+Level OB
+Levelname = Techno Hill
+Act = 2
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = MAP05M
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 4
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 31:12
+
+Level OC
+Levelname = Castle Eggman
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Act = 2
+Music = FDCEZ2
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = 31
+SkyNum = 20
+RecordAttack = false
+hidden = 1
+Lua.TPHub = 31:13
+
+Level OD
+Levelname = Red Volcano
+Act = 1
+interscreen = FDINTERP
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = FDRVZ1
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 31:14
+
+Level OE
+Levelname = Quicksand Ruins
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = MP_DES
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+NumLaps = 4
+Weather = 0
+SkyNum = 21
+hidden = 1
+Lua.TPHub = 31:15
+
+Level OF
+Levelname = Mine Maze
+Act = 1
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = mines
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op,2D
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 31:16
+
+Level OG
+Levelname = Arid Canyon
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Act = 1
+Music = OACZ1
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 28
+RecordAttack = 0
+hidden = 1
+FlickyList = Cow,Ram
+Lua.TPHub = 31:17
+
+Level OH
+Levelname = Aerial Garden
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = MAPB6M
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = 31
+SkyNum = 40
+RecordAttack = false
+hidden = 1
+Lua.TPHub = 31:18
+
+Level OI
+Levelname = Castle Eggman
+Act = 2
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = CEZ2
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = 31
+SkyNum = 11
+Weather = PRECIP_STORM_NORAIN
+RecordAttack = false
+LevelSelect = 0
+SaveGame = false
+SkyboxScale = 16
+hidden = 1
+FlickyList = Rat,Bear
+Lua.TPHub = 31:19
+
+Level OJ
+LevelName = Warped Woods
+subtitle = Metal's Challenge
+SelectHeading = Metal's Challenge
+Music = TRRING
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 64
+hidden = 1
+Lua.TPHub = 31:20
+
+Level OK
+Levelname = Egg Rock
+subtitle = Metal's FINAL Challenge
+SelectHeading = Metal's Challenge
+Act = 2
+Music = ERZ221
+TypeOfLevel = Singleplayer,Co-op
+NextLevel = 31
+SkyNum = 41
+RecordAttack = false
+hidden = 1
+Lua.TPHub = 31:21
+
+Level ZZ
+Levelname = History Clash
+Act = 0
+Subtitle = Criticial Error
+Music = ALMAG
+NoSSMusic = true
+SaveGame = true
+NextLevel = 31
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 44
+RecordAttack = 0
+hidden = 1
+#Lua.TPHub = 31:22 ###Set this in map if 'Metal's Superior' is unlocked.

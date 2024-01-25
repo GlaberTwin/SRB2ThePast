@@ -1,0 +1,149 @@
+-- Demo Ring Monitors - Ported by MIDIMan
+-- Use with LUA_DBOX
+
+freeslot(
+	"SPR_DBXR",
+	"MT_DEMOBOX_RING",
+	"MT_DEMOBOX_SRING",
+	"S_DEMOBOX_RING_IDLE",
+	"S_DEMOBOX_RING_BREAK1",
+	"S_DEMOBOX_RING_BREAK2",
+	"S_DEMOBOX_RING_BREAK3",
+	"S_DEMOBOX_RING_BREAK4",
+	"S_DEMOBOX_RING_BREAK5",
+	"S_DEMOBOX_RING_BREAK6",
+	"S_DEMOBOX_SRING_IDLE",
+	"S_DEMOBOX_SRING_BREAK1",
+	"S_DEMOBOX_SRING_BREAK2",
+	"S_DEMOBOX_SRING_BREAK3",
+	"S_DEMOBOX_SRING_BREAK4",
+	"S_DEMOBOX_SRING_BREAK5",
+	"S_DEMOBOX_SRING_BREAK6"
+)
+
+-- Allow the player to get a perfect bonus
+local function RM_DemoRingMonitorSetup(mo, mthing, numrings)
+	if not (mo and mo.valid and numrings) then return end
+	
+	-- Don't spawn if the player is in Ultimate Mode
+	if ultimatemode and not G_IsSpecialStage(gamemap) then
+		P_RemoveMobj(mo)
+		return
+	end
+	
+	for i = 1, numrings, 1 do
+		local ring = P_SpawnMobj(mo.x, mo.y, mo.z, MT_RING)
+		P_RemoveMobj(ring)
+	end
+end
+
+-- Only give the player rings in singleplayer
+function A_DemoRingBox(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	if not (netgame or multiplayer) then
+		A_RingBox(actor, var1, var2)
+	end
+end
+
+-- Demo Ring Monitor
+
+-- Give the player the monitor's rings as soon as it breaks
+addHook("MobjDeath", function(target, inflictor, source, damagetype)
+	if not (target and target.valid) then return end
+	
+	if netgame or multiplayer then
+		if source and source.valid and source.player then
+			target.target = source
+		elseif inflictor and inflictor.valid and inflictor.player then
+			target.target = inflictor
+		else
+			return
+		end
+	
+		A_RingBox(target, var1, var2)
+	end
+end, MT_DEMOBOX_RING)
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_DemoRingMonitorSetup(mo, mthing, 10)
+end, MT_DEMOBOX_RING)
+
+mobjinfo[MT_DEMOBOX_RING] = {
+	--$Name Demo Super Ring (10 Rings)
+	--$Sprite DBXRA0
+	--$Category Monitors
+	doomednum = 453,
+	spawnstate = S_DEMOBOX_RING_IDLE,
+	spawnhealth = 1,
+	seesound = sfx_itemup,
+	reactiontime = 10,
+	painstate = S_DEMOBOX_RING_IDLE,
+	deathstate = S_DEMOBOX_RING_BREAK1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_DEMOBOX_RING_IDLE] =	{SPR_DBXR,	A,	2,	nil,	0,	0,	S_DEMOBOX_FLICKER}
+
+states[S_DEMOBOX_RING_BREAK1] =	{SPR_DBXR,	B,	2,	A_DemoFall,		0,	0,	S_DEMOBOX_RING_BREAK2}
+states[S_DEMOBOX_RING_BREAK2] =	{SPR_DBXR,	C,	2,	A_Scream,		0,	0,	S_DEMOBOX_RING_BREAK3}
+states[S_DEMOBOX_RING_BREAK3] =	{SPR_DBXR,	D,	2,	nil,			0,	0,	S_DEMOBOX_RING_BREAK4}
+states[S_DEMOBOX_RING_BREAK4] =	{SPR_DBXR,	E,	2,	nil,			0,	0,	S_DEMOBOX_RING_BREAK5}
+states[S_DEMOBOX_RING_BREAK5] =	{SPR_DBXR,	F,	16,	nil,			0,	0,	S_DEMOBOX_RING_BREAK6}
+states[S_DEMOBOX_RING_BREAK6] =	{SPR_DBXR,	F,	48,	A_DemoRingBox,	0,	0,	S_DEMOBOX_DEAD}
+
+-- Demo Silver Ring Monitor
+
+-- Give the player the monitor's rings as soon as it breaks
+addHook("MobjDeath", function(target, inflictor, source, damagetype)
+	if not (target and target.valid) then return end
+	
+	if netgame or multiplayer then
+		if source and source.valid and source.player then
+			target.target = source
+		elseif inflictor and inflictor.valid and inflictor.player then
+			target.target = inflictor
+		else
+			return
+		end
+	
+		A_RingBox(target, var1, var2)
+	end
+end, MT_DEMOBOX_SRING)
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_DemoRingMonitorSetup(mo, mthing, 25)
+end, MT_DEMOBOX_SRING)
+
+mobjinfo[MT_DEMOBOX_SRING] = {
+	--$Name Demo Silver Ring (25 Rings)
+	--$Sprite DBXRG0
+	--$Category Monitors
+	doomednum = 454,
+	spawnstate = S_DEMOBOX_SRING_IDLE,
+	spawnhealth = 1,
+	seesound = sfx_itemup,
+	reactiontime = 25,
+	painstate = S_DEMOBOX_SRING_IDLE,
+	deathstate = S_DEMOBOX_SRING_BREAK1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_DEMOBOX_SRING_IDLE] =	{SPR_DBXR,	G,	2,	nil,	0,	0,	S_DEMOBOX_FLICKER}
+
+states[S_DEMOBOX_SRING_BREAK1] =	{SPR_DBXR,	H,	2,	A_DemoFall,		0,	0,	S_DEMOBOX_SRING_BREAK2}
+states[S_DEMOBOX_SRING_BREAK2] =	{SPR_DBXR,	I,	2,	A_Scream,		0,	0,	S_DEMOBOX_SRING_BREAK3}
+states[S_DEMOBOX_SRING_BREAK3] =	{SPR_DBXR,	J,	2,	nil,			0,	0,	S_DEMOBOX_SRING_BREAK4}
+states[S_DEMOBOX_SRING_BREAK4] =	{SPR_DBXR,	K,	2,	nil,			0,	0,	S_DEMOBOX_SRING_BREAK5}
+states[S_DEMOBOX_SRING_BREAK5] =	{SPR_DBXR,	L,	16,	nil,			0,	0,	S_DEMOBOX_SRING_BREAK6}
+states[S_DEMOBOX_SRING_BREAK6] =	{SPR_DBXR,	L,	48,	A_DemoRingBox,	0,	0,	S_DEMOBOX_DEAD}

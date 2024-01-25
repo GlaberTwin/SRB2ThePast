@@ -1,0 +1,184 @@
+// TGF Fishbot (Unofficial name) - Ported by MIDIMan
+
+freeslot(
+	"MT_TGFFISH", 
+	"S_TGFFISH_TGFMOVEMENT",
+	"S_TGFFISH_ROAM",
+	"S_TGFFISH_CHOMP",
+	"SPR_TFSH"
+)
+
+local function CustomTGFFishSpawn(mobj, mapthing)
+	if not (mobj and mobj.valid
+	and mapthing and mapthing.valid)
+		return
+	end
+	
+    local offset
+    
+    if mapthing.z != 0
+        offset = mapthing.z
+    else
+        offset = 33*FRACUNIT
+    end
+    
+    if (mapthing.options & MTF_OBJECTFLIP)
+        if offset != 0
+            mobj.z = mobj.z - offset
+        else
+            mobj.z = mobj.ceilingz
+        end
+    else
+        if offset != 0
+            mobj.z = mobj.z + offset
+        else
+            mobj.z = mobj.floorz
+        end
+    end
+    
+end
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid
+	and mthing and mthing.valid)
+		return
+	end
+	
+	CustomTGFFishSpawn(mo, mthing)
+	
+	if (mthing.options & MTF_OBJECTSPECIAL)
+		mo.state = S_TGFFISH_TGFMOVEMENT
+		mo.flags = $|MF_NOCLIPHEIGHT
+		mo.tgfMovement = true
+		mo.tgfAngle = FixedAngle(mthing.angle*FRACUNIT)
+	end
+end, MT_TGFFISH)
+
+// Quick function to check if the nextPosition goes over the endPosition
+local function TGFDifferenceCheck(diff, nextPos, endPos)
+	if abs(diff) >= abs(endPos - nextPos)
+	or 3*abs(diff)/2 >= abs(endPos - nextPos)
+		return endPos
+	end
+	
+	return nextPos + diff
+end
+
+local function TGFMovement(mo, endPos, speed)
+	if not (mo and mo.valid) then return end
+	if not endPos then return end
+	if not speed then return end
+	
+	local nextPos = {x = mo.x, y = mo.y, z = mo.z}
+	
+	local angle = R_PointToAngle2(mo.x, mo.y, endPos.x, endPos.y)
+	local dist = FixedHypot(endPos.x - mo.x, endPos.y - mo.y)
+	local pitch = R_PointToAngle2(0, mo.z, dist, endPos.z)
+	
+	local diff = {
+		x = FixedMul(speed, FixedMul(cos(angle), cos(pitch))), 
+		y = FixedMul(speed, FixedMul(sin(angle), cos(pitch))), 
+		z = FixedMul(speed, sin(pitch))
+	}
+	
+	nextPos.x = TGFDifferenceCheck(diff.x, nextPos.x, endPos.x)
+	nextPos.y = TGFDifferenceCheck(diff.y, nextPos.y, endPos.y)
+	nextPos.z = TGFDifferenceCheck(diff.z, nextPos.z, endPos.z)
+	
+	mo.angle = R_PointToAngle2(0, 0, diff.x, diff.y) // TGF Fish originally only faces one direction
+	
+	P_MoveOrigin(mo, nextPos.x, nextPos.y, nextPos.z)
+	
+	if mo.x == endPos.x and mo.y == mo.y and mo.z == endPos.z
+		return true
+	end
+end
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.health <= 0 then return end
+	
+	// Instead of making tons of states for the TGF "fishbot",
+	// handle the actions in its MobjThinker
+	if not mo.tgfMovement
+		if mo.state == S_TGFFISH_ROAM then A_JetJawRoam(mo)
+		elseif mo.state == S_TGFFISH_CHOMP then A_JetJawChomp(mo) end
+		return
+	end
+	
+	// This part of the MobjThinker is only for the fishbot's TGF movement
+	
+	// Setup variables for the TGF-based movement
+	if not mo.tgfOrigPos
+		mo.tgfOrigPos = {
+			x = mo.x,
+			y = mo.y,
+			z = mo.z,
+		}
+	end
+	
+	local origPos = mo.tgfOrigPos
+	if not mo.tgfPosNum then mo.tgfPosNum = 0 end
+	if not mo.tgfReverse then mo.tgfReverse = false end
+	if not mo.tgfAngle then mo.tgfAngle = 0 end
+	if not mo.tgfPositions
+		mo.tgfPositions = {
+			{x = origPos.x, y = origPos.y, z = origPos.z},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 54*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 54*mo.scale),	z = origPos.z - P_MobjFlip(mo)*29*mo.scale},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 121*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 121*mo.scale),	z = origPos.z - P_MobjFlip(mo)*46*mo.scale},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 182*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 182*mo.scale),	z = origPos.z - P_MobjFlip(mo)*54*mo.scale},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 218*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 218*mo.scale),	z = origPos.z - P_MobjFlip(mo)*41*mo.scale},
+			{x = origPos.x + FixedMul(cos(mo.tgfAngle), 252*mo.scale),	y = origPos.y + FixedMul(sin(mo.tgfAngle), 252*mo.scale),	z = origPos.z - P_MobjFlip(mo)*14*mo.scale}
+		}
+	end
+	
+	local speed = 6*mo.scale
+	
+	if mo.tgfPositions and table.maxn(mo.tgfPositions)
+		local maxIndex = table.maxn(mo.tgfPositions)
+		
+		// Move the fish backwards if it is reversed
+		if mo.tgfReverse and mo.tgfPosNum > 1
+			if TGFMovement(mo, mo.tgfPositions[mo.tgfPosNum - 1], speed)
+				mo.tgfPosNum = $-1
+			end
+		// Move the fish forwards if it is not reversed
+		elseif not mo.tgfReverse and mo.tgfPosNum < maxIndex
+			if TGFMovement(mo, mo.tgfPositions[mo.tgfPosNum + 1], speed)
+				mo.tgfPosNum = $+1
+			end
+		end
+		
+		// Reverse the fish's movement if it reaches one of the path's ends
+		if (mo.tgfReverse and mo.tgfPosNum <= 1)
+		or (not mo.tgfReverse and mo.tgfPosNum >= maxIndex)
+			mo.tgfReverse = not $
+		end
+	end
+end, MT_TGFFISH)
+
+// TGF Fish
+mobjinfo[MT_TGFFISH] = {
+		//$Name "TGF Fish"
+		//$Sprite TFSHA1
+		//$Category TGF/Concept Enemies
+		//$Flags4Text TGF Behavior
+        doomednum = 160,
+        spawnstate = S_TGFFISH_ROAM,
+        spawnhealth = 1,
+        seestate = S_TGFFISH_CHOMP,
+        reactiontime = 4*TICRATE,
+        attacksound = sfx_s1ab,
+        deathstate = S_XPLD_FLICKY,
+        deathsound = sfx_pop,
+        speed = 8,
+        radius = 24*FRACUNIT,
+        height = 28*FRACUNIT,
+        flags = MF_SLIDEME|MF_FLOAT|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY
+}
+
+states[S_TGFFISH_TGFMOVEMENT] =	{SPR_TFSH,	A|FF_ANIMATE,	-1,	nil,	7,	2,	S_TGFFISH_TGFMOVEMENT}
+
+states[S_TGFFISH_ROAM] =	{SPR_TFSH,	A|FF_ANIMATE,	-1,	nil,				7,	4,	S_TGFFISH_ROAM}
+states[S_TGFFISH_CHOMP] =	{SPR_TFSH,	A|FF_ANIMATE,	16,	A_PlayAttackSound,	7,	1,	S_TGFFISH_CHOMP}

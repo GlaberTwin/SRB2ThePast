@@ -1,0 +1,85 @@
+freeslot("MT_OSHARP", "S_OSHARP_ROAM1", "S_OSHARP_ROAM2", "S_OSHARP_AIM1", "S_OSHARP_AIM2", "S_OSHARP_AIM3", "S_OSHARP_AIM4", "S_OSHARP_SPIN", "S_OSHARP_STOP", "SPR_OSRP")
+
+addHook("TouchSpecial", function(mo, pmo)
+    if ((mo.state == mo.info.xdeathstate) or (pmo.z > mo.z + mo.height/2))
+    and not (pmo.player.powers[pw_invulnerability])
+    and not (pmo.player.powers[pw_super])
+	and not ((pmo.player.powers[pw_carry] == CR_NIGHTSMODE) and (pmo.player.pflags & PF_DRILLING))
+        P_DamageMobj(pmo, mo, mo)
+        return true
+    end
+end, MT_OSHARP)
+
+// Function: A_OldSharpSpin
+//
+// Description: The old Spin chase routine for Sharps
+//
+// var1 = unusedish
+// var2 = unused
+//
+function A_OldSharpSpin(actor, var1)
+	if not actor.health
+		actor.state = actor.info.deathstate
+		return
+	end
+	if (actor.threshold and actor.target)
+		actor.angle = $+ANGLE_22h
+		P_Thrust(actor, R_PointToAngle2(actor.x, actor.y, actor.target.x, actor.target.y), FixedMul(actor.info.speed*FRACUNIT, actor.scale))
+		actor.threshold = $1 - 1
+
+	else
+		actor.reactiontime = actor.info.reactiontime
+		actor.state = actor.info.spawnstate
+		var1 = 1
+		A_Look(actor)
+		if (actor.target)
+			actor.angle = R_PointToAngle2(actor.x, actor.y, actor.target.x, actor.target.y)
+		end
+	end
+end
+
+
+// Old Sharp
+mobjinfo[MT_OSHARP] = {
+		//$Name "SHARP"
+		//$Sprite OSRPA1
+        doomednum = 144,
+        spawnstate = S_OSHARP_ROAM1,
+        spawnhealth = 1,
+        seestate = S_OSHARP_ROAM2,
+        seesound = sfx_None,
+        reactiontime = 3*TICRATE,
+        attacksound = sfx_s3kd8s,
+        painstate = S_NULL,
+        painchance = 5*TICRATE,
+        painsound = sfx_dmpain,
+		meleestate = S_NULL,
+		missilestate = S_OSHARP_AIM1,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_OSHARP_SPIN,
+        deathsound = sfx_pop,
+        speed = 2,
+        radius = 16*FRACUNIT,
+        height = 24*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE|MF_BOUNCE
+}
+	
+states[S_OSHARP_ROAM1] = {SPR_OSRP, A, 1, A_Look, 0, 0, S_OSHARP_ROAM1}
+states[S_OSHARP_ROAM2] = {SPR_OSRP, A, 1, A_SharpChase, 0, 0, S_OSHARP_ROAM2}
+states[S_OSHARP_AIM1] = {SPR_OSRP, B, 2, A_FaceTarget, 0, 0, S_OSHARP_AIM2}
+states[S_OSHARP_AIM2] = {SPR_OSRP, C, 2, A_FaceTarget, 0, 0, S_OSHARP_AIM3}
+states[S_OSHARP_AIM3] = {SPR_OSRP, D, 2, A_FaceTarget, 0, 0, S_OSHARP_AIM4}
+states[S_OSHARP_AIM4] = {SPR_OSRP, E, 7, A_FaceTarget, 0, 0, S_OSHARP_SPIN}
+states[S_OSHARP_SPIN] = {SPR_OSRP, E, 1, A_OldSharpSpin, 0, 0, S_OSHARP_SPIN}
+states[S_OSHARP_STOP] = {SPR_OSRP, A, 1, nil, 0, 0, S_OSHARP_ROAM1}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OSHARP] = 6    // Makes MT_OSHARP give Needle

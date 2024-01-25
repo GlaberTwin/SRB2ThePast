@@ -1,0 +1,29 @@
+// SRB1 SpyBot 2000 - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_ROBOTOPOLIS",
+	"S_SRB1_ROBOTOPOLIS1",
+	"S_SRB1_ROBOTOPOLIS2",
+	"SPR_SRBJ"
+)
+
+mobjinfo[MT_SRB1_ROBOTOPOLIS] = {
+	//$Name SpyBot 2000
+	//$Sprite SRBJA0
+	//$Category SRB1 Enemies
+	doomednum = 4010,
+	spawnstate = S_SRB1_ROBOTOPOLIS1,
+	spawnhealth = 1,
+	seestate = S_SRB1_ROBOTOPOLIS1,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3*FRACUNIT,
+	radius = 36*FRACUNIT,
+	height = 62*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY|MF_NOGRAVITY|MF_FLOAT
+}
+
+states[S_SRB1_ROBOTOPOLIS1] =	{SPR_SRBJ,	A,	8,	A_MoveAbsolute,	0,	5,	S_SRB1_ROBOTOPOLIS2}
+states[S_SRB1_ROBOTOPOLIS2] =	{SPR_SRBJ,	A,	8,	A_MoveAbsolute,	0,	-5,	S_SRB1_ROBOTOPOLIS1}

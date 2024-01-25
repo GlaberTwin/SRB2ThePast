@@ -1,0 +1,85 @@
+// TGF Drillakilla - Ported by Glaber (original SOC) and MIDIMan (TGF movement and conversion to Lua)
+
+//the return of the Drilla
+freeslot(
+	"MT_DRILLA",
+	"S_DRIL_TGFMOVEMENT",
+	"S_DRIL_STAND",
+	"S_DRIL_STAND2",
+	"S_DRIL_RUN",
+	"S_DRIL_RUN2",
+	"S_DRIL_RUN3",
+	"S_DRIL_RUN4",
+	"SPR_DRIL"
+)
+
+local TGF_DRILLA_TIMER = 104
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid
+	and mthing and mthing.valid)
+		return
+	end
+	
+	if (mthing.options & MTF_OBJECTSPECIAL)
+		mo.state = S_DRIL_TGFMOVEMENT
+	end
+end, MT_DRILLA)
+
+addHook("MobjSpawn", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	mo.tgfTimer = TGF_DRILLA_TIMER
+end, MT_DRILLA)
+
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	// This code is only meant for the TGF movement
+	if mo.state ~= S_DRIL_TGFMOVEMENT then return end
+	
+	// Make the drillakilla move
+	P_InstaThrust(mo, mo.angle, 2*mo.scale)
+	
+	if mo.tgfTimer
+		// Decrement the TGF timer if it is not 0
+		mo.tgfTimer = $-1
+	else
+		// Otherwise flip the drillakilla 180 degrees and reset the timer
+		mo.tgfTimer = TGF_DRILLA_TIMER
+		mo.angle = $ + ANGLE_180
+	end
+end, MT_DRILLA)
+
+mobjinfo[MT_DRILLA] = {
+	//$Name "Drillakilla"
+	//$Sprite DRILA1
+	//$Category TGF/Concept Enemies
+	doomednum = 4028,
+	spawnstate = S_DRIL_STAND,
+	spawnhealth = 1,
+	seestate = S_DRIL_RUN,
+	//reactiontime = 3,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 24*FRACUNIT, // Originally 30 in SRB2XMAS
+	height = 48*FRACUNIT, // Originally 56 in SRB2XMAS
+	//mass = 100,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_ENEMY
+}
+
+states[S_DRIL_TGFMOVEMENT] =	{SPR_DRIL,	A|FF_ANIMATE,	-1,	nil,	3,	1,	S_DRIL_TGFMOVEMENT}
+
+states[S_DRIL_STAND] =	{SPR_DRIL,	A,	1,	A_Look,		0,	0,	S_DRIL_STAND2}
+states[S_DRIL_STAND2] =	{SPR_DRIL,	A,	1,	A_Look,		0,	0,	S_DRIL_STAND}
+states[S_DRIL_RUN] =	{SPR_DRIL,	A,	2,	A_Chase,	0,	0,	S_DRIL_RUN2}
+states[S_DRIL_RUN2] =	{SPR_DRIL,	B,	2,	A_Chase,	0,	0,	S_DRIL_RUN3}
+states[S_DRIL_RUN3] =	{SPR_DRIL,	C,	2,	A_Chase,	0,	0,	S_DRIL_RUN4}
+states[S_DRIL_RUN4] =	{SPR_DRIL,	D,	2,	A_Chase,	0,	0,	S_DRIL_RUN}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_DRILLA] = 6    // Makes MT_DRILLA give Needle

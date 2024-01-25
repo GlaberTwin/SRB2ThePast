@@ -1,0 +1,33 @@
+// Demo Missile - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_OLD_LAZER",
+	"S_LAZERMISSLE",
+	"S_SOUNDPLAYER",
+	"SPR_9MIS"
+)
+
+local function Demo_InterruptSound(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	S_StopSoundByID(actor, actor.info.seesound)
+	if not actor.eggdemoBehavior then S_StartSound(actor, sfx_chchng) end
+end
+
+mobjinfo[MT_OLD_LAZER] = {
+	doomednum = -1,
+	spawnstate = S_LAZERMISSLE,
+	spawnhealth = 1000,
+	seesound = sfx_rlaunc,
+	deathstate = S_SOUNDPLAYER,
+	deathsound = sfx_none,
+	speed = 20*FRACUNIT,
+	radius = 11*FRACUNIT,
+	height = 8*FRACUNIT,
+	damage = 20,
+	flags = MF_NOBLOCKMAP|MF_NOGRAVITY|MF_MISSILE
+}
+
+states[S_LAZERMISSLE] =	{SPR_9MIS,	A,	1,	A_SmokeTrailer,			MT_SMOKE,	0,	S_LAZERMISSLE}
+// 18 tics is roughly how long the invisible explosion animation took in SRB2XMAS
+states[S_SOUNDPLAYER] =	{SPR_NULL,	A,	18,	Demo_InterruptSound,	0,			0,	S_NULL}

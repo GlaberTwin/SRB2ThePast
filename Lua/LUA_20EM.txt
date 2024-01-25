@@ -1,0 +1,367 @@
+-- 2.0 Egg Mobile - Ported from 2.0.7
+-- PLEASE LOAD LUA_CMMN, LUA_OJTF AND LUA_EMCM BEFORE THIS
+
+freeslot(
+	-- Objects
+	"MT_20EGGMOBILE",
+-- 	"MT_20ROCKET",
+	-- States
+	"S_20EGGMOBILE_STND",
+	"S_20EGGMOBILE_LATK1",
+	"S_20EGGMOBILE_LATK2",
+	"S_20EGGMOBILE_LATK3",
+	"S_20EGGMOBILE_LATK4",
+	"S_20EGGMOBILE_LATK5",
+	"S_20EGGMOBILE_LATK6",
+	"S_20EGGMOBILE_LATK7",
+	"S_20EGGMOBILE_LATK8",
+	"S_20EGGMOBILE_LATK9",
+	"S_20EGGMOBILE_LATK10",
+	"S_20EGGMOBILE_RATK1",
+	"S_20EGGMOBILE_RATK2",
+	"S_20EGGMOBILE_RATK3",
+	"S_20EGGMOBILE_RATK4",
+	"S_20EGGMOBILE_RATK5",
+	"S_20EGGMOBILE_RATK6",
+	"S_20EGGMOBILE_RATK7",
+	"S_20EGGMOBILE_RATK8",
+	"S_20EGGMOBILE_RATK9",
+	"S_20EGGMOBILE_RATK10",
+	"S_20EGGMOBILE_PANIC1",
+	"S_20EGGMOBILE_PANIC2",
+	"S_20EGGMOBILE_PAIN",
+	"S_20EGGMOBILE_PAIN2"
+)
+
+-- 2.0 Eggmobile
+
+local function nomissile(mo)
+	if not (mo and mo.valid) then return end
+	
+	-- possibly choose another target
+	if multiplayer and P_RandomByte() < 2 then
+		if P_LookForPlayers(mo, 0, true, false) then
+			return -- got a new target
+		end
+	end
+	
+	--chase towards player
+	mo.movecount = $-1
+	if mo.movecount < 0 or not P_Move(mo, mo.info.speed) then
+		P_NewChaseDir(mo)
+	end
+end
+
+function A_FDBoss1Chase(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local delta
+	
+	if actor.reactiontime then actor.reactiontime = $-1 end
+	
+	-- Use the 2.0 variant if var1 is not 0
+	if var1 ~= 0 then
+		if actor.z < actor.floorz+33*FRACUNIT then
+			actor.z = actor.floorz+33*FRACUNIT
+		end
+	end
+	
+	-- turn towards movement direction if not there yet
+	if actor.movedir < NUMDIRS then -- NUMDIRS should be 8
+		actor.angle = $ & (7 * (2^29))
+		delta = actor.angle - (actor.movedir * (2^29))
+		
+		if delta > 0 then
+			actor.angle = $-ANGLE_45
+		elseif delta < 0 then
+			actor.angle = $+ANGLE_45
+		end
+	end
+	
+	-- do not attack twice in a row
+	if (actor.flags2 & MF2_JUSTATTACKED) then
+		actor.flags2 = $ & ~MF2_JUSTATTACKED
+		P_NewChaseDir(actor)
+		return
+	end
+	
+	if actor.movecount then
+		nomissile(actor)
+		return
+	end
+	
+	if not P_CheckMissileRange(actor) then
+		nomissile(actor)
+		return
+	end
+	
+	if actor.reactiontime <= 0 then
+		if actor.health > actor.info.damage then
+			if (P_RandomByte() & 1) then
+				actor.state = actor.info.missilestate
+			else
+				actor.state = actor.info.meleestate
+			end
+		else
+			-- UDMF support for pinch phase!
+			if actor.spawnpoint and actor.spawnpoint.valid and actor.spawnpoint.args[4] then
+				P_LinedefExecute(actor.spawnpoint.args[4], actor, nil)
+			end
+			actor.state = actor.info.raisestate
+		end
+		
+		actor.flags2 = $|MF2_JUSTATTACKED
+		actor.reactiontime = 2*TICRATE
+		return
+	end
+end
+
+-- Make the 2.0 Egg Mobile spawn 33 FRACUNITS off the ground if its z-position hasn't been set
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	local offset
+	
+	if mthing.z ~= 0 then
+		offset = mthing.z
+	else
+		offset = 33*FRACUNIT
+	end
+	
+	if (mthing.options & MTF_OBJECTFLIP) then
+		if offset ~= 0 then
+			mo.z = mo.z - offset
+		else
+			mo.z = mo.ceilingz
+		end
+	else
+		if offset ~= 0 then
+			mo.z = mo.z + offset
+		else
+			mo.z = mo.floorz
+		end
+	end
+	
+	-- Spawn a spike ball shield if the ambush flag is set
+	if (not udmf and (mthing.options & MTF_AMBUSH))
+	or (udmf and mthing.args[5]) then
+		local spikemobj
+		for i = 0, 3, 1 do
+			spikemobj = P_SpawnMobj(mo.x, mo.y, mo.z, MT_SPIKEBALL)
+			spikemobj.target = mo
+			if i == 0 then
+				spikemobj.angle = 0
+			elseif i == 1 then
+				spikemobj.angle = ANGLE_90
+			elseif i == 2 then
+				spikemobj.angle = ANGLE_180
+			elseif i == 3 then
+				spikemobj.angle = ANGLE_270
+			end
+		end
+	end
+end, MT_20EGGMOBILE)
+
+-- The Egg Mobile originally bounced off of players instead of going through them in "SKULLFLY" mode
+addHook("MobjMoveCollide", function(tmthing, thing)
+	if not (tmthing and tmthing.valid
+	and thing and thing.valid) then
+		return
+	end
+	
+	-- Only bounce off of objects if the 2.0 Egg Mobile is in "SKULLFLY" mode
+	if not (tmthing.flags2 & MF2_SKULLFLY) then return end
+	
+	tmthing.momx = -$
+	tmthing.momy = -$
+	tmthing.momz = -$
+	return false
+end, MT_20EGGMOBILE)
+
+-- Prevents the 2.0 Egg Mobile from bouncing off of the walls in "SKULLFLY" mode
+addHook("MobjMoveBlocked", function(mo)
+	if not (mo and mo.valid) then return end
+	mo.flags2 = $ & ~MF2_SKULLFLY
+	mo.momx = 0
+	mo.momy = 0
+	mo.momz = 0
+	return true
+end, MT_20EGGMOBILE)
+
+-- Prevents the 2.0 Egg Mobile from being hit-spammed
+addHook("MobjDamage", function(target, _, _)
+	if not (target and target.valid) then return end
+	if (target.flags2 & MF2_SKULLFLY) then target.flags2 = $ & ~MF2_SKULLFLY end
+end, MT_20EGGMOBILE)
+
+-- Makes the spikeball rotate around its target (only for the 2.0 Egg Mobile)
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.target and mo.target.valid and mo.target.type == MT_20EGGMOBILE then
+		local radius = FixedMul(12*mo.info.speed, mo.scale)
+		
+		mo.angle = $ + FixedAngle(mo.info.speed)
+		P_MoveOrigin(
+			mo,
+			mo.target.x + FixedMul(cos(mo.angle), radius),
+			mo.target.y + FixedMul(sin(mo.angle), radius),
+			mo.target.z + mo.target.height/2
+		)
+	end
+end, MT_SPIKEBALL)
+
+-- Override the vanilla boss death function
+addHook("BossDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	A_21BossDeath(mo, 0, 0)
+	return true
+end, MT_20EGGMOBILE)
+
+-- Ported BossThinker behavior for 2.0 Eggmobile from 2.0.7
+addHook("BossThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.health < mo.info.damage+1 and (leveltime & 1) and mo.health > 0 then
+		P_SpawnMobj(mo.x, mo.y, mo.z, MT_SMOKE) -- Replace MT_SMOKE with MT_21SMOKE if necessary
+	end
+	if mo.flags2 & MF2_SKULLFLY then
+		P_SpawnGhostMobj(mo)
+		
+		-- Use this for pre-2.0 era Eggman
+		
+-- 		local spawnmobj
+-- 		spawnmobj = P_SpawnMobj(mo.x, mo.y, mo.z, mo.info.painchance)
+-- 		spawnmobj.target = mo
+-- 		spawnmobj.color = SKINCOLOR_GREY
+	end
+	
+	if states[mo.state].nextstate == mo.info.spawnstate and mo.tics == 1 then
+		mo.flags2 = $ & ~MF2_FRET
+		if not (mo.flags2 & MF2_SKULLFLY) then
+			mo.momx = 0
+			mo.momy = 0
+			mo.momz = 0
+		end
+	end
+	
+	if not mo.tracer then A_OldBossJetFumes(mo, 0, 0) end
+	
+	if not (mo.target and mo.target.valid and (mo.target.flags & MF_SHOOTABLE)) then
+		if mo.health <= 0 then
+			if P_LookForPlayers(mo, 0, true) and mo.info.mass then -- Bid farewell!
+				S_StartSound(mo, mo.info.mass)
+			end
+			return true
+		end
+		
+		-- look for a new target
+		if P_LookForPlayers(mo, 0, true) and mo.info.seesound then
+			S_StartSound(mo, mo.info.seesound)
+		end
+		
+		return true
+	end
+	
+	if mo.state == mo.info.spawnstate then A_FDBoss1Chase(mo, 1, 0) end
+	
+	if mo.state == mo.info.meleestate
+	or (mo.state == mo.info.missilestate and mo.health > mo.info.damage) then
+		mo.angle = R_PointToAngle2(mo.x, mo.y, mo.target.x, mo.target.y)
+	end
+	
+	return true
+end, MT_20EGGMOBILE)
+
+mobjinfo[MT_20EGGMOBILE] = {
+	--$Name 2.0 Eggmobile
+	--$Sprite 21EMA1
+	--$Category Bosses
+	--$Flags4Text End level on death
+	--$Flags8Text Spawn w/ Spikeball Shield
+	--$Arg0 Boss ID
+	--$Arg1 End level on death?
+	--$Arg1Type 11
+	--$Arg1Enum noyes
+	--$Arg2 Death trigger tag
+	--$Arg2Type 15
+	--$Arg3 Victory trigger tag
+	--$Arg3Type 15
+	--$Arg4 Pinch trigger tag
+	--$Arg4Type 15
+	--$Arg5 Spawn w/ spikeball shield?
+	--$Arg5Type 11
+	--$Arg5Enum noyes
+	doomednum = 4054,
+	spawnstate = S_20EGGMOBILE_STND,
+	spawnhealth = 8,
+	seestate = S_20EGGMOBILE_STND,
+	reactiontime = 8,
+	painstate = S_20EGGMOBILE_PAIN,
+	painchance = MT_THOK,
+	painsound = sfx_dmpain,
+	meleestate = S_20EGGMOBILE_LATK1,
+	missilestate = S_20EGGMOBILE_RATK1,
+	deathstate = S_21EGGMOBILE_DIE1,
+	xdeathstate = S_21EGGMOBILE_FLEE1,
+	deathsound = sfx_cybdth,
+	speed = 4,
+	radius = 24*FRACUNIT,
+	height = 52*FRACUNIT,
+	damage = 2,
+	activesound = sfx_telept,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_FLOAT|MF_NOGRAVITY|MF_BOSS,
+	raisestate = S_20EGGMOBILE_PANIC1
+}
+
+states[S_20EGGMOBILE_STND] =	{SPR_21EM,	A,	1,	nil,	0,	0,	S_20EGGMOBILE_STND}
+
+states[S_20EGGMOBILE_LATK1] =	{SPR_21EM,	B,	3,	nil,			0,			0,	S_20EGGMOBILE_LATK2}
+states[S_20EGGMOBILE_LATK2] =	{SPR_21EM,	C,	30,	nil,			0,			0,	S_20EGGMOBILE_LATK3}
+states[S_20EGGMOBILE_LATK3] =	{SPR_21EM,	D,	2,	nil,			0,			0,	S_20EGGMOBILE_LATK4}
+states[S_20EGGMOBILE_LATK4] =	{SPR_21EM,	E,	1,	nil,			0,			0,	S_20EGGMOBILE_LATK5}
+states[S_20EGGMOBILE_LATK5] =	{SPR_21EM,	F,	1,	nil,			0,			0,	S_20EGGMOBILE_LATK6}
+states[S_20EGGMOBILE_LATK6] =	{SPR_21EM,	G,	1,	nil,			0,			0,	S_20EGGMOBILE_LATK7}
+states[S_20EGGMOBILE_LATK7] =	{SPR_21EM,	H,	1,	nil,			0,			0,	S_20EGGMOBILE_LATK8}
+-- Replace A_BossFireShot with A_21BossFireShot if it changes in the future
+-- Replace MT_ROCKET with MT_20ROCKET if it changes in the future
+states[S_20EGGMOBILE_LATK8] =	{SPR_21EM,	I,	15,	A_BossFireShot,	MT_ROCKET,	0,	S_20EGGMOBILE_LATK9}
+states[S_20EGGMOBILE_LATK9] =	{SPR_21EM,	J,	10,	nil,			0,			0,	S_20EGGMOBILE_LATK10}
+states[S_20EGGMOBILE_LATK10] =	{SPR_21EM,	K,	2,	nil,			0,			0,	S_20EGGMOBILE_STND}
+
+states[S_20EGGMOBILE_RATK1] =	{SPR_21EM,	L,	3,	nil,			0,			0,	S_20EGGMOBILE_RATK2}
+states[S_20EGGMOBILE_RATK2] =	{SPR_21EM,	M,	30,	nil,			0,			0,	S_20EGGMOBILE_RATK3}
+states[S_20EGGMOBILE_RATK3] =	{SPR_21EM,	N,	2,	nil,			0,			0,	S_20EGGMOBILE_RATK4}
+states[S_20EGGMOBILE_RATK4] =	{SPR_21EM,	O,	1,	nil,			0,			0,	S_20EGGMOBILE_RATK5}
+states[S_20EGGMOBILE_RATK5] =	{SPR_21EM,	P,	1,	nil,			0,			0,	S_20EGGMOBILE_RATK6}
+states[S_20EGGMOBILE_RATK6] =	{SPR_21EM,	Q,	1,	nil,			0,			0,	S_20EGGMOBILE_RATK7}
+states[S_20EGGMOBILE_RATK7] =	{SPR_21EM,	R,	1,	nil,			0,			0,	S_20EGGMOBILE_RATK8}
+-- Replace A_BossFireShot with A_21BossFireShot if it changes in the future
+-- Replace MT_ROCKET with MT_20ROCKET if it changes in the future
+states[S_20EGGMOBILE_RATK8] =	{SPR_21EM,	S,	15,	A_BossFireShot,	MT_ROCKET,	1,	S_20EGGMOBILE_RATK9}
+states[S_20EGGMOBILE_RATK9] =	{SPR_21EM,	T,	10,	nil,			0,			0,	S_20EGGMOBILE_RATK10}
+states[S_20EGGMOBILE_RATK10] =	{SPR_21EM,	U,	2,	nil,			0,			0,	S_20EGGMOBILE_STND}
+
+states[S_20EGGMOBILE_PANIC1] =	{SPR_21EM,	D,	35,	nil,			0,	0,	S_20EGGMOBILE_PANIC2}
+states[S_20EGGMOBILE_PANIC2] =	{SPR_21EM,	A,	35,	A_SkullAttack,	0,	0,	S_20EGGMOBILE_STND}
+
+states[S_20EGGMOBILE_PAIN] =	{SPR_21EM,	V,	24,	A_Pain,			0,	0,	S_20EGGMOBILE_PAIN2}
+states[S_20EGGMOBILE_PAIN2] =	{SPR_21EM,	V,	24,	A_SkullAttack,	1,	0,	S_20EGGMOBILE_STND}
+
+-- Not needed, because the current "rocket" works just fine
+--[[
+-- 2.0 "Rocket" Laser
+
+mobjinfo[MT_20ROCKET] = {
+	doomednum = -1,
+	spawnstate = S_ROCKET, -- Replace this with S_20ROCKET if it changes in the future
+	spawnhealth = 1000,
+	seesound = sfx_rlaunc,
+	reactiontime = 8,
+	speed = 20*FRACUNIT,
+	radius = 11*FRACUNIT,
+	height = 8*FRACUNIT,
+	damage = 20,
+	flags = MF_NOBLOCKMAP|MF_MISSILE|MF_NOGRAVITY
+}
+]]

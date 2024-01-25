@@ -1,0 +1,193 @@
+-- SRB2TP - XMAS Step Function ("ported" by MIDIMan)
+-- Special thanks to Gomynola for the "Footsteps" addon this was based on
+
+freeslot(
+	"sfx_xmsstp",
+	"SPR_XMSN",
+	"S_XMAS_SAND"
+)
+
+-- Make sure this function isn't already initialized
+if not Valid then
+	-- Helper function for checking validity of objects, sectors, etc.
+	rawset(_G, "Valid", function(thing)
+		return thing and thing.valid
+	end)
+end
+
+local TP_XMAS_STEP_BRIDGE = 1
+local TP_XMAS_STEP_SAND = 2
+
+local TP_XMASStepTextureInfo = {
+	["XMSWOOD1"] = TP_XMAS_STEP_BRIDGE,
+	["XMSWOOD2"] = TP_XMAS_STEP_BRIDGE,
+	["XMSSAND"] = TP_XMAS_STEP_SAND
+}
+
+-- If you wish to use this for your own character, copy this chunk of code:
+if not TP_XMASStepSFXInfo then
+	rawset(_G, "TP_XMASStepSFXInfo", {})
+end
+
+-- Then, use this as a template, replacing "sonic" with your character's skin name:
+TP_XMASStepSFXInfo["sonic"] = {
+	[SPR2_WALK] = {3, 7},
+	[SPR2_RUN] = {1, 3}
+}
+
+TP_XMASStepSFXInfo["xtremesonic"] = {
+	[SPR2_WALK] = {1, 5},
+	[SPR2_RUN] = {1, 3}
+}
+
+TP_XMASStepSFXInfo["tails"] = {
+	[SPR2_WALK] = {3, 7},
+	[SPR2_RUN] = {1}
+}
+
+TP_XMASStepSFXInfo["knuckles"] = {
+	[SPR2_WALK] = {2, 6},
+	[SPR2_RUN] = {1, 3}
+}
+
+TP_XMASStepSFXInfo["amy"] = {
+	[SPR2_WALK] = {2, 6},
+	[SPR2_RUN] = {2, 6}
+}
+
+TP_XMASStepSFXInfo["fang"] = {
+	[SPR2_WALK] = {3, 7},
+	[SPR2_RUN] = {1, 4}
+}
+
+TP_XMASStepSFXInfo["metalsonic"] = {
+	[SPR2_WALK] = {-1},
+	[SPR2_RUN] = {-1}
+}
+
+TP_XMASStepSFXInfo["megamand3"] = {
+	[SPR2_WALK] = {0, 4},
+	[SPR2_RUN] = {0, 2}
+}
+
+TP_XMASStepSFXInfo["chaod3"] = {
+	[SPR2_WALK] = {2, 6},
+	[SPR2_RUN] = {-1}
+}
+
+TP_XMASStepSFXInfo["cinossu"] = {
+	[SPR2_WALK] = {2, 6},
+	[SPR2_RUN] = {1, 3}
+}
+
+-- Zim doesn't use SPR2_WALK or SPR2_RUN, so he doesn't make sound or sand particles at all
+-- TP_XMASStepSFXInfo["zimfd"] = {
+-- 	[SPR2_WALK] = {0},
+-- 	[SPR2_RUN] = {0}
+-- }
+
+-- Borrowed and edited from Gomynola's "Footsteps" addon
+local TP_GetGroundTexture = function(mo)
+	if not Valid(mo) then return end
+	
+	local result
+	
+	if P_MobjFlip(mo) < 0 then
+		if Valid(mo.ceilingrover) then
+			result = mo.ceilingrover.bottompic
+		elseif Valid(mo.standingslope) and mo.standingslope == mo.subsector.sector.c_slope then
+			result = mo.subsector.sector.ceilingpic
+		elseif mo.z + mo.height >= mo.ceilingz then -- Edited to be more accurate to XMAS
+			result = mo.subsector.sector.ceilingpic
+		end
+	else
+		if Valid(mo.floorrover) then
+			result = mo.floorrover.bottompic
+		elseif Valid(mo.standingslope) and mo.standingslope == mo.subsector.sector.f_slope then
+			result = mo.subsector.sector.floorpic
+		elseif mo.z <= mo.floorz then -- Edited to be more accurate to XMAS
+			result = mo.subsector.sector.floorpic
+		end
+	end
+	
+	return result
+end
+
+local TP_DoXMASStep = function(mo, groundtype)
+	if not (Valid(mo) and groundtype) then return end
+	
+	if groundtype == TP_XMAS_STEP_BRIDGE then
+		S_StartSound(mo, sfx_xmsstp)
+	elseif groundtype == TP_XMAS_STEP_SAND then
+		local sand = P_SpawnMobj(mo.x, mo.y, mo.z, MT_THOK)
+		if Valid(sand) then
+			sand.state = S_XMAS_SAND
+			sand.radius = 8*FRACUNIT
+			sand.height = 8*FRACUNIT
+			sand.flags = MF_SCENERY|MF_NOCLIP
+			sand.scale = mo.scale
+			if P_MobjFlip(mo) < 0 then
+				P_SetOrigin(sand, sand.x, sand.y, mo.z + mo.height - sand.height)
+				sand.eflags = $|MFE_VERTICALFLIP
+			end
+		end
+	end
+end
+
+addHook("PlayerThink", function(player)
+	if not (Valid(player) and Valid(player.mo)) then return end
+	
+	-- Only run this code if the player is on the ground
+	if not P_IsObjectOnGround(player.mo) then
+		player.tpLastTics = player.mo.tics
+		return
+	end
+	local groundtype = TP_XMASStepTextureInfo[TP_GetGroundTexture(player.mo)]
+	if not groundtype then
+		player.tpLastTics = player.mo.tics
+		return
+	end
+	
+	if player.mo.state ~= S_PLAY_WALK and player.mo.state ~= S_PLAY_RUN then
+		player.tpLastTics = player.mo.tics
+		return
+	end
+	
+	local curFrame = (player.mo.frame & FF_FRAMEMASK)
+	if (player.tpLastTics or 0) == 1 then
+-- 	or (player.tpLastFrame or 0) ~= curFrame
+-- 	or (player.tpLastState or S_NULL) ~= player.mo.state then
+		if TP_XMASStepSFXInfo[player.mo.skin] then
+			local stepsfxinfo = TP_XMASStepSFXInfo[player.mo.skin]
+			if stepsfxinfo[player.mo.sprite2] then
+				for _, frame in ipairs(stepsfxinfo[player.mo.sprite2]) do
+					if curFrame == frame then
+						TP_DoXMASStep(player.mo, groundtype)
+						break
+					end
+				end
+			end
+		else
+			local totalFrames = 0
+			-- This line currently causes an error with SPR2_STND, so a pcall is necessary
+			pcall(do
+				totalFrames = skins[player.skin].sprites[player.mo.sprite2].numframes
+			end)
+			if totalFrames > 0 then
+				local halfFrame = totalFrames / 2
+				local offset = halfFrame / 2
+				if curFrame == offset % totalFrames or curFrame == (halfFrame + offset) % totalFrames then
+					TP_DoXMASStep(player.mo, groundtype)
+				end
+			end
+		end
+	end
+	
+	player.tpLastTics = player.mo.tics
+-- 	player.tpLastFrame = player.mo.frame
+-- 	player.tpLastState = player.mo.state
+end)
+
+states[S_XMAS_SAND] =	{SPR_XMSN,	A|FF_ANIMATE,	14,	nil,	6,	2,	S_NULL}
+
+sfxinfo[sfx_xmsstp].caption = "Step"

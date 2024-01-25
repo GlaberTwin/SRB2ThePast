@@ -1,0 +1,108 @@
+#SRB2TP Cutscene Level Headers
+
+#METAL SONIC'S CHALLENGE
+
+Level Z1
+NoTitleCard = true
+Levelname = Tantrum
+Act = 0
+Music = RIVALR
+NoSSMusic = true
+SaveGame = true
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 41
+RecordAttack = 0
+hidden = 1
+
+Level Z2
+NoTitleCard = true
+Levelname = Metal's loss
+ScriptName = SCRIPT00
+Act = 0
+Music = RIVALR
+NoSSMusic = true
+SaveGame = true
+NextLevel = ZX
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 41
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1
+
+
+
+
+#SONIC DOOM 2
+
+Level Z3
+NoTitleCard = true
+ScriptName = SCRIPT03
+Levelname = Ending
+Act = 0
+Music = GFZSOF
+NoSSMusic = true
+SaveGame = false
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 21
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1
+
+
+
+#CREDITS
+
+Level ZW
+NoTitleCard = true
+ScriptName = SCRIPT03
+Levelname = GRAND Credits
+Act = 0
+Music = QUIET
+NoSSMusic = true
+SaveGame = False
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1
+
+
+Level ZX
+NoTitleCard = true
+ScriptName = SCRIPT00
+Levelname = Credits
+Act = 0
+Music = CRED02
+NoSSMusic = true
+SaveGame = False
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1
+
+
+Level ZY
+NoTitleCard = true
+ScriptName = SCRIPT00
+Levelname = Credits
+Act = 0
+Music = CREDIT
+NoSSMusic = true
+SaveGame = False
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = 1

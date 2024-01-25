@@ -1,0 +1,265 @@
+-- 2.0 Sea Egg - Ported from 2.0.7
+-- PLEASE LOAD LUA_CMMN AND LUA_EOCM BEFORE THIS
+
+freeslot(
+	-- Sprites come from LUA_EOCM
+	-- Object(s)
+	"MT_20EGGMOBILE3"
+	-- States come from LUA_EOCM
+)
+
+-- Changes the Sea Egg's movefactor to that of the 2.0 default, allowing its 
+-- boss thinker to run properly
+addHook("MobjSpawn", function(mo)
+	if not (mo and mo.valid) then return end
+	mo.movefactor = 8*(2^8) -- Replacement for ORIG_FRICTION_FACTOR;
+end, MT_20EGGMOBILE3)
+
+-- Ported BossThinker behavior for 2.0 Sea Egg from 2.0.7
+addHook("BossThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.state == mo.info.spawnstate then mo.flags2 = $ & ~MF2_FRET end
+	
+	if (mo.flags2 & MF2_FRET) then
+		mo.movedir = 1
+		if mo.health <= mo.info.damage then -- This should be 2
+			local pinchtag = LE_PINCHPHASE
+			if udmf and mo.spawnpoint and mo.spawnpoint.valid then pinchtag = mo.spawnpoint.args[4] end
+			P_LinedefExecute(pinchtag, mo, nil)
+		end
+	end
+	
+	if mo.movefactor > 8*(2^8) then
+		mo.movefactor = $-1
+		return true
+	end
+	
+	if not (mo.tracer and mo.tracer.valid) then
+		A_OldSeaEggPropeller(mo, 0, 0)
+	end
+	
+	if mo.health <= 0 then
+		mo.movecount = 0
+		mo.reactiontime = 0
+		
+		if mo.state < mo.info.xdeathstate then return true end
+		
+		if mo.threshold == -1 then
+			mo.momz = mo.info.speed
+			return true
+		end
+	end
+	
+	if mo.reactiontime and mo.health > mo.info.damage then -- Shock mode
+		if mo.state ~= mo.info.spawnstate then mo.state = mo.info.spawnstate end
+		
+		if leveltime % 2*TICRATE == 0 then
+			-- Shock the water
+			for player in players.iterate do
+				if not player.valid or player.spectator then continue end
+				if not (player.mo and player.mo.valid) then continue end
+				if player.mo.health <= 0 then continue end
+				
+				if (player.mo.eflags & MFE_UNDERWATER) then
+					P_DamageMobj(player.mo, mo, mo, 1)
+				end
+			end
+			
+			-- Make the water flash
+			for sector in sectors.iterate do
+				if not sector.ffloors() then continue end
+				
+				for rover in sector.ffloors() do
+					if not (rover.flags & FF_EXISTS) then continue end
+					if not (rover.flags & FF_SWIMMABLE) then continue end
+					
+					P_SpawnLightningFlash(rover.master.frontsector)
+					break
+				end
+			end
+			
+			if leveltime % 35 == 0 then S_StartSound(nil, sfx_buzz1) end
+		end
+		
+		-- If in the center, check to make sure
+		-- none of the players are in the water
+		for player in players.iterate do
+			if not player.valid or player.spectator then continue end
+			if not (player.mo and player.mo.valid) or player.bot then continue end
+			if player.mo.health <= 0 then continue end
+			
+			if (player.mo.eflags & MFE_UNDERWATER) then
+				return true -- Stay put
+			end
+		end
+		
+		mo.reactiontime = 0
+	elseif mo.movecount -- Firing mode
+		-- Look for a new target
+		P_LookForPlayers(mo, 0, true)
+		
+		if not (mo.target and mo.target.valid)
+		or not (mo.target.player and mo.target.player.valid) then
+			return true
+		end
+		
+		-- Are there any players underwater? If so, shock them!
+		for player in players.iterate do
+			if not player.valid or player.spectator then continue end
+			if not (player.mo and player.mo.valid) or player.bot then continue end
+			if player.mo.health <= 0 then continue end
+			
+			if (player.mo.eflags & MFE_UNDERWATER) then
+				mo.movecount = 0
+				mo.state = mo.info.spawnstate
+				break
+			end
+		end
+		
+		-- Always face your target.
+		A_FaceTarget(mo)
+		
+		-- Check if the attack animation is running. If not, play it.
+		if mo.state < mo.info.missilestate or mo.state > mo.info.raisestate then
+			mo.state = mo.info.missilestate
+		end
+	elseif mo.threshold >= 0 -- Traveling mode
+		local dist, dist2
+		local speed
+		
+		mo.target = nil
+		
+		if mo.state ~= mo.info.spawnstate and mo.health > 0
+		and not (mo.flags2 & MF2_FRET) then
+			mo.state = mo.info.spawnstate
+		end
+		
+		-- scan the thinkers
+		-- to find a point that matches
+		-- the number
+		for mo2 in mobjs.iterate()
+			if not (mo2 and mo2.valid) then continue end
+			if mo2.type == MT_BOSS3WAYPOINT and mo2.spawnpoint and mo2.spawnpoint.valid 
+			and ((not udmf and mo2.spawnpoint.angle == mo.threshold)
+			or (udmf and mo2.spawnpoint.args[0] == mo.threshold)) then
+				mo.target = mo2
+				break
+			end
+		end
+		
+		if not (mo.target and mo.target.valid) then -- Should NEVER happen
+			print("Error: Boss 3 was unable to find specified waypoint: " + mo.threshold)
+			return true
+		end
+		
+		dist = FixedHypot(FixedHypot(mo.target.x - mo.x, mo.target.y - mo.y), mo.target.z - mo.z)
+		
+		if dist < 1 then dist = 1 end
+		
+		if mo.movedir or mo.health <= mo.info.damage then
+			speed = mo.info.speed * 2
+		else
+			speed = mo.info.speed
+		end
+		
+		mo.momx = FixedMul(FixedDiv(mo.target.x - mo.x, dist), speed)
+		mo.momy = FixedMul(FixedDiv(mo.target.y - mo.y, dist), speed)
+		mo.momz = FixedMul(FixedDiv(mo.target.z - mo.z, dist), speed)
+		
+		-- If this causes severe multiplayer issues, this might need to be replaced --MIDIMan
+		mo.angle = R_PointToAngle(mo.momx, mo.momy)
+		
+		dist2 = FixedHypot(FixedHypot(mo.target.x - (mo.x + mo.momx), mo.target.y - (mo.y + mo.momy)), mo.target.z - (mo.z + mo.momz))
+		
+		if dist2 < 1 then dist2 = 1 end
+		
+		if dist / (2^FRACBITS) <= dist2 / (2^FRACBITS) then
+			P_MoveOrigin(mo, mo.target.x, mo.target.y, mo.target.z)
+			mo.momx = 0
+			mo.momy = 0
+			mo.momz = 0
+			
+			if mo.threshold == 0 then
+				mo.reactiontime = 1 -- Bzzt! Shock the water!
+				mo.movedir = 0
+				
+				if mo.health <= 0 then
+					mo.flags = $|MF_NOGRAVITY|MF_NOCLIP
+					mo.flags = $|MF_NOCLIPHEIGHT
+					mo.threshold = -1
+					return true
+				end
+			end
+			
+			-- Set to next waypoint in sequence
+			if mo.target.spawnpoint and mo.target.spawnpoint.valid then
+				if mo.target.spawnpoint.angle == 0 then
+					mo.threshold = (P_RandomByte()%5) + 1
+				else
+					if not udmf then
+						mo.threshold = mo.target.spawnpoint.extrainfo
+					else
+						mo.threshold = mo.target.spawnpoint.tag
+					end
+				end
+				
+				-- If the deaf flag is set, go into firing mode
+				if (not udmf and (mo.target.spawnpoint.options & MTF_AMBUSH)) 
+				or (udmf and mo.target.spawnpoint.args[9]) then
+					if mo.health <= mo.info.damage then
+						mo.movefactor = (8*(2^8)) + 5*TICRATE
+					else
+						mo.movecount = 1
+					end
+				end
+			else -- This should never happen, as well
+				print("Error: Boss 3 waypoint has no spawnpoint associated with it.")
+			end
+		end
+	end
+	
+	return true
+end, MT_20EGGMOBILE3)
+
+addHook("BossDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	A_21BossDeath(mo)
+	return true
+end, MT_20EGGMOBILE3)
+
+mobjinfo[MT_20EGGMOBILE3] = {
+	--$Name 2.0 Sea Egg
+	--$Sprite OEGOA1
+	--$Category Bosses
+	--$Flags4Text End level on death
+	--$Arg0 Boss ID
+	--$Arg1 End level on death?
+	--$Arg1Type 11
+	--$Arg1Enum noyes
+	--$Arg2 Death trigger tag
+	--$Arg2Type 15
+	--$Arg3 Victory trigger tag
+	--$Arg3Type 15
+	--$Arg4 Pinch trigger tag
+	--$Arg4Type 15
+	doomednum = 230,
+	spawnstate = S_21EGGMOBILE3_STND,
+	spawnhealth = 8,
+	seestate = S_21EGGMOBILE3_STND,
+	painstate = S_21EGGMOBILE3_PAIN,
+	painchance = MT_PROPELLER,
+	painsound = sfx_dmpain,
+	meleestate = S_21EGGMOBILE3_STND,
+	missilestate = S_21EGGMOBILE3_ATK1,
+	deathstate = S_21EGGMOBILE3_DIE1,
+	xdeathstate = S_21EGGMOBILE3_FLEE1,
+	deathsound = sfx_cybdth,
+	speed = 8*FRACUNIT,
+	radius = 32*FRACUNIT,
+	height = 80*FRACUNIT,
+	damage = 2,
+	activesound = sfx_telept,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_NOGRAVITY|MF_BOSS,
+	raisestate = S_21EGGMOBILE3_LAUGH20
+}

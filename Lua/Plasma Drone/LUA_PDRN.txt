@@ -1,0 +1,303 @@
+// Plasma Drone (TGF THZ Boss) - Created by Glaber and MIDIMan with help from Golden, Ors, and Nightwolf
+
+//Must use with lua lumps: LUA_DACT (Not anymore)
+//Uses SPR_NULL
+//ENERGY BALL CLONE for plasma drone
+freeslot(
+	"MT_ENERGYBALLCLONE",
+	"S_ENERGYBALL3",
+	"S_ENERGYBALL4",
+	"MT_PLASMADRONE",
+	"S_DRONE_EXIST",
+-- 	"S_DRONE_EXIST2",
+-- 	"S_DRONE_EMERGENCY_RESET",
+	"S_DRONE_CHASE",
+	"S_DRONE_HIT",
+	"S_DRONE_HIT2",
+	"S_DRONE_HIT3",
+-- 	"S_DRONE_HEALED",
+-- 	"S_DRONE_UP",
+-- 	"S_DRONE_UP2",
+	"S_DRONE_DROP_ATTACK1",
+	"S_DRONE_DROP_ATTACK2",
+-- 	"S_DRONE_REFLASH",
+-- 	"S_DRONE_DROP_ATTACK3",
+-- 	"S_DRONE_REFLASH2",
+-- 	"S_DRONE_DOWN1",
+-- 	"S_DRONE_DOWN2",
+	"S_DRONE_ENERGY_ATTACK1",
+	"S_DRONE_ENERGY_ATTACK2",
+	"S_DRONE_ENERGY_ATTACK3",
+-- 	"S_DRONE_ENERGY_ATTACK4",
+-- 	"S_DRONE_ENERGY_ATTACK5",
+-- 	"S_DRONE_ENERGY_ATTACK6",
+-- 	"S_DRONE_REFLASH3",
+-- 	"S_DRONE_REFLASH4",
+-- 	"S_DRONE_AGAINHIT",
+	"S_DRONE_DEAD",
+	"S_DRONE_DEAD2",
+	"S_DRONE_DEAD3",
+-- 	"S_DRONE_LOOPPROTECT",
+-- 	"S_DRONE_REMOTE",
+-- 	"S_ENERGY_KILLER",
+	"S_DRONE_PREPARE",
+	"S_DRONE_PREPARE_DONE",
+	"SPR_PLSD",
+	"S_DRONE_DEADBOOM"
+)
+
+mobjinfo[MT_ENERGYBALLCLONE] = {
+	doomednum = -1,
+	spawnstate = S_ENERGYBALL3,
+	spawnhealth = 1000,
+	seesound = sfx_s3k54,
+	reactiontime = 8,
+	painchance = 400,
+	deathstate = S_NULL,
+	deathsound = sfx_None,
+	xdeathstate = 0,
+	speed = 40*FRACUNIT,
+	radius = 60*FRACUNIT,
+	height = 100*FRACUNIT,
+	mass = 100,
+	damage = 20,
+	flags = MF_PAIN|MF_MISSILE|MF_NOGRAVITY
+}
+
+states[S_ENERGYBALL3] = {SPR_ENRG,  A|FF_FULLBRIGHT|TR_TRANS30, 1, nil,	0, 0, S_ENERGYBALL4}
+states[S_ENERGYBALL4] = {SPR_NULL,  A, 1, nil,	0, 0, S_ENERGYBALL3}
+
+// Force cusval to be 0 on spawn
+addHook("MobjSpawn", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	mobj.cusval = 0
+end, MT_PLASMADRONE)
+
+local function TP_PlasmaChase(mo)
+	if not (mo and mo.valid) then return end
+	
+	local target = mo.target
+	
+	if not (target and target.valid and (target.flags & MF_SHOOTABLE)) then
+		// If a new target is spotted, end the function
+		if P_LookForPlayers(mo, 0, true) then return end
+		
+		// "Reset" the Plasma Drone if a new target is not found
+		mo.momx = 0
+		mo.momy = 0
+		mo.momz = 0
+		mo.state = mo.info.spawnstate
+		return
+	end
+	
+	// Chase the targetted player
+	local speed = mo.info.speed*mo.scale
+	local dist = FixedHypot(target.x - mo.x, target.y - mo.y)
+	
+	if dist < 1 then dist = 1 end
+	
+	mo.momx = FixedMul(FixedDiv(target.x - mo.x, dist), speed)
+	mo.momy = FixedMul(FixedDiv(target.y - mo.y, dist), speed)
+end
+
+// Particle spawner action made and optmized by MIDIMan
+
+// Spawn energy particles
+local function TP_ParticleVacuumPD(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	local dist = 0
+	
+	local spawner = mobj.hnext
+	while spawner and spawner.valid do
+		dist = FixedHypot(spawner.x - mobj.x, spawner.y - mobj.y)
+		if (P_RandomRange(1,dist/FRACUNIT/16) == 1) then
+			break
+		end
+		spawner = spawner.hnext
+	end
+	if spawner and spawner.valid then
+		local missile = P_SpawnMissile(spawner, mobj, MT_MSGATHER) // Replace MT_MSGATHER with MT_TGFGATHER once made
+		// Make the particles faster
+		missile.momx = $*2
+		missile.momy = $*2
+		missile.momz = $*2
+		//missile.momz = FixedDiv(missile.momz, 7*FRACUNIT/4)
+		if dist == 0 then
+			missile.fuse = 0
+		else
+			missile.fuse = dist/FixedHypot(missile.momx, missile.momy)
+		end
+		//if missile.fuse > mobj.fuse then
+			//P_RemoveMobj(missile)
+		//end
+	end
+end
+
+-- local function TP_PlasmaChaseGather(mo, var1, var2)
+-- 	if not (mo and mo.valid) then return end
+	
+-- 	TP_PlasmaChase(mo, var1, var2)
+-- 	A_ParticleVacuumPD(mo, var1, var2)
+-- end
+
+addHook("MobjDamage", function(target)
+	if not (target and target.valid) then return end
+	P_SetObjectMomZ(target, 2*FRACUNIT)
+end, MT_PLASMADRONE)
+
+addHook("MobjThinker", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	if mobj.state ~= S_DRONE_HIT and mobj.state ~= S_DRONE_HIT2 and (mobj.flags2 & MF2_FRET) then
+		mobj.flags2 = $ & ~MF2_FRET
+	end
+	
+	if mobj.state == S_DRONE_CHASE
+	or mobj.state == S_DRONE_HIT2
+	or mobj.state == S_DRONE_DROP_ATTACK1
+	or mobj.state == S_DRONE_DROP_ATTACK2
+	or mobj.state == S_DRONE_ENERGY_ATTACK1 then
+		TP_PlasmaChase(mobj)
+	end
+	
+	if mobj.state == S_DRONE_ENERGY_ATTACK1 then
+		TP_ParticleVacuumPD(mobj)
+	end
+	
+	// Only run this code if cusval is 0
+	// (In other words, this code should only run once)
+	if mobj.cusval then return end
+	mobj.cusval = 1
+	
+	local last = nil
+	
+	// Run through the thinkers ONCE and find all of the MT_BOSS9GATHERPOINT in the map.
+	// Build a hoop linked list of 'em!
+	for th in mobjs.iterate() do
+		if not (th and th.valid) then continue end
+		if th.type == MT_BOSS9GATHERPOINT then // Replace MT_BOSS9GATHERPOINT if it changes in the future
+			if last and last.valid then
+				last.hnext = th
+			else
+				mobj.hnext = th
+			end
+			th.hprev = last
+			last = th
+		end
+	end
+end, MT_PLASMADRONE)
+
+//TGF Plasma Drone
+mobjinfo[MT_PLASMADRONE] = {
+	//$Name "Plasma Drone"
+	//$Sprite PLSDA0
+	//$Category TGF/Concept Boss
+	doomednum = 222,
+	spawnstate = S_DRONE_EXIST,
+	spawnhealth = 8,
+	seestate = S_DRONE_CHASE,
+	reactiontime = 100,
+	painstate = S_DRONE_HIT,
+	painsound = sfx_dmpain,
+	meleestate = S_DRONE_ENERGY_ATTACK1,
+	missilestate = S_DRONE_DROP_ATTACK1,
+	deathstate = S_DRONE_DEAD,
+	deathsound = sfx_cybdth,
+	xdeathstate = S_DRONE_DEAD3,
+	speed = 4,
+	radius = 28*FRACUNIT,
+	height = 66*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_BOSS|MF_NOGRAVITY|MF_SPAWNCEILING
+}
+
+states[S_DRONE_EXIST] =	{SPR_PLSD,	A,	1,		A_Look,	1,	0,	S_DRONE_EXIST}
+states[S_DRONE_CHASE] =	{SPR_PLSD,	A,	100,	nil,	0,	0,	S_DRONE_PREPARE}
+
+local function TP_CheckPlasmaCeiling(mo, var1, var2)
+	if not (mo and mo.valid) then return end
+	
+	if P_MobjFlip(mo) > 0 and mo.z + mo.height >= mo.ceilingz
+	or P_MobjFlip(mo) < 0 and mo.z <= mo.floorz then
+		mo.state = mo.info.seestate
+	end
+end
+
+states[S_DRONE_HIT] =	{SPR_PLSD,	A,							0,	A_Pain,					0,	0,	S_DRONE_HIT2}
+states[S_DRONE_HIT2] =	{SPR_PLSD,	D|FF_ANIMATE|FF_FULLBRIGHT,	52,	nil,					1,	2,	S_DRONE_HIT3}
+states[S_DRONE_HIT3] =	{SPR_PLSD,	A,							1,	TP_CheckPlasmaCeiling,	0,	0,	S_DRONE_HIT3}
+
+local function TP_PickPlasmaAttack(mo, var1, var2)
+	if not (mo and mo.valid) then return end
+	
+	// Don't let the Plasma Drone use its energy attack more than twice in a row
+	if P_RandomKey(2) or (mo.tpEnergyAttack or 0) >= 2 then
+		mo.state = S_DRONE_DROP_ATTACK1
+		mo.tpEnergyAttack = 0
+		return
+	end
+	
+	mo.state = S_DRONE_ENERGY_ATTACK1
+	mo.tpEnergyAttack = ($ or 0) + 1
+end
+
+states[S_DRONE_PREPARE] =		{SPR_PLSD,	B|FF_ANIMATE|FF_FULLBRIGHT,	70,	A_ForceStop,			1,	2,	S_DRONE_PREPARE_DONE}
+states[S_DRONE_PREPARE_DONE] =	{SPR_PLSD,	B|FF_ANIMATE|FF_FULLBRIGHT,	0,	TP_PickPlasmaAttack,	0,	0,	S_DRONE_CHASE}
+
+states[S_DRONE_DROP_ATTACK1] =	{SPR_PLSD,	A,	18,	nil,		0,	0,			S_DRONE_DROP_ATTACK2}
+states[S_DRONE_DROP_ATTACK2] =	{SPR_PLSD,	A,	-1,	A_ZThrust,	-2,	(1<<16)+0,	S_DRONE_DROP_ATTACK2}
+
+local function TP_PlasmaFireShot(mo, var1, var2)
+	if not (mo and mo.valid) then return end
+	
+	local missile = P_SpawnMobjFromMobj(mo, 0, 0, -96*FRACUNIT, MT_ENERGYBALLCLONE)
+	if missile and missile.valid then
+		S_StartSound(mo, missile.info.seesound)
+		missile.target = mo
+		missile.fuse = 2*TICRATE
+		local speed = missile.info.speed or 16*FRACUNIT
+		P_SetObjectMomZ(missile, -speed)
+	end
+end
+
+states[S_DRONE_ENERGY_ATTACK1] =	{SPR_PLSD,	A,	78,	A_PlaySound,		sfx_s3k53,	0,	S_DRONE_ENERGY_ATTACK2}
+states[S_DRONE_ENERGY_ATTACK2] =	{SPR_PLSD,	A,	5,	A_ForceStop,		0,			0,	S_DRONE_ENERGY_ATTACK3}
+states[S_DRONE_ENERGY_ATTACK3] =	{SPR_PLSD,	A,	3,	TP_PlasmaFireShot,	0,			0,	S_DRONE_CHASE}
+
+states[S_DRONE_DEAD] =		{SPR_PLSD,	A,	2,	A_BossScream,	0,			0,				S_DRONE_DEADBOOM}
+states[S_DRONE_DEADBOOM] =	{SPR_PLSD,	A,	0,	A_Repeat,		24,			S_DRONE_DEAD,	S_DRONE_DEAD2}
+states[S_DRONE_DEAD2] =		{SPR_PLSD,	A,	-1,	A_BossDeath,	0,			0,				S_NULL}
+states[S_DRONE_DEAD3] =		{SPR_NULL,	A,	70,	A_PlaySound,	sfx_crumbl,	1,				S_NULL}
+
+-- states[S_DRONE_EXIST] = {SPR_PLSD,  A, 1, A_SetReactionTime,	0, 0, S_DRONE_EXIST2}
+-- states[S_DRONE_EXIST2] = {SPR_PLSD,  A, 1, A_look,	(0<<16)+1, 0, S_DRONE_EXIST}
+-- states[S_DRONE_EMERGENCY_RESET] = {SPR_PLSD,  A, 1, A_SetObjectFlags2,	MF2_FRET, 1, S_DRONE_CHASE}
+-- states[S_DRONE_CHASE] = {SPR_PLSD,  A, 1, A_Boss1Chase,	0, 0, S_DRONE_CHASE}
+-- states[S_DRONE_LOOPPROTECT] = {SPR_PLSD,  D, 0, A_Repeat,	1, 0, S_DRONE_HIT}
+-- states[S_DRONE_HIT] = {SPR_PLSD,  D, 1, A_Pain,	0, 0, S_DRONE_HIT2}
+-- states[S_DRONE_HIT2] = {SPR_PLSD,  E, 2, A_DroneCheck,	0, 0, S_DRONE_HIT3}
+-- states[S_DRONE_HIT3] = {SPR_PLSD,  D, 2, A_PlasmaChase,	3, 0, S_DRONE_AGAINHIT}
+-- states[S_DRONE_AGAINHIT] = {SPR_PLSD,  A, 0, A_Repeat,	13, S_DRONE_HIT2, S_DRONE_HEALED}
+-- states[S_DRONE_HEALED] = {SPR_PLSD,  A, 1, A_SetObjectFlags2,	MF2_FRET, 1, S_DRONE_UP}
+-- states[S_DRONE_UP] = {SPR_PLSD,  A, 1, A_DroneCheck,	0, 0, S_DRONE_UP2}
+-- states[S_DRONE_UP2] = {SPR_PLSD,  A, 1, A_PlasmaChase,	3, 0, S_DRONE_UP}
+-- states[S_DRONE_DROP_ATTACK1] = {SPR_PLSD,  B, 2, A_ForceStop,	0, 0, S_DRONE_DROP_ATTACK2}
+-- states[S_DRONE_DROP_ATTACK2] = {SPR_PLSD,  C, 2, A_ForceStop,	0, 0, S_DRONE_REFLASH}
+-- states[S_DRONE_REFLASH] = {SPR_PLSD,  C, 0, A_Repeat,	17, S_DRONE_DROP_ATTACK1, S_DRONE_DROP_ATTACK3}
+-- states[S_DRONE_DROP_ATTACK3] = {SPR_PLSD,  A, 1, A_PlasmaChase,	0, 0, S_DRONE_REFLASH2}
+-- states[S_DRONE_REFLASH2] = {SPR_PLSD,  A, 0, A_Repeat,	18, S_DRONE_DROP_ATTACK3, S_DRONE_DOWN1}
+-- states[S_DRONE_DOWN1] = {SPR_PLSD,  A, 1, A_ZThrust,	-2,	(1<<16)+0, S_DRONE_DOWN2}
+-- states[S_DRONE_DOWN2] = {SPR_PLSD,  A, 1, A_PlasmaChase,	3, 0, S_DRONE_DOWN1}
+-- states[S_DRONE_ENERGY_ATTACK1] = {SPR_PLSD,  B, 2, A_ForceStop,	0, 0, S_DRONE_ENERGY_ATTACK2}
+-- states[S_DRONE_ENERGY_ATTACK2] = {SPR_PLSD,  C, 1, A_ForceStop,	0, 0, S_DRONE_REFLASH3}
+-- states[S_DRONE_REFLASH3] = {SPR_PLSD,  C, 0, A_Repeat,	35, S_DRONE_ENERGY_ATTACK1, S_DRONE_ENERGY_ATTACK3}
+-- states[S_DRONE_ENERGY_ATTACK3] = {SPR_PLSD,  A,	2, A_PlaySound,	390, 0, S_DRONE_ENERGY_ATTACK4}//THIS IS WHERE TO INSERT THE PARTICLE VACUUME, MAY NEED REORGANISEING.
+-- states[S_DRONE_ENERGY_ATTACK4] = {SPR_PLSD,  A,	1, TP_PlasmaChaseGather,	0, 0, S_DRONE_REFLASH4}//new state?
+-- states[S_DRONE_REFLASH4] = {SPR_PLSD,  A,	0, A_Repeat,	70, S_DRONE_ENERGY_ATTACK4, S_DRONE_ENERGY_ATTACK5}
+-- states[S_DRONE_ENERGY_ATTACK5] = {SPR_PLSD,  A,	2, A_PlaySound,	391, 0, S_DRONE_ENERGY_ATTACK6}
+-- states[S_DRONE_ENERGY_ATTACK6] = {SPR_PLSD,  A,	1, A_TrapShot,	(0<<16)+MT_ENERGYBALLCLONE, (-96<<16)+270, S_DRONE_EXIST}
+-- states[S_DRONE_REMOTE] = {SPR_PLSD,  A,	34, A_RemoteAction,	MT_ENERGYBALLCLONE, S_ENERGY_KILLER, S_DRONE_EXIST}
+-- states[S_ENERGY_KILLER] = {SPR_PLSD,  A,	1, A_SetFuse,	3*FRACUNIT, 0, S_NULL}
+-- states[S_DRONE_DEAD] = {SPR_PLSD,  A,	8, A_BossScream,	0, 0, S_DRONE_DEADBOOM}
+-- states[S_DRONE_DEADBOOM] = {SPR_PLSD,  A,	0, A_Repeat,	10, S_DRONE_DEAD, S_DRONE_DEAD2}
+-- states[S_DRONE_DEAD2] = {SPR_PLSD,  A,	-1, A_BossDeath,	0, 0, S_NULL}

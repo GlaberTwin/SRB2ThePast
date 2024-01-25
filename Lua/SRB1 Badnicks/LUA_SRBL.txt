@@ -1,0 +1,28 @@
+// SRB1 RBZ Spike - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+
+freeslot(
+	"MT_SRB1_RBZSPIKES",
+	"S_SRB1_RBZSPIKES1",
+	"S_SRB1_RBZSPIKES2",
+	"SPR_SRBL"
+)
+
+mobjinfo[MT_SRB1_RBZSPIKES] = {
+	//$Name RBZ Spike
+	//$Sprite SRBLA0
+	//$Category SRB1 Enemies
+	doomednum = 4012,
+	spawnstate = S_SRB1_RBZSPIKES1,
+	seestate = S_SRB1_RBZSPIKES1,
+	reactiontime = 32,
+	painchance = 200,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3*FRACUNIT,
+	radius = 10*FRACUNIT,
+	height = 53*FRACUNIT,
+	flags = MF_SPECIAL|MF_SOLID|MF_ENEMY|MF_NOGRAVITY|MF_FLOAT
+}
+
+states[S_SRB1_RBZSPIKES1] =	{SPR_SRBL,	A,	35,	A_ZThrust,	4,	(1<<16)+1,	S_SRB1_RBZSPIKES2}
+states[S_SRB1_RBZSPIKES2] =	{SPR_SRBL,	A,	35,	A_ZThrust,	-4,	(1<<16)+1,	S_SRB1_RBZSPIKES1}

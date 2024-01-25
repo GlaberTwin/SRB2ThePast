@@ -1,0 +1,20 @@
+-- Retro Monitors - 2.1 Pity Shield Orb
+-- Use with LUA_SHLD
+
+freeslot(
+	"SPR_OPTY",
+	"MT_21_PITYORB",
+	"S_21_PITYORB"
+)
+
+mobjinfo[MT_21_PITYORB] = {
+	doomednum = -1,
+	spawnstate = S_21_PITYORB,
+	spawnhealth = 1000,
+	radius = 64*FRACUNIT,
+	height = 64*FRACUNIT,
+	dispoffset = 1,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOGRAVITY|MF_SCENERY
+}
+
+states[S_21_PITYORB] =	{SPR_OPTY,	A|FF_TRANS20|FF_ANIMATE,	-1,	nil,	9,	1,	S_NULL}

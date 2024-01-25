@@ -1,0 +1,31 @@
+-- Demo Monitor Commonalities - Ported by MIDIMan
+-- Use with the other LUA_DBX* scripts
+
+freeslot(
+	"SPR_DBOX",
+	"S_DEMOBOX_FLICKER",
+	"S_DEMOBOX_DEAD"
+)
+
+-- Instantly makes solid object intangible upon death
+function A_DemoFall(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	actor.flags = $|MF_NOCLIP & ~MF_SOLID
+end
+
+rawset(_G, "RM_DemoMonitorFuseThink", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	local newmobj = P_SpawnMobjFromMobj(mo, 0, 0, 0, mo.type)
+	
+	newmobj.flags2 = mo.flags2
+	newmobj.spawnpoint = mo.spawnpoint
+	newmobj.rmShieldEra = mo.rmShieldEra
+	
+	P_RemoveMobj(mo)
+	return true
+end)
+
+states[S_DEMOBOX_FLICKER] =	{SPR_DBOX,	A,	1,	nil,	0,	0,	S_SPAWNSTATE}
+states[S_DEMOBOX_DEAD] =	{SPR_DBOX,	B,	-1,	nil,	0,	0,	S_NULL}

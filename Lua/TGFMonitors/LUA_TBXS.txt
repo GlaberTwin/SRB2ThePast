@@ -1,0 +1,81 @@
+-- TGF Speed Shoes Monitor - "Ported" by MIDIMan
+-- Use with LUA_TBOX
+
+freeslot(
+	"SPR_TBXS",
+	"MT_TGFBOX_SHOES",
+	"MT_TGFBOX_SHOES_SPECIAL",
+	"S_TGFBOX_SHOES_IDLE1",
+	"S_TGFBOX_SHOES_IDLE2",
+	"S_TGFBOX_SHOES_IDLE3",
+	"S_TGFBOX_SHOES_BREAK",
+	"S_TGFBOX_SHOES_SPECIAL_IDLE",
+	"S_TGFBOX_SHOES_SPECIAL_DEATH"
+)
+
+-- TGF Speed Shoes Monitor
+
+local function RM_TGFSuperSneakers(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	RM_TGFMonitorGiveAbility(actor, A_SuperSneakers)
+end
+
+addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_SHOES)
+
+-- If the monitor has been destroyed by a player's projectile, still play the death sound
+addHook("TouchSpecial", RM_TGFMonitorTouchSpecial, MT_TGFBOX_SHOES)
+addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_SHOES)
+
+mobjinfo[MT_TGFBOX_SHOES] = {
+	--$Name TGF Super Sneakers
+	--$Sprite TBXSA0
+	--$Category Monitors
+	--$Flags4Text Big Explosion
+	--$Arg1 Explosion Size
+	--$Arg1Type 11
+	--$Arg1Enum {0 = "Small"; 1 = "Large";}
+	doomednum = 511,
+	spawnstate = S_TGFBOX_SHOES_IDLE1,
+	spawnhealth = 1,
+	painstate = S_TGFBOX_SHOES_IDLE1,
+	deathstate = S_TGFBOX_SHOES_BREAK,
+	deathsound = sfx_pop,
+	radius = 28*FRACUNIT,
+	height = 52*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_TGFBOX_SHOES_IDLE1] =	{SPR_TBXS,	A,	1,	nil,					0,	0,	S_TGFBOX_SHOES_IDLE2}
+states[S_TGFBOX_SHOES_IDLE2] =	{SPR_TBOX,	A,	1,	nil,					0,	0,	S_TGFBOX_SHOES_IDLE3}
+states[S_TGFBOX_SHOES_IDLE3] =	{SPR_TBXS,	B,	1,	nil,					0,	0,	S_TGFBOX_SHOES_IDLE1}
+states[S_TGFBOX_SHOES_BREAK] =	{SPR_TBXX,	A,	0,	RM_TGFSuperSneakers,	0,	0,	S_TGFBOX_CHOOSEEXPLOSION}
+
+-- TGF Special Stage Speed Shoes Power-Up
+
+addHook("MapThingSpawn", RM_TGFPowerUpSetup, MT_TGFBOX_SHOES_SPECIAL)
+addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_SHOES_SPECIAL)
+addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_SHOES_SPECIAL)
+
+mobjinfo[MT_TGFBOX_SHOES_SPECIAL] = {
+	--$Name TGF Super Sneakers (Power-Up)
+	--$Sprite TBXSC0
+	--$Category Monitors
+	--$Flags8Text Float
+	--$Arg0 Float?
+	--$Arg0Tooltip "This raises the object by 24 fracunits."
+	--$Arg0Type 11
+	--$Arg0Enum yesno
+	doomednum = 515,
+	spawnstate = S_TGFBOX_SHOES_SPECIAL_IDLE,
+	spawnhealth = 1,
+	reactiontime = 5,
+	painstate = S_TGFBOX_SHOES_SPECIAL_IDLE,
+	deathstate = S_TGFBOX_SHOES_SPECIAL_DEATH,
+	deathsound = sfx_tgfbng, -- Replace sfx_tgfbng if you decide to use something else
+	radius = 14*FRACUNIT,
+	height = 26*FRACUNIT,
+	flags = MF_SPECIAL|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_TGFBOX_SHOES_SPECIAL_IDLE] =	{SPR_TBXS,	C,	-1,	nil,					0,	0,	S_NULL}
+states[S_TGFBOX_SHOES_SPECIAL_DEATH] =	{SPR_NULL,	A,	-1,	RM_TGFSuperSneakers,	0,	0,	S_NULL}

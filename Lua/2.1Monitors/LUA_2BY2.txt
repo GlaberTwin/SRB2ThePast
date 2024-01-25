@@ -1,0 +1,4 @@
+-- 2.1 Yellow Monitor Commonalities - Ported by MIDIMan
+-- Only use with Lua scripts that require it
+
+freeslot("SPR_2BXY")

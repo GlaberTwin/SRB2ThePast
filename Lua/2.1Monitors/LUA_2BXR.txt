@@ -1,0 +1,229 @@
+-- 2.1 Ring Boxes - Ported by MIDIMan
+-- Use with LUA_2BOX and LUA_2BY2
+-- CTF Monitors in 2.1 can't be Strong or Weak Random Monitors, so their speed is 0
+
+freeslot(
+	"SPR_2BXR",
+	"MT_21BOX_RING",
+	"MT_21BOX_RING_ICON",
+	"MT_21BOX_REDRING",
+	"MT_21BOX_BLUERING",
+	"S_21BOX_RING_IDLE",
+	"S_21BOX_RING_ICON_APPEAR",
+	"S_21BOX_RING_ICON_SPIN",
+	"S_21BOX_RING_ICON_LEAVE",
+	"S_21BOX_REDRING_IDLE",
+	"S_21BOX_REDRING_EXPLOSION1",
+	"S_21BOX_REDRING_EXPLOSION2",
+	"S_21BOX_BLUERING_IDLE",
+	"S_21BOX_BLUERING_EXPLOSION1",
+	"S_21BOX_BLUERING_EXPLOSION2"
+)
+
+-- Hack to allow players to achieve a "Perfect" bonus with these monitors
+local function RM_AddToNumMapRings(mo, numrings)
+	if not (mo and mo.valid and numrings) then return end
+	
+-- 	if numrings >= 10
+-- 		for i = 1, numrings/10, 1
+-- 			local ringbox = P_SpawnMobj(mo.x, mo.y, mo.z, MT_RING_BOX)
+-- 			P_RemoveMobj(ringbox)
+-- 		end
+		
+-- 		numrings = $%10
+-- 	end
+-- 	print("21BOXRINGS: " + numrings)
+	for i = 1, numrings, 1 do
+		local ring = P_SpawnMobj(mo.x, mo.y, mo.z, MT_RING)
+		P_RemoveMobj(ring)
+	end
+end
+
+addHook("MobjFuse", RM_21MonitorFuseThink, MT_21BOX_RING)
+
+-- Prevent the ring monitor from spawning if playing in Ultimate Mode
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_21MonitorTypeSpawn(mo, mthing)
+	
+	if mo and mo.valid then
+		if ultimatemode and not G_IsSpecialStage(gamemap) then
+			P_RemoveMobj(mo)
+			return
+		end
+		
+		if mo.type == MT_21BOX_RING then
+			RM_AddToNumMapRings(mo, 10)
+		end
+	end
+end, MT_21BOX_RING)
+
+mobjinfo[MT_21BOX_RING] = {
+	--$Name 2.1 Super Ring (10 Rings)
+	--$Sprite 2BXRA0
+	--$Category Monitors
+	--$Flags4Text Random (Strong)
+	--$Flags8Text Random (Weak)
+	--$Arg1 Respawn behavior
+	--$Arg1Type 11
+	--$Arg1Enum monitorrespawn
+	doomednum = 480,
+	spawnstate = S_21BOX_RING_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_RING_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	speed = 1,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_RING_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_RING_IDLE] =	{SPR_2BXR,	A,	2,	nil,	0,	0,	S_21BOX_FLICKER}
+
+mobjinfo[MT_21BOX_RING_ICON] = {
+	doomednum = -1,
+	spawnstate = S_21BOX_RING_ICON_APPEAR,
+	spawnhealth = 1,
+	seesound = sfx_itemup,
+	reactiontime = 10,
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_21BOX_RING_ICON_APPEAR] =	{SPR_2BXR,	B,				4,	nil,		0,	0,	S_21BOX_RING_ICON_SPIN}
+states[S_21BOX_RING_ICON_SPIN] =	{SPR_2BXY,	C|FF_ANIMATE,	12,	nil,		2,	4,	S_21BOX_RING_ICON_LEAVE}
+states[S_21BOX_RING_ICON_LEAVE] =	{SPR_2BXR,	B,				18,	A_RingBox,	0,	0,	S_NULL}
+
+-- CTF Monitor Exclusive Functions/Hooks
+
+local function RM_CTFRingSpawn(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	-- This only checks for the CTF gametype and not if the current gametype has teams,
+	-- which is accurate to how 2.1 handled it
+	if (gametype ~= GT_CTF) then
+		mo.type = MT_21BOX_RING
+		
+		mo.radius = FixedMul(mo.scale, mo.info.radius)
+		mo.height = FixedMul(mo.scale, mo.info.height)
+		mo.flags = mo.info.flags
+		
+		mo.health = mo.info.spawnhealth
+		
+		mo.reactiontime = mo.info.reactiontime
+		
+		mo.state = mo.info.spawnstate
+	end
+end
+
+-- This is needed so the player can't go through the top or bottom of the red and blue ring monitors
+addHook("PlayerCanDamage", function(player, mo)
+	if not (player and player.valid and mo and mo.valid) then return end
+	
+	if (mo.type == MT_21BOX_REDRING and player.ctfteam ~= 1) 
+	or (mo.type == MT_21BOX_BLUERING and player.ctfteam ~= 2) then
+		return false
+	end
+end)
+
+-- 2.1 Red Ring Monitor
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_21MonitorTypeSpawn(mo, mthing)
+	
+	if mo and mo.valid then
+		if (mo.type == MT_21BOX_REDRING) then
+			if ultimatemode and not G_IsSpecialStage(gamemap) then
+				P_RemoveMobj(mo)
+				return
+			end
+			
+			RM_AddToNumMapRings(mo, 10)
+			RM_CTFRingSpawn(mo, mthing)
+		end
+	end
+end, MT_21BOX_REDRING)
+
+-- Prevents a player on the blue team from destroying a red ring monitor
+addHook("ShouldDamage", function(target, inflictor, source, damage, damagetype)
+	if not (source and source.valid and player and player.valid) then return end
+	
+	if source.player.ctfteam ~= 1 then return false end
+end, MT_21BOX_REDRING)
+
+mobjinfo[MT_21BOX_REDRING] = {
+	--$Name 2.1 CTF Team Ring Monitor (Red)
+	--$Sprite 2BXRC0
+	--$Category Monitors
+	doomednum = 481,
+	spawnstate = S_21BOX_REDRING_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_REDRING_IDLE,
+	deathstate = S_21BOX_REDRING_EXPLOSION1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_RING_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_REDRING_IDLE] =	{SPR_2BXR,	C|FF_ANIMATE,	3,	nil,	1,	2,	S_21BOX_REDRING_IDLE}
+
+states[S_21BOX_REDRING_EXPLOSION1] =	{SPR_2BXR,	D,	4,	A_21MonitorPop,	0,	0,	S_21BOX_REDRING_EXPLOSION2}
+states[S_21BOX_REDRING_EXPLOSION2] =	{SPR_2BXR,	E,	-1,	nil,			0,	0,	S_NULL}
+
+-- 2.1 Red Ring Monitor
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_21MonitorTypeSpawn(mo, mthing)
+	
+	if mo and mo.valid then
+		if (mo.type == MT_21BOX_BLUERING) then
+			if ultimatemode and not G_IsSpecialStage(gamemap) then
+				P_RemoveMobj(mo)
+				return
+			end
+			
+			RM_AddToNumMapRings(mo, 10)
+			RM_CTFRingSpawn(mo, mthing)
+		end
+	end
+end, MT_21BOX_BLUERING)
+
+-- Prevents a player on the red team from destroying a blue ring monitor
+addHook("ShouldDamage", function(target, inflictor, source, damage, damagetype)
+	if not (source and source.valid and source.player and source.player.valid) then return end
+	
+	if source.player.ctfteam ~= 2 then return false end
+end, MT_21BOX_BLUERING)
+
+mobjinfo[MT_21BOX_BLUERING] = {
+	--$Name 2.1 CTF Team Ring Monitor (Blue)
+	--$Sprite 2BXRF0
+	--$Category Monitors
+	doomednum = 482,
+	spawnstate = S_21BOX_BLUERING_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_BLUERING_IDLE,
+	deathstate = S_21BOX_BLUERING_EXPLOSION1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_RING_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_BLUERING_IDLE] =	{SPR_2BXR,	F|FF_ANIMATE,	3,	nil,	1,	2,	S_21BOX_BLUERING_IDLE}
+
+states[S_21BOX_BLUERING_EXPLOSION1] =	{SPR_2BXR,	G,	4,	A_21MonitorPop,	0,	0,	S_21BOX_BLUERING_EXPLOSION2}
+states[S_21BOX_BLUERING_EXPLOSION2] =	{SPR_2BXR,	H,	-1,	nil,			0,	0,	S_NULL}

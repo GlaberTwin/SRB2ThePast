@@ -1,0 +1,120 @@
+-- TGF Ring Monitors - "Ported" by MIDIMan
+-- Use with LUA_TBOX
+
+freeslot(
+	"SPR_TBXR",
+	"sfx_tgfmrg",
+	"MT_TGFBOX_RING",
+	"MT_TGFBOX_RING_SPECIAL",
+	"S_TGFBOX_RING_IDLE1",
+	"S_TGFBOX_RING_IDLE2",
+	"S_TGFBOX_RING_IDLE3",
+	"S_TGFBOX_RING_BREAK",
+	"S_TGFBOX_RING_EXPLODE",
+	"S_TGFBOX_RING_SPECIAL_IDLE",
+	"S_TGFBOX_RING_SPECIAL_DEATH"
+)
+
+sfxinfo[sfx_tgfmrg].caption = "Sparkling"
+
+-- Allow the player to get a perfect bonus
+local function RM_SetupMapRings(mo, numrings)
+	if not (mo and mo.valid) then return end
+	if not numrings then return end
+	
+	for i = 1, numrings, 1 do
+		local ring = P_SpawnMobj(mo.x, mo.y, mo.z, MT_RING)
+		P_RemoveMobj(ring)
+	end
+end
+
+-- TGF Ring Monitor
+
+local function RM_TGFRingBox(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	RM_TGFMonitorGiveAbility(actor, A_RingBox)
+end
+
+addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_RING)
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_SetupMapRings(mo, 10)
+end, MT_TGFBOX_RING)
+
+-- If the monitor has been destroyed by a player's projectile, still play the death sound
+addHook("TouchSpecial", RM_TGFMonitorTouchSpecial, MT_TGFBOX_RING)
+addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_RING)
+
+mobjinfo[MT_TGFBOX_RING] = {
+	--$Name TGF Super Ring (10 Rings)
+	--$Sprite TBXRA0
+	--$Category Monitors
+	--$Flags4Text Big Explosion
+	--$Arg1 Explosion Size
+	--$Arg1Type 11
+	--$Arg1Enum {0 = "Small"; 1 = "Large";}
+	doomednum = 510,
+	spawnstate = S_TGFBOX_RING_IDLE1,
+	spawnhealth = 1,
+	reactiontime = 10,
+	painstate = S_TGFBOX_RING_IDLE1,
+	deathstate = S_TGFBOX_RING_BREAK,
+	deathsound = sfx_pop,
+	radius = 28*FRACUNIT,
+	height = 52*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_TGFBOX_RING_IDLE1] =	{SPR_TBXR,	A,	1,	nil,		0,	0,	S_TGFBOX_RING_IDLE2}
+states[S_TGFBOX_RING_IDLE2] =	{SPR_TBOX,	A,	1,	nil,		0,	0,	S_TGFBOX_RING_IDLE3}
+states[S_TGFBOX_RING_IDLE3] =	{SPR_TBXR,	B,	1,	nil,		0,	0,	S_TGFBOX_RING_IDLE1}
+
+states[S_TGFBOX_RING_BREAK] =	{SPR_TBXX,	A,	0,	RM_TGFRingBox,	0,	0,	S_TGFBOX_CHOOSEEXPLOSION}
+
+-- TGF Special Stage Ring Power-Up
+
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_SetupMapRings(mo, 5)
+	RM_TGFPowerUpSetup(mo, mthing)
+end, MT_TGFBOX_RING_SPECIAL)
+
+addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_RING_SPECIAL)
+
+addHook("TouchSpecial", function(special, toucher)
+	if not (special and special.valid and toucher and toucher.valid) then return end
+	if not (toucher.player and toucher.player.valid) then return end
+	
+	if G_IsSpecialStage(gamemap) then
+		toucher.player.spheres = $+5
+	end
+end, MT_TGFBOX_RING_SPECIAL)
+
+addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_RING_SPECIAL)
+
+mobjinfo[MT_TGFBOX_RING_SPECIAL] = {
+	--$Name TGF Super Ring (5 Rings) (Power-Up)
+	--$Sprite TBXRC0
+	--$Category Monitors
+	--$Flags8Text Float
+	--$Arg0 Float?
+	--$Arg0Tooltip "This raises the object by 24 fracunits."
+	--$Arg0Type 11
+	--$Arg0Enum yesno
+	doomednum = 514,
+	spawnstate = S_TGFBOX_RING_SPECIAL_IDLE,
+	spawnhealth = 1,
+	reactiontime = 5,
+	painstate = S_TGFBOX_RING_SPECIAL_IDLE,
+	deathstate = S_TGFBOX_RING_SPECIAL_DEATH,
+	deathsound = sfx_tgfmrg,
+	radius = 14*FRACUNIT,
+	height = 26*FRACUNIT,
+	flags = MF_SPECIAL|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_TGFBOX_RING_SPECIAL_IDLE] =	{SPR_TBXR,	C,	-1,	nil,			0,	0,	S_NULL}
+states[S_TGFBOX_RING_SPECIAL_DEATH] =	{SPR_NULL,	A,	-1,	RM_TGFRingBox,	0,	0,	S_NULL}

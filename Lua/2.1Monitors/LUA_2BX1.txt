@@ -1,0 +1,149 @@
+-- 2.1 1up Box - Ported by MIDIMan
+-- Use with LUA_2BOX, LUA_2BI2, and LUA_2BXP
+
+freeslot(
+	"SPR_2BX1",
+	"MT_21BOX_1UP",
+	"MT_21BOX_1UP_ICON",
+	"S_21BOX_1UP_IDLE",
+	"S_21BOX_1UP_ICON_APPEAR",
+	"S_21BOX_1UP_ICON_SPIN",
+	"S_21BOX_1UP_ICON_LEAVE",
+	"S_21BOX_1UP_PLAY1",
+	"S_21BOX_1UP_PLAY2"
+)
+
+-- Properly fits the player's 1up icon into the 2.1 monitor
+-- Mostly based off of 2.2.9's source code
+function A_211upThinker(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local dist = INT32_MAX
+	local temp
+	local closestplayer
+	
+	for player in players.iterate do
+		if not player.valid or player.bot or player.spectator then continue end
+		if not (player.mo and player.mo.valid) then continue end
+		if (netgame or multiplayer) and player.playerstate ~= PST_LIVE then continue end
+		
+		temp = FixedHypot(player.mo.x-actor.x, player.mo.y-actor.y)
+		
+		if temp < dist then
+			closestplayer = player
+			dist = temp
+		end
+		
+		if closestplayer == nil or skins[closestplayer.skin].sprites[SPR2_LIFE].numframes == 0 then
+			-- Closest player not found (no players in game?? may be empty dedicated server!), or does not have correct sprite.
+			actor.frame = A
+			if actor.tracer and actor.tracer.valid
+				local tracer = actor.tracer
+				actor.tracer = nil
+				P_RemoveMobj(tracer)
+			end
+			return
+		end
+		
+		if not (actor.tracer and actor.tracer.valid) then
+			actor.tracer = P_SpawnMobjFromMobj(actor, 0, 0, 0, MT_OVERLAY)
+			actor.tracer.target = actor
+			actor.tracer.skin = closestplayer.mo.skin -- required here to prevent spr2 default showing stand for a single frame
+			actor.tracer.state = actor.info.seestate
+			
+			-- The overlay is going to be one tic early turning off and on
+			-- because it's going to get its thinker run the frame we spawned it.
+			-- So make it take one tic longer if it just spawned
+			actor.tracer.tics = $+1
+		end
+		
+		actor.tracer.color = closestplayer.mo.color
+		actor.tracer.skin = closestplayer.mo.skin
+	end
+end
+
+function A_21ExtraLife(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	A_ExtraLife(actor, var1, var2)
+	
+	if actor.type == MT_21BOX_1UP_ICON and not (actor.tracer and actor.tracer.valid) then
+		actor.frame = B
+	end
+end
+
+addHook("MobjFuse", RM_21MonitorFuseThink, MT_21BOX_1UP)
+
+-- Spawn a 2.1 10K or 1K score monitor if the player is in record attack mode
+addHook("MapThingSpawn", function(mobj, mthing)
+	if not (mobj and mobj.valid and mthing and mthing.valid) then return end
+	
+	RM_21MonitorTypeSpawn(mobj, mthing)
+	
+	if modeattacking and mobj and mobj.valid then
+		-- Either or, doesn't matter which.
+		if (udmf and mthing.args[2])
+		or (not udmf and (mthing.options & (MTF_AMBUSH|MTF_OBJECTSPECIAL))) then
+			mobj.type = MT_21BOX_SCORE10K
+		else
+			mobj.type = MT_21BOX_SCORE1K
+		end
+		
+		mobj.radius = FixedMul(mobj.scale, mobj.info.radius)
+		mobj.height = FixedMul(mobj.scale, mobj.info.height)
+		mobj.flags = mobj.info.flags
+		
+		mobj.health = mobj.info.spawnhealth
+		
+		mobj.reactiontime = mobj.info.reactiontime
+		
+		mobj.state = mobj.info.spawnstate
+	end
+end, MT_21BOX_1UP)
+
+mobjinfo[MT_21BOX_1UP] = {
+	--$Name 2.1 Extra Life
+	--$Sprite 2BX1A0
+	--$Category Monitors
+	--$Flags4Text Random (Strong) / 10k points
+	--$Flags8Text Random (Weak) / 10k points
+	--$Arg1 Respawn behavior
+	--$Arg1Type 11
+	--$Arg1Enum monitorrespawn
+	--$Arg2 Points
+	--$Arg2Type 11
+	--$Arg2Enum {0 = "1,000"; 1 = "10,000";}
+	doomednum = 485,
+	spawnstate = S_21BOX_1UP_IDLE,
+	spawnhealth = 1,
+	seestate = S_21BOX_1UP_PLAY1,
+	painstate = S_21BOX_1UP_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	speed = 1,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_1UP_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_1UP_IDLE] =	{SPR_2BX1,	C,	2,	A_211upThinker,	0,	0,	S_21BOX_FLICKER}
+
+mobjinfo[MT_21BOX_1UP_ICON] = {
+	doomednum = -1,
+	spawnstate = S_21BOX_1UP_ICON_APPEAR,
+	spawnhealth = 1,
+	seestate = S_PLAY_ICON1, -- Replace this with a 2.1 variant in the future, maybe?
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_21BOX_1UP_ICON_APPEAR] =	{SPR_2BX1,	D,				4,	nil,				0,	0,	S_21BOX_1UP_ICON_SPIN}
+states[S_21BOX_1UP_ICON_SPIN] =		{SPR_2BXI,	C|FF_ANIMATE,	12,	nil,				2,	4,	S_21BOX_1UP_ICON_LEAVE}
+states[S_21BOX_1UP_ICON_LEAVE] =	{SPR_2BX1,	D,				18,	A_21ExtraLife,	0,	0,	S_NULL}
+
+states[S_21BOX_1UP_PLAY1] =	{SPR_PLAY,	SPR2_LIFE,	2,	nil,	0,	16,	S_21BOX_1UP_PLAY2}
+states[S_21BOX_1UP_PLAY2] =	{SPR_NULL,	0,			1,	nil,	0,	16,	S_21BOX_1UP_PLAY1}

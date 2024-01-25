@@ -1,0 +1,75 @@
+-- Final Demo White (Whirlwind) Shield Box - Ported by MIDIMan
+-- Use with LUA_FBOX
+
+--[[
+The Whirlwind Shield wasn't introduced in SRB2 until 1.09 came out.
+]]
+
+freeslot(
+	"SPR_FBXW",
+	"MT_FDBOX_WHITE",
+	"MT_FDBOX_WHITE_ICON",
+	"S_FDBOX_WHITE_IDLE",
+	"S_FDBOX_WHITE_ICON1",
+	"S_FDBOX_WHITE_ICON2"
+)
+
+addHook("MobjFuse", RM_FDMonitorFuseThink, MT_FDBOX_WHITE)
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	RM_FDMonitorTypeSpawn(mo, mthing)
+	
+	if mo and mo.valid then
+		if ultimatemode and not G_IsSpecialStage(gamemap) then
+			P_RemoveMobj(mo)
+		end
+	end
+end, MT_FDBOX_WHITE)
+
+mobjinfo[MT_FDBOX_WHITE] = {
+	--$Name Final Demo White (Whirlwind) Shield
+	--$Sprite FBXWA0
+	--$Category Monitors
+	--$Flags1Text Don't "Era-Swap" Shield
+	--$Flags4Text Random (Strong)
+	--$Flags8Text Random (Weak) / Random (Pre-2.0)
+	--$ParameterText Behavior
+	--$Arg1 Respawn behavior
+	--$Arg1Type 11
+	--$Arg1Enum monitorrespawn
+	--$Arg2 Era-Swap Shield
+	--$Arg2Type 11
+	--$Arg2Enum yesno
+	--$Arg3 Era
+	--$Arg3Type 11
+	--$Arg3Enum {0 = "2.0"; 1 = "1.09-1.09.4";}
+	doomednum = 474,
+	spawnstate = S_FDBOX_WHITE_IDLE,
+	spawnhealth = 1,
+	painstate = S_FDBOX_WHITE_IDLE,
+	deathstate = S_FDBOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	speed = 1,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_FDBOX_WHITE_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_FDBOX_WHITE_IDLE] =	{SPR_FBXW,	A,	2,	nil,	0,	0,	S_FDBOX_FLICKER}
+
+mobjinfo[MT_FDBOX_WHITE_ICON] = {
+	doomednum = -1,
+	spawnstate = S_FDBOX_WHITE_ICON1,
+	spawnhealth = 1,
+	seesound = sfx_shield,
+	speed = 4*FRACUNIT,	-- Originally 2*FRACUNIT; Changed to match pre-2.1's speed
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_FDBOX_WHITE_ICON1] =	{SPR_FBXW,	B,	18,	nil,			0,				0,	S_FDBOX_WHITE_ICON2}
+states[S_FDBOX_WHITE_ICON2] =	{SPR_FBXW,	B,	18,	A_GiveShield,	SH_WHIRLWIND,	0,	S_NULL}

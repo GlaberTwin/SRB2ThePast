@@ -1,0 +1,108 @@
+--/// Demo Water Palette Recreation by Barrels O' Fun
+
+local oglfadehud 
+
+local function DemoWater(player, palnum, glcolor, halloween)    -- If halloween is true it will act like it did in the original Halloween Tech Demo
+                                                                -- where once the player's view height is below water level it would activate,
+                                                                -- disregarding third person entirely
+local changepal                                                
+                            
+    if camera.chase and not halloween                        
+        for fof in camera.subsector.sector.ffloors() do        
+            if fof.valid and fof.flags & FF_SWIMMABLE            
+                changepal = (camera.z < fof.topheight-8*FRACUNIT 
+                and camera.z > fof.bottomheight-8*FRACUNIT)        
+            end
+        end
+            if not changepal
+                return
+            end
+    else
+		if displayplayer.realmo
+			if not (displayplayer.viewz < displayplayer.realmo.watertop)
+				return
+			end
+		end    
+    end
+    
+    if CV_FindVar("renderer").string != "OpenGL" -- Because OpenGL doesn't support sub-palettes.
+        P_FlashPal(player,palnum,1)
+    else
+        oglfadehud = glcolor
+    end
+end
+
+hud.add(function(v)
+    if oglfadehud != nil
+        v.fadeScreen(oglfadehud, 1)
+        oglfadehud = nil
+    end
+end)
+
+local demotype = nil
+
+addHook("MapLoad", function()
+
+demotype = nil
+
+local demomaps = 	-- Table because of how levels are organized in SRB2:TP
+{
+	{ 3, 28 }, -- Beta Quest
+	
+	{ 51, 52 }, -- Specil Stage SP
+	
+	{ 61, 62 }, -- Specil Stage MP
+	
+	{ 67, 87 }, -- Match		
+	
+	{ 172, 174 }, -- CEZD4
+	
+	{ 183, 184 }, -- CEZD4Dev
+	
+	{ 208, 212 }, -- DSZ
+	
+	{ 316, 322 }, -- GFZ
+	
+	{ 316, 322 }, -- GFZ2
+	
+	{ 332, 333 }, -- GFZ3
+	
+	{ 446, 456 }, -- Match to CTF
+	
+	{ 605, 606 }, -- Metals Challenge 1
+	
+	{ 784, 789 }, -- THZ1
+	
+	{ 809, 810 }, -- THZ2
+	
+	{ 968, 969 }, -- Christmas dev
+
+}
+
+	for i= 1,15 -- second number is how many map sets there are for the demos. Decrease or increase if necesssary...
+		if gamemap == 352 or gamemap == 353 or gamemap == 604
+			demotype = "halloween"
+		elseif (gamemap >= 928 and gamemap <= 939) or gamemap == gfzxmas
+			demotype = "christmas"
+		elseif (gamemap >= demomaps[i][1] and gamemap <= demomaps[i][2])
+			demotype = "demo"
+		end
+	end
+end)
+
+--//Netgame Sync
+addHook("NetVars", function(network)
+    demotype = network(demotype)
+end)
+
+addHook("ThinkFrame", function(player)
+	for player in players.iterate do	
+		if demotype == "halloween"
+			DemoWater(player, 13, 112, true)
+		elseif demotype == "christmas"
+			DemoWater(player, 13, 112)
+		elseif demotype == "demo"
+			DemoWater(player, 12, 135)
+		end
+	end
+end)

@@ -1,0 +1,1182 @@
+#Sonic Doom 2 Level Headers
+
+#ICE CAP
+
+Level P0
+Levelname = Ice Cap
+subtitle = Sonic Doom 2
+PreCutsceneNum = 91
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = MAPACM
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P1
+SkyNum = 42
+RecordAttack = false
+hidden = 1
+StartRings = 50
+SaveGame = true
+
+Level P1
+Levelname = Ice Cap
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = STALKS
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P2
+SkyNum = 43
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level PV
+Levelname = Ice Cap
+subtitle = Sonic Doom 2
+SelectHeading = ???
+PreCutsceneNum = 91
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = MAPACM
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PW
+SkyNum = 42
+RecordAttack = false
+hidden = false
+StartRings = 50
+SaveGame = true
+Lua.TPHub = 1:14
+
+Level PW
+Levelname = Ice Cap
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = STALKS
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PX
+SkyNum = 43
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+#FLYING BATTERY
+
+Level P2
+Levelname = Flying Battery
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = COUNTD
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P3
+SkyNum = 32
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level P3
+Levelname = Flying Battery
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = BETWEE
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P4
+SkyNum = 32
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level PX
+Levelname = Flying Battery
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = COUNTD
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PY
+SkyNum = 32
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level PY
+Levelname = Flying Battery
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = BETWEE
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PZ
+SkyNum = 32
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#SONIC ZONE
+
+Level P4
+Levelname = The Sonic
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = DOOM
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P5
+SkyNum = 32
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level PZ
+Levelname = The Sonic
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = DOOM
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q0
+SkyNum = 32
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#SPECIAL STAGE 1
+
+Level P5
+Levelname = Special Stage
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = the_da
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P6
+SkyNum = 48
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level Q0
+Levelname = Special Stage
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = the_da
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q1
+SkyNum = 48
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#MARBLE GARDEN
+
+Level P6
+Levelname = Marble Garden
+subtitle = Sonic Doom 2
+PreCutsceneNum = 92
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DDTBLU
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P7
+SkyNum = 49
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level Q1
+Levelname = Marble Garden
+subtitle = Sonic Doom 2
+SelectHeading = ???
+PreCutsceneNum = 94
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DDTBLU
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q2
+SkyNum = 49
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#CARNIVAL NIGHT
+
+Level P7
+Levelname = Carnival Night
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = IN_CIT
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P8
+SkyNum = 61
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level P8
+Levelname = Carnival Night
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DEAD
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = P9
+SkyNum = 62
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level Q2
+Levelname = Carnival Night
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = IN_CIT
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q3
+SkyNum = 61
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level Q3
+Levelname = Carnival Night
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DEAD
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q4
+SkyNum = 62
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#HYDROCITY 
+
+Level P9
+Levelname = HydroCity
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = STLKS2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PA
+SkyNum = 62
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level PA
+Levelname = HydroCity
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = THEDA2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PB
+SkyNum = 62
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level Q4
+Levelname = HydroCity
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = STLKS2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q5
+SkyNum = 62
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level Q5
+Levelname = HydroCity
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = THEDA2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q6
+SkyNum = 62
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#LAUNCH BASE
+
+Level PB
+Levelname = Launch Base
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = DOOM2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PC
+SkyNum = 63
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level PC
+Levelname = Launch Base
+subtitle = Sonic Doom 2
+PreCutsceneNum = 93
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DOOM2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PD
+SkyNum = 65
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level Q6
+Levelname = Launch Base
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = DOOM2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q7
+SkyNum = 63
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level Q7
+Levelname = Launch Base
+subtitle = Sonic Doom 2
+SelectHeading = ???
+PreCutsceneNum = 95
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DOOM2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q8
+SkyNum = 65
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#ANGEL ISLAND
+
+Level PD
+Levelname = Angel Island
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = RUNNI2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PE
+SkyNum = 67
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level PE
+Levelname = Angel Island
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DEAD2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PF
+SkyNum = 69
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level Q8
+Levelname = Angel Island
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = RUNNI2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q9
+SkyNum = 67
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level Q9
+Levelname = Angel Island
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DEAD2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QA
+SkyNum = 69
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#TOXIC CAVES
+
+Level PF
+Levelname = Toxic Caves
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = STLKS3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PG
+SkyNum = 70
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level PG
+Levelname = Toxic Caves
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = STLKS3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PH
+SkyNum = 70
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QA
+Levelname = Toxic Caves
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = STLKS3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QB
+SkyNum = 70
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level QB
+Levelname = Toxic Caves
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = STLKS3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QC
+SkyNum = 70
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#TAILS ZONE
+
+Level PH
+Levelname = The Tails
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = SHAWN2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PI
+SkyNum = 70
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QC
+Levelname = The Tails
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = SHAWN2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QD
+SkyNum = 70
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#SPECIAL STAGE 2
+
+Level PI
+Levelname = Special Stage
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = MESSAG
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PJ
+SkyNum = 70
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QD
+Levelname = Special Stage
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = MESSAG
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QE
+SkyNum = 70
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+
+#MUSHROOM HILL
+
+Level PJ
+Levelname = Mushroom Hill
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = COUNT2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PK
+SkyNum = 71
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level PK
+Levelname = Mushroom Hill
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DDTBL3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PL
+SkyNum = 71
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QE
+Levelname = Mushroom Hill
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = COUNT2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QF
+SkyNum = 71
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level QF
+Levelname = Mushroom Hill
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = DDTBL3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QG
+SkyNum = 71
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#SANDOPOLIS
+
+Level PL
+Levelname = Sandopolis
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = AMPIE
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PM
+SkyNum = 72
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level PM
+Levelname = Sandopolis
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = THEDA3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PN
+SkyNum = 72
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QG
+Levelname = Sandopolis
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = AMPIE
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QH
+SkyNum = 72
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level QH
+Levelname = Sandopolis
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = THEDA3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QI
+SkyNum = 72
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#LAVA REEF
+
+Level PN
+Levelname = Lava Reef
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = ADRIAN
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PO
+SkyNum = 70
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+Level PO
+Levelname = Lava Reef
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = MESSG2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PP
+SkyNum = 76
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QI
+Levelname = Lava Reef
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = ADRIAN
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QJ
+SkyNum = 70
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+Level QJ
+Levelname = Lava Reef
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 2
+Music = MESSG2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QK
+SkyNum = 76
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#HIDDEN PALACE
+
+Level PP
+Levelname = Hidden Palace
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = MESSG2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PQ
+SkyNum = 76
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QK
+Levelname = Hidden Palace
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = MESSG2
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QL
+SkyNum = 76
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#SKY SANCTUARY
+Level PQ
+Levelname = Sky Sanctuary
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = SKY
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PR
+SkyNum = 73
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QL
+Levelname = Sky Sanctuary
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = SKY
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QM
+SkyNum = 73
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#DEATH EGG
+
+Level PR
+Levelname = Death Egg
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = SHAWN3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PU
+SkyNum = 74
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QM
+Levelname = Death Egg
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = SHAWN3
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QP
+SkyNum = 74
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#GREENFLOWER ZONE
+
+Level PS
+Levelname = Greenflower
+subtitle = Pokemon Soccer
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = POKSOC
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PT
+SkyNum = 32
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QN
+Levelname = Greenflower
+subtitle = Pokemon Soccer
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 1
+Music = POKSOC
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = QO
+SkyNum = 32
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+#KNUCKLES ZONE
+
+Level PT
+Levelname = The Knuckles
+subtitle = Sonic Doom 2
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = ULTIMA
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = PE
+SkyNum = 32
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QO
+Levelname = The Knuckles
+subtitle = Sonic Doom 2
+SelectHeading = ???
+interscreen = BOMINT
+MusicInter = DM2INT
+ScriptName = FPS
+Act = 0
+Music = ULTIMA
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Q9
+SkyNum = 32
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14
+
+
+
+
+#ENDING
+
+Level PU
+Levelname = The End
+subtitle = Sonic Doom 2
+NoZone = true
+MusicInter = SDCLER
+ScriptName = FPS
+Act = 0
+Music = READ_M
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = Z3
+SkyNum = 74
+RecordAttack = false
+hidden = 1
+StartRings = 50
+
+#Campaign Room
+Level QP
+Levelname = The End
+subtitle = Sonic Doom 2
+SelectHeading = ???
+NoZone = true
+MusicInter = SDCLER
+ScriptName = FPS
+Act = 1
+Music = READ_M
+SaveGame = true
+TypeOfLevel = Singleplayer,Co-op,Doom
+NextLevel = 1
+SkyNum = 74
+RecordAttack = false
+hidden = false
+StartRings = 50
+Lua.TPHub = 1:14

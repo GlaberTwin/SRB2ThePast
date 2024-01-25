@@ -1,0 +1,51 @@
+freeslot("MT_OSNAPPER", "S_OSNAPPER_STND", "S_OSNAPPER1", "S_OSNAPPER2", "S_OSNAPPER3", "S_OSNAPPER4", "SPR_OSNP")
+
+--This section origianly made for Neo Drilla by toaster
+addHook("TouchSpecial", function(mo, pmo)
+    if pmo.z < mo.z + mo.height and pmo.z + pmo.height > mo.z
+    and not (pmo.player.powers[pw_invulnerability])
+    and not (pmo.player.powers[pw_super])
+	and not ((pmo.player.powers[pw_carry] == CR_NIGHTSMODE) and (pmo.player.pflags & PF_DRILLING))
+        P_DamageMobj(pmo, mo, mo)
+        return true
+    end
+end, MT_OSNAPPER)
+
+mobjinfo[MT_OSNAPPER] = {
+		//$Name "Old Snapper"
+		//$Sprite OSNPA1
+        doomednum = 141,
+        spawnstate = S_OSNAPPER_STND,
+        spawnhealth = 1,
+        seestate = S_OSNAPPER1,
+        seesound = sfx_None,
+        reactiontime = 32,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 200,
+        painsound = sfx_dmpain,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_NULL,
+        deathsound = sfx_pop,
+        speed = 3,
+        radius = 24*FRACUNIT,
+        height = 24*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_None,
+		raisestate = S_NULL,
+        flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+
+states[S_OSNAPPER_STND] = {SPR_OSNP, A, 1, A_Look, 0, 0, S_OSNAPPER_STND}
+states[S_OSNAPPER1] = {SPR_OSNP, A, 2, A_Chase, 0, 0, S_OSNAPPER2}
+states[S_OSNAPPER2] = {SPR_OSNP, B, 2, A_Chase, 0, 0, S_OSNAPPER3}
+states[S_OSNAPPER3] = {SPR_OSNP, C, 2, A_Chase, 0, 0, S_OSNAPPER4}
+states[S_OSNAPPER4] = {SPR_OSNP, D, 2, A_Chase, 0, 0, S_OSNAPPER1}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OSNAPPER] = 6    // Makes MT_OSNAPPER give Needle

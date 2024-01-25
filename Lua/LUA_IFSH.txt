@@ -1,0 +1,36 @@
+-- Retro Monitors - Final Demo Inferno Shield particles
+-- Use with LUA_SHLD and LUA_FSHL
+
+-- Spawn fire particles if the player has an "Inferno" shield
+addHook("MobjThinker", function(mo)
+	if not (mo and mo.valid and mo.target and mo.target.valid) then return end
+	
+	local player = mo.target.player
+	if not (player and player.valid) then return end
+	
+	local rmShieldEra = mo.target.rmShieldEra or ""
+	if rmShieldEra ~= "FINALDEMO" and rmShieldEra ~= "LATEFINALDEMO" then return end
+	
+	-- Spindash dust should only become fire if the player has an "Inferno" shield
+	if (player.powers[pw_shield] & SH_NOSTACK) ~= SH_FLAMEAURA then return end
+	
+	if not mo.rmInfernoFire then
+		mo.state = S_SPINDUST_FIRE1
+		mo.rmInfernoFire = true
+	end
+end, MT_SPINDUST)
+
+addHook("PlayerThink", function(player)
+	if not (player and player.valid and player.mo and player.mo.valid) then return end
+	
+	-- This behavior should only happen with a Final Demo era shield
+	local rmShieldEra = player.mo.rmShieldEra or ""
+	if rmShieldEra ~= "FINALDEMO" and rmShieldEra ~= "LATEFINALDEMO" then return end
+	
+	if (player.powers[pw_shield] & SH_NOSTACK) ~= SH_FLAMEAURA then return end
+	
+	if (player.pflags & PF_SPINNING) and player.speed > 4*player.mo.scale
+	and P_IsObjectOnGround(player.mo) and (leveltime & 1) then
+		P_ElementalFire(player)
+	end
+end)

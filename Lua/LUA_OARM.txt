@@ -1,0 +1,56 @@
+-- Retro Monitors - 2.1 Armageddon Shield Orb
+-- Use with LUA_SHLD
+
+freeslot(
+	"SPR_OARB",
+	"MT_21_ARMAGEDDONORB",
+	"S_21_ARMF1",
+	"S_21_ARMB1", -- MT_OVERLAY objects use var1 for "underlaying" sprites, so you can't use FF_ANIMATE
+	"S_21_ARMB2",
+	"S_21_ARMB3",
+	"S_21_ARMB4",
+	"S_21_ARMB5",
+	"S_21_ARMB6",
+	"S_21_ARMB7",
+	"S_21_ARMB8",
+	"S_21_ARMB9",
+	"S_21_ARMB10",
+	"S_21_ARMB11",
+	"S_21_ARMB12",
+	"S_21_ARMB13",
+	"S_21_ARMB14",
+	"S_21_ARMB15",
+	"S_21_ARMB16"
+)
+
+-- 2.2 uses largely the same sprites as 2.1 for the armageddon shield, except for the "back" sprites
+mobjinfo[MT_21_ARMAGEDDONORB] = {
+	doomednum = -1,
+	spawnstate = S_ARMA1,
+	spawnhealth = 1000,
+	seestate = S_21_ARMF1,
+	meleestate = S_21_ARMB1,
+	speed = SH_ARMAGEDDON,
+	radius = 64*FRACUNIT,
+	height = 64*FRACUNIT,
+	dispoffset = 4,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOGRAVITY|MF_SCENERY
+}
+
+states[S_21_ARMF1] =	{SPR_ARMF,	A|FF_FULLBRIGHT|FF_ANIMATE,	-1,	nil,	15,	3,	S_NULL}
+states[S_21_ARMB1] =	{SPR_OARB,	A|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB2}
+states[S_21_ARMB2] =	{SPR_OARB,	B|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB3}
+states[S_21_ARMB3] =	{SPR_OARB,	C|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB4}
+states[S_21_ARMB4] =	{SPR_OARB,	D|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB5}
+states[S_21_ARMB5] =	{SPR_OARB,	E|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB6}
+states[S_21_ARMB6] =	{SPR_OARB,	F|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB7}
+states[S_21_ARMB7] =	{SPR_OARB,	G|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB8}
+states[S_21_ARMB8] =	{SPR_OARB,	H|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB9}
+states[S_21_ARMB9] =	{SPR_OARB,	I|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB10}
+states[S_21_ARMB10] =	{SPR_OARB,	J|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB11}
+states[S_21_ARMB11] =	{SPR_OARB,	K|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB12}
+states[S_21_ARMB12] =	{SPR_OARB,	L|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB13}
+states[S_21_ARMB13] =	{SPR_OARB,	M|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB14}
+states[S_21_ARMB14] =	{SPR_OARB,	N|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB15}
+states[S_21_ARMB15] =	{SPR_OARB,	O|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB16}
+states[S_21_ARMB16] =	{SPR_OARB,	P|FF_FULLBRIGHT,			3,	nil,	1,	0,	S_21_ARMB1}

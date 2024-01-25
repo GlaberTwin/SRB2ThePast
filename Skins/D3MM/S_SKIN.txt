@@ -1,0 +1,16 @@
+name = megamand3
+realname = Megaman
+hudname = USER
+ability = CA_NONE
+ability2 = CA2_SPINDASH
+normalspeed = 32
+acceleration = 40
+accelstart = 96
+thrustfactor = 5
+actionspd = 60
+mindash = 15
+maxdash = 70
+jumpfactor = 1
+prefcolor = Blue
+flags = SF_NOSPEEDADJUST|SF_MACHINE|SF_NOSUPERSPRITES
+//credits Glaber and Tatsuru

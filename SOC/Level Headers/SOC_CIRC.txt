@@ -1,0 +1,222 @@
+#Circuit Level Headers
+
+#DEV
+
+Level LE
+LevelName = Sonic Circuit
+Subtitle = Dev Circuit
+SelectHeading = Dev Circuit
+Music = MP_MED
+TypeOfLevel = Race
+NumLaps = 4
+NextLevel = LE
+SkyNum = 2
+
+
+
+
+#FINAL DEMO
+
+Level LF
+Levelname = Quicksand Ruins
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+Music = MP_DES
+NextLevel = LG
+TypeOfLevel = Race
+NumLaps = 4
+Weather = 0
+SkyNum = 21
+
+Level LG
+Levelname = Tainted Gorge
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+NumLaps = 4
+Music = MAP05M
+NextLevel = LH
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 5
+
+Level LH
+Levelname = Fertile Canyon
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+NumLaps = 4
+Music = FDGFZ1
+NextLevel = LI
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 2
+
+Level LI
+Levelname = Toxic Citadel
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+NumLaps = 4
+Music = FDCEZ2
+NextLevel = LJ
+TypeOfLevel = Race
+Weather = 1
+SkyNum = 20
+
+Level LJ
+Levelname = Frozen Night
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+NumLaps = 4
+Music = MIDNT1
+NextLevel = LK
+TypeOfLevel = Race
+Weather = 2
+SkyNum = 20
+
+Level LK
+Levelname = Metallic Hall
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+NumLaps = 4
+Music = MAP05M
+NextLevel = LL
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 5
+
+Level LL
+Levelname = Heaven Pass
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+NumLaps = 4
+Music = MAPB6M
+NextLevel = LM
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 2
+
+Level LM
+Levelname = Sonic Circuit
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+NumLaps = 4
+Music = MP_MED
+NextLevel = LN
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 2
+
+Level LN
+Levelname = Slumber Circuit
+Subtitle = Final Demo
+SelectHeading = Final Demo Cup
+NumLaps = 4
+Music = SPC109
+NextLevel = LF
+TypeOfLevel = Race,NIGHTS
+Weather = 0
+SkyNum = 50
+
+
+
+
+#2.0
+
+Level LO
+Levelname = Burning Sands
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = MAGMA
+NextLevel = LP
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 36
+
+Level LP
+Levelname = Race Alley
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = MAP05M
+NextLevel = LQ
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 54
+
+Level LQ
+Levelname = Emerald Coast
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = FLORAL
+NextLevel = LR
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 2
+
+Level LR
+Levelname = Toxic Citadel
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = FDCEZ2
+NextLevel = LS
+TypeOfLevel = Race
+Weather = 1
+SkyNum = 36
+
+Level LS
+Levelname = Frozen Night
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = MIDNIT
+NextLevel = LT
+TypeOfLevel = Race
+Weather = 2
+SkyNum = 36
+
+Level LT
+Levelname = Metallic Hall
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = MAP05M
+NextLevel = LU
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 5
+
+Level LU
+Levelname = Heaven Pass
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = MAPB6M
+NextLevel = LV
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 2
+
+Level LV
+LevelName = Warped Woods
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = TRRING
+NextLevel = LW
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 64
+
+Level LW
+Levelname = Corrupt Shrine
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = FDDSZ1
+NextLevel = LX
+TypeOfLevel = Race
+Weather = 0
+SkyNum = 7
+
+Level LX
+Levelname = Slumber Circuit
+Subtitle = 2.0
+SelectHeading = Marriage Cup
+Music = SPC109
+NextLevel = LO
+TypeOfLevel = Race,Nights
+Weather = 0
+SkyNum = 50

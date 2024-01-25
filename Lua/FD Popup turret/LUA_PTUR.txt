@@ -1,0 +1,65 @@
+// 1.09.4 Pop-up Turret - Ported by Glaber (original SOC) and MIDIMan (fixes and conversion to Lua)
+// Use with LUA_RBLT for the retro Jetty-Syn bullet
+
+freeslot(
+	"MT_OLDPOP",
+	"S_OLDPOP_LOOK",
+	"S_OLDPOP_UP1",
+	"S_OLDPOP_UP2",
+	"S_OLDPOP_UP3",
+	"S_OLDPOP_UP4",
+	"S_OLDPOP_SHOOT",
+	"S_OLDPOP_DOWN1",
+	"S_OLDPOP_DOWN2",
+	"S_OLDPOP_DOWN3",
+	"S_OLDPOP_DOWN4",
+	"SPR_PTUR"
+)
+
+// Let the user set the time it takes the FD Pop-up Turret to pop-up again after shooting the player with its angle
+addHook("MapThingSpawn", function(mo, mthing)
+	if not (mo and mo.valid and mthing and mthing.valid) then return end
+	
+	if mthing.angle then
+		mo.threshold = mthing.angle*NEWTICRATERATIO
+	else
+		mo.threshold = (TICRATE*2)-1
+	end
+end, MT_OLDPOP)
+
+mobjinfo[MT_OLDPOP] = {
+	//$Name Pop-up Turret (1.09.4)
+	//$Sprite PTURA0
+	//$Category Retro Enemies
+	//$AngleText Pop-up Delay
+	doomednum = 4042,
+	spawnstate = S_OLDPOP_LOOK,
+	spawnhealth = 1,
+	seestate = S_OLDPOP_UP1,
+	attacksound = sfx_trfire,
+	painchance = 1024,
+	deathstate = S_XPLD1,
+	deathsound = sfx_pop,
+	radius = 12*FRACUNIT,
+	height = 64*FRACUNIT,
+	raisestate = MT_RETROJETBULLET, // Originally MT_JETTBULLET
+	flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+
+states[S_OLDPOP_LOOK] =	{SPR_PTUR,	A,	1,	A_Look,	1,	0,	S_OLDPOP_LOOK}
+
+states[S_OLDPOP_UP1] =		{SPR_PTUR,	B,	3,	A_FaceTarget,	0,	0,	S_OLDPOP_UP2}
+states[S_OLDPOP_UP2] =		{SPR_PTUR,	C,	3,	nil,			0,	0,	S_OLDPOP_UP3}
+states[S_OLDPOP_UP3] =		{SPR_PTUR,	D,	3,	nil,			0,	0,	S_OLDPOP_UP4}
+states[S_OLDPOP_UP4] =		{SPR_PTUR,	E,	14,	nil,			0,	0,	S_OLDPOP_SHOOT}
+states[S_OLDPOP_SHOOT] =	{SPR_PTUR,	E,	14,	A_JetgShoot,	0,	0,	S_OLDPOP_DOWN1}
+states[S_OLDPOP_DOWN1] =	{SPR_PTUR,	D,	3,	nil,			0,	0,	S_OLDPOP_DOWN2}
+states[S_OLDPOP_DOWN2] =	{SPR_PTUR,	C,	3,	nil,			0,	0,	S_OLDPOP_DOWN3}
+states[S_OLDPOP_DOWN3] =	{SPR_PTUR,	B,	3,	nil,			0,	0,	S_OLDPOP_DOWN4}
+states[S_OLDPOP_DOWN4] =	{SPR_PTUR,	A,	69,	A_SetTics,		0,	1,	S_OLDPOP_LOOK}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OLDPOP] = -4    // Makes MT_OLDPOP give Gun

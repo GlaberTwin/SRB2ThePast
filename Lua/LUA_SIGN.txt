@@ -1,0 +1,347 @@
+freeslot("MT_OLDSIGN", "S_OLDSIGNSTART", "S_OLDSIGN1", "S_OLDSIGN2", "S_OLDSIGN3", "S_OLDSIGN4", "S_OLDSIGN5", "S_OLDSIGN6", "S_OLDSIGN7",
+"S_OLDSIGN8", "S_OLDSIGN9", "S_OLDSIGN10", "S_OLDSIGN11", "S_OLDSIGN12", "S_OLDSIGN13", "S_OLDSIGN14", "S_OLDSIGN15", "S_OLDSIGN16", "S_OLDSIGN17",
+"S_OLDSIGN18", "S_OLDSIGN19", "S_OLDSIGN20", "S_OLDSIGN21", "S_OLDSIGN22", "S_OLDSIGN23", "S_OLDSIGN24", "S_OLDSIGN25", "S_OLDSIGN26",
+"S_OLDSIGN27", "S_OLDSIGN28", "S_OLDSIGNEND", "SPR_OSGN")
+
+// Lua made by Radicalicious
+// Edited and cleaned up by MIDIMan
+
+freeslot("S_PLAY_OLDSIGN")
+
+local function A_OldSignPlayer(actor)
+	if not (actor and actor.valid) then return end
+	
+	if not (actor.target and actor.target.valid
+	and actor.target.player and actor.target.player.valid)
+		actor.frame = X
+		return
+	end
+	
+	local signFrame = states[actor.info.raisestate].frame
+	
+	local skin = skins[actor.target.skin]
+	if skin and skin.valid
+		// Show the "CLEAR" sign if the player's skin has no SIGN frames
+		if skin.sprites[SPR2_SIGN].numframes
+			// spawn an overlay of the player's face.
+			local ov = P_SpawnMobj(actor.x, actor.y, actor.z-5*FRACUNIT, MT_OVERLAY)
+			ov.target = actor
+			ov.color = actor.target.player.skincolor
+			ov.skin = skin.name
+			ov.state = actor.info.seestate
+			
+			local color, frame = ColorOpposite(actor.target.player.skincolor)
+			if skin.prefoppositecolor then color = skin.prefoppositecolor end
+			
+			// Set the sign to be an appropriate background color for this player's skincolor.
+			actor.color = color
+			actor.frame = $ + (15 - frame)
+		else
+			actor.frame = X
+		end
+	else
+		// Show Eggman if the skin is not valid
+		actor.frame = D
+	end
+end
+
+mobjinfo[MT_OLDSIGN] = {
+		//$Name Final Demo Signpost
+		//$Sprite OSGND0
+		//$Category Generic Items & Hazards
+        doomednum = 524,
+        spawnstate = S_OLDSIGNSTART,
+        spawnhealth = 1000,
+        seestate = S_PLAY_OLDSIGN,
+        seesound = sfx_s24f,//sfx_lvpass,
+        reactiontime = 8,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 0,
+        painsound = sfx_None,
+        meleestate = S_NULL,
+        missilestate = S_NULL,
+        deathstate = S_NULL,
+        xdeathstate = S_NULL,
+        deathsound = sfx_None,
+        speed = 8,
+        radius = 8*FRACUNIT,
+        height = 32*FRACUNIT,
+        dispoffset = 0,
+        mass = 16,
+        damage = 0,
+        activesound = sfx_None,
+        flags = MF_NOCLIP|MF_SCENERY,
+        raisestate = S_OLDSIGNEND
+}
+
+states[S_OLDSIGNSTART] = {
+        sprite = SPR_OSGN,
+        frame = D,
+        tics = -1,
+        nextstate = S_NULL
+}
+
+states[S_OLDSIGN1] = {
+        sprite = SPR_OSGN,
+        frame = A,
+        tics = 1,
+        nextstate = S_OLDSIGN2
+}
+
+states[S_OLDSIGN2] = {
+        sprite = SPR_OSGN,
+        frame = B,
+        tics = 1,
+        nextstate = S_OLDSIGN3
+}
+
+states[S_OLDSIGN3] = {
+        sprite = SPR_OSGN,
+        frame = C,
+        tics = 1,
+        nextstate = S_OLDSIGN4
+}
+
+states[S_OLDSIGN4] = {
+        sprite = SPR_OSGN,
+        frame = F,
+        tics = 1,
+        nextstate = S_OLDSIGN5
+}
+
+states[S_OLDSIGN5] = {
+        sprite = SPR_OSGN,
+        frame = A,
+        tics = 1,
+        nextstate = S_OLDSIGN6
+}
+
+states[S_OLDSIGN6] = {
+        sprite = SPR_OSGN,
+        frame = B,
+        tics = 1,
+        nextstate = S_OLDSIGN7
+}
+
+states[S_OLDSIGN7] = {
+        sprite = SPR_OSGN,
+        frame = C,
+        tics = 1,
+        nextstate = S_OLDSIGN8
+}
+
+states[S_OLDSIGN8] = {
+        sprite = SPR_OSGN,
+        frame = D,
+        tics = 1,
+        nextstate = S_OLDSIGN9
+}
+
+states[S_OLDSIGN9] = {
+        sprite = SPR_OSGN,
+        frame = A,
+        tics = 1,
+        nextstate = S_OLDSIGN10
+}
+
+states[S_OLDSIGN10] = {
+        sprite = SPR_OSGN,
+        frame = B,
+        tics = 1,
+        nextstate = S_OLDSIGN11
+}
+
+states[S_OLDSIGN11] = {
+        sprite = SPR_OSGN,
+        frame = C,
+        tics = 1,
+        nextstate = S_OLDSIGN12
+}
+
+states[S_OLDSIGN12] = {
+        sprite = SPR_OSGN,
+        frame = E,
+        tics = 1,
+        nextstate = S_OLDSIGN13
+}
+
+states[S_OLDSIGN13] = {
+        sprite = SPR_OSGN,
+        frame = A,
+        tics = 1,
+        nextstate = S_OLDSIGN14
+}
+
+states[S_OLDSIGN14] = {
+        sprite = SPR_OSGN,
+        frame = B,
+        tics = 1,
+        nextstate = S_OLDSIGN15
+}
+
+states[S_OLDSIGN15] = {
+        sprite = SPR_OSGN,
+        frame = C,
+        tics = 1,
+        nextstate = S_OLDSIGN16
+}
+
+states[S_OLDSIGN16] = {
+        sprite = SPR_OSGN,
+        frame = D,
+        tics = 1,
+        nextstate = S_OLDSIGN17
+}
+
+states[S_OLDSIGN17] = {
+        sprite = SPR_OSGN,
+        frame = A,
+        tics = 1,
+        nextstate = S_OLDSIGN18
+}
+
+states[S_OLDSIGN18] = {
+        sprite = SPR_OSGN,
+        frame = B,
+        tics = 1,
+        nextstate = S_OLDSIGN19
+}
+
+states[S_OLDSIGN19] = {
+        sprite = SPR_OSGN,
+        frame = C,
+        tics = 1,
+        nextstate = S_OLDSIGN20
+}
+
+states[S_OLDSIGN20] = {
+        sprite = SPR_OSGN,
+        frame = G,
+        tics = 1,
+        nextstate = S_OLDSIGN21
+}
+
+states[S_OLDSIGN21] = {
+        sprite = SPR_OSGN,
+        frame = A,
+        tics = 1,
+        nextstate = S_OLDSIGN22
+}
+
+states[S_OLDSIGN22] = {
+        sprite = SPR_OSGN,
+        frame = B,
+        tics = 1,
+        nextstate = S_OLDSIGN23
+}
+
+states[S_OLDSIGN23] = {
+        sprite = SPR_OSGN,
+        frame = C,
+        tics = 1,
+        nextstate = S_OLDSIGN24
+}
+
+states[S_OLDSIGN24] = {
+        sprite = SPR_OSGN,
+        frame = D,
+        tics = 1,
+		action = A_Repeat,
+		var1 = 2,
+		var2 = S_OLDSIGN1,
+        nextstate = S_OLDSIGN25
+}
+
+states[S_OLDSIGN25] = {
+        sprite = SPR_OSGN,
+        frame = A,
+        tics = 1,
+        nextstate = S_OLDSIGN26
+}
+
+states[S_OLDSIGN26] = {
+        sprite = SPR_OSGN,
+        frame = B,
+        tics = 1,
+        nextstate = S_OLDSIGN27
+}
+
+states[S_OLDSIGN27] = {
+        sprite = SPR_OSGN,
+        frame = C,
+        tics = 1,
+        nextstate = S_OLDSIGN28
+}
+
+states[S_OLDSIGN28] = {
+        sprite = SPR_OSGN,
+        frame = D,
+        tics = 1,
+        nextstate = S_OLDSIGNEND
+}
+
+states[S_OLDSIGNEND] = {
+        sprite = SPR_OSGN,
+        frame = H,
+        tics = -1,
+		action = A_OldSignPlayer,
+		var1 = 0,
+		var2 = 0,
+        nextstate = S_NULL
+}
+
+states[S_PLAY_OLDSIGN] = {
+        sprite = SPR_PLAY,
+        frame = SPR2_SIGN,
+        tics = -1,
+		var2 = 24
+        //nextstate = S_PLAY_OLDSIGN
+}
+
+local function SpinOldSign()
+	for player in players.iterate
+		if player and player.valid
+		and player.mo and player.mo.valid
+			if not player.oldsignpflags then player.oldsignpflags = 0 end
+			
+			if (player.pflags & PF_FINISHED) and not (player.oldsignpflags & PF_FINISHED)
+				//local numfound = 0
+				local signFound = false
+				
+				// Please note: This sector-specific behavior was first implemented in the 2.1-era
+				if player.mo.subsector and player.mo.subsector.valid
+				and player.mo.subsector.sector and player.mo.subsector.sector.valid
+					for oldSign in player.mo.subsector.sector.thinglist()
+						if not (oldSign and oldSign.valid) then continue end
+						if oldSign.type ~= MT_OLDSIGN then continue end
+						if oldSign.state ~= oldSign.info.spawnstate then continue end
+						
+						oldSign.target = player.mo
+						oldSign.state = S_OLDSIGN1
+						if oldSign.info.seesound then S_StartSound(oldSign, oldSign.info.seesound) end
+						
+						//numfound = $+1
+						signFound = true
+					end
+				end
+				
+				if not signFound
+					for oldSign in mobjs.iterate()
+						if not (oldSign and oldSign.valid) then continue end
+						if oldSign.type ~= MT_OLDSIGN then continue end
+						if oldSign.state ~= oldSign.info.spawnstate then continue end
+						
+						oldSign.target = player.mo
+						oldSign.state = S_OLDSIGN1
+						if oldSign.info.seesound then S_StartSound(oldSign, oldSign.info.seesound) end
+					end
+				end
+			end
+			
+			player.oldsignpflags = player.pflags
+		end
+	end
+end
+
+addHook("ThinkFrame", SpinOldSign)

@@ -1,0 +1,2872 @@
+#Cutscenes
+#Hard limit at 128, start converting cutscenes
+
+CUTSCENE 1
+NUMSCENES 21
+SCENE 1
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT35
+PIC1XCOORD = 0
+PIC1YCOORD = 0
+PIC1DURATION = 140
+SCENETEXT =               
+                     #
+SCENE 2
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 144
+MUSIC = OINTRO
+PIC1NAME = OLDCUT01
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 35
+SCENETEXT =               
+                     #
+SCENE 3
+NUMBEROFPICS = 1
+TEXTXPOS = 84
+TEXTYPOS = 144
+PIC1NAME = OLDCUT02
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 140
+SCENETEXT = The planet Mobius...
+#
+SCENE 4
+TEXTXPOS = 0
+TEXTYPOS = 144
+NUMBEROFPICS = 1
+PIC1NAME = OLDCUT03
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 10
+#
+SCENE 5
+NUMBEROFPICS = 1
+TEXTXPOS = 96
+TEXTYPOS = 144
+PIC1NAME = OLDCUT04
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 170
+SCENETEXT = Over the past two
+ months has been
+       peaceful.#
+SCENE 6
+NUMBEROFPICS = 8
+TEXTXPOS = 92
+TEXTYPOS = 136
+PIC1NAME = OLDCUT05
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 14
+PIC2NAME = OLDCUT06
+PIC2XCOORD = 96
+PIC2YCOORD = 0
+PIC2DURATION = 5
+PIC3NAME = OLDCUT07
+PIC3XCOORD = 96
+PIC3YCOORD = 0
+PIC3DURATION = 5
+PIC4NAME = OLDCUT08
+PIC4XCOORD = 96
+PIC4YCOORD = 0
+PIC4DURATION = 5
+PIC5NAME = OLDCUT09
+PIC5XCOORD = 96
+PIC5YCOORD = 0
+PIC5DURATION = 5
+PIC6NAME = OLDCUT10
+PIC6XCOORD = 96
+PIC6YCOORD = 0
+PIC6DURATION = 5
+PIC7NAME = OLDCUT11
+PIC7XCOORD = 96
+PIC7YCOORD = 0
+PIC7DURATION = 5
+PIC8NAME = OLDCUT12
+PIC8XCOORD = 96
+PIC8YCOORD = 0
+PIC8DURATION = 140
+SCENETEXT =    Until the Black
+     Asteroid was
+heading for Mobius...#
+SCENE 7
+NUMBEROFPICS = 1
+TEXTXPOS = 92
+TEXTYPOS = 136
+PIC1NAME = OLDCUT13
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 140
+SCENETEXT =    ..but why is it
+heading for Mobius?#
+SCENE 8
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 136
+PIC1NAME = OLDCUT14
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 10
+#
+SCENE 9
+NUMBEROFPICS = 1
+TEXTXPOS = 80
+TEXTYPOS = 136
+PIC1NAME = OLDCUT15
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 84
+SCENETEXT = The answer is inside...
+#
+SCENE 10
+NUMBEROFPICS = 1
+TEXTXPOS = 112
+TEXTYPOS = 136
+PIC1NAME = OLDCUT16
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 210
+SCENETEXT = The answer is
+Dr. Robotnik!#
+SCENE 11
+NUMBEROFPICS = 1
+TEXTXPOS = 94
+TEXTYPOS = 136
+PIC1NAME = OLDCUT17
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 175
+SCENETEXT =    Only one person
+on Mobius can save
+    the world from
+ being destroyed.#
+SCENE 12
+NUMBEROFPICS = 1
+TEXTXPOS = 112
+TEXTYPOS = 136
+PIC1NAME = OLDCUT18
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 280
+SCENETEXT = One hedgehog,
+   namely...               
+                     #
+SCENE 13
+NUMBEROFPICS = 1
+TEXTXPOS = 112
+TEXTYPOS = 136
+PIC1NAME = OLDCUT36
+PIC1XCOORD = 0
+PIC1YCOORD = 0
+PIC1DURATION = 210
+SCENETEXT =                
+                     #
+SCENE 14
+NUMBEROFPICS = 8
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT19
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 35
+PIC2NAME = OLDCUT20
+PIC2XCOORD = 96
+PIC2YCOORD = 0
+PIC2DURATION = 5
+PIC3NAME = OLDCUT21
+PIC3XCOORD = 96
+PIC3YCOORD = 0
+PIC3DURATION = 5
+PIC4NAME = OLDCUT22
+PIC4XCOORD = 96
+PIC4YCOORD = 0
+PIC4DURATION = 5
+PIC5NAME = OLDCUT23
+PIC5XCOORD = 96
+PIC5YCOORD = 0
+PIC5DURATION = 5
+PIC6NAME = OLDCUT24
+PIC6XCOORD = 96
+PIC6YCOORD = 0
+PIC6DURATION = 5
+PIC7NAME = OLDCUT25
+PIC7XCOORD = 96
+PIC7YCOORD = 0
+PIC7DURATION = 5
+PIC8NAME = OLDCUT26
+PIC8XCOORD = 96
+PIC8YCOORD = 0
+PIC8DURATION = 5
+SCENETEXT =                
+                     #
+SCENE 15
+NUMBEROFPICS = 6
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT27
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 70
+PIC2NAME = OLDCUT28
+PIC2XCOORD = 96
+PIC2YCOORD = 0
+PIC2DURATION = 7
+PIC3NAME = OLDCUT27
+PIC3XCOORD = 96
+PIC3YCOORD = 0
+PIC3DURATION = 7
+PIC4NAME = OLDCUT28
+PIC4XCOORD = 96
+PIC4YCOORD = 0
+PIC4DURATION = 7
+PIC5NAME = OLDCUT27
+PIC5XCOORD = 96
+PIC5YCOORD = 0
+PIC5DURATION = 7
+PIC6NAME = OLDCUT29
+PIC6XCOORD = 96
+PIC6YCOORD = 0
+PIC6DURATION = 35
+SCENETEXT =                
+                     #
+SCENE 16
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT30
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 10
+#
+SCENE 17
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT31
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 70
+SCENETEXT =                
+                     #
+SCENE 18
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT32
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 35
+SCENETEXT =                
+                     #
+SCENE 19
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT33
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 14
+SCENETEXT =                
+                     #
+SCENE 20
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT34
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 210
+SCENETEXT =                
+                     #
+SCENE 21
+NUMBEROFPICS = 1
+TEXTXPOS = 0
+TEXTYPOS = 144
+PIC1NAME = OLDCUT33
+PIC1XCOORD = 96
+PIC1YCOORD = 0
+PIC1DURATION = 60
+SCENETEXT =                
+                     #
+
+
+CUTSCENE 2
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+PIC1DURATION = 700
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 1: 1.01-1.09.4
+
+This is Castle Eggman act 1 as it was
+seen from 1.01 to 1.09.4.
+From this point the Zone had its own
+texture set, but it was still a button
+hunt.
+      #
+
+CUTSCENE 3
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+PIC1DURATION = 800
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 2: 1.01-1.09.4
+
+This is Castle Eggman act 2 as it was
+seen from 1.01 to 1.09.4.
+In it you had to hunt down 7 buttons
+to open 7 doors. This level is what
+people consider a "Button Hunt".This
+type of level is very disliked in the
+SRB2 community.
+
+      #
+
+CUTSCENE 4
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 3: 1.01-1.09.4
+
+This is Castle Eggman act 3 as it was
+seen from 1.01 to 1.09.4.
+This version of the level had spike
+balls flying around Eggman
+
+      #
+
+CUTSCENE 5
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Premiere Castle Eggman act 1: Demo 4.0
+
+Castle Eggman first appeared in SRB2 Demo
+4.0. It's mostly the same as 1.09.4's 
+version except almost all textures are
+from Greenflower Zone and all flying
+badniks are missing. Back then, Castle
+Eggman was unlocked the same way you 
+just unlocked it. By collecting all 7
+Emeralds.
+
+      #
+
+CUTSCENE 6
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Premiere Castle Eggman act 2: Demo 4.0
+
+This level is almost exactly alike the
+1.09.4 version. Only differences are
+missing torches, the currents need 
+work, and the missing fire shield.
+
+      #
+
+CUTSCENE 7
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Premiere Castle Eggman act 3: Demo 4.0
+
+Not much different from the 1.09.4
+version. The rings don't float
+though and Eggman is using his 
+sprites and AI from the Christmas demo.
+      #
+
+CUTSCENE 8
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower act 1: Demo 1.0
+
+This is the third earliest released
+version of Greenflower Zone. This 
+version had a complete texture 
+overhaul from when it was seen in
+the SAGE 2000 Trailer. The stage was
+also extended from its last playable
+version seen in SRB2 Christmas 0.93.
+      #
+
+CUTSCENE 9
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 1: Demo 2 & 3
+
+Now things start tightening up as Green 
+Flower Zone is slightly extended. A 
+second act is also added on.
+      #
+
+CUTSCENE 10
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 2: Demo 2 & 3
+
+Greenflower act 2 introduced several
+things to SRB2, such as moving FOFs,
+a large level, invulnerability, Speed 
+shoes, and water currents.
+This early version also had minor 
+texture problems that were fixed in
+Demo 3, and the slope near the end
+did not exist yet.
+      #
+
+CUTSCENE 11
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 3: Demos 2-4
+
+Demo 2 introduced us to the Boss
+Act. Up until Demo 4, Greenflower
+Zone had the only boss of the 
+game.
+      #
+
+
+CUTSCENE 12
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 1: Demo 4
+
+There was only one real change
+between demo 3 to demo 4. The
+introduction of Special Stages
+and emerald tokens.
+      #
+
+CUTSCENE 13
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 2: Demo 4
+
+This act introduced the ring lines 
+for the springs. It was also where 
+the Flying enemies, the Jetty-syns
+where first introduced
+
+      #
+
+CUTSCENE 14
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 1: V. 1.01-1.04
+
+It was Srb2 version 1.01 that brought us
+this next update. Greenflower zone 
+received new plants and 2 houses ready 
+to be moved into.
+
+Checkpoints were also introduced in this 
+version of Greenflower as well as emblems.
+
+      #
+
+CUTSCENE 15
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 2: V. 1.01-1.08
+
+In this version of Greenflower Zone act 2 
+the end of the level now has the pseudo-
+slope and the tunnel to the extra life was 
+filled. A new red spring was added in one
+of the early puddles.
+      #
+
+CUTSCENE 16
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 1: V. 1.08
+
+A minor change as bustable FOFs came 
+on-line. The change being the emerald
+token cave being plugged up with some
+of these.
+      #
+
+Cutscene 17
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano Zone act 1: V.1.09.4
+
+Welcome to Hell! Red volcano, before
+2.0, was where Red XVI would send players
+who jumped on his roof. The level back
+then was never compatible with co-op
+mode.
+Pope Red XVI also references sending you
+here when he sends you to "Heaven".
+
+An Extra shield has been placed on the 
+lower path to allow Amy to pass the level.
+      #
+
+
+Cutscene 18
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 1: V.1.09.4
+
+Not much changed if anything from the
+previous version, The bustable wall was
+rebuilt and If you have the 7 emeralds,
+you best not jump on the closest House 
+3 times, or else you'll be, "Sent to hell".
+(originally only worked after beating
+1.09.4 three times first)
+      #
+
+Cutscene 19
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 2: V.1.09.4
+
+In this version of the map, the puddles
+at the start were made deeper due to
+an engine update. The diagonal spring 
+path was installed near the start of 
+the level to give an alternate route
+to the Attraction Shield. 
+
+This version also replaced the 
+Elemental Shield with the short lived
+water Shield.
+(represented with the s3k version)
+      #
+
+Cutscene 20
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 1: V.1.1
+
+When this version released it was
+intended for SRB2Fun (IRC) visitors 
+only. But this version somehow got 
+linked to on the Forums and spread far 
+enough to hit even Youtube. Regardless, 
+this version of the level introduced us 
+to the new 2.0 Crawlas.
+RedXVI also moved out, probably to
+go to Vatican City.
+      #
+
+Cutscene 21
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 2: V.1.1
+
+This version of the level only brought
+us the new design of SDURF and showed us
+the revitalized Elemental Shield.
+Things were still in transition from 
+1.09.4 to 2.0 at the time so some of the 
+old sprites were still in use.
+      #
+
+Cutscene 22
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 3: V.1.1-2.0.7
+
+In 1.1 Robotnik was given some new 
+programming so as to retreat every 
+time he was hit. This made it a
+bit harder, but not by much.
+
+      #
+
+Cutscene 23
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 1: 2.0-2.0.7
+
+Here, Greenflower Act 1 was modified
+to better benefit Time Attack mode.
+Both acts had their emblems scrambled
+except for a select few. Difficulty 
+levels were also removed locking
+SRB2 permanently into normal mode.
+That is unless you knew the
+"ultimate" cheat.
+      #
+
+Cutscene 24
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Halloween Tech: Tech Demo
+SRB2 Halloween was the first public 
+release of SRB2. According to SSNTails, 
+coding for SRB2 in Doom Legacy v1.28.
+started in Late August, 1999. It 
+consisted of only one very basic 
+playable level. The level featured use 
+of Doom Legacy's water and a 
+maze-section comprised of see-through 
+bar textures.
+      #
+
+Cutscene 25
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Halloween Tech act 2: Tech Demo
+
+This Stage did not pop up until October 
+2000, when Sonic Team Jr. went back and 
+made the windows compatible version of 
+the Tech demo. The differences between 
+this stage and the previous stage is 
+almost like night and day as act 1 was 
+built more like a Doom Map and this act
+more like a Sonic stage, thanks to the
+efforts of Sonikku.
+      #
+
+Cutscene 26
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = CREDTHLW
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = HTITLE
+SceneText =                                
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+      #
+
+CUTSCENE 27
+NUMSCENES 1
+SCENE 1
+NUMBEROFPICS = 1
+TEXTXPOS = 10
+TEXTYPOS = 11
+MUSIC = XMSCUT
+PIC1NAME = MAP1INTR
+PIC1XCOORD = 0
+PIC1YCOORD = 0
+PIC1DURATION = 2100
+SCENETEXT = AS SONIC ARRIVES HOME, HE FINDS A NOTE
+TACKED TO HIS DOOR. 'OH GREAT, WHAT IS
+IT NOW?' , SONIC PONDERS, EXPECTING IT TO
+BE ANOTHER OF EGGMAN'S CLICHES. HE READS
+THE NOTE:
+SONIC,
+I INVITE YOU AND YOUR FRIENDS TO SET ASIDE
+OLD DISCREPANCIES AND COME JOIN ME AT MY
+PLACE FOR CHRISTMAS DINNER.
+HOPE TO SEE YOU SOON.
+EGGMAN
+'WELL' , SAID SONIC, 'I GUESS A LITTLE
+GET-TOGETHER WOULDN'T HURT, BUT I'LL
+BE ON MY TOES JUST IN CASE.'
+AND WITH THAT SONIC SPEEDS OFF...#
+
+CUTSCENE 28
+NUMSCENES 1
+SCENE 1
+NUMBEROFPICS = 1
+TEXTXPOS = 10
+TEXTYPOS = 11
+MUSIC = XMSCUT
+PIC1NAME = ENDPIC
+PIC1XCOORD = 0
+PIC1YCOORD = 0
+PIC1DURATION = 525
+SCENETEXT = AND FINALLY, YOU REACH EGGMAN'S CHRISTMAS
+DINNER PARTY, AND HAVE SOME EGGNOG!
+
+OH?!
+SO YOU WANTED TO *FIGHT* EGGMAN?
+OK, WE CAN SOON CHANGE THAT....!
+...... BUT DON'T SAY WE DIDN'T WARN YOU!#
+
+
+CUTSCENE 29
+NUMSCENES 1
+SCENE 1
+NUMBEROFPICS = 1
+TEXTXPOS = 10
+TEXTYPOS = 11
+MUSIC = XMSCUT
+PIC1NAME = TITLEXMS
+PIC1XCOORD = 0
+PIC1YCOORD = 0
+SCENETEXT = ALRIGHT! YOU BEAT EGGMAN! WOOHOO!,
+...UH OH. SEEMS LIKE HE DOESN'T
+LIKE THE FACT THAT YOU ATTACKED HIM
+FOR NO REASON AT ALL... NOW YOU'VE
+SET HIM OFF!
+ALL THE HOLIDAY SPIRIT IS OUT OF
+HIM!SO YOU BETTER WATCHOUT!#
+
+CUTSCENE 30
+NUMSCENES 1
+SCENE 1
+NUMBEROFPICS = 1
+TEXTXPOS = 10
+TEXTYPOS = 11
+MUSIC = XMSCUT
+PIC1NAME = EMERINTR
+PIC1XCOORD = 0
+PIC1YCOORD = 0
+PIC1DURATION = 420
+SCENETEXT = CONGRATULATIONS, YOU'VE
+FOUND THE SECRET LEVEL!
+TIRED OF ALL THAT SNOW?
+LET'S HIT THE BEACH!#
+
+CUTSCENE 31
+NUMSCENES 1
+SCENE 1
+NUMBEROFPICS = 1
+TEXTXPOS = 10
+TEXTYPOS = 11
+MUSIC = XMSCUT
+PIC1NAME = TITLEXMS
+PIC1XCOORD = 0
+PIC1YCOORD = 0
+PIC1DURATION = 420
+SCENETEXT = CONGRATULATIONS, YOU'VE FOUND THE
+SUPER SECRET LEVEL! LOTS OF
+STRANGE THINGS CAN HAPPEN IN
+SONIC'S NIGHTMARE!!#
+
+Cutscene 32
+NUMSCENES 4
+Scene 1
+NumberOfPics = 1
+Pic1Name = TITLEXMS
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = WTEXMS
+SceneText = MERRY CHRISTMAS FROM SONIC TEAM JR.!
+WE HOPE YOU ENJOYED THIS!
+      #
+Scene 2
+NumberOfPics = 1
+Pic1Name = CREDTXMS
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = WTEXMS
+SceneText =                                
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+      #
+Scene 3
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Christmas Mode
+
+After the Christmas Demo series, SRB2
+had various ways to celebrate 
+Christmas. From the Santa clothes hunt
+in Demo 4, to the entire game getting
+retextured for the Holiday. Sadly
+from 2.0 onward, Christmas mode has
+been removed.
+
+Several levels that were affected
+by the mode are now unlocked 
+for you to enjoy.
+      #
+Scene 4
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Christmas Mode Cont.
+
+As of the release of 2.2, SRB2
+once again celebrates Christmas, but
+now with a brand new level instead
+of a mode.
+      #
+
+
+Cutscene 33
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone act 1: Development 98
+This maze like level opens up with a
+familiar room you may remember
+from Act 2. This room also contains
+the only instances of Skims and
+seaweed.
+#
+
+Cutscene 34
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone act 2: Development 98
+Another tight Maze of a level, Act 2
+hides within an exit to the City.
+To even find this exit you need to
+almost finish the stage. When the
+Crusher starts the door has opened.
+#
+
+Cutscene 35
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText =  Deep Sea Zone act 3: Development 98
+This Dev boss throws you into
+the darkness. The platform in the
+middle kinda resembles a pipe maybe
+indicating a possible idea for the
+real boss.
+      #
+
+Cutscene 36
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Speed Highway At Dawn: Development 98
+The First of the Hidden development
+levels of Beta Quest, this stage was
+left incomplete early on.
+
+Hidden Palace Textures were used
+at this point in time as placeholders
+while the Dark City Textures were 
+made.
+      #
+
+Cutscene 37
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone: SAGE 2000 (Trailer)
+This version of the stage starts off 
+familiar, but then goes into what 
+could be described as the inspiration 
+for the infamous bustable block maze.
+      #
+
+Cutscene 38
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone: Development Final Demo
+Back in the Final Demo era, Deep Sea
+had an attempt to be remade by the devs.
+This early attempt only got as far
+as making a certain familiar room.
+(an exit has been placed so you 
+can beat the stage)
+      #
+
+Cutscene 39
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone: Development Final Demo V2
+Back in the Final Demo era, Deep Sea
+had an attempt to be remade by the devs.
+This early attempt got a little further
+in development to where it had
+more decoration, and another room.
+(an exit has been placed so you 
+can beat the stage)
+      #
+
+Cutscene 40
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Debut Greenflower act 1 : 0.93
+
+This was the earliest version of  Green
+Flower in SRB2. It was only to
+be found in Christmas version 0.93
+as a secret level. Only the beginning 
+remained mostly the same.
+      #
+
+CUTSCENE 41
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = SRB2 Opening: SRB2 TGF/April Fools
+
+The opening used for this mod originates
+from the earliest version of SRB2, now
+called SRB2TGF. TGF stands for The
+Games Factory. This opening was last
+seen on April Fools Day(April 1st), 2009.
+      #
+
+Cutscene 42
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Arid Canyon Act 3: 2.2 Development
+
+Get on your guard NOW!
+Fang's Development Boss fight
+gets right into it as during
+development there was no opening 
+bit. The Arena is also different as
+you may have seen while boarding.
+#
+
+Cutscene 43
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 1 : 2.0-2.0.5
+
+When SRB2 reached version 2.0, Castle 
+Eggman received a complete rebuild.
+The level was now much longer and
+lacked any form of button hunting.
+The level was released a bit too 
+early as some things are not at
+the proper location and Sonic can get
+stuck in water along one of the paths.
+      #
+
+Cutscene 44
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 2 : 2.0.5
+
+When 2.0.5 got released, a major goof up 
+happened. Tails' emblem got completely
+blocked off by a FOF that reached to the 
+ceiling.
+
+Springs were also replaced in the cannon
+field with stairs.
+      #
+
+Cutscene 45
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 3: V.1.01-1.09.4
+
+From 1.01 to 1.09.4, few changes were 
+made. new flowers were added and 
+Eggman was given a new set of sprites.
+His AI was also tweaked to pause his
+movement for a little before firing 
+a laser.
+      #
+
+Cutscene 46
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 2 : 2.0-2.0.4
+
+When act 1 got updated, so did act 2.
+Act 2's overhaul wound up not being
+as complete as act 1, since the level
+had yet to even finish being made.
+      #
+
+Cutscene 47
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill act1 : Demo 2
+
+This is the First version of Techno
+Hill released to the public. In it
+the sludge was safe, the pipes at
+the end were missing, and had colored
+fan blocks instead.
+      #
+
+cutscene 48
+numscenes 1
+scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Act 1 : Sage 2000 Promo video
+
+This version of Greenflower was only 
+seen in a very blurry preview for SAGE
+2000. As such this is only a 
+recreation based on what information
+was available from it and other aviable
+resources. There is no public release 
+of the actual SAGE 2000 Version.
+      #
+
+cutscene 49
+numscenes 1
+scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Act 2 : Sage 2000 Promo video
+
+This would be the earliest version of 
+Greenflower Act 2 that was seen 
+publicly. all of the waterfalls are
+missing due to the early state of
+the water. 
+
+Just like Act 1 this is just a 
+recreation.
+      #
+
+cutscene 50
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman Act 1: 2.0.6-2.0.7
+
+A minor, but very needed change was
+done here to move several objects
+up where they were meant to be on
+several FOFs across the act.
+      #
+
+cutscene 51
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman Act 2: 2.0.6-2.0.7
+
+With 2.0.6, a minor change came to 
+Castle Eggman act 2 with a design
+error that blocked Tails' Emblem was
+fixed.
+      #
+
+cutscene 52
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Premiere Techno Hill Act 1: Demo 2
+
+The Earliest version of the level, 
+and up until demo 4, the final level.
+This was the first level to regularly
+use the Red Crawlas. At this point in
+development the poison water hadn't 
+been implemented yet and the pipes
+at the end of the level were very
+different.
+      #
+
+cutscene 53
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: Development 98
+
+While most players only knew of Act 1
+Act 2 had been mostly complete in a
+very rough design. Techno Hill act 2
+was vastly different from what the 
+player would later see in the Final
+demo series.
+      #
+
+cutscene 54
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 3: Development 98
+
+As the Eggmobile was the only usable 
+boss coded into the game at the time,
+This boss wound up reused multiple times.
+Each time using a different arena, 
+but the same Ai. Only the Greenflower
+Arena was ever part of an official 
+release.
+      #
+
+cutscene 55
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 1: Demo 3
+
+A change not noticeable at first glance,
+but jump into the purple goo and now
+you'll get hurt. Demo 3 is when the poison
+water first came online, and Techno Hill
+would use this type up until version 2.1.
+The end of the act was also changed to now
+have pipes to climb up and a window too.
+      #
+
+cutscene 56
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 1: Demo 4
+
+As with Greenflower Zone, Techno Hill 
+also received both the Jetty-Syn Gunner 
+and Bomber.
+Emerald Tokens were also brought in, 
+however one of the token's locations 
+was too small for anyone to get to.
+      #
+
+cutscene 57
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: Demo 4
+
+A level hidden away in a dll file. Techno
+Hill act 2 at this point was in the 
+process of getting a complete rebuild to 
+become the version many people would come
+to play. Many things were missing at this 
+point, including even a proper exit.
+
+(an exit has been placed so you 
+can beat the stage)
+      #
+
+cutscene 58
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 1: V. 1.01-1.08
+
+Another little update as Checkpoints and
+emblems are implemented. This level also 
+got a new set of textures and shrank the 
+entrance to the underground path.
+      #
+
+cutscene 59
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: V. 1.01-1.08
+
+in 1.01, Techno Hill Act 2 was finally ready
+for the public, with it came the 
+introduction of the Crawla Commander, 
+Ceiling crushers, and laser blocks.
+      #
+
+cutscene 60
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 3: V. 1.01-1.08
+
+With the first public version of this act
+came the first new boss since SRB2 
+Christmas. The Egg Slimer at this time
+didn't speed up after each hit, and
+could not jump off of the player in
+pinch mode. Its movement was also
+noticeably choppy.
+
+      #
+
+cutscene 61
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 1: V. 1.09.4
+
+With this version of THZ1 All the 
+Jetty-Syns were replaced with Buzzes.
+At this point in time the robots didn't 
+make a sound. The floating barrels in 
+the underground path were also enlarged.
+      #
+
+cutscene 62
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: V. 1.09.4
+
+Like with act 1, Act 2 also replaced its
+Jetty-Syns with Buzzes. Not much else
+was done except for the possible widening 
+of a path, and the addition of a new 
+vertical conveyor belt.
+      #
+
+cutscene 63
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 3: V. 1.09.4
+
+With 1.09.4 the Egg Slimer was refined
+to have smoother movement. The Egg 
+Slimer was also updated to speed up after
+each hit too.
+
+      #
+
+cutscene 64
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 1: V. 1.1
+
+Just like Greenflower, this version of
+THZ1 only shows off a few new sprites
+for the crawla series. 
+      #
+
+cutscene 65
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: V. 1.1
+
+As with act one, so did act 2 recieve
+new badnik sprites, as an added bonus,
+the Crawla Commander also had an 
+animation bug fixed so that it played
+its stage 2 animation.
+      #
+
+cutscene 66
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 3: V. 1.1
+
+While still just a sprite upgrade,
+the Egg Slimer was now clipping into the 
+edge of the train.
+      #
+
+cutscene 67
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 1: V. 2.0-2.0.7
+
+As the surprise of the new Crawla sprites
+was already spoiled, the only real change 
+to hit Act 1 was the scrambling of the 
+emblem locations plus the removal of a
+few robots.
+      #
+
+cutscene 68
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: V. 2.0-2.0.7
+
+Unlike act 1, Act 2 actually did see some
+real change outside of just sprites and
+emblems. The turret room was made 
+easier, some Crawla Commanders were
+removed, and some passages were 
+enlarged.
+      #
+
+cutscene 69
+numscenes 1
+scene 1
+numberofpics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 3: V. 2.0-2.0.7
+
+It can be assumed that after seeing
+the Egg Slimer go through the train's
+walls in 1.1, that it was decided to 
+shrink the size of the Axis the boss used.
+The Egg Slimer at this point was 
+still using its old Ai.
+      #
+
+Cutscene 70
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Greenflower Zone act 2: V.2.0-2.0.7
+
+With 2.0 came the removal of all the
+objects affected by difficulty here too.
+Jetty-syns were removed, as well as
+easy mode springs.
+      #
+
+Cutscene 71
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Mine Maze 3: Development 98
+
+Watch out as the rocks in the middle
+of the 4 platforms are dangerous.
+The arena also happens to be cramped 
+too.
+#
+
+Cutscene 72
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Blue Mountain: V. 2.0-2.0.7
+
+Meant to be act 2 of Red Volcano.
+This stage's name caused some confusion
+and was really short. It could only be 
+accessed by use of level warping.
+
+The shortness of the stage was due to in 
+part being a concept stage. The concept 
+has since been dropped and will be 
+replaced with a proper Red Volcano act 2.
+      #
+
+Cutscene 73
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano act 1: V. 2.0-2.0.4
+
+When 2.0 released, Red Volcano finally 
+became a core level. The layout received 
+an overhaul in how everything looked, 
+and even the end of the stage was changed 
+to stop taking the players' Rings from 
+them.
+The stage also had a new hallway installed
+to accommodate multi-player mode.
+(A few lava pits have been changed
+to prevent soft locks)
+      #
+
+Cutscene 74
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano act 1: V. 2.0.5
+
+In this version of the stage, various 
+things were changed to help prevent the 
+player from getting stuck in some of the 
+various lava pits.
+
+In 2.0.5 there was a bug with how Lava
+handled collision with anything that 
+wasn't the player, causing the secret path
+to spit players into a death trap.
+(this bug has not been fully replicated)
+      #
+
+Cutscene 75
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano act 1: V. 2.0.6-2.0.7
+
+Starting with version 2.0.5, Red Volcano
+had new exits installed in various lava
+pits Sonic would otherwise not be able
+to get out of.
+
+Lava collision was also changed from
+2.0.5 so as to only affect players and 
+rings. This change also fixed the spring
+placement issue along the secret path
+from 2.0.5.
+      #
+
+Cutscene 76
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano act 1: V. 2.1-2.1.5
+
+Red Volcano in 2.1 got a major 
+overhaul. The first room and 
+lava pit were both removed,
+as was as the secret path on the 
+upper route too.
+
+This was also the first appearance of
+SRB2's new Unidus badnik.
+      #
+
+Cutscene 77
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano act 1: V. 2.1.6
+
+At first, it looks like nothing changed.
+It was during a time period of bug fixes
+that Former dev, Inuyasha, put in the 
+start of a new secret path.
+      #
+
+Cutscene 78
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano act 1: Development 98
+This version of the stage shows us just 
+how early The layout was decided on. 
+Just about everything was carried out
+all the way to today in some modified
+form. (the end was modified to allow
+the stage to be completed)
+
+One of the concept robots was
+meant to appear here for the 
+longest time. Thanks to SSNTails
+we can finally see Rockbot in 
+action.
+      #
+
+Cutscene 79
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano act 2: Development 98
+
+To date, this is the only version of
+Red Volcano act 2. It is not as 
+developed as act 1 was and only 
+really has one linear path.
+
+      #
+
+Cutscene 80
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Red Volcano act 3: Development 98
+
+Like the rest of the Bosses, this was 
+just the eggmobile. But now you're
+fighting it without any rings.
+
+The original version of this map
+was actually bossless making it
+unbeatable.
+      #
+
+Cutscene 81
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 1: Development Version
+
+This is Castle Eggman as it was in
+development for demo 4. For the most part
+everything seems the same but several 
+badniks and items are missing as are all
+the castle textures.
+
+At this point, the level didn't even have 
+its level slot assigned yet, resulting in 
+it having Greenflower's Sky and music.
+      #
+
+Cutscene 82
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 2: Development Version
+
+A very noticeable difference between this
+map and the one seen in Demo 4 with
+none of the castle textures present.
+While in development, this map too 
+was using Greenflower's textures,
+music, and sky.
+
+Also at this point, there were no
+currents in the level at all.
+      #
+
+Cutscene 83
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Arid Canyon: 2.0-2.0.4
+
+Welcome to Arid Canyon.
+
+Before this stage premiered, SSNTails
+held a contest on the Message Board
+for new textures. The concept was for
+the stage to be based on a western desert
+with reference to the Road Runner 
+cartoons.
+      #
+
+Cutscene 84
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Premiere Deep Sea Zone Act 1: 2.0-2.0.7
+In version 2.0 we finally got to see the 
+long awaited Deep Sea Zone.
+
+The rising water being a big set piece
+throughout the level flooding the
+ruins.
+(disclaimer: Act 1 from 2.0 had only 1
+difference that's hard to notice. It has 
+been left out as a result.)
+      #
+
+Cutscene 85
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Premiere Deep Sea Zone Act 2: 2.0-2.0.7
+Act 2 opens up following the main
+exit of act 1, throwing you into
+a water slide. This level would 
+house the infamous bustable block
+maze as well as 2 more, better
+received sections.
+      #
+
+Cutscene 86
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Premiere Deep Sea Zone Act 3: 2.0-2.0.7
+The First version of the Sea Egg
+was quite shocking. It came equipped
+with missiles and a shock device. As
+a last resort, it would even attempt to
+drown you.
+      #
+
+Cutscene 87
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone Act 1: 2.1-2.1.6
+Minor touches here and there, 
+but all noticeable. 2.1 refined what
+was presented in 2.0 and even
+removed the mandatory bustable
+wall on one of the paths.
+      #
+
+Cutscene 88 
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone Act 1: 2.1.7-2.1.25
+Another case of a hidden room
+being added in an update. This
+time a secret room was added
+to allow for Knuckles to backtrack
+from the end of the stage.
+During development of this room
+it was intended for you to find
+a reference to Freedom Planet
+here!
+
+(This reference has been recreated)
+#
+
+Cutscene 89
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone Act 2: 2.1-2.1.25
+In 2.1, this stage no longer starts 
+you off falling into the water slide.
+The Infamous bustable block room
+remains, but several other rooms
+have been made easier to get through.
+      #
+
+Cutscene 90
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Deep Sea Zone Act 3: 2.1-2.1.25
+Version 2.1 upgraded the Sea Egg
+with a new pinch mode and made
+the arena more shallow.
+      #
+
+Cutscene 91 //For Sonic Doom 2 from New Museum
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Sonic Doom 2: Bots on Mobius
+Sonic Doom 2 was a Doom Mod created
+by SSN Tails and friends. While not 
+directly connected, this mod would 
+help lay the foundation to bring 
+SRB2 to the Doom engine.
+      #
+
+Cutscene 92 //Skip missing Marbel Garden old museum
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = RINFO
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = READ_M
+SceneText =  Huh? Who do we have here?
+Wait! If you're here then maybe I can 
+finally get out! If you can get to  
+Launch Base act 2, I'll tell you more.
+      #
+
+Cutscene 93 //Lore?
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = RINFO
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 8
+Music = READ_M
+SceneText = You're doing good, Player.
+Years ago, I was in this exhibit, but 
+someone Mystical told the museum to close 
+this exhibit down under the pretense that 
+Dr. Robotnik had infected it with a Virus
+that could take over everything.
+
+The exhibit was not removed, but was
+instead sealed off in the hopes that one 
+day that Virus could be removed.
+
+I'll contact you again later. Keep going.
+      #
+
+Cutscene 94 //MISSING LEVEL
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = At this point in the mod you 
+would have gone to Marble Garden act 1. 
+However, This level was never made. This 
+meant that you wound up in a Doom 2 level 
+instead.
+This Doom 2 level has been skipped as 
+it's not part of Sonic Doom 2.
+      #
+
+Cutscene 95 //LAUNCH
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Launch Base act 2 was another
+level that started out missing, but 
+unlike Marble garden an unfinished level 
+did exist. This level wound up included 
+with the 2013 re-release.
+      #
+
+Cutscene 96 //REPLACE
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = 
+      #
+
+Cutscene 97
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = 
+      #
+
+Cutscene 98
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = 
+      #
+
+Cutscene 99
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = 
+      #
+
+Cutscene 100
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText =  Azure Temple: V. 2.1
+
+Known also as “The Phantasm”  Azure 
+Temple is the gauntlet of water stages.
+Unlike other stages of its time, this
+stage would feature a bubble variant
+of the Buzzes and be entirely underwater.
+      #
+
+Cutscene 101
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText =  Greenflower act 1: V. 2.1-2.1.25
+
+The release of 2.1 brought with it a medium
+overhaul. New secrets were added, some 
+rooms were changed, and emblems were 
+made collectible for everyone!
+This version would last all the way until
+the end of 2.1.
+      #
+
+Cutscene 102
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText =  Greenflower act 2: V. 2.1-2.1.25
+
+As with Act 1, Act 2 also receive a mild
+overhaul. The spring in the puddle was
+made yellow and the fake slope at the
+end was also converted into stairs.
+This was disappointing as around
+2.1.15 Srb2 got functional slopes.
+      #
+
+Cutscene 103
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText =  Greenflower act 3: V. 2.1-2.1.25
+
+In 2.1, The Egg Mobile boss was once again
+updated with a new attack pattern. No
+longer would it shoot a single laser shot.
+Now it shoots a beam that tries to track
+you as well as deploying a shield of
+spike balls in its pinch phase!
+      #
+
+Cutscene 104
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText =  Greenflower GAUNTLET
+
+Most of SRB2's bosses don't change much
+over the versions. However This zone was
+special in that it had 5 versions that each
+improved upon the previous version.
+Can you beat all 5?
+      #
+
+Cutscene 105
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = 
+      #
+
+Cutscene 106
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = SRB1 Remake: 2.0-2.1.25
+
+Back in version 2.0 a new unlockable 
+campaign was added based upon the
+original SRB1 fangame. It contained
+almost all the levels and enemies, but
+was missing all the bosses and the ship
+stages. If you accessed this from the
+Museum, you get to play as your 
+selected character! If you instead used
+the extras menu, you get to play the 
+campaign as it was originally intended.
+      #
+
+Cutscene 107
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: V.1 Dev
+
+During the Development of THZ2
+The automatic turret would wind up 
+being one of the final few things to be
+made. At this point in time the turret
+was almost ready to be implemented,
+but while the sprites were ready, the 
+code was not.
+
+(This map was modified to allow
+the stage to be completed)
+      #
+
+Cutscene 108
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 1: V.2.1-2.1.25
+
+When version 2.1 hit, Techno Hill
+received a huge overhaul. Act 1 would get
+all new landscapes and a path for Knuckles.
+All the goop was finally refined to the
+point that it no longer hurt anyone in it.
+Instead, the goop was made clear and 
+buoyant. The Buzzes also starting making
+a buzzing noise whenever it targeted a 
+player
+      #
+
+Cutscene 109
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: 2.1(.15).-2.1.25
+
+Techno Hill Act 2 was completely 
+replaced in 2.1. While there was 
+another map ready to go, this map
+wound up being much better in 
+comparison. The other map would go
+on to become Techno Legacy in 2.2.
+In 2.1.15, a building at the end of the 
+stage changed ownership from 
+Spaddlewit, to Crawlacorp.
+      #
+
+Cutscene 110
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 3: 2.1.-2.1.25
+
+While the Egg Slimer didn't change much, 
+the arena did receive a notable change by
+becoming enclosed.
+      #
+
+Cutscene 111
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2: 2.1 Dev.-Now.
+
+Techno Legacy is what 2.1's THZ2 was
+originally going to be before it was 
+replaced with the much better level. 
+It is not entirely known when certain 
+changes were made to this stage as it 
+didn't reappear until SRB2 2.2.
+Things such as enemy placement and 
+changes to level layout are likely from
+the 2.1 dev era. While textures and 
+light coloring errors are from 2.2.
+      #
+
+Cutscene 112
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 2:  Demo 4 Dev 2
+
+A little later in development, this 
+version of THZ2 is more complete 
+than the version in the DLL file.
+      #
+
+Cutscene 113
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Techno Hill Act 3:  Final Demo Dev
+
+An early version of the map,
+this map was the only time the 
+Eggmobile was fought here.
+In the following version it was
+replaced with the Egg Slimer.
+      #
+
+Cutscene 114
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 1:  2.1-2.1.25
+
+With the update to 2.1 Castle Eggman
+had a visual overhaul. The zoom tube
+at the lake was replaced with a path 
+split for Knuckles, and even the 
+water at the end of the level was 
+removed.
+      #
+
+Cutscene 115
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 2:  2.1-2.1.25
+
+When 2.1 released Castle Eggman
+act 2 was finally finished. A few
+floors had been changed into pits
+and the Castle's hidden chapel had
+been removed as well as the auto 
+turret.
+      #
+
+Cutscene 116
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 48
+Music = _INTER
+SceneText = Castle Eggman act 3:  2.1-2.1.25
+
+Being missing for all of the 2.0 era,
+Castle Eggman act 3 returns with a 
+vengeance. The New boss is an
+entire Colosseum where you fight
+the Eggscalibur. The audience 
+wouldn't even pay to see this fight
+until 2.2
+      #
+
+Cutscene 117
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Forest Fortress/Castle Eggman act 1: 
+2.2 Dev (2.2)
+
+Forest Fortress was originally shown off 
+in early preview shots as Castle Eggman's 
+new revision. For some reason though, the 
+stage wound up getting replaced with 
+another remake.
+
+The stage was lucky enough to be included 
+in 2.2 as an unlockable bonus level 
+allowing it to see the light of day, or 
+would that be the storm of the night?
+      #
+
+Cutscene 118
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Red Volcano Zone act 1: V. 2.1.7-2.1.25
+
+This version of the map completed
+the new secret path. This path
+would prove to be a challenge 
+just to get an emerald token and
+the elemental shield.
+      #
+
+Cutscene 119
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Arid Canyon act 1: V. 2.0.6-2.0.7
+
+A few small changes were made to 
+this level since it was revealed.
+A ring was removed, a fake wall
+hid an Armageddon shield, and
+then before the era ended,
+someone goofed up and made a 
+spot under a bridge scroll.
+      #
+
+Cutscene 120
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Arid Canyon act 1: V. 2.1-2.1.6
+
+In 2.1, Arid Canyon received several
+updates. The tunnel at the end was 
+made safer and the start of the stage 
+no longer uses a spring.
+The polyobject cart has actually gotten
+worse visually and the end of the stage
+is now a Tunnel too.
+
+(This map has been edited to Prevent 
+Fang from getting stuck.)
+      #
+
+Cutscene 121
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Arid Canyon act 1: V. 2.1.12-2.1.25
+
+While seemingly small in fixes, Arid
+Canyon has seen some fix ups during 
+this era. In 2.1.7, the scrolling floor
+goof was finally fixed and in 2.1.12
+Polyobjects could finally render flats.
+
+(This map has been edited to Prevent 
+Fang from getting stuck.)
+      #
+
+Cutscene 122
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Mine Maze Act 1: Development Version
+
+Started sometime after 1998, This
+Mine Maze level was an attempt
+by Sonikku to redesign the stage.
+It didn't get too far though as when
+it was dropped it was still using
+Hidden Palace textures.
+
+(This map has been edited to allow
+completion and prevent getting stuck)
+      #
+
+Cutscene 123
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Mine Maze Act 1: Development 98
+
+Started sometime around 1998, Mine
+Maze was tight and cramped. The
+Stage would also live up to its
+name too.
+      #
+
+Cutscene 124
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Mine Maze Act 2: Development 98
+
+While the level was empty, it did
+feature some crushers and rail tracks.
+Aside from that, it's pretty empty.
+
+      #
+
+Cutscene 125
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Hidden Palace: Development 98
+
+A secret level well hidden, until 
+you found it. This level was made
+with all those Hidden Palace textures
+you've seen. Up until version 2.2
+the sky texture had remained
+unanimated and still.
+      #
+
+Cutscene 126
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Rocky Mountain act 1: Development 98
+
+Watch your step! This level has 
+little to stand on. So take things
+slowly, unless you can fly.
+#
+
+Cutscene 127
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Rocky Mountain act 2: Development 98
+
+Watch your step! Like act 1,
+act 2 is just as hard to get 
+good footing. Keep your
+eyes open in the tunnels
+for a hidden path and a fake 
+wall.
+#
+
+Cutscene 128
+NUMSCENES 1
+Scene 1
+NumberOfPics = 1
+Pic1Name = ARCH
+Pic1XCoord = 0
+Pic1YCoord = 0
+TextXPos = 8
+TextYPos = 40
+Music = _INTER
+SceneText = Rocky Mountain act 3: Development 98
+
+A big arena with plenty of rings.
+You'll have a hard time losing 
+here.
+#
+
+#HARD LIMIT 128

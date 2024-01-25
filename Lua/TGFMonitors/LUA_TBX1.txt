@@ -1,0 +1,44 @@
+-- TGF 1up Monitor - "Ported" by MIDIMan
+-- Use with LUA_TBOX
+
+freeslot(
+	"SPR_TBX1",
+	"MT_TGFBOX_1UP",
+	"S_TGFBOX_1UP_IDLE1",
+	"S_TGFBOX_1UP_IDLE2",
+	"S_TGFBOX_1UP_BREAK"
+)
+
+local function RM_TGFExtraLife(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	RM_TGFMonitorGiveAbility(actor, A_ExtraLife)
+end
+
+addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_1UP)
+
+-- If the monitor has been destroyed by a player's projectile, still play the death sound
+addHook("TouchSpecial", RM_TGFMonitorTouchSpecial, MT_TGFBOX_1UP)
+addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_1UP)
+
+mobjinfo[MT_TGFBOX_1UP] = {
+	--$Name TGF Extra Life
+	--$Sprite TBX1A0
+	--$Category Monitors
+	--$Flags4Text Big Explosion
+	--$Arg1 Explosion Size
+	--$Arg1Type 11
+	--$Arg1Enum {0 = "Small"; 1 = "Large";}
+	doomednum = 512,
+	spawnstate = S_TGFBOX_1UP_IDLE1,
+	spawnhealth = 1,
+	painstate = S_TGFBOX_1UP_IDLE1,
+	deathstate = S_TGFBOX_1UP_BREAK,
+	deathsound = sfx_pop,
+	radius = 28*FRACUNIT,
+	height = 52*FRACUNIT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_TGFBOX_1UP_IDLE1] =	{SPR_TBX1,	A,	1,	nil,				0,	0,	S_TGFBOX_1UP_IDLE2}
+states[S_TGFBOX_1UP_IDLE2] =	{SPR_TBOX,	A,	1,	nil,				0,	0,	S_TGFBOX_1UP_IDLE1}
+states[S_TGFBOX_1UP_BREAK] =	{SPR_TBXX,	A,	0,	RM_TGFExtraLife,	0,	0,	S_TGFBOX_CHOOSEEXPLOSION}

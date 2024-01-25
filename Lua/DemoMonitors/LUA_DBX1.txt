@@ -1,0 +1,64 @@
+-- Demo 1up Monitor - Ported by MIDIMan
+-- Use with LUA_DBOX
+
+freeslot(
+	"SPR_DBX1",
+	"MT_DEMOBOX_1UP",
+	"S_DEMOBOX_1UP_IDLE",
+	"S_DEMOBOX_1UP_BREAK1",
+	"S_DEMOBOX_1UP_BREAK2",
+	"S_DEMOBOX_1UP_BREAK3",
+	"S_DEMOBOX_1UP_BREAK4",
+	"S_DEMOBOX_1UP_BREAK5",
+	"S_DEMOBOX_1UP_BREAK6"
+)
+
+-- Only give the player a 1-ip in singleplayer
+function A_DemoExtraLife(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	if not (netgame or multiplayer) then
+		A_ExtraLife(actor, var1, var2)
+	end
+end
+
+-- Give the player the monitor's power-up as soon as it breaks
+addHook("MobjDeath", function(target, inflictor, source, damagetype)
+	if not (target and target.valid) then return end
+	
+	if netgame or multiplayer then
+		if source and source.valid and source.player then
+			target.target = source
+		elseif inflictor and inflictor.valid and inflictor.player then
+			target.target = inflictor
+		else
+			return
+		end
+	
+		A_ExtraLife(target, var1, var2)
+	end
+end, MT_DEMOBOX_1UP)
+
+mobjinfo[MT_DEMOBOX_1UP] = {
+	--$Name Demo Extra Life
+	--$Sprite DBX1A0
+	--$Category Monitors
+	doomednum = 457,
+	spawnstate = S_DEMOBOX_1UP_IDLE,
+	spawnhealth = 1,
+	painstate = S_DEMOBOX_1UP_IDLE,
+	deathstate = S_DEMOBOX_1UP_BREAK1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_DEMOBOX_1UP_IDLE] =	{SPR_DBX1,	A,	2,	nil,	0,	0,	S_DEMOBOX_FLICKER}
+
+states[S_DEMOBOX_1UP_BREAK1] =	{SPR_DBX1,	B,	2,	A_DemoFall,			0,	0,	S_DEMOBOX_1UP_BREAK2}
+states[S_DEMOBOX_1UP_BREAK2] =	{SPR_DBX1,	C,	2,	A_Scream,			0,	0,	S_DEMOBOX_1UP_BREAK3}
+states[S_DEMOBOX_1UP_BREAK3] =	{SPR_DBX1,	D,	2,	nil,				0,	0,	S_DEMOBOX_1UP_BREAK4}
+states[S_DEMOBOX_1UP_BREAK4] =	{SPR_DBX1,	E,	2,	nil,				0,	0,	S_DEMOBOX_1UP_BREAK5}
+states[S_DEMOBOX_1UP_BREAK5] =	{SPR_DBX1,	F,	16,	nil,				0,	0,	S_DEMOBOX_1UP_BREAK6}
+states[S_DEMOBOX_1UP_BREAK6] =	{SPR_DBX1,	F,	48,	A_DemoExtraLife,	0,	0,	S_DEMOBOX_DEAD}

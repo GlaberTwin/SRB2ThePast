@@ -1,0 +1,211 @@
+##Red Volcano Zone Level Headers
+
+#DEVELOPMENT
+
+Level R8
+Levelname = Red Volcano
+Subtitle = development Version
+MusicInter = LCLEAR
+interscreen = EGGPIC
+Act = 1
+Music = ORVZ1
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 78
+Lua.TPHub = RZ:1
+
+Level R9
+Levelname = Red Volcano
+Subtitle = development Version
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = ORVZ2
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 79
+Lua.TPHub = RZ:2
+
+Level RA
+Levelname = Red Volcano
+Subtitle = development Version
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 2
+BonusType = Boss
+RecordAttack = 0
+hidden = 1
+weather = 0
+Precutscenenum = 80
+Lua.TPHub = RZ:3
+
+
+
+#1.09.4
+
+#from GFZ1 1.09.4
+Level 712
+Levelname = Red Volcano
+Act = 1
+interscreen = FDINTERP
+subtitle = Version 1.09.4
+MusicInter = LCLEAR
+Music = FDRVZ1
+NextLevel = GZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 17
+Lua.TPHub = GZ:15
+
+Level R2
+Levelname = Red Volcano
+Act = 1
+interscreen = FDINTERP
+subtitle = Version 1.09.4
+MusicInter = LCLEAR
+Music = FDRVZ1
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 17
+Lua.TPHub = RZ:4
+
+
+
+#2.0 INDEV
+
+Level R1
+Levelname = Blue Mountain
+subtitle = 2.0-2.0.7
+MusicInter = LCLEAR
+Act = 2
+Music = MIDNIT
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 2
+SkyNum = 17
+BonusType = none
+RecordAttack = 0
+Hidden = 1
+hidden = 1
+Precutscenenum = 72
+Lua.TPHub = RZ:5
+
+
+
+
+#2.0
+
+Level R3
+Levelname = Red Volcano
+Act = 1
+subtitle = Version 2.0-2.0.4
+MusicInter = LCLEAR
+Music = FDRVZ1
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 73
+Lua.TPHub = RZ:6
+
+# kept in for now, may remove later. Can be nocliped into, but was not properly ported due to being too similar to the other 2 levels beside it.
+Level R4
+Levelname = Red Volcano
+Act = 1
+subtitle = Version 2.0.5
+Music = FDRVZ1
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 74
+Lua.TPHub = RZ:7
+
+Level R5
+Levelname = Red Volcano
+Act = 1
+subtitle = Version 2.0.6-2.0.7
+MusicInter = LCLEAR
+Music = FDRVZ1
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 75
+Lua.TPHub = RZ:8
+
+
+
+
+#2.1
+
+Level R6
+Levelname = Red Volcano
+Act = 1
+interscreen = FDINTERP
+subtitle = Version 2.1
+MusicInter = LCLEAR
+Music = FDRVZ1
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 76
+Lua.TPHub = RZ:9
+
+Level R7
+Levelname = Red Volcano
+Act = 1
+interscreen = FDINTERP
+subtitle = Version 2.1.6
+MusicInter = LCLEAR
+Music = FDRVZ1
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 77
+Lua.TPHub = RZ:10
+
+Level RB
+Levelname = Red Volcano
+Act = 1
+interscreen = FDINTERP
+subtitle = Version 2.1.7-2.1.25
+MusicInter = LCLEAR
+Music = FDRVZ1
+NextLevel = RZ
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 20
+RecordAttack = 0
+hidden = 1
+Precutscenenum = 118
+Lua.TPHub = RZ:11

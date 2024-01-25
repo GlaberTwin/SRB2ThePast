@@ -1,0 +1,47 @@
+-- 2.1 Gravity Boots Box - Ported by MIDIMan
+-- Use with LUA_2BOX and LUA_2BB2
+
+freeslot(
+	"MT_21BOX_GRAVITY",
+	"MT_21BOX_GRAVITY_ICON",
+	"S_21BOX_GRAVITY_IDLE",
+	"S_21BOX_GRAVITY_ICON_APPEAR",
+	"S_21BOX_GRAVITY_ICON_SPIN",
+	"S_21BOX_GRAVITY_ICON_LEAVE"
+)
+
+addHook("MapThingSpawn", RM_21MonitorTypeSpawn, MT_21BOX_GRAVITY)
+
+mobjinfo[MT_21BOX_GRAVITY] = {
+	--$Name 2.1 Gravity Boots
+	--$Sprite 2BXMC0
+	--$Category Monitors
+	doomednum = 493,
+	spawnstate = S_21BOX_GRAVITY_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_GRAVITY_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_GRAVITY_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_GRAVITY_IDLE] =	{SPR_2BXM,	C,	2,	nil,	0,	0,	S_21BOX_FLICKER}
+
+mobjinfo[MT_21BOX_GRAVITY_ICON] = {
+	doomednum = -1,
+	spawnstate = S_21BOX_GRAVITY_ICON_APPEAR,
+	spawnhealth = 1,
+	reactiontime = 20*TICRATE,
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_21BOX_GRAVITY_ICON_APPEAR] =	{SPR_2BXM,	D,				4,	nil,			0,	0,	S_21BOX_GRAVITY_ICON_SPIN}
+states[S_21BOX_GRAVITY_ICON_SPIN] =		{SPR_2BXB,	C|FF_ANIMATE,	12,	nil,			2,	4,	S_21BOX_GRAVITY_ICON_LEAVE}
+states[S_21BOX_GRAVITY_ICON_LEAVE] =	{SPR_2BXM,	D,				18,	A_GravityBox,	0,	0,	S_NULL}

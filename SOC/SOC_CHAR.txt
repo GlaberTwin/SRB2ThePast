@@ -1,0 +1,56 @@
+Character
+SkinName = XtremeSonic
+DisplayName = Early#Sonic
+Status = 1
+PlayerText = ^2Placeholder Sonic^0 has returned, bringing with him slippery controls. Once a placeholder For Halloween and again for Christmas, he uses sprites from Sonic X-treme. His spindash has a poor charge time.
+
+^2Ability:^0 Multi-Thok
+Multiple jumps to zoom forward with a huge burst of speed.
+
+^2Tip:^0 Accelerates really fast. Charges a spindash really slow. Slippery to control too.
+#
+
+Character
+SkinName = MegamanD3
+DisplayName = Megaman
+Status = 1
+PlayerText = ^2Megaman^0 has beamed in from Demo 3 to once again fight for justice against the evils of Dr. Eggman. His base speed has been improved to fall in line with the others and he's able to shoot while moving too.
+
+^2Ability:^0 Plasma Power
+Shoots from the ring toss button at no cost.
+
+^2Tip:^0 To shoot, press your ring toss button.
+#
+
+Character
+SkinName = ChaoD3
+DisplayName = Chao
+Status = 1
+PlayerText = ^2Chao^0 is back from its Christmas vacation in Demo 3. A Basic Chao, it's nothing special, but for some reason it has lost its ball.
+
+^2Tip:^0 A Slow character, the chao needs to be more careful about where it treads, and who it races against.
+#
+
+Character
+SkinName = Cinossu
+DisplayName = Cinossu
+Status = 1
+PlayerText = A gentleman and musician in the future, ^2 Cinossu^0 made a brief appearance in Demo 3. There he played just like Sonic did at the time.
+
+^2Ability:^0 Multi-Thok
+Multiple jumps to zoom forward with bursts of speed.
+
+#
+
+
+Character
+SkinName = ZimFD
+DisplayName = ZIM
+Status = 1
+PlayerText = An Invader of the planet, ^2 Zim^0 has come to take over and rule us all. If only a certain Dr. Robotnik wasn't in his way. He made an appearance once before in Final Demo 1.08 before he got recalled in 1.09.4.
+
+^2Ability:^0 Multi-Glide
+Multiple Glides to help move around. Zim can also cling to walls too.
+
+^2Tip:^0 Zim can't spin. He can bust through walls and hurt enemies just by landing on them though.
+#

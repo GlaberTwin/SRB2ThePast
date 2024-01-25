@@ -1,0 +1,76 @@
+-- 2.1 Eggman Box - Ported by MIDIMan
+-- Use with LUA_2BOX and LUA_2BXM
+
+freeslot(
+	"MT_21BOX_EGGMAN",
+	"MT_21BOX_EGGMAN_ICON",
+	"S_21BOX_EGGMAN_IDLE",
+	"S_21BOX_EGGMAN_ICON_APPEAR",
+	"S_21BOX_EGGMAN_ICON_SPIN",
+	"S_21BOX_EGGMAN_ICON_LEAVE"
+)
+
+-- Let everyone know that a player was hit by an Eggman monitor
+addHook("HurtMsg", function(player, inflictor, source)
+	if not (inflictor and inflictor.valid and player and player.valid) then
+		return
+	end
+	
+	-- Let players know if you had rings or not
+	local hitText = "hit"
+	if not player.mo.health then
+		hitText = "killed"
+	end
+	
+	local playerText = player.name
+	
+	-- Change the player's name's color depending on which team they're on
+	if player.ctfteam then
+		if player.ctfteam == 1 then
+			playerText = "\x85"..$
+		else
+			playerText = "\x84"..$
+		end
+		
+		playerText = $.."\x80"
+	end
+	
+	print(playerText.." was "..hitText.." by Eggman's nefarious TV magic.")
+	
+	return true
+end, MT_21BOX_EGGMAN_ICON)
+
+addHook("MapThingSpawn", RM_21MonitorTypeSpawn, MT_21BOX_EGGMAN)
+
+mobjinfo[MT_21BOX_EGGMAN] = {
+	--$Name 2.1 Eggman
+	--$Sprite 2BXMA0
+	--$Category Monitors
+	doomednum = 492,
+	spawnstate = S_21BOX_EGGMAN_IDLE,
+	spawnhealth = 1,
+	painstate = S_21BOX_EGGMAN_IDLE,
+	deathstate = S_21BOX_EXPLOSION1,
+	deathsound = sfx_pop,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	damage = MT_21BOX_EGGMAN_ICON,
+	flags = MF_SOLID|MF_SHOOTABLE|MF_MONITOR|MF_GRENADEBOUNCE
+}
+
+states[S_21BOX_EGGMAN_IDLE] =	{SPR_2BXM,	A,	2,	nil,	0,	0,	S_21BOX_FLICKER}
+
+mobjinfo[MT_21BOX_EGGMAN_ICON] = {
+	doomednum = -1,
+	spawnstate = S_21BOX_EGGMAN_ICON_APPEAR,
+	spawnhealth = 1,
+	speed = 2*FRACUNIT,
+	radius = 8*FRACUNIT,
+	height = 14*FRACUNIT,
+	damage = 62*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_SCENERY|MF_NOGRAVITY|MF_BOXICON
+}
+
+states[S_21BOX_EGGMAN_ICON_APPEAR] =	{SPR_2BXM,	B,				4,	nil,			0,	0,	S_21BOX_EGGMAN_ICON_SPIN}
+states[S_21BOX_EGGMAN_ICON_SPIN] =		{SPR_2BXK,	C|FF_ANIMATE,	12,	nil,			2,	4,	S_21BOX_EGGMAN_ICON_LEAVE}
+states[S_21BOX_EGGMAN_ICON_LEAVE] =		{SPR_2BXM,	B,				18,	A_EggmanBox,	0,	0,	S_NULL}

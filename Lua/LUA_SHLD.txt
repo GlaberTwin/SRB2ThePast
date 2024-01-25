@@ -1,0 +1,372 @@
+-- Retro Monitors - A_GiveShield edit
+-- Allows the player to be given a shield from the era the monitor comes from
+
+A_GiveShield = function(mo, var1, var2)
+	if not (mo and mo.valid and mo.target and mo.target.valid) then
+		super(mo, var1, var2)
+		return
+	end
+	
+	local player = mo.target.player
+	if not (player and player.valid) then
+		super(mo, var1, var2)
+		return
+	end
+	
+	if (mo.target.rmShieldEra or "") ~= (mo.rmShieldEra or "") then
+		-- If you already have a bomb shield, use it!
+		if (var1 or 0) == SH_ARMAGEDDON and (player.powers[pw_shield] & SH_NOSTACK) == SH_ARMAGEDDON then
+			P_BlackOw(player)
+		end
+		player.powers[pw_shield] = $ & ~SH_NOSTACK
+	end
+	mo.target.rmShieldEra = mo.rmShieldEra
+	
+	super(mo, var1, var2)
+end
+
+-- Create our own NUMPOWERS since the actual NUMPOWERS isn't exposed to Lua for some reason...
+local RM_NUMPOWERS = pw_strong + 1
+
+-- There doesn't seem to be an easy way to insert my code into the vanilla A_RecyclePowers, 
+-- so I have to completely rewrite the action in Lua with the new code
+-- Hopefully, there isn't another mod that does this...
+-- If there is, you're going to have to merge the two together
+A_RecyclePowers = function(mo, var1, var2)
+	if not (mo and mo.valid) then
+		super(mo, var1, var2)
+		return
+	end
+	
+	local i, j, k, numplayers = 0, 0, 0, 0
+	
+	local playerslist = {}
+	local postscramble = {}
+	
+	local powers = {}
+	for l = 0, #players do
+		powers[i+1] = {}
+		i = $+1
+	end
+	i = 0
+	local weapons = {}
+	local weaponheld = {}
+	local shieldera = {}
+	
+	if not multiplayer then
+		S_StartSound(mo, sfx_lose)
+		return
+	end
+	
+	numplayers = 0
+	
+	-- Count the number of players in the game
+	i, j = 0, 0
+	while i < #players do
+		local player = players[i]
+		if player and player.valid and player.mo and player.mo.valid and player.mo.health > 0 and player.playerstate == PST_LIVE
+		and not player.exiting and not ((netgame or multiplayer) and player.spectator) then
+			numplayers = $+1
+			postscramble[j+1] = i
+			playerslist[j+1] = i
+			
+			-- Save powers
+			k = 0
+			while k < RM_NUMPOWERS do
+				powers[i+1][k+1] = player.powers[k]
+				k = $+1
+			end
+			--1.1: ring weapons too
+			weapons[i+1] = player.ringweapons
+			weaponheld[i+1] = player.currentweapon
+			shieldera[i+1] = player.mo.rmShieldEra
+			
+			j = $+1
+		end
+		
+		i = $+1
+	end
+	
+	if numplayers <= 1 then
+		S_StartSound(mo, sfx_lose)
+		return -- Nobody to touch!
+	end
+	
+	--shuffle the post scramble list, whee!
+	-- hardcoded 0-1 to 1-0 for two players
+	if numplayers == 2 then
+		postscramble[1] = playerslist[2]
+		postscramble[2] = playerslist[1]
+	else
+		j = 0
+		while j < numplayers do
+			local tempint = 0
+			
+			i = j + ((P_RandomByte() + leveltime) % (numplayers - j))
+			tempint = postscramble[j+1]
+			postscramble[j+1] = postscramble[i+1]
+			postscramble[i+1] = tempint
+			
+			j = $+1
+		end
+	end
+	
+	-- now assign!
+	i = 0
+	while i < numplayers do
+		local send_pl = playerslist[i+1]
+		local recv_pl = postscramble[i+1]
+		
+-- 		print(string.format("sending player %s's items to %s", send_pl, recv_pl))
+		
+		j = 0
+		while j < RM_NUMPOWERS do
+			if j == pw_flashing or j == pw_underwater or j == pw_spacetime or j == pw_carry
+			or j == pw_tailsfly or j == pw_extralife or j == pw_nocontrol or j == pw_super
+			or j == pw_pushing or j == pw_justsprung or j == pw_noautobrake or j == pw_justlaunched
+			or j == pw_ignorelatch then
+				j = $+1
+				continue
+			end
+			players[recv_pl].powers[j] = powers[send_pl+1][j+1] or 0
+			
+			j = $+1
+		end
+		
+		--1.1: weapon rings too
+		players[recv_pl].ringweapons = weapons[send_pl+1]
+		players[recv_pl].currentweapon = weaponheld[send_pl+1]
+		
+		if players[recv_pl].mo and players[recv_pl].mo.valid then
+			players[recv_pl].mo.rmShieldEra = shieldera[send_pl+1] -- This could be problematic
+		end
+		P_SpawnShieldOrb(players[recv_pl])
+		-- Replace this check with P_IsLocalPlayer when it gets exposed to Lua
+		if (splitscreen and players[recv_pl] == secondarydisplayplayer) or players[recv_pl] == consoleplayer then
+			P_RestoreMusic(players[recv_pl])
+		end
+		P_FlashPal(players[recv_pl], PAL_RECYCLE, 10)
+		
+		i = $+1
+	end
+	
+	S_StartSound(nil, sfx_gravch) --heh, the sound effect I used is already in
+end
+
+local RM_SHIELDCOLORS = {
+	["XMAS"] = {
+		[SH_PITY] = SKINCOLOR_BLUE,
+		[SH_BUBBLEWRAP] = SKINCOLOR_GREEN,
+		[SH_ATTRACT] = SKINCOLOR_GOLD,
+		[SH_ARMAGEDDON] = SKINCOLOR_GREY
+	},
+	["DEMO"] = {
+		[SH_PITY] = SKINCOLOR_BLUE,
+		[SH_BUBBLEWRAP] = SKINCOLOR_GREEN,
+		[SH_ATTRACT] = SKINCOLOR_GOLD,
+		[SH_ARMAGEDDON] = SKINCOLOR_GREY
+	},
+	["FINALDEMO"] = {
+		[SH_PITY] = SKINCOLOR_BLUE,
+		[SH_BUBBLEWRAP] = SKINCOLOR_GREEN,
+		[SH_ATTRACT] = SKINCOLOR_GOLD,
+		[SH_FLAMEAURA] = SKINCOLOR_RED,
+		[SH_ARMAGEDDON] = SKINCOLOR_GREY
+	},
+	["LATEFINALDEMO"] = {
+		[SH_BUBBLEWRAP] = SKINCOLOR_BLUE,
+		[SH_ATTRACT] = SKINCOLOR_GOLD,
+		[SH_FLAMEAURA] = SKINCOLOR_RED,
+		[SH_ARMAGEDDON] = SKINCOLOR_GREY,
+		[SH_WHIRLWIND] = SKINCOLOR_WHITE
+	},
+	["2.0"] = {
+		[SH_ELEMENTAL] = SKINCOLOR_GREEN,
+		[SH_ATTRACT] = SKINCOLOR_GOLD,
+		[SH_FORCE] = SKINCOLOR_BLUE,
+		[SH_ARMAGEDDON] = SKINCOLOR_RED,
+		[SH_WHIRLWIND] = SKINCOLOR_WHITE
+	}
+}
+
+-- Thanks to Golden on the SRB2 Discord for the basis of this function
+local function CheckFreeslot(item)
+    return pcall(do
+		return _G[item]
+	end)
+end
+
+local RM_RemoveShieldAbility = function(player)
+	if not (player and player.valid) then return end
+	if (player.charflags & SF_NOSHIELDABILITY) and not (skins[player.skin].flags & SF_NOSHIELDABILITY) then
+		player.charflags = $ & ~SF_NOSHIELDABILITY
+	end
+end
+
+local RM_PlayerShieldAbility = function(player, shieldType)
+	if not (player and player.valid and player.mo and player.mo.valid) then return end
+	if not shieldType then
+		RM_RemoveShieldAbility(player)
+		return
+	end
+	
+	local era = player.mo.rmShieldEra
+	
+	-- Assume 2.2 era
+	if not era then
+		RM_RemoveShieldAbility(player)
+		return
+	end
+	
+	-- The whirlwind and armageddon shields' abilities should work regardless of era
+	if shieldType == SH_WHIRLWIND then
+		RM_RemoveShieldAbility(player)
+		return
+	end
+	if shieldType == SH_ARMAGEDDON then
+		RM_RemoveShieldAbility(player)
+		return
+	end
+	
+	if RM_SHIELDCOLORS[era] or era == "2.1" or era == "TGF" then
+		if not (player.charflags & SF_NOSHIELDABILITY) then
+			player.charflags = $|SF_NOSHIELDABILITY
+		end
+	end
+end
+
+addHook("MobjSpawn", function(mo)
+	if not (mo and mo.valid) then return end
+	-- Change this if you want to make the shield the player spawns with in Match from a different era
+	mo.rmShieldEra = nil
+end, MT_PLAYER)
+
+addHook("PlayerThink", function(player)
+	if not (player and player.valid and player.mo and player.mo.valid) then return end
+	
+	if (player.pity >= 3 or player.pity < 0) and player.powers[pw_shield] == SH_NONE then
+		-- Change this if you want to make the shield the player spawns with in Match from a different era
+		player.mo.rmShieldEra = nil
+	end
+	-- Fixes a bug where the player can use the shield ability after changing character
+	if player.mo.skin ~= (player.rmPrevSkin or "") then
+		RM_PlayerShieldAbility(player, (player.powers[pw_shield] & SH_NOSTACK))
+	end
+	
+	player.rmPrevSkin = player.mo.skin
+end)
+
+-- Override the vanilla shield spawning code to spawn the old shield orbs instead
+addHook("ShieldSpawn", function(player)
+	if not (player and player.valid and player.mo and player.mo.valid) then return end
+	
+	-- Do this before the shield check so two shields aren't layered on top of each other
+	for mo in mobjs.iterate() do
+		if mo and mo.valid and (mo.flags2 & MF2_SHIELD)
+		and mo.target and mo.target.valid and mo.target == player.mo then
+			P_RemoveMobj(mo)
+		end
+	end
+	
+	local shieldType = player.powers[pw_shield] & SH_NOSTACK
+	if not shieldType then
+		RM_PlayerShieldAbility(player, shieldType)
+		return
+	end
+	if (shieldType & SH_FORCE) then shieldType = SH_FORCE end
+	
+	local rmShieldEra = player.mo.rmShieldEra
+	if not rmShieldEra then
+		RM_PlayerShieldAbility(player, shieldType)
+		return
+	end
+	
+	RM_PlayerShieldAbility(player, shieldType)
+	
+	local orbType
+	local keepera
+	
+	if rmShieldEra == "2.1" then
+		-- The armageddon, force, and pity shields's sprites all get replaced in the 2.1 era
+		if shieldType == SH_ARMAGEDDON and CheckFreeslot("MT_21_ARMAGEDDONORB") then
+			orbType = MT_21_ARMAGEDDONORB
+		elseif shieldType == SH_FORCE and CheckFreeslot("MT_21_FORCEORB") then
+			orbType = MT_21_FORCEORB
+		elseif shieldType == SH_PITY and CheckFreeslot("MT_21_PITYORB") then
+			orbType = MT_21_PITYORB
+		end
+		keepera = true
+	elseif rmShieldEra == "TGF" then
+		-- Only the pity shield's sprite gets replaced in the TGF era
+		if shieldType == SH_PITY and CheckFreeslot("MT_TGF_PITYORB") then
+			orbType = MT_TGF_PITYORB
+		end
+		keepera = true
+	-- Assume the era is XMAS-2.0
+	elseif rmShieldEra then
+		if CheckFreeslot("MT_FD_SHIELDORB") then
+			orbType = MT_FD_SHIELDORB
+		end
+		keepera = true
+	end
+	
+	if not orbType then
+		-- Don't spawn a shield if no proper shield types exist
+		if not keepera then player.mo.rmShieldEra = nil end
+		RM_PlayerShieldAbility(player, shieldType)
+		return
+	end
+	
+	RM_PlayerShieldAbility(player, shieldType)
+	
+	local shieldOrb = P_SpawnMobjFromMobj(player.mo, 0, 0, 0, orbType)
+	if not (shieldOrb and shieldOrb.valid) then return true end
+	
+	shieldOrb.flags2 = $|MF2_SHIELD
+	shieldOrb.target = player.mo
+	shieldOrb.dontdrawforviewmobj = player.mo
+	shieldOrb.threshold = shieldType
+	if rmShieldEra == "XMAS" then shieldOrb.dispoffset = -1 end
+	local orbColor = RM_SHIELDCOLORS[rmShieldEra] and RM_SHIELDCOLORS[rmShieldEra][shieldType]
+	-- Legacy Gold looks better (and more accurate) for the attraction shield, so use it if possible
+	if orbColor then
+		if orbColor == SKINCOLOR_GOLD then
+			if CheckFreeslot("SKINCOLOR_FDGOLD") then
+				orbColor = SKINCOLOR_FDGOLD
+			elseif CheckFreeslot("SKINCOLOR_LEGACYGOLD") then
+				orbColor = SKINCOLOR_LEGACYGOLD
+			end
+		end
+		shieldOrb.color = orbColor
+	end
+	
+	if shieldOrb.info.seestate then
+		local ov = P_SpawnMobj(shieldOrb.x, shieldOrb.y, shieldOrb.z, MT_OVERLAY)
+		if ov and ov.valid then
+			ov.target = shieldOrb
+			ov.dontdrawforviewmobj = shieldOrb
+			ov.state = shieldOrb.info.seestate
+			shieldOrb.tracer = ov
+		end
+	end
+	if shieldOrb.info.meleestate then
+		local ov = P_SpawnMobj(shieldOrb.x, shieldOrb.y, shieldOrb.z, MT_OVERLAY)
+		if ov and ov.valid then
+			ov.target = shieldOrb
+			ov.dontdrawforviewmobj = shieldOrb
+			ov.state = shieldOrb.info.meleestate
+		end
+	end
+	if shieldType == SH_FORCE then
+		shieldOrb.movecount = player.powers[pw_shield] & SH_FORCEHP
+		if shieldOrb.movecount < 1 then
+			if shieldOrb.info.painstate then
+				shieldOrb.state = shieldOrb.info.painstate
+			else
+				shieldOrb.flags2 = $|MF2_SHADOW
+			end
+		end
+	end
+	
+	return true
+end)

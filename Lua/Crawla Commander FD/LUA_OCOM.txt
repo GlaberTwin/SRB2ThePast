@@ -1,0 +1,138 @@
+// Old Crawla Commander - Ported by Glaber (original SOC) and MIDIMan (fixes and conversion to Lua)
+//use with LUA_CCOM
+
+freeslot(
+	"MT_OLDCRAWLACOMANDER",
+	"S_OCOMMAND1",
+	"S_OCOMMAND2",
+	"S_OCOMMAND3",
+	"S_OCOMMAND4",
+	"SPR_OCOM"
+)
+
+addHook("MapThingSpawn", function(mobj, mapthing)
+	if not (mobj and mobj.valid
+	and mapthing and mapthing.valid) then
+		return
+	end
+	
+	local offset
+	
+	if mapthing.z ~= 0 then
+		offset = mapthing.z
+	else
+		offset = 33*FRACUNIT
+	end
+	
+	if (mapthing.options & MTF_OBJECTFLIP) then
+		if offset ~= 0 then
+			mobj.z = mobj.z - offset
+		else
+			mobj.z = mobj.ceilingz
+		end
+	else
+		if offset ~= 0 then
+			mobj.z = mobj.z + offset
+		else
+			mobj.z = mobj.floorz
+		end
+	end
+end, MT_OLDCRAWLACOMANDER)
+
+addHook("MobjDamage", function(target, inflictor, source, damage, damagetype)
+	if not (target and target.valid) then return end
+	
+	if target.fuse then return true end
+	
+	if target.health > 1 then
+		if target.info.painsound then S_StartSound(target, target.info.painsound) end
+		
+		target.fuse = TICRATE/2
+		target.flags2 = $|MF2_FRET
+	else
+		target.flags = $|MF_NOGRAVITY
+		target.fuse = 0
+	end
+	
+	target.momx = 0
+	target.momy = 0
+	target.momz = 0
+	
+	P_InstaThrust(target, target.angle-ANGLE_180, FixedMul(5*FRACUNIT, target.scale))
+	return
+end, MT_OLDCRAWLACOMANDER)
+
+mobjinfo[MT_OLDCRAWLACOMANDER] = {
+	//$Name Old Crawla Commander
+	//$Sprite OCOMA1
+	//$Category Retro Enemies
+	doomednum = 4031,
+	spawnstate = S_OCOMMAND1,
+	spawnhealth = 2,
+	seestate = S_OCOMMAND3,
+	reactiontime = 2,
+	painstate = S_OCOMMAND3,
+	painchance = 200,
+	painsound = sfx_dmpain,
+	deathstate = S_XPLD_FLICKY,
+	deathsound = sfx_pop,
+	speed = 3,
+	radius = 16*FRACUNIT,
+	height = 32*FRACUNIT,
+	flags = MF_SLIDEME|MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+
+states[S_OCOMMAND1] =	{SPR_OCOM,	A,	1,	A_CrawlaCommanderReThink,	0,	15*FRACUNIT,	S_OCOMMAND2}
+states[S_OCOMMAND2] =	{SPR_OCOM,	B,	1,	A_CrawlaCommanderReThink,	0,	15*FRACUNIT,	S_OCOMMAND1}
+states[S_OCOMMAND3] =	{SPR_OCOM,	C,	1,	A_CrawlaCommanderReThink,	0,	15*FRACUNIT,	S_OCOMMAND4}
+states[S_OCOMMAND4] =	{SPR_OCOM,	D,	1,	A_CrawlaCommanderReThink,	0,	15*FRACUNIT,	S_OCOMMAND3}
+
+// (Note from Glaber)
+// Pain cycle for Old Crawla Commander
+// Thanks ThatAwsomeGuy173
+
+// Do not use these painstates, they are inaccurate and deprecated
+
+/*
+STATE S_OCOMMAND_PAIN1
+SPRITENAME = OCOM
+SPRITEFRAME = D
+DURATION = 1
+NEXT = S_OCOMMAND_PAIN2
+ACTION = A_SetObjectFlags
+VAR1 = MF_SHOOTABLE
+VAR2 = 1
+
+STATE S_OCOMMAND_PAIN2
+SPRITENAME = NULL
+SPRITEFRAME = D
+DURATION = 1
+NEXT = S_OCOMMAND_PAIN3
+ACTION = A_PlaySound
+VAR1 = sfx_dmpain
+VAR2 = 0
+
+STATE S_OCOMMAND_PAIN3
+SPRITENAME = OCOM
+SPRITEFRAME = D
+DURATION = 17
+NEXT = S_OCOMMAND_PAIN4
+ACTION = A_BunnyHop
+VAR1 = 0
+VAR2 = -16
+
+STATE S_OCOMMAND_PAIN4
+SPRITENAME = NULL
+SPRITEFRAME = D
+DURATION = 1
+NEXT = S_OCOMMAND3
+ACTION = A_SetObjectFlags
+VAR1 = MF_SHOOTABLE
+VAR2 = 2
+*/
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_OLDCRAWLACOMANDER] = 16    // Makes MT_OLDCRAWLACOMANDER give UFO

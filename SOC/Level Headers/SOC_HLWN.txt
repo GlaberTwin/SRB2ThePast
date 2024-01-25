@@ -1,0 +1,40 @@
+##SRB2 Halloween Level Headers
+
+Level H0
+Levelname = Halloween Tech
+interscreen = INTERpic
+subtitle = Halloween Tech Demo
+MusicInter = LCLEAR
+palette = 1031
+Act = 0
+NoZone = 1
+Music = HTECH
+NextLevel = 353
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 23
+RecordAttack = 0
+Hidden = 1
+PreCutsceneNum = 24
+Lua.TPHub = 1:15
+
+#mapH1
+Level H1
+Levelname = Halloween Tech
+subtitle = Halloween Tech Demo
+MusicInter = LCLEAR
+interscreen = INTERpic
+palette = 1031
+Act = 0
+NoZone = 1
+Music = HTECH
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op,Race
+Weather = 0
+SkyNum = 23
+RecordAttack = 0
+hidden = 1
+PreCutsceneNum = 25
+CutsceneNum = 26
+SaveGame = true
+Lua.TPHub = 1:15

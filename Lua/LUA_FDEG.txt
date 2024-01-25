@@ -1,0 +1,440 @@
+// Final Demo Eggman - Ported by Glaber (original SOC) and MIDIMan (accuracy fixes and Lua conversion)
+
+// MISSILE
+
+freeslot(
+	"MT_OLD_MISSLE", // Should be spelled "missile", but I'm keeping it as-is --MIDIMan
+	"S_REDLAZER",
+	"SPR_FMIS"
+)
+
+mobjinfo[MT_OLD_MISSLE] = {
+	doomednum = -1,
+	spawnstate = S_REDLAZER,
+	spawnhealth = 1000,
+	seesound = sfx_rlaunc,
+	speed = 20*FRACUNIT,
+	radius = 11*FRACUNIT,
+	height = 8*FRACUNIT,
+	damage = 20,
+	flags = MF_NOBLOCKMAP|MF_NOGRAVITY|MF_MISSILE
+}
+
+states[S_REDLAZER] =	{SPR_FMIS,	A|FF_FULLBRIGHT,	1,	A_SmokeTrailer,	MT_SMOKE,	0,	S_REDLAZER}
+
+// JETFUMES
+
+local function P_GetJetZ(mobj, jetzoff)
+	if not (mobj and mobj.valid) then return end
+	
+	jetzoff = FixedMul(jetzoff, mobj.target.scale)
+	
+	if (mobj.target.eflags & MFE_VERTICALFLIP)
+		return mobj.target.z + mobj.target.height - jetzoff - mobj.height
+	else
+		return mobj.target.z + jetzoff
+	end
+end
+
+addHook("MobjThinker", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	local jetx, jety, jetz
+	
+	if not (mobj.target and mobj.target.valid) // if you have no target
+	or (not (mobj.target.flags & MF_BOSS) and mobj.target.health <= 0) // or your target isn't a boss and it's popped now
+		// then remove yourself as well!
+		P_RemoveMobj(mobj)
+		return
+	end
+	
+	jetx = mobj.target.x + P_ReturnThrustX(mobj.target, mobj.target.angle, FixedMul(-56*FRACUNIT, mobj.target.scale))
+	jety = mobj.target.y + P_ReturnThrustY(mobj.target, mobj.target.angle, FixedMul(-56*FRACUNIT, mobj.target.scale))
+	
+	if mobj.fuse == 56 // Final Demo Egg Mobile Center Fume
+		jetz = P_GetJetZ(mobj, 8*FRACUNIT)
+		P_MoveOrigin(mobj, jetx, jety, jetz)
+	elseif mobj.fuse == 57 // Final Demo Egg Mobile "Right" Fume
+		jetz = P_GetJetZ(mobj, 32*FRACUNIT)
+		P_MoveOrigin(
+			mobj, 
+			jetx + P_ReturnThrustX(mobj.target, mobj.target.angle-ANGLE_90, FixedMul(24*FRACUNIT, mobj.target.scale)),
+			jety + P_ReturnThrustY(mobj.target, mobj.target.angle-ANGLE_90, FixedMul(24*FRACUNIT, mobj.target.scale)),
+			jetz
+		)
+	elseif mobj.fuse == 58 // Final Demo Egg Mobile "Left" Fume
+		jetz = P_GetJetZ(mobj, 32*FRACUNIT)
+		P_MoveOrigin(
+			mobj, 
+			jetx + P_ReturnThrustX(mobj.target, mobj.target.angle+ANGLE_90, FixedMul(24*FRACUNIT, mobj.target.scale)),
+			jety + P_ReturnThrustY(mobj.target, mobj.target.angle+ANGLE_90, FixedMul(24*FRACUNIT, mobj.target.scale)),
+			jetz
+		)
+	end
+	mobj.fuse = $+1
+	
+	mobj.momz = 0 // Prevent the jetfume from moving vertically
+end, MT_JETFUMEC1)
+
+// EGG MOBILE
+
+freeslot(
+	"MT_EGGOMATIC",
+	"S_EGGOMATIC_HOVER",
+	"S_EGGOMATIC_BEAM_HAULT",
+	"S_EGGOMATIC_BEAM",
+	"S_EGGOMATIC_LAZER_HAULT",
+	"S_EGGOMATIC_LAZER",
+	"S_EGGOMATIC_RETREAT",
+	"S_EGGOMATIC_RETREAT2",
+	"S_EGGOMATIC_HIT",
+	"S_EGGOMATIC_KABOOM",
+	"S_EGGOMATIC_KABOOM2",
+	"S_EGGOMATIC_KABOOM3",
+	"S_EGGOMATIC_KABOOM4",
+	"S_EGGOMATIC_RUNAWAY",
+	"SPR_EGG1"
+)
+
+local function nomissile(actor)
+	if not (actor and actor.valid) then return end
+	
+	// possibly choose another target
+	if multiplayer and P_RandomByte() < 2
+		if P_LookForPlayers(actor, 0, true, false)
+			return // got a new target
+		end
+	end
+	
+	//chase towards player
+	actor.movecount = $-1
+	if actor.movecount < 0 or not P_Move(actor, actor.info.speed)
+		P_NewChaseDir(actor)
+	end
+end
+
+local function FD_Boss1Chase(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local delta
+	
+	if actor.reactiontime then actor.reactiontime = $-1 end
+	
+	// turn towards movement direction if not there yet
+	if actor.movedir < NUMDIRS then // NUMDIRS should be 8
+		actor.angle = $ & (7 * (2^29))
+		delta = actor.angle - (actor.movedir * (2^29))
+		
+		if delta > 0 then
+			actor.angle = $-ANGLE_45
+		elseif delta < 0 then
+			actor.angle = $+ANGLE_45
+		end
+	end
+	
+	// do not attack twice in a row
+	if (actor.flags2 & MF2_JUSTATTACKED) then
+		actor.flags2 = $ & ~MF2_JUSTATTACKED
+		P_NewChaseDir(actor)
+		return
+	end
+	
+	if actor.movecount then
+		nomissile(actor)
+		return
+	end
+	
+	if not P_CheckMissileRange(actor) then
+		nomissile(actor)
+		return
+	end
+	
+	if actor.reactiontime <= 0 then
+		if actor.health > actor.info.damage then
+			if (P_RandomByte() & 1) then
+				actor.state = actor.info.missilestate
+			else
+				actor.state = actor.info.meleestate
+			end
+		else
+			actor.state = actor.info.raisestate
+		end
+		
+		actor.flags2 = $|MF2_JUSTATTACKED
+		actor.reactiontime = 2*TICRATE
+		return
+	end
+end
+
+// Make the Final Demo Egg Mobile spawn 33 FRACUNITS off the ground if its z-position hasn't been set
+addHook("MapThingSpawn", function(mobj, mapthing)
+	if not (mobj and mobj.valid
+	and mapthing and mapthing.valid)
+		return
+	end
+	
+	local offset
+	
+	if mapthing.z ~= 0
+		offset = mapthing.z
+	else
+		offset = 33*FRACUNIT
+	end
+	
+	if (mapthing.options & MTF_OBJECTFLIP)
+		if offset ~= 0
+			mobj.z = mobj.z - offset
+		else
+			mobj.z = mobj.ceilingz
+		end
+	else
+		if offset ~= 0
+			mobj.z = mobj.z + offset
+		else
+			mobj.z = mobj.floorz
+		end
+	end
+	
+	// Spawn a spike ball shield if the ambush flag is set
+	if (mapthing.options & MTF_AMBUSH)
+		local spikemobj
+		for i = 0, 3, 1 do
+			spikemobj = P_SpawnMobj(mobj.x, mobj.y, mobj.z, MT_SPIKEBALL)
+			spikemobj.target = mobj
+			if i == 0
+				spikemobj.angle = 0
+			elseif i == 1
+				spikemobj.angle = ANGLE_90
+			elseif i == 2
+				spikemobj.angle = ANGLE_180
+			elseif i == 3
+				spikemobj.angle = ANGLE_270
+			end
+		end
+	end
+end, MT_EGGOMATIC)
+
+// The Egg Mobile originally bounced off of players instead of going through them in "SKULLFLY" mode
+addHook("MobjMoveCollide", function(tmthing, thing)
+	if not (tmthing and tmthing.valid
+	and thing and thing.valid) then
+		return
+	end
+	
+	// Only bounce off of objects if the Final Demo Egg Mobile is in "SKULLFLY" mode
+	if not (tmthing.flags2 & MF2_SKULLFLY) then return end
+	
+	// Don't let spikeballs interrupt the Egg Mobile's movement
+	if thing.type == MT_SPIKEBALL then return end
+	
+	tmthing.momx = -$
+	tmthing.momy = -$
+	tmthing.momz = -$
+	return false
+end, MT_EGGOMATIC)
+
+// Prevents the Final Demo Egg Mobile from bouncing off of the walls in "SKULLFLY" mode
+addHook("MobjMoveBlocked", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	mobj.flags2 = $ & ~MF2_SKULLFLY
+	mobj.momx = 0
+	mobj.momy = 0
+	mobj.momz = 0
+	return true
+end, MT_EGGOMATIC)
+
+// Prevents the Final Demo Egg Mobile from being hit-spammed
+addHook("MobjDamage", function(target, inflictor, source)
+	if not (target and target.valid) then return end
+	if (target.flags2 & MF2_SKULLFLY) then target.flags2 = $ & ~MF2_SKULLFLY end
+end, MT_EGGOMATIC)
+
+// Makes the spikeball rotate around its target (only for the Final Demo Egg Mobile)
+addHook("MobjThinker", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	if mobj.target and mobj.target.valid and mobj.target.type == MT_EGGOMATIC
+		local radius = FixedMul(12*mobj.info.speed, mobj.scale)
+		
+		mobj.angle = $ + FixedAngle(mobj.info.speed)
+		P_MoveOrigin(
+			mobj,
+			mobj.target.x + FixedMul(cos(mobj.angle), radius),
+			mobj.target.y + FixedMul(sin(mobj.angle), radius),
+			mobj.target.z + mobj.target.height/2
+		)
+	end
+end, MT_SPIKEBALL)
+
+// Override the vanilla boss death function
+addHook("BossDeath", function(mobj)
+	if not mobj and mobj.valid then return end
+	
+	// Stop exploding and prepare to run.
+	mobj.state = mobj.info.xdeathstate
+	if not mobj.valid then
+		return
+	end
+	
+	mobj.target = nil
+	
+	// Flee! Flee! Find a point to escape to! If none, just shoot upward!
+	// scan the thinkers to find the runaway point
+	for th in mobjs.iterate() do
+		if th.type == MT_BOSSFLYPOINT then
+			// If this one's closer then the last one, go for it
+			if not (mobj.target and mobj.target.valid) or
+			FixedHypot(FixedHypot(mobj.x - th.x, mobj.y - th.y), mobj.z - th.z) <
+			FixedHypot(FixedHypot(mobj.x - mobj.target.x, mobj.y - mobj.target.y), mobj.z - mobj.target.z) then
+				mobj.target = th
+			end
+			// Otherwise... Don't!
+		end
+	end
+	
+	mobj.flags = $|MF_NOGRAVITY|MF_NOCLIP
+	mobj.flags = $|MF_NOCLIPHEIGHT
+	
+	if mobj.target and mobj.target.valid
+		mobj.angle = R_PointToAngle2(mobj.x, mobj.y, mobj.target.x, mobj.target.y)
+		mobj.flags2 = $|MF2_BOSSFLEE
+		mobj.momz = FixedMul(FixedDiv(mobj.target.z - mobj.z, FixedHypot(mobj.x-mobj.target.x,mobj.y-mobj.target.y)), FixedMul(2*FRACUNIT, mobj.scale))
+	else
+		mobj.momz = FixedMul(2*FRACUNIT, mobj.scale)
+	end
+	
+	return true
+end, MT_EGGOMATIC)
+
+local function FD_BossJetFumes(actor, var1, var2)
+	if not (actor and actor.valid) then return end
+	
+	local filler
+	local jetx, jety, jetz
+	local jetxoff, jetyoff, jetzoff
+	
+	jetxoff = P_ReturnThrustX(actor, actor.angle, -56*FRACUNIT)
+	jetyoff = P_ReturnThrustY(actor, actor.angle, -56*FRACUNIT)
+	jetzoff = 8*FRACUNIT
+	
+	filler = P_SpawnMobjFromMobj(actor, jetxoff, jetyoff, jetzoff, MT_JETFUMEC1)
+	filler.target = actor
+	filler.fuse = 56
+	
+	jetzoff = 32*FRACUNIT
+	
+	filler = P_SpawnMobjFromMobj(actor,
+						jetxoff + P_ReturnThrustX(actor, actor.angle-ANGLE_90, 24*FRACUNIT),
+						jetyoff + P_ReturnThrustY(actor, actor.angle-ANGLE_90, 24*FRACUNIT),
+						jetzoff, MT_JETFUMEC1)
+	filler.target = actor
+	filler.fuse = 57
+	
+	filler = P_SpawnMobjFromMobj(actor,
+						jetxoff + P_ReturnThrustX(actor, actor.angle+ANGLE_90, 24*FRACUNIT),
+						jetyoff + P_ReturnThrustY(actor, actor.angle+ANGLE_90, 24*FRACUNIT),
+						jetzoff, MT_JETFUMEC1)
+	filler.target = actor
+	filler.fuse = 58
+	
+	actor.tracer = filler
+end
+
+// Ported BossThinker behavior for Final Demo Egg Mobile from 1.09.4
+addHook("BossThinker", function(mobj)
+	if not (mobj and mobj.valid) then return end
+	
+	if mobj.health < mobj.info.damage+1 and (leveltime & 1) and mobj.health > 0 then
+		P_SpawnMobj(mobj.x, mobj.y, mobj.z, MT_SMOKE) // Replace MT_SMOKE with MT_21SMOKE if necessary
+	end
+	if mobj.flags2 & MF2_SKULLFLY then
+		local spawnmobj
+		spawnmobj = P_SpawnMobj(mobj.x, mobj.y, mobj.z, mobj.info.painchance)
+		spawnmobj.target = mobj
+		spawnmobj.color = SKINCOLOR_GREY
+	end
+	
+	if states[mobj.state].nextstate == mobj.info.spawnstate and mobj.tics == 1 then
+		mobj.flags2 = $ & ~MF2_FRET
+		if not (mobj.flags2 & MF2_SKULLFLY) then
+			mobj.momx = 0
+			mobj.momy = 0
+			mobj.momz = 0
+		end
+	end
+	
+	if not mobj.tracer then FD_BossJetFumes(mobj, 0, 0) end
+	
+	if not (mobj.target and mobj.target.valid and (mobj.target.flags & MF_SHOOTABLE)) then
+		if mobj.health <= 0 then
+			if P_LookForPlayers(mobj, 0, true) and mobj.info.mass then // Bid farewell!
+				S_StartSound(mobj, mobj.info.mass)
+			end
+			return true
+		end
+		
+		// look for a new target
+		if P_LookForPlayers(mobj, 0, true) and mobj.info.seesound then
+			S_StartSound(mobj, mobj.info.seesound)
+		end
+		
+		return true
+	end
+	
+	if mobj.state == mobj.info.spawnstate then FD_Boss1Chase(mobj, 1, 0) end
+	
+	if mobj.state == mobj.info.meleestate
+	or (mobj.state == mobj.info.missilestate and mobj.health > mobj.info.damage) then
+		mobj.angle = R_PointToAngle2(mobj.x, mobj.y, mobj.target.x, mobj.target.y)
+	end
+	
+	return true
+end, MT_EGGOMATIC)
+
+mobjinfo[MT_EGGOMATIC] = {
+	//$Name Final Demo Egg Mobile
+	//$Sprite EGG1A1
+	//$Category Retro Bosses
+	//$Flags4Text End level on death
+	//$Flags8Text Spawn w/ Spikeball Shield
+	doomednum = 4047,
+	spawnstate = S_EGGOMATIC_HOVER,
+	spawnhealth = 8,
+	seestate = S_EGGOMATIC_HOVER,
+	reactiontime = 8,
+	painstate = S_EGGOMATIC_HIT,
+	painchance = MT_THOK,
+	painsound = sfx_dmpain,
+	meleestate = S_EGGOMATIC_BEAM_HAULT,
+	missilestate = S_EGGOMATIC_LAZER_HAULT,
+	deathstate = S_EGGOMATIC_KABOOM,
+	xdeathstate = S_EGGOMATIC_RUNAWAY,
+	deathsound = sfx_cybdth,
+	speed = 4,
+	radius = 24*FRACUNIT,
+	height = 52*FRACUNIT,
+	damage = 2,
+	activesound = sfx_telept,
+	raisestate = S_EGGOMATIC_RETREAT,
+	flags = MF_SPECIAL|MF_SHOOTABLE|MF_FLOAT|MF_NOGRAVITY|MF_BOSS
+}
+
+states[S_EGGOMATIC_HOVER] =	{SPR_EGG1,	A,	1,	nil,	0,	0,	S_EGGOMATIC_HOVER}
+
+states[S_EGGOMATIC_BEAM_HAULT] =	{SPR_EGG1,	B,	35,	nil,		0,				0,	S_EGGOMATIC_BEAM}
+states[S_EGGOMATIC_BEAM] =			{SPR_EGG1,	C,	35,	A_FireShot,	MT_OLD_MISSLE,	0,	S_EGGOMATIC_HOVER}
+states[S_EGGOMATIC_LAZER_HAULT] =	{SPR_EGG1,	D,	35,	nil,		0,				0,	S_EGGOMATIC_LAZER}
+states[S_EGGOMATIC_LAZER] =			{SPR_EGG1,	E,	35,	A_FireShot,	MT_OLD_MISSLE,	0,	S_EGGOMATIC_HOVER}
+
+states[S_EGGOMATIC_HIT] =	{SPR_EGG1,	F,	24,	A_Pain,	0,	0,	S_EGGOMATIC_HOVER}
+
+states[S_EGGOMATIC_RETREAT] =	{SPR_EGG1,	B,	35,	nil,			0,	0,	S_EGGOMATIC_RETREAT2}
+states[S_EGGOMATIC_RETREAT2] =	{SPR_EGG1,	C,	35,	A_SkullAttack,	0,	0,	S_EGGOMATIC_HOVER}
+
+states[S_EGGOMATIC_KABOOM] =	{SPR_EGG1,	G,	8,	A_Fall,			0,	0,						S_EGGOMATIC_KABOOM2}
+states[S_EGGOMATIC_KABOOM2] =	{SPR_EGG1,	G,	8,	A_BossScream,	0,	MT_BOSSEXPLODE,			S_EGGOMATIC_KABOOM3}
+states[S_EGGOMATIC_KABOOM3] =	{SPR_EGG1,	G,	0,	A_Repeat,		12,	S_EGGOMATIC_KABOOM2,	S_EGGOMATIC_KABOOM4}
+states[S_EGGOMATIC_KABOOM4] =	{SPR_EGG1,	G,	-1,	A_BossDeath,	0,	0,						S_NULL}
+
+states[S_EGGOMATIC_RUNAWAY] =	{SPR_EGG1,	H|FF_ANIMATE,	10,	nil,	1,	5,	S_EGGOMATIC_RUNAWAY}

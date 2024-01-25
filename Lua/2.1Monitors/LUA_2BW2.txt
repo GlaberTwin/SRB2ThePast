@@ -1,0 +1,4 @@
+-- 2.1 White Monitor Commonalities - Ported by MIDIMan
+-- Only use with LUA_2BXW and LUA_2BXT
+
+freeslot("SPR_2BXW")

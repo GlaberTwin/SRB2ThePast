@@ -1,0 +1,749 @@
+#Capture the Flag Level Headers
+
+#DEV
+
+Level JP
+Levelname = Dev The Flag
+Subtitle = CTF In Dev
+SelectHeading = Develop the Flag
+Music = OTHZ2
+TypeOfLevel = CTF
+NextLevel = JQ
+SkyNum = 2
+palette = 1032
+
+Level JQ
+Levelname = Lime Forest Alpha
+Subtitle = CTF In Dev (modified)
+SelectHeading = Develop the Flag
+Music = OGFZ2
+TypeOfLevel = CTF
+NextLevel = JR
+SkyNum = 2
+palette = 1032
+
+Level JR
+Levelname = Unnamed
+Subtitle = CTF In Dev (modified)
+SelectHeading = Develop the Flag
+Music = OTHZ2
+TypeOfLevel = CTF
+NextLevel = JS
+SkyNum = 2
+palette = 1032
+
+Level JS
+Levelname = Lime Forest Beta
+Subtitle = CTF In Dev
+SelectHeading = Develop the Flag
+Music = OGFZ2
+TypeOfLevel = CTF
+NextLevel = JP
+SkyNum = 2
+palette = 1032
+
+
+
+
+#DEMO 4
+
+Level JT
+Levelname = Lime Forest
+Subtitle = Demo 4
+SelectHeading = Demo 4 Era CTF
+Music = ROCKYM
+TypeOfLevel = CTF
+NextLevel = JU
+SkyNum = 2
+palette = 1032
+
+Level JU
+Levelname = Dual Fortress
+Subtitle = Demo 4
+SelectHeading = Demo 4 Era CTF
+Music = ROCKY2
+TypeOfLevel = CTF
+NextLevel = JV
+SkyNum = 2
+palette = 1032
+
+Level JV
+Levelname = Vine Cavern
+Subtitle = Demo 4.35
+SelectHeading = Demo 4 Era CTF
+Music = ROCKYM
+TypeOfLevel = Match,CTF
+NextLevel = JW
+SkyNum = 2
+palette = 1032
+
+Level JW
+Levelname = Iron Turret
+Subtitle = Demo 4.35
+SelectHeading = Demo 4 Era CTF
+Music = ROCKY2
+TypeOfLevel = Match,CTF
+NextLevel = JT
+SkyNum = 2
+palette = 1032
+
+
+
+
+#TOURNAMENT 2003
+
+Level JX
+Levelname = Lime Forest
+Subtitle = Tournament 2K3
+SelectHeading = Tournament 2K3
+Music = FDGFZ1
+TypeOfLevel = Match,CTF
+NextLevel = JY
+SkyNum = 2
+Lua.oldmatch = true
+
+Level JY
+Levelname = Dual Fortress
+Subtitle = Tournament 2K3
+SelectHeading = Tournament 2K3
+Music = DUALFT
+TypeOfLevel = Match,CTF
+NextLevel = JZ
+SkyNum = 36
+Lua.oldmatch = true
+
+Level JZ
+Levelname = Vine Cavern
+Subtitle = Tournament 2K3
+SelectHeading = Tournament 2K3
+Music = FDMMZ1
+TypeOfLevel = Match,CTF
+NextLevel = K0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level K0
+Levelname = Iron Turret
+Subtitle = Tournament 2K3
+SelectHeading = Tournament 2K3
+Music = FDTHZ1
+TypeOfLevel = Match,CTF
+NextLevel = JX
+SkyNum = 5
+Lua.oldmatch = true
+
+
+
+
+#1.01-1.04
+
+Level K1
+Levelname = Lime Forest
+Subtitle = 1.01-1.04 (CTF Rotation)
+SelectHeading = FD 1.01-1.04 CTF
+Music = FDGFZ1
+TypeOfLevel = Match,CTF
+NextLevel = K2
+SkyNum = 2
+Lua.oldmatch = true
+
+Level K2
+Levelname = Dual Fortress
+Subtitle = 1.01-1.04 (CTF Rotation)
+SelectHeading = FD 1.01-1.04 CTF
+Music = DUALFT
+TypeOfLevel = Match,CTF
+NextLevel = K3
+SkyNum = 36
+Lua.oldmatch = true
+
+Level K3
+Levelname = Vine Cavern
+Subtitle = 1.01-1.04 (CTF Rotation)
+SelectHeading = FD 1.01-1.04 CTF
+Music = FDMMZ1
+TypeOfLevel = Match,CTF
+NextLevel = K4
+SkyNum = 2
+Lua.oldmatch = true
+
+Level K4
+Levelname = Iron Turret
+Subtitle = 1.01-1.04 (CTF Rotation)
+SelectHeading = FD 1.01-1.04 CTF
+Music = FDTHZ1
+TypeOfLevel = Match,CTF
+NextLevel = K5
+SkyNum = 5
+Lua.oldmatch = true
+
+Level K5
+Levelname = Storm Valley
+Subtitle = 1.01-1.04 (CTF Rotation)
+SelectHeading = FD 1.01-1.04 CTF
+Music = FDCEZ1
+TypeOfLevel = Match,CTF
+NextLevel = K1
+SkyNum = 39
+Lua.oldmatch = true
+
+
+
+
+#1.08
+
+LEVEL K6
+Levelname = Lime Forest
+Subtitle = 1.08
+SelectHeading = FD 1.08 CTF
+TypeOfLevel = Match,CTF
+Music = FDGFZ1
+Skynum = 2
+NextLevel = K7
+Lua.oldmatch = true
+
+LEVEL K7
+Levelname = Dual Fortress
+Subtitle = 1.08
+SelectHeading = FD 1.08 CTF
+TypeOfLevel = Match,CTF
+Music = DUALFT
+Skynum = 39
+NextLevel = K8
+Lua.oldmatch = true
+
+LEVEL K8
+Levelname = Vine Cavern
+Subtitle = 1.08
+SelectHeading = FD 1.08 CTF
+TypeOfLevel = Match,CTF
+Music = FDMMZ1
+SkyNum = 2
+NextLevel = K9
+Lua.oldmatch = true
+
+LEVEL K9
+Levelname = Iron Turret
+Subtitle = 1.08
+SelectHeading = FD 1.08 CTF
+TypeOfLevel = Match,CTF
+Music = FDTHZ1
+Skynum = 5
+NextLevel = KA
+Lua.oldmatch = true
+
+LEVEL KA
+Levelname = Twin Hills
+Subtitle = 1.08
+SelectHeading = FD 1.08 CTF
+TypeOfLevel = Match,CTF
+Music = FDGFZ2
+Skynum = 2
+NextLevel = KB
+Lua.oldmatch = true
+
+LEVEL KB
+Levelname = Cloud Palace
+Subtitle = 1.08
+SelectHeading = FD 1.08 CTF
+TypeOfLevel = Match,CTF
+Music = _NITAT
+Skynum = 2
+NextLevel = KC
+Lua.oldmatch = true
+
+LEVEL KC
+Levelname = Nimbus Ruins
+Subtitle = 1.08
+SelectHeading = FD 1.08 CTF
+TypeOfLevel = Match,CTF
+Music = FDDSZ1
+Skynum = 2
+Nextlevel = KD
+Lua.oldmatch = true
+
+LEVEL KD
+Levelname = Iron Warehouse
+Subtitle = 1.08
+SelectHeading = FD 1.08 CTF
+TypeOfLevel = Match,CTF
+Music = MAP05M
+Skynum = 2
+NextLevel = K6
+Lua.oldmatch = true
+
+
+
+
+#1.09-1.09.2
+
+Level KE
+Levelname = Cloud Palace
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Music = FDDSZ2
+NextLevel = KF
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level KF
+Levelname = Lime Forest
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Music = FDGFZ1
+NextLevel = KG
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level KG
+Levelname = Dual Fortress
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Music = FDCEZ1
+NextLevel = KH
+TypeOfLevel = CTF
+Weather = 1
+SkyNum = 20
+Lua.oldmatch = true
+
+Level KH
+Levelname = Iron Turret
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Music = FDTHZ1
+NextLevel = KI
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 5
+Lua.oldmatch = true
+
+Level KI
+Levelname = Silver Cascade
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Music = FDDSZ2
+NextLevel = KJ
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level KJ
+Levelname = Nimbus Ruins
+Subtitle = 1.09-1.09.2
+SelectHeading = FD 1.09-1.09.2
+Music = FDDSZ1
+NextLevel = KE
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+
+
+
+#1.09.3-1.09.4
+
+Level KK
+Levelname = Silver Cascade
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = FDDSZ2
+NextLevel = KL
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level KL
+Levelname = Lime Forest
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = FDGFZ1
+NextLevel = KM
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level KM
+Levelname = Cloud Palace
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = FDDSZ2
+NextLevel = KN
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+LEVEL KN
+levelname = Metal Star
+Music = FDMMZ1
+skynum = 21
+NextLevel = KO
+TypeOfLevel = CTF
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+weather = 0
+Lua.oldmatch = true
+
+Level KO
+Levelname = Dual Fortress
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = FDCEZ1
+NextLevel = KP
+TypeOfLevel = CTF
+Weather = 1
+SkyNum = 20
+Lua.oldmatch = true
+
+Level KP
+Levelname = Iron Turret
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = FDTHZ1
+NextLevel = KQ
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 5
+Lua.oldmatch = true
+
+Level KQ
+Levelname = Nimbus Ruins
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = FDDSZ1
+NextLevel = KR
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level KR
+Levelname = Conveyor Conflict
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = MAP05M
+NextLevel = KS
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level KS
+Levelname = Sapphire Falls CTF
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = MP_SUN
+NextLevel = KT
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+Level KT
+Levelname = Isolated Canyon
+Subtitle = 1.09.3-1.09.4
+SelectHeading = FD 1.09.3-1.09.4
+Music = MP_GL2
+NextLevel = KK
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+Lua.oldmatch = true
+
+
+
+
+#SRB2FUN
+
+Level KU
+Levelname = Dual Fortress
+Subtitle = 1.1/SRB2Fun
+SelectHeading = SRB2Fun CTF
+Music = FDCEZ1
+NextLevel = KV
+TypeOfLevel = CTF
+Weather = 1
+SkyNum = 20
+
+Level KV
+Levelname = Lime Forest
+Subtitle = 1.1/SRB2Fun
+SelectHeading = SRB2Fun CTF
+Music = FDGFZ1
+NextLevel = KU
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+
+
+
+
+#2.0
+
+Level KW
+Levelname = Lime Forest
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Music = FDGFZ1
+NextLevel = KX
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+
+Level KX
+Levelname = Cloud Palace
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Music = MAPB6M
+NextLevel = KY
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+
+Level KY
+Levelname = Silver Cascade
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Music = MAP93M
+NextLevel = KZ
+TypeOfLevel = CTF
+Weather = 3
+SkyNum = 20
+
+Level KZ
+Levelname = Icicle Falls
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Music = MIDNIT
+NextLevel = L0
+TypeOfLevel = CTF
+Weather = 0
+Skynum = 55
+
+Level L0
+LevelName = Twisted Terminal
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Music = ERZ220
+NextLevel = L1
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 37
+
+Level L1
+Levelname = Nimbus Ruins
+Subtitle = 2.0-2.0.7
+SelectHeading = 2.0 era
+Music = FDAIR
+NextLevel = KW
+TypeOfLevel = CTF
+Weather = 0
+SkyNum = 2
+
+
+
+
+#2.1
+
+Level L3
+Levelname = Lime Forest
+Music = FDGFZ1
+TypeOfLevel = CTF
+NextLevel = L4
+SkyNum = 2
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level L4
+Levelname = Cloud Palace
+Music = MAPB6M
+TypeOfLevel = CTF
+NextLevel = L5
+SkyNum = 2
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level L5
+Levelname = Silver Cascade
+Music = MAP93M
+TypeOfLevel = CTF
+NextLevel = L6
+Weather = 3
+SkyNum = 20
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level L6
+Levelname = Icicle Falls
+Music = MIDNIT
+TypeOfLevel = CTF
+NextLevel = L7
+Skynum = 55
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level L7
+LevelName = Twisted Terminal
+Music = ERZ220
+TypeOfLevel = CTF
+NextLevel = L8
+SkyNum = 22
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level L8
+Levelname = Clockwork Towers
+Music = CAVERN
+TypeOfLevel = CTF
+NextLevel = L9
+Weather = 1
+SkyNum = 20
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level L9
+Levelname = Molten Fissure
+Music = FDRVZ1
+TypeOfLevel = CTF
+NextLevel = LA
+Weather = 5
+SkyNum = 20
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level LA
+Levelname = Radiant Caverns
+Music = FLOOD
+TypeOfLevel = CTF
+NextLevel = LB
+SkyNum = 21
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+LEVEL LB
+Levelname = Iron Turret
+Music = FDTHZ1
+TypeOfLevel = CTF
+NextLevel = LC
+SkyNum = 3
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level LC
+Levelname = Dual Fortress
+Music = FDCEZ1
+TypeOfLevel = CTF
+NextLevel = LD
+Weather = 1
+SkyNum = 20
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+Level LD
+Levelname = Nimbus Ruins
+Music = FDAIR
+TypeOfLevel = CTF
+NextLevel = L3
+SkyNum = 2
+Subtitle = 2.1-2.1.25
+SelectHeading = 2.1 era
+
+
+
+
+#2.2
+
+Level F0
+Levelname = Lime Forest
+Music = GFZALT
+TypeOfLevel = CTF
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+NextLevel = F1
+SkyNum = 1
+
+Level F1
+Levelname = Lost Palace
+Music = AGZALT
+TypeOfLevel = CTF
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+NextLevel = F2
+SkyNum = 8
+SkyBoxScale = 32
+
+Level F2
+Levelname = Silver Cascade
+Music = MP_WTR
+TypeOfLevel = CTF
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+NextLevel = F3
+Weather = 3
+SkyNum = 20
+
+Level F3
+Levelname = Icicle Falls
+Music = MP_ICE
+TypeOfLevel = CTF
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+NextLevel = F4
+Skynum = 55
+
+Level F4
+LevelName = Twisted Terminal
+Music = ERZ2
+TypeOfLevel = CTF
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+NextLevel = F5
+SkyNum = 22
+
+Level F5
+Levelname = Clockwork Towers
+Music = MP_RAI
+TypeOfLevel = CTF
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+NextLevel = F6
+Weather = 1
+SkyNum = 20
+
+LEVEL F6
+Levelname = Iron Turret
+Music = THZ1
+TypeOfLevel = CTF
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+NextLevel = F7
+SkyNum = 4
+
+Level F7
+Levelname = Dual Fortress
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+Music = CEZ1
+TypeOfLevel = CTF
+NextLevel = F8
+Weather = 1
+SkyNum = 11
+
+Level F8
+Levelname = Nimbus Ruins
+Music = MP_AIR
+TypeOfLevel = CTF
+Subtitle = Version 2.2
+SelectHeading = CTF 2.2
+NextLevel = F0
+SkyNum = 68
+SkyboxScaleX = 64
+SkyboxScaleY = 64

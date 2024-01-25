@@ -1,0 +1,174 @@
+freeslot("MT_RETROROBOHOOD", "S_RETROROBOHOOD_LOOK", "S_RETROROBOHOOD_STAND", "S_RETROROBOHOOD_JUMP1", "S_RETROROBOHOOD_JUMP2", "S_RETROROBOHOOD_JUMP3", "S_RETROROBOHOOD_FIRE1", "SPR_RBHD", "MT_OLDARROW", "S_OLDARROWUP", "S_OLDARROW", "S_OLDARROWDOWN", "SPR_RARW")
+
+-- Function: A_HoodREThink
+-- Ported from 2.1 by glaber with help from Nightwolf and Midiman
+-- Description: Thinker for Robo-Hood
+--
+-- var1 = unused
+-- var2 = unused
+--
+function A_HoodREThink(actor)
+
+	if (not actor.target)
+		actor.state = actor.info.spawnstate
+		return
+	end
+
+	-- Currently in the air...
+	if (not(actor.eflags & MFE_VERTICALFLIP) and actor.z > actor.floorz)
+		if (actor.momz > 0)
+			P_SetMobjStateNF(actor, actor.info.xdeathstate) -- Rising
+		else
+			P_SetMobjStateNF(actor, actor.info.raisestate) -- Falling
+		end
+		return
+	elseif ((actor.eflags & MFE_VERTICALFLIP) and actor.z + actor.height < actor.ceilingz)
+		if (actor.momz < 0)
+			P_SetMobjStateNF(actor, actor.info.xdeathstate) -- Rising
+		else
+			P_SetMobjStateNF(actor, actor.info.raisestate) -- Falling
+		end
+		return
+	end
+
+	if actor.state == actor.info.xdeathstate or actor.state == actor.info.raisestate
+		P_SetMobjStateNF(actor, actor.info.seestate)
+	end
+
+
+
+	A_FaceTarget(actor) -- Aiming... aiming...
+
+	actor.reactiontime = $-1
+	if (actor.reactiontime > 0)
+		return
+	end
+	-- Shoot, if not too close (cheap shots are lame)
+	if ((P_AproxDistance(actor.x-actor.target.x, actor.y-actor.target.y) > FixedMul(192*FRACUNIT, actor.scale))
+	or (actor.spawnpoint and (actor.spawnpoint.options & MTF_AMBUSH))) -- If you can't jump, might as well shoot regardless of distance!
+		actor.state = actor.info.missilestate
+	elseif (not(actor.spawnpoint and (actor.spawnpoint.options & MTF_AMBUSH)))-- But we WILL jump!
+		actor.state = actor.info.painstate
+	end
+	actor.reactiontime = actor.info.reactiontime
+end
+
+
+
+
+-- Old RoboHood
+mobjinfo[MT_RETROROBOHOOD] = {
+		--$Name "Old Robohood"
+		--$Sprite RBHDC1
+		--$Category Retro Enemies
+        doomednum = 157,
+        spawnstate = S_RETROROBOHOOD_LOOK,
+        spawnhealth = 1,
+        seestate = S_RETROROBOHOOD_STAND,
+        seesound = sfx_None,
+        reactiontime = TICRATE,
+        attacksound = sfx_None,
+        painstate = S_RETROROBOHOOD_JUMP1,
+        painchance = 0,
+        painsound = sfx_None,
+		meleestate = S_NULL,
+		missilestate = S_RETROROBOHOOD_FIRE1,
+        deathstate = S_XPLD_FLICKY,
+        xdeathstate = S_RETROROBOHOOD_JUMP2,
+        deathsound = sfx_pop,
+        speed = 0,
+        radius = 24*FRACUNIT,
+        height = 32*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 0,
+        activesound = sfx_None,
+		raisestate = S_RETROROBOHOOD_JUMP3,
+        flags = MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE
+}
+	
+states[S_RETROROBOHOOD_LOOK] = {SPR_RBHD, A, 14, A_Look, (512<<16), 0, S_RETROROBOHOOD_LOOK}
+states[S_RETROROBOHOOD_STAND] = {SPR_RBHD, C, 1, A_HoodREThink, 0, 0, S_RETROROBOHOOD_STAND}
+states[S_RETROROBOHOOD_FIRE1] = {SPR_RBHD, A, 35, A_FireShot, MT_OLDARROW, -24, S_RETROROBOHOOD_STAND}
+states[S_RETROROBOHOOD_JUMP1] = {SPR_RBHD, B, 1, A_BunnyHop, 8, 5, S_RETROROBOHOOD_JUMP2}
+states[S_RETROROBOHOOD_JUMP2] = {SPR_RBHD, B, 1, A_HoodREThink, 0, 0, S_RETROROBOHOOD_JUMP3}
+states[S_RETROROBOHOOD_JUMP3] = {SPR_RBHD, A, 1, A_HoodREThink, 0, 0, S_RETROROBOHOOD_JUMP3}
+
+
+-- Function: A_ArrowCheck
+-- Ported from 2.1 by Glaber, Golden, and Welldonesnake
+-- Description: Checks arrow direction and adjusts sprite accordingly
+--
+-- var1 = unused
+-- var2 = unused
+--
+function A_ArrowCheck(actor)
+	local x,y,z
+	local angle
+	local dist
+
+	-- Movement vector
+	x = actor.momx
+	y = actor.momy
+	z = actor.momz
+
+	-- Calculate the angle of movement.
+--	/*
+--	       Z
+--	     / |
+--	   /   |
+--	 /     |
+--	0------dist(X,Y)
+--	*/
+
+	dist = P_AproxDistance(x, y)
+
+	angle = R_PointToAngle2(0, 0, dist, z) >> 1
+
+    if (angle > ANG20 >> 1 and angle <= ANGLE_180 >> 1)
+        P_SetMobjStateNF(actor, actor.info.raisestate)
+    elseif (angle < ANG340 >> 1 and angle > ANGLE_180 >> 1)
+        P_SetMobjStateNF(actor, actor.info.xdeathstate)
+    else
+        P_SetMobjStateNF(actor, actor.info.spawnstate)
+    end
+end
+
+
+-- Old Arrow
+mobjinfo[MT_OLDARROW] = {
+        doomednum = -1,
+        spawnstate = S_OLDARROW,
+        spawnhealth = 1,
+        seestate = S_NULL,
+        seesound = sfx_None,
+        reactiontime = 32,
+        attacksound = sfx_None,
+        painstate = S_NULL,
+        painchance = 200,
+        painsound = sfx_None,
+		meleestate = S_NULL,
+		missilestate = S_NULL,
+        deathstate = S_NULL,
+        xdeathstate = S_OLDARROWDOWN,
+        deathsound = sfx_None,
+        speed = 16*FRACUNIT,
+        radius = 4*FRACUNIT,
+        height = 8*FRACUNIT,
+        dispoffset = 0,
+        mass = 100,
+        damage = 1,
+        activesound = sfx_None,
+		raisestate = S_OLDARROWUP,
+        flags = MF_NOBLOCKMAP|MF_MISSILE|MF_NOGRAVITY
+}
+
+states[S_OLDARROW] = {SPR_RARW, A, 1, A_ArrowCheck, 0, 0, S_OLDARROW}
+states[S_OLDARROWUP] = {SPR_RARW, B, 1, A_ArrowCheck, 0, 0, S_OLDARROWUP}
+states[S_OLDARROWDOWN] = {SPR_RARW, C, 1, A_ArrowCheck, 0, 0, S_OLDARROWDOWN}
+
+//Puyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
+end
+kirbyabilitytable[MT_RETROROBOHOOD] = 6    // Makes MT_RETROROBOHOOD give Needle

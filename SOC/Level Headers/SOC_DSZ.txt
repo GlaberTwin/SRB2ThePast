@@ -1,0 +1,236 @@
+##Deep Sea Zone Level Headers
+
+#BETA QUEST
+
+Level D0
+Levelname = Deep Sea
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 1
+Subtitle = Beta Quest
+Music = ODSZ1
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 33
+palette = 1032
+Lua.TPHub = DZ:1
+
+Level D1
+Levelname = Deep Sea
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 2
+Music = ODSZ2
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 5
+RecordAttack = 0
+hidden = 1
+weather = 0
+PrecutsceneNum = 34
+palette = 1032
+Lua.TPHub = DZ:2
+
+Level D2
+Levelname = Deep Sea
+Subtitle = Beta Quest
+interscreen = EGGPIC
+MusicInter = LCLEAR
+Act = 3
+Music = VSTBOS
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op
+SkyNum = 5
+BonusType = Boss
+WarningTitle = true
+RecordAttack = 0
+hidden = 1
+weather = 0
+PrecutsceneNum = 35
+palette = 1032
+Lua.TPHub = DZ:3
+
+Level D3
+Levelname = Speed Highway
+interscreen = EGGPIC
+Subtitle = Beta Quest
+MusicInter = LCLEAR
+Act = 0
+Music = SPHZ
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race
+SkyNum = 2
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 36
+palette = 1032
+Lua.TPHub = DZ:4
+
+
+
+
+#SAGE 2000/ FD DEV
+
+Level D4
+LevelName =  Deep Sea
+Subtitle = SAGE 2000
+Act = 1
+Music = ODSZ1
+MusicInter = LCLEAR
+interscreen = EGGPIC
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+SkyNum = 1
+PrecutsceneNum = 37
+RecordAttack = 0
+hidden = 1
+palette = 1032
+Lua.TPHub = DZ:5
+
+Level D5
+LevelName =  Deep Sea
+Subtitle = Development Final Demo
+Act = 1
+Music = FDDSZ1
+MusicInter = LCLEAR
+interscreen = FDINTERP
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+SkyNum = 1
+PrecutsceneNum = 38
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = DZ:6
+
+Level D6
+LevelName =  Deep Sea
+Subtitle = Development Final Demo
+Act = 1
+Music = FDDSZ1
+MusicInter = LCLEAR
+interscreen = FDINTERP
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+SkyNum = 1
+PrecutsceneNum = 39
+RecordAttack = 0
+hidden = 1
+Lua.TPHub = DZ:7
+
+
+
+
+#2.0
+
+Level D7
+Levelname = Deep Sea
+Subtitle = 2.0.5-2.0.7
+Act = 1
+Music = FDDSZ1
+MusicInter = LCLEAR
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 84
+Lua.TPHub = DZ:8
+
+Level D8
+Levelname = Deep Sea
+Subtitle = 2.0-2.0.7
+MusicInter = LCLEAR
+Act = 2
+Music = FDDSZ2
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 85
+Lua.TPHub = DZ:9
+
+Level D9
+Levelname = Deep Sea
+Subtitle = 2.0-2.0.7
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+SkyNum = 1
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 86
+Lua.TPHub = DZ:10
+
+
+
+
+#2.1
+
+Level DA
+Levelname = Deep Sea
+Subtitle = 2.1-2.1.6
+MusicInter = LCLEAR
+Act = 1
+Music = FDDSZ1
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 87
+Lua.TPHub = DZ:11
+
+Level DB
+Levelname = Deep Sea
+Subtitle = 2.1.7-2.1.25
+MusicInter = LCLEAR
+Act = 1
+Music = FDDSZ1
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 88
+Lua.TPHub = DZ:12
+
+Level DC
+Levelname = Deep Sea
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 2
+Music = FDDSZ2
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+Weather = 0
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+PrecutsceneNum = 89
+Lua.TPHub = DZ:13
+
+Level DD
+Levelname = Deep Sea
+Subtitle = 2.1-2.1.25
+MusicInter = LCLEAR
+Act = 3
+Music = VSOBOS
+NextLevel = DZ
+TypeOfLevel = Singleplayer,Co-op,Race,Competition
+SkyNum = 7
+RecordAttack = 0
+hidden = 1
+ForceResetMusic = On
+PrecutsceneNum = 90
+Lua.TPHub = DZ:14

@@ -1,0 +1,657 @@
+-- Old Weapons by LJ Sonic; Ported to 2.2 by CobaltBW; Grenade bug fixed by MIDIMan
+
+// Todo:
+// Balancing
+// Fix interferences with vanilla (done?)
+// code limiting by LJ
+
+//mobjinfo[MT_THROWNGRENADE].mass = 200
+local GRENADE_FUSE = 200 // Fixes a bug where the thrown grenade ring instantly kills other players/enemies
+
+local weapondurations =
+{
+	15 * TICRATE, // Infinity
+	45 * TICRATE, // Automatic
+	45 * TICRATE, // Bounce
+	45 * TICRATE, // Scatter
+	45 * TICRATE, // Grenade
+	45 * TICRATE, // Explosion
+	45 * TICRATE  // Rail
+}
+
+local cv_manyweapons = CV_RegisterVar({"manyweapons", "Off", CV_NETVAR, CV_OnOff})
+local cv_oldexplosions = CV_RegisterVar({"oldexplosions", "On", CV_NETVAR, CV_OnOff})
+
+
+function A_RingExplode(mo)
+	if mapheaderinfo[gamemap].oldmatch
+	and cv_oldexplosions.value
+		A_OldRingExplode(mo, MT_REDRING)
+	else
+		super(mo)
+	end
+end
+
+/*local function railThinker(mo)
+	local x, y, z = mo.x, mo.y, mo.z
+
+	if mo.momx ~= 0 or mo.momy ~= 0
+		P_XYMovement(mo)
+		if not mo.valid return true end
+	end
+
+	if mo.momz ~= 0
+		if not P_ZMovement(mo) return true end
+		//P_CheckPosition(mobj, mo.x, mo.y)
+	end
+
+	return not mo.valid or x == mo.x and y == mo.y and z == mo.z
+end*/
+
+local function railThinker(mo)
+	local x, y, z = mo.x, mo.y, mo.z
+
+	if mo.momx ~= 0 or mo.momy ~= 0
+		if not P_TryMove(mo, mo.x + mo.momx, mo.y + mo.momy, true) return true end
+		if not mo.valid return true end
+	end
+
+	if mo.momz ~= 0
+		mo.z = $ + mo.momz
+		if mo.z < mo.floorz or mo.z + mo.height > mo.ceilingz return true end
+	end
+
+	return not mo.valid or x == mo.x and y == mo.y and z == mo.z
+end
+
+local function shootRail(mo)
+	local nblockmap = not (mo.flags & MF_NOBLOCKMAP)
+
+	for i = 0, 255
+		if nblockmap
+			mo.flags = $ | MF_NOBLOCKMAP
+		end
+
+		if i & 1
+			P_SpawnMobj(mo.x, mo.y, mo.z, MT_SPARK)
+		end
+
+		if railThinker(mo) break end
+	end
+
+	S_StartSound(mo, sfx_rail2)
+end
+
+local function setWeaponDelay(p, delay)
+	p.weapondelay = p.skin == "knuckles" and delay * 2 / 3 or delay
+end
+
+local function P_DoOldFiring(p)
+	if not (p.cmd.buttons & BT_ATTACK or p.cmd.buttons & BT_FIRENORMAL)
+		p.attackdown = false
+		return
+	end
+
+	local pw = p.powers
+
+	if not p.attackdown and pw[pw_shield] & SH_FIREFLOWER and not p.climbing
+		p.attackdown = true
+		P_SpawnPlayerMissile(p.mo, MT_FIREBALL, 0)
+		S_StartSound(p.mo, sfx_mario7)
+		return
+	elseif not(G_RingSlingerGametype() and (not G_TagGametype() or p.pflags & PF_TAGIT)
+	and p.weapondelay == 0 and not p.climbing
+	and not p.attackdown)
+		return
+	end
+
+	p.attackdown = true
+
+	if not pw[pw_infinityring]
+		if p.rings <= 0 return end
+-- 		p.mo.health = $ - 1
+		p.rings = $ - 1
+	end
+
+	local mo
+
+	if p.cmd.buttons & BT_FIRENORMAL
+		setWeaponDelay(p, TICRATE / 4)
+
+		if pw[pw_infinityring]
+			mo = P_SpawnPlayerMissile(p.mo, MT_THROWNINFINITY, 0)
+		else
+			mo = P_SpawnPlayerMissile(p.mo, MT_REDRING, 0)
+
+			if mo
+				P_ColorTeamMissile(mo, p)
+			end
+		end
+
+		return
+	end
+
+	local d
+
+	local infinity = pw[pw_infinityring]
+	local auto = pw[pw_automaticring]
+	local bounce = pw[pw_bouncering]
+	local grenade = pw[pw_grenadering]
+	local bomb = pw[pw_explosionring]
+	local rail = pw[pw_railring]
+
+	if pw[pw_scatterring]
+		local mt
+		local mf2 = MF2_SCATTER
+		local oldz = p.mo.z
+		local shotangle = p.mo.angle
+		local oldaiming = p.aiming
+
+		if rail
+			mf2 = $ | MF2_RAILRING | MF2_DONTDRAW
+			S_StartSound(p.mo, sfx_rail1)
+
+			if auto
+				p.attackdown = false
+				mf2 = $ | MF2_AUTOMATIC
+
+				if bomb
+					d = TICRATE
+					mt = MT_THROWNEXPLOSION
+					mf2 = $ | MF2_EXPLOSION
+				else
+					d = TICRATE * 2 / 3
+					mt = MT_REDRING
+				end
+			else
+				if bomb
+					d = TICRATE * 2
+					mt = MT_THROWNEXPLOSION
+					mf2 = $ | MF2_EXPLOSION
+				else
+					d = TICRATE * 2
+					mt = MT_REDRING
+				end
+			end
+		else
+			if auto
+				p.attackdown = false
+				mf2 = $ | MF2_AUTOMATIC
+
+				if bomb
+					d = TICRATE
+					mt = MT_THROWNEXPLOSION
+					mf2 = $ | MF2_EXPLOSION
+				elseif grenade
+					d = TICRATE / 4
+					mt = MT_THROWNGRENADE
+					mf2 = $ | MF2_EXPLOSION
+				elseif bounce
+					d = 6
+					mt = MT_THROWNBOUNCE
+					mf2 = $ | MF2_BOUNCERING
+				else
+					d = 6
+					mt = MT_THROWNSCATTER
+				end
+			else
+				if bomb
+					d = TICRATE * 2
+					mt = MT_THROWNEXPLOSION
+					mf2 = $ | MF2_EXPLOSION
+				elseif grenade
+					d = TICRATE
+					mt = MT_THROWNGRENADE
+					mf2 = $ | MF2_EXPLOSION
+				elseif bounce
+					d = TICRATE * 2 / 3
+					mt = MT_THROWNBOUNCE
+					mf2 = $ | MF2_BOUNCERING
+				else
+					d = TICRATE * 2 / 3
+					mt = MT_THROWNSCATTER
+				end
+			end
+		end
+
+		mo = P_SpawnPlayerMissile(p.mo, mt, mf2)
+		if mo
+			shotangle = mt == MT_THROWNGRENADE and p.mo.angle or R_PointToAngle2(p.mo.x, p.mo.y, mo.x, mo.y)
+			if rail and mo.flags & MF_MISSILE
+				shootRail(mo)
+			elseif mt == MT_THROWNGRENADE
+				//P_InstaThrust(mo, p.mo.angle, FixedMul(mo.info.speed, p.mo.scale))
+				mo.fuse = GRENADE_FUSE//mo.info.mass
+			elseif mf2 & MF2_BOUNCERING
+				mo.fuse = 3 * TICRATE
+			end
+		end
+
+		mo = P_SPMAngle(p.mo, mt, shotangle - ANG2, 1, mf2)
+		if rail and mo and mo.flags & MF_MISSILE
+			shootRail(mo)
+		elseif mt == MT_THROWNGRENADE and mo
+			//P_InstaThrust(mo, p.mo.angle, FixedMul(mo.info.speed, p.mo.scale))
+			mo.fuse = GRENADE_FUSE//mo.info.mass
+		elseif mf2 & MF2_BOUNCERING and mo
+			mo.fuse = 3 * TICRATE
+		end
+
+		mo = P_SPMAngle(p.mo, mt, shotangle + ANG2, 1, mf2)
+		if rail and mo and mo.flags & MF_MISSILE
+			shootRail(mo)
+		elseif mt == MT_THROWNGRENADE and mo
+			//P_InstaThrust(mo, p.mo.angle, FixedMul(mo.info.speed, p.mo.scale))
+			mo.fuse = GRENADE_FUSE//mo.info.mass
+		elseif mf2 & MF2_BOUNCERING and mo
+			mo.fuse = 3 * TICRATE
+		end
+
+		p.mo.z = $ + FixedMul(12 * FRACUNIT, p.mo.scale)
+		p.aiming = $ + ANG1
+		mo = P_SPMAngle(p.mo, mt, shotangle, 1, mf2)
+		if rail and mo and mo.flags & MF_MISSILE
+			shootRail(mo)
+		elseif mt == MT_THROWNGRENADE and mo
+			//P_InstaThrust(mo, p.mo.angle, FixedMul(mo.info.speed, p.mo.scale))
+			mo.fuse = GRENADE_FUSE//mo.info.mass
+		elseif mf2 & MF2_BOUNCERING and mo
+			mo.fuse = 3 * TICRATE
+		end
+
+		p.mo.z = $ - FixedMul(24 * FRACUNIT, p.mo.scale)
+		p.aiming = $ - ANG2
+		mo = P_SPMAngle(p.mo, mt, shotangle, 1, mf2)
+		if rail and mo and mo.flags & MF_MISSILE
+			shootRail(mo)
+		elseif mt == MT_THROWNGRENADE and mo
+			//P_InstaThrust(mo, p.mo.angle, FixedMul(mo.info.speed, p.mo.scale))
+			mo.fuse = GRENADE_FUSE//mo.info.mass
+		elseif mf2 & MF2_BOUNCERING and mo
+			mo.fuse = 3 * TICRATE
+		end
+
+		p.mo.z = oldz
+		p.aiming = oldaiming
+	else
+		local mt
+		local mf2
+
+		if rail
+			mf2 = MF2_RAILRING | MF2_DONTDRAW
+			S_StartSound(p.mo, sfx_rail1)
+
+			if auto
+				p.attackdown = false
+				mf2 = $ | MF2_AUTOMATIC
+
+				if bomb
+					d = TICRATE / 2
+					mt = MT_THROWNEXPLOSION
+					mf2 = $ | MF2_EXPLOSION
+				else
+					d = TICRATE * 3 / 8
+					mt = MT_REDRING
+				end
+			else
+				if bomb
+					d = TICRATE * 3 / 2
+					mt = MT_THROWNEXPLOSION
+					mf2 = $ | MF2_EXPLOSION
+				else
+					d = TICRATE * 3 / 2
+					mt = MT_REDRING
+				end
+			end
+		else
+			if auto
+				p.attackdown = false
+				mf2 = MF2_AUTOMATIC
+
+				if bomb
+					d = TICRATE * 3 / 8
+					mt = MT_THROWNEXPLOSION
+					mf2 = $ | MF2_EXPLOSION
+				elseif grenade
+					d = 3
+					mt = MT_THROWNGRENADE
+					mf2 = $ | MF2_EXPLOSION
+				elseif bounce
+					d = 2
+					mt = MT_THROWNBOUNCE
+					mf2 = $ | MF2_BOUNCERING
+				else
+					d = 2
+					mt = MT_THROWNAUTOMATIC
+				end
+			else
+				if bomb
+					d = TICRATE * 3 / 2
+					mt = MT_THROWNEXPLOSION
+					mf2 = MF2_EXPLOSION
+				elseif grenade
+					d = TICRATE / 3
+					mt = MT_THROWNGRENADE
+					mf2 = MF2_EXPLOSION
+				elseif bounce
+					d = TICRATE / 4
+					mt = MT_THROWNBOUNCE
+					mf2 = MF2_BOUNCERING
+				else
+					d = TICRATE / 4
+					mt = infinity and MT_THROWNINFINITY or MT_REDRING
+					mf2 = 0
+				end
+			end
+		end
+
+		mo = P_SpawnPlayerMissile(p.mo, mt, mf2)
+		if rail and mo
+			shootRail(mo)
+		elseif mt == MT_THROWNGRENADE and mo
+			//P_InstaThrust(mo, p.mo.angle, FixedMul(mo.info.speed, p.mo.scale))
+			mo.fuse = GRENADE_FUSE//mo.info.mass
+		elseif mf2 & MF2_BOUNCERING and mo
+			mo.fuse = 3 * TICRATE
+		elseif mt == MT_REDRING and mo
+			P_ColorTeamMissile(mo, p)
+		end
+	end
+
+	setWeaponDelay(p, d)
+end
+
+addHook("ThinkFrame", do
+	if not mapheaderinfo[gamemap].oldmatch then return end
+
+	for p in players.iterate
+		if not p.mo continue end
+
+		p.pflags = $ | PF_ATTACKDOWN
+
+		P_DoOldFiring(p)
+
+		local pw = p.powers
+		for i = pw_infinityring, pw_railring
+			if pw[i]
+				pw[i] = $ - 1
+			end
+		end
+	end
+end)
+
+
+addHook("MapLoad", do
+	if mapheaderinfo[gamemap].oldmatch
+		hud.disable("weaponrings")
+	else
+		hud.enable("weaponrings")
+	end
+
+	if gametyperules&GTR_RINGSLINGER
+		hud.disable("lives")
+	else
+		hud.enable("lives")
+	end
+end)
+
+local DespawnAmmo = function(mo,thing)
+	if mapheaderinfo[gamemap].oldmatch
+	and not cv_manyweapons.value
+	and not (mo.flags2 & MF2_DONTRESPAWN)
+		mo.flags2 = $ | MF2_DONTRESPAWN | MF2_DONTDRAW
+		P_KillMobj(mo)
+	end
+end
+
+addHook("MapThingSpawn",DespawnAmmo,MT_BOUNCERING)
+addHook("MapThingSpawn",DespawnAmmo,MT_AUTOMATICRING)
+addHook("MapThingSpawn",DespawnAmmo,MT_SCATTERRING)
+addHook("MapThingSpawn",DespawnAmmo,MT_EXPLOSIONRING)
+addHook("MapThingSpawn",DespawnAmmo,MT_RAILRING)
+addHook("MapThingSpawn",DespawnAmmo,MT_GRENADERING)
+
+addHook("PlayerJoin", do
+	if mapheaderinfo[gamemap].oldmatch then
+		hud.disable("weaponrings")
+	end
+end)
+
+
+addHook("MobjSpawn", function(mo)
+	if mapheaderinfo[gamemap].oldmatch then
+		mo.state = S_BOUNCERINGAMMO
+	end
+end, MT_BOUNCEPICKUP)
+
+addHook("MobjSpawn", function(mo)
+	if mapheaderinfo[gamemap].oldmatch then
+		mo.state = S_RAILRINGAMMO
+	end
+end, MT_RAILPICKUP)
+
+addHook("MobjSpawn", function(mo)
+	if mapheaderinfo[gamemap].oldmatch then
+		mo.state = S_AUTOMATICRINGAMMO
+	end
+end, MT_AUTOPICKUP)
+
+addHook("MobjSpawn", function(mo)
+	if mapheaderinfo[gamemap].oldmatch then
+		mo.state = S_EXPLOSIONRINGAMMO
+	end
+end, MT_EXPLODEPICKUP)
+
+addHook("MobjSpawn", function(mo)
+	if mapheaderinfo[gamemap].oldmatch then
+		mo.state = S_SCATTERRINGAMMO
+	end
+end, MT_SCATTERPICKUP)
+
+addHook("MobjSpawn", function(mo)
+	if mapheaderinfo[gamemap].oldmatch then
+		mo.state = S_GRENADERINGAMMO
+	end
+end, MT_GRENADEPICKUP)
+
+local function touchSpecialPanel(mo, pmo)
+	local p = pmo.player
+
+	if not mapheaderinfo[gamemap].oldmatch return false end
+    if not P_CanPickupItem(p, true) return true end
+
+	local pw = mo.info.mass
+
+	if pw >= pw_infinityring and pw <= pw_railring
+		p.powers[pw] = $ + weapondurations[pw - pw_infinityring + 1]
+	end
+
+	S_StartSound(pmo, mobjinfo[MT_BOUNCERING].deathsound)
+	P_KillMobj(mo, nil, pmo)
+	mo.state = mobjinfo[MT_BOUNCERING].deathstate
+
+	return true
+end
+
+for mt = MT_BOUNCEPICKUP, MT_GRENADEPICKUP
+	addHook("TouchSpecial", touchSpecialPanel, mt)
+end
+
+
+local function touchSpecialAmmo(mo, pmo)
+	local p = pmo.player
+
+	if not mapheaderinfo[gamemap].oldmatch return false end
+    if not P_CanPickupItem(p, true) return true end
+
+	local pw = mo.info.mass
+
+	if pw >= pw_infinityring and pw <= pw_railring
+		if mo.flags2 & MF2_DONTRESPAWN
+			p.powers[pw] = $ + mo.health
+		else
+			p.powers[pw] = $ + weapondurations[pw - pw_infinityring + 1]
+		end
+	end
+
+	S_StartSound(pmo, mo.info.deathsound)
+	P_KillMobj(mo, nil, pmo)
+
+	return true
+end
+
+for mt = MT_BOUNCERING, MT_GRENADERING
+	addHook("TouchSpecial", touchSpecialAmmo, mt)
+	//if mt ~= MT_INFINITYRING
+		//addHook("MobjSpawn", spawnammo, mt)
+	//end
+end
+
+
+local function ctfName(p)
+	return p.ctfteam and ((p.ctfteam == 1 and "\x85" or "\x84")..p.name.."\x80") or p.name
+end
+
+local function hurtMsg(p, inflictor, source)
+	if not mapheaderinfo[gamemap].oldmatch then return end
+
+	if not (inflictor and inflictor.valid and source and source.valid) return end
+	source = $.player
+	if not (source and source.valid) return end
+
+	local f = inflictor.flags2
+
+	local weapon = ""
+	if f & MF2_AUTOMATIC
+		weapon = $..(weapon == "" and "" or "-").."automatic"
+	end
+	if f & MF2_SCATTER
+		weapon = $..(weapon == "" and "" or "-").."scatter"
+	end
+	if f & MF2_EXPLOSION
+		if inflictor.type == MT_THROWNEXPLOSION
+			weapon = $..(weapon == "" and "" or "-").."explosion"
+		else
+			weapon = $..(weapon == "" and "" or "-").."grenade"
+		end
+	end
+	if f & MF2_BOUNCERING
+		weapon = $..(weapon == "" and "" or "-").."bounce"
+	end
+	if f & MF2_RAILRING
+		weapon = $..(weapon == "" and "" or "-").."rail"
+	end
+	if weapon == ""
+		weapon = inflictor.flags2 & MF2_DEBRIS and "explosion ring shrapnel" or "thrown ring"
+	else
+		weapon = $.." ring"
+	end
+
+	local deadsource = source.playerstate == PST_DEAD and source ~= p and inflictor.flags2 & MF2_BEYONDTHEGRAVE
+	print((deadsource and "The late " or "")..ctfName(source).."'s "..weapon..(p.playerstate ~= PST_LIVE and " killed " or " hit ")..ctfName(p))
+
+	return true
+end
+
+addHook("HurtMsg", hurtMsg, MT_REDRING)
+for mt = MT_THROWNBOUNCE, MT_THROWNGRENADE
+	if mt ~= MT_THROWNINFINITY
+		addHook("HurtMsg", hurtMsg, mt)
+	end
+end
+
+
+local function stringy(p, y)
+	if splitscreen
+		y = $ >> 1
+		if #p == 0
+			return y
+		else
+			return y + 100
+		end
+	else
+		return y
+	end
+end
+
+local function drawWeaponRing(v, p, weapon, rwflag, wepflag, xoffs, pat)
+	local txtflags = 0, 0
+
+	if p.powers[weapon]
+		v.drawScaled((8 + xoffs) << FRACBITS, stringy(p, 162) << FRACBITS, FRACUNIT, pat, V_SNAPTOLEFT | V_TRANSLUCENT)
+
+		local n = p.powers[weapon] / TICRATE
+		if n > 99
+			v.drawString(9 + xoffs, stringy(p, 162), n, V_SNAPTOLEFT | V_TRANSLUCENT, "thin")
+		else
+			v.drawString(8 + xoffs, stringy(p, 162), n, V_SNAPTOLEFT | V_TRANSLUCENT)
+		end
+	end
+end
+
+hud.add(function(v, p)
+	if not mapheaderinfo[gamemap].oldmatch or not G_RingSlingerGametype() or G_TagGametype() and not (p.pflags & PF_TAGIT) return end
+
+	if splitscreen
+		drawWeaponRing(v, p, pw_infinityring, 0, 0, 90, v.cachePatch("INFNIND"))
+		drawWeaponRing(v, p, pw_automaticring, RW_AUTO, WEP_AUTO, 116, v.cachePatch("AUTOIND"))
+		drawWeaponRing(v, p, pw_bouncering, RW_BOUNCE, WEP_BOUNCE, 136, v.cachePatch("BNCEIND"))
+		drawWeaponRing(v, p, pw_scatterring, RW_SCATTER, WEP_SCATTER, 156, v.cachePatch("SCATIND"))
+		drawWeaponRing(v, p, pw_grenadering, RW_GRENADE, WEP_GRENADE, 176, v.cachePatch("GRENIND"))
+		drawWeaponRing(v, p, pw_explosionring, RW_EXPLODE, WEP_EXPLODE, 196, v.cachePatch("BOMBIND"))
+		drawWeaponRing(v, p, pw_railring, RW_RAIL, WEP_RAIL, 216, v.cachePatch("RAILIND"))
+	else
+		local splity = splitscreen and 24 or 0
+		local f = V_SNAPTOLEFT | V_TRANSLUCENT
+		local pw = p.powers
+
+		if pw[pw_infinityring] > 5 * TICRATE or pw[pw_infinityring] and leveltime & 1
+			v.draw(8, stringy(p, 56 - splity), v.cachePatch("INFNIND"), f)
+			v.drawString(32, stringy(p, 56 - splity + 4), pw[pw_infinityring] / TICRATE, f)
+		end
+
+		if pw[pw_automaticring] > 5 * TICRATE or pw[pw_automaticring] and leveltime & 1
+			v.draw(8, stringy(p, 76 - splity), v.cachePatch("AUTOIND"), f)
+			v.drawString(32, stringy(p, 76 - splity + 4), pw[pw_automaticring] / TICRATE, f)
+		end
+
+		if pw[pw_bouncering] > 5 * TICRATE or pw[pw_bouncering] and leveltime & 1
+			v.draw(8, stringy(p, 96 - splity), v.cachePatch("BNCEIND"), f)
+			v.drawString(32, stringy(p, 96 - splity + 4), pw[pw_bouncering] / TICRATE, f)
+		end
+
+		if pw[pw_scatterring] > 5 * TICRATE or pw[pw_scatterring] and leveltime & 1
+			v.draw(8, stringy(p, 116 - splity), v.cachePatch("SCATIND"), f)
+			v.drawString(32, stringy(p, 116 - splity + 4), pw[pw_scatterring] / TICRATE, f)
+		end
+
+		if pw[pw_grenadering] > 5 * TICRATE or pw[pw_grenadering] and leveltime & 1
+			v.draw(8, stringy(p, 136 - splity), v.cachePatch("GRENIND"), f)
+			v.drawString(32, stringy(p, 136 - splity + 4), pw[pw_grenadering] / TICRATE, f)
+		end
+
+		if pw[pw_explosionring] > 5 * TICRATE or pw[pw_explosionring] and leveltime & 1
+			v.draw(8, stringy(p, 156 - splity), v.cachePatch("BOMBIND"), f)
+			v.drawString(32, stringy(p, 156 - splity + 4), pw[pw_explosionring] / TICRATE, f)
+		end
+
+		if pw[pw_railring] > 5 * TICRATE or pw[pw_railring] and leveltime & 1
+			v.draw(8, stringy(p, 176 - splity), v.cachePatch("RAILIND"), f)
+			v.drawString(32, stringy(p, 176 - splity + 4), pw[pw_railring] / TICRATE, f)
+		end
+	end
+end)
+
+
+/*COM_AddCommand("t", function(p, ...)
+	for p in players.iterate
+		local mo = p.mo
+		if not mo continue end
+
+		mo.health = 10000
+		p.health = mo.health
+		for _, wp in pairs({...})
+			p.powers[pw_infinityring + wp - 1] = 45 * TICRATE
+		end
+	end
+end, 1)*/

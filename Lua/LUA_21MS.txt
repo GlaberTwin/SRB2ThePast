@@ -1,0 +1,791 @@
+-- 2.1 Metal Sonic Battle - Ported from 2.1.25
+-- PLEASE LOAD LUA_CMMN AND LUA_OJTF BEFORE THIS
+
+freeslot(
+	-- Sprites
+	"SPR_OMTS",
+	"SPR_OMTC",
+	"SPR_OENR",
+	-- Objects
+	"MT_21METALSONIC_BATTLE",
+	"MT_21MSSHIELD_FRONT",
+	"MT_21MSGATHER",
+	"MT_OLDENERGYBALL",
+	-- States
+	"S_21METALSONIC_FLOAT",
+	"S_21METALSONIC_VECTOR",
+	"S_21METALSONIC_STUN",
+	"S_21METALSONIC_BLOCK",
+	"S_21METALSONIC_RAISE",
+	"S_21METALSONIC_GATHER",
+	"S_21METALSONIC_DASH",
+	"S_21METALSONIC_BOUNCE",
+	"S_21METALSONIC_SHOOT",
+	"S_21METALSONIC_PAIN",
+	"S_21METALSONIC_DEATH",
+	"S_21METALSONIC_FLEE1",
+	"S_21METALSONIC_FLEE2",
+	"S_21METALSONIC_FLEE3",
+	"S_21METALSONIC_FLEE4",
+	"S_21MSSHIELD_F1",
+	"S_OLDENERGYBALL1",
+	"S_OLDENERGYBALL2"
+)
+
+-- Quick functions meant to imitate right and left shifts, because the ones in 
+-- Lua do weird things, sometimes
+local function RightShift(fixed, shift)
+	return (fixed / 2^shift)
+end
+
+local function LeftShift(fixed, shift)
+	return (fixed * 2^shift)
+end
+
+-- MT_METALSONIC_BATTLE-specific code of P_SpawnMissile ported from 2.1.25
+local function P_SpawnMetalMissile(source, dest, ttype)
+	local th
+	local an
+	local dist
+	local z
+	local gsf = 6
+	local speed
+	
+	assert(source and source.valid)
+	assert(dest and dest.valid)
+	z = source.z + source.height/2
+	
+	if (source.eflags & MFE_VERTICALFLIP) then
+		z = $ - FixedMul(mobjinfo[ttype].height, source.scale)
+	end
+	
+	th = P_SpawnMobj(source.x, source.y, z, ttype)
+-- 	th = P_SpawnMobjFromMobj(source, 0, 0, FixedDiv(source.height, source.scale)/2, ttype)
+	
+	if (source.eflags & MFE_VERTICALFLIP) then
+		th.flags2 = $|MF2_OBJECTFLIP
+	end
+	
+-- 	th.destscale = source.scale
+-- 	P_SetScale(th, source.scale)
+	th.scale = source.scale
+	
+	if source.type == MT_21METALSONIC_BATTLE and source.health < 4 then
+		speed = FixedMul(FixedMul(th.info.speed, 3*FRACUNIT/2), th.scale)
+	else
+		speed = FixedMul(th.info.speed, th.scale)
+	end
+	
+	if speed == 0 then
+		speed = FixedMul(mobjinfo[MT_TURRETLASER].speed, th.scale)
+	end
+	
+	if th.info.seesound then
+		S_StartSound(source, th.info.seesound)
+	end
+	
+	th.target = source -- where it came from
+	
+	if ttype == MT_OLDENERGYBALL then -- More accurate!
+		an = R_PointToAngle2(source.x, source.y,
+				dest.x + (dest.momx*gsf),
+				dest.y + (dest.momy*gsf))
+	else
+		an = R_PointToAngle2(source.x, source.y, dest.x, dest.y)
+	end
+	
+	th.angle = an
+	th.momx = FixedMul(speed, cos(an))
+	th.momy = FixedMul(speed, sin(an))
+	
+	if ttype == MT_OLDENERGYBALL then -- More accurate!
+		dist = FixedHypot(dest.x + (dest.momx*gsf) - source.x, dest.y + (dest.momy*gsf) - source.y)
+	else
+		dist = FixedHypot(dest.x - source.x, dest.y - source.y)
+	end
+	
+	dist = dist / speed
+	
+	if dist < 1 then dist = 1 end
+	
+	if ttype == MT_OLDENERGYBALL then -- More accurate!
+		th.momz = (dest.z + (dest.momz*gsf) - z) / dist
+	else
+		th.momz = (dest.z - z) / dist
+	end
+	
+	if (th.flags & MF_MISSILE) then
+		dist = P_CheckMissileSpawn(th)
+	else
+		dist = 1
+	end
+	return (dist and th or nil)
+end
+
+-- 2.1 Metal Sonic
+
+-- Allow projectiles to hit 2.1 Metal Sonic (not accurate to 2.1, 
+-- but better for gameplay reasons (mostly Fang))
+addHook("MobjCollide", function(thing, tmthing)
+	if not (thing and thing.valid
+	and tmthing and tmthing.valid) then
+		return
+	end
+	
+	-- Projectiles should only collide with Metal Sonic if they are not his own, 
+	-- and while he's in his "floating" state
+	if not ((tmthing.flags & MF_MISSILE)
+	and tmthing.target ~= thing
+	and thing.state == thing.info.spawnstate) then
+		return
+	end
+	
+	if thing.z <= tmthing.z + tmthing.height
+	and tmthing.z <= thing.z + thing.height then
+		thing.flags2 = $|MF2_CLASSICPUSH
+		return false
+	end
+end, MT_21METALSONIC_BATTLE)
+
+-- Gets around a hack that allows 2.1 Metal Sonic to be hit by projectiles
+addHook("TouchSpecial", function(special, toucher)
+	if not (special and special.valid
+	and toucher and toucher.valid) then
+		return
+	end
+	
+	if (special.flags & MF_SHOOTABLE) then return end
+	return true
+end, MT_21METALSONIC_BATTLE)
+
+-- P_Boss9Thinker ported from 2.1.25
+addHook("BossThinker", function(mo)
+	if not (mo and mo.valid) then return end
+	
+	if mo.state == mo.info.spawnstate then
+		mo.flags2 = $ & ~MF2_FRET
+	end
+	
+	if not (mo.tracer and mo.tracer.valid) then
+		local last = nil
+		
+		-- Initialize the boss, spawn jet fumes, etc.
+		mo.threshold = 0
+		mo.reactiontime = 0
+		mo.watertop = mo.floorz + 32*FRACUNIT
+		A_OldBossJetFumes(mo, 1, 0)
+		
+		-- Run through the thinkers ONCE and find all of the MT_BOSS9GATHERPOINT in the map.
+		-- Build a hoop linked list of 'em!
+		for th in mobjs.iterate() do
+			if not (th and th.valid) then continue end
+			if th.type == MT_BOSS9GATHERPOINT then -- Replace MT_BOSS9GATHERPOINT if it changes in the future
+				if last then
+					last.hnext = th
+				else
+					mo.hnext = th
+				end
+				th.hprev = last
+				last = th
+			end
+		end
+	end
+	
+	if mo.health <= 0 then
+		return true
+	end
+	
+	if not (mo.target and mo.target.valid and (mo.target.flags & MF_SHOOTABLE)) then
+		P_BossTargetPlayer(mo, false)
+		if mo.target and mo.target.valid and (not P_IsObjectOnGround(mo.target) or (mo.target.player.pflags & PF_SPINNING)) then
+			mo.target = nil	-- Wait for them to hit the ground first
+		end
+		if not (mo.target and mo.target.valid) then -- Still no target, aww.
+			-- Reset the boss.
+			mo.state = mo.info.spawnstate
+			mo.fuse = 0
+			mo.momx = FixedDiv(mo.momx, FRACUNIT + (RightShift(FRACUNIT, 2)))
+			mo.momy = FixedDiv(mo.momy, FRACUNIT + (RightShift(FRACUNIT, 2)))
+			mo.momz = FixedDiv(mo.momz, FRACUNIT + (RightShift(FRACUNIT, 2)))
+			return true
+		elseif not mo.fuse then
+			mo.fuse = 10*TICRATE
+		end
+	end
+	
+	if (mo.flags & MF_SHOOTABLE) then
+		mo.flags2 = $ & ~MF2_INVERTAIMABLE -- Let Fang aim at 2.1 Metal Sonic when he's shootable
+	end
+	
+	-- AI goes here.
+		local danger = true
+		local angle
+		if mo.threshold then
+			mo.momz = (mo.watertop - mo.z)/16 -- Float to your desired position FASTER
+		else
+			mo.momz = (mo.watertop - mo.z)/40 -- Float to your desired position
+		end
+		
+		if mo.movecount == 2 then
+			local spawner
+			local dist = 0
+			angle = 0x06000000*leveltime
+			
+			-- Alter your energy bubble's size/position
+			if mo.health > 3 then
+				mo.tracer.destscale = FRACUNIT + (4*TICRATE - mo.fuse)*(FRACUNIT/2)/TICRATE + FixedMul(cos(angle), FRACUNIT/2)
+				P_SetScale(mo.tracer, mo.tracer.destscale)
+				P_MoveOrigin(mo.tracer, mo.x, mo.y, mo.z + mo.height/2 - mo.tracer.height/2)
+				mo.tracer.momx = mo.momx
+				mo.tracer.momy = mo.momy
+				mo.tracer.momz = mo.momz
+			end
+			
+			-- Face your target
+			P_BossTargetPlayer(mo, true)
+			angle = R_PointToAngle2(mo.x, mo.y, mo.target.x, mo.target.y) -- absolute angle
+			angle = (angle - mo.angle) -- relative angle
+			if angle < ANGLE_180 then
+				mo.angle = $+(angle/8)
+			else
+				mo.angle = $-(InvAngle(angle)/8)
+			end
+			
+			-- Spawn energy particles
+			spawner = mo.hnext
+			while spawner do
+				dist = FixedHypot(spawner.x - mo.x, spawner.y - mo.y)
+				if (P_RandomRange(1,RightShift(dist, FRACBITS)/16) == 1) then
+					break
+				end
+				spawner = spawner.hnext
+			end
+			if spawner then
+				local missile = P_SpawnMetalMissile(spawner, mo, MT_21MSGATHER)
+				missile.momz = FixedDiv(missile.momz, 7*FRACUNIT/4)
+				if dist == 0 then
+					missile.fuse = 0
+				else
+					missile.fuse = dist/FixedHypot(missile.momx, missile.momy)
+				end
+				if missile.fuse > mo.fuse then
+					P_RemoveMobj(missile)
+				end
+			end
+		end
+		
+		-- Pre-threshold reactiontime stuff for attack phases
+		if mo.reactiontime and mo.movecount == 3 then
+			if mo.movedir == 0 or mo.movedir == 2 then -- Pausing between bounces in the pinball phase
+				if mo.target.player.powers[pw_tailsfly] then -- trying to escape, eh?
+					mo.watertop = mo.target.z + mo.target.momz*6 -- Readjust your aim. >:3
+				else
+					mo.watertop = mo.target.floorz + 16*FRACUNIT
+				end
+				if not (mo.threshold%4) then
+					mo.angle = R_PointToAngle2(mo.x, mo.y, mo.target.x + mo.target.momx*4, mo.target.y + mo.target.momy*4)
+				end
+			end
+			-- Pausing between energy ball shots
+			mo.reactiontime = $-1
+			return true
+		end
+		
+		-- threshold is used for attacks/maneuvers.
+		if mo.threshold then
+			local speed = 20*FRACUNIT + FixedMul(40*FRACUNIT, FixedDiv(LeftShift((mo.info.spawnhealth - mo.health),FRACBITS), LeftShift(mo.info.spawnhealth, FRACBITS)))
+			local tries = 0
+			
+			-- Firin' mah lazors
+			if mo.movecount == 3 and mo.movedir == 1 then
+				if not (mo.threshold&1) then
+					local missile
+					if mo.info.seesound then
+						S_StartSound(mo, mo.info.seesound)
+					end
+					mo.state = mo.info.missilestate
+					if mo.extravalue1 == 3 then
+						mo.reactiontime = TICRATE/16
+					else
+						mo.reactiontime = TICRATE/8
+					end
+					
+					A_FaceTarget(mo)
+					missile = P_SpawnMetalMissile(mo, mo.target, mo.info.speed) -- Replace this with a 2.1 variant, perhaps?
+					--P_SpawnMetalMissile(mo, mo.target, missile)
+					if mo.extravalue1 == 2 or mo.extravalue1 == 3 then
+						missile.destscale = RightShift(FRACUNIT, 1)
+						P_SetScale(missile, missile.destscale)
+					end
+					missile.fuse = 3*TICRATE
+					P_SetOrigin(missile, missile.x, missile.y, missile.z - missile.height/2)
+					
+					if mo.extravalue1 == 2 then
+						local i
+						local spread
+						missile.flags = $|MF_MISSILE
+						for i = 0, 4, 1 do
+							if i == 2 then continue end
+							spread = P_SpawnMobj(missile.x, missile.y, missile.z, missile.type)
+							--P_SpawnMetalMissile(mo, mo.target, spread)
+							spread.angle = missile.angle+(ANGLE_11hh/2)*(i-2)
+							P_InstaThrust(spread, spread.angle, spread.info.speed)
+							spread.momz = missile.momz
+							spread.destscale = RightShift(FRACUNIT, 1)
+							P_SetScale(spread, spread.destscale)
+							spread.fuse = 3*TICRATE
+						end
+						missile.flags = $ & ~MF_MISSILE
+					end
+				else
+					mo.state = states[mo.state].nextstate
+					if mo.extravalue1 == 3 then
+						mo.reactiontime = TICRATE/8
+					else
+						mo.reactiontime = TICRATE/4
+					end
+				end
+				mo.threshold = $-1
+				return true
+			end
+			
+			P_SpawnGhostMobj(mo)
+			
+			--Pinball attack!
+			if mo.movecount == 3 and (mo.movedir == 0 or mo.movedir == 2) then
+				if mo.state ~= mo.info.seestate then
+					mo.state = mo.info.seestate
+				end
+				if mo.movedir == 0 then -- mo health == 1
+					P_InstaThrust(mo, mo.angle, 38*FRACUNIT)
+				elseif mo.health == 3 then
+					P_InstaThrust(mo, mo.angle, 22*FRACUNIT)
+				else -- mo health == 2
+					P_InstaThrust(mo, mo.angle, 30*FRACUNIT)
+				end
+				if not P_TryMove(mo, mo.x+mo.momx, mo.y+mo.momy, true) then -- Hit a wall? Find a direction to bounce
+					mo.threshold = $-1
+					if mo.threshold then
+						mo.state = states[mo.state].nextstate
+						--if mo.info.mass
+							S_StartSound(mo, sfx_mspogo) -- Replace with a 2.1 variant, if necessary
+						--end
+						if not (mo.threshold%4) then -- We've decided to lock onto the player this bounce.
+							mo.angle = R_PointToAngle2(mo.x, mo.y, mo.target.x + mo.target.momx*4, mo.target.y + mo.target.y*4)
+							mo.reactiontime = TICRATE -- targetting time
+						else -- No homing, just use P_BounceMove
+							P_BounceMove(mo)
+							mo.angle = R_PointToAngle2(0,0,mo.momx,mo.momy)
+							mo.reactiontime = TICRATE/4 -- Just a puase before you bounce away
+						end
+						mo.momx = 0
+						mo.momy = 0
+					end
+				end
+				return true
+			end
+			
+			-- Vector form dodge!
+			mo.angle = $+mo.movedir
+			P_InstaThrust(mo, mo.angle, -speed)
+			tries = $+1
+			while (not P_TryMove(mo, mo.x+mo.momx, mo.y+mo.momy, true) and tries < 16) do
+				tries = $+1
+				mo.angle = $+mo.movedir
+				P_InstaThrust(mo, mo.angle, -speed)
+			end
+			mo.momx = 0
+			mo.momy = 0
+			mo.threshold = $-1
+			if not mo.threshold then
+			-- Go into stun after dodge
+				mo.reactiontime = 2*TICRATE + 
+									RightShift(
+										FixedMul(
+											LeftShift(1*TICRATE, FRACBITS),
+											FixedDiv(
+												LeftShift(mo.health-1, FRACBITS),
+												LeftShift(mo.info.spawnhealth-1, FRACBITS)
+											)
+										),
+										FRACBITS
+									)
+				mo.flags = $|MF_SHOOTABLE -- Originally included MF_SPECIAL
+				mo.state = states[mo.state].nextstate
+			end
+			return true
+		end
+		
+		angle = 0x06000000*leveltime
+		mo.momz = $+FixedMul(cos(angle), 2*FRACUNIT) -- Use that "angle" to bob gently in the air
+		-- This is below threshold because we don't want to bob while zipping around
+		
+		-- Ohh you're in for it now..
+		if (mo.flags2 & MF2_FRET) and mo.health <= mo.info.damage then
+			mo.fuse = 0
+		end
+		
+		-- reactiontime is used for delays.
+		if mo.reactiontime then
+			-- Stunned after vector form
+			if mo.movedir > ANGLE_180 and mo.movedir <= ANGLE_MAX then
+				mo.angle = $ - 
+							FixedAngle(
+								FixedMul(
+									AngleFixed(
+										InvAngle(mo.movedir)
+									),
+									FixedDiv(
+										LeftShift(mo.reactiontime, FRACBITS),
+										LeftShift(24, FRACBITS)
+									)
+								)
+							)
+			else
+				mo.angle = $ + 
+							FixedAngle(
+								FixedMul(
+									AngleFixed(mo.movedir),
+									FixedDiv(
+										LeftShift(mo.reactiontime, FRACBITS),
+										LeftShift(24, FRACBITS)
+									)
+								)
+							)
+			end
+			mo.reactiontime = $-1
+			if not mo.reactiontime then
+				-- Out of stun.
+				mo.state = states[mo.state].nextstate
+			end
+			return true
+		end
+		
+		-- Not stunned? Can hit.
+		-- Here because stun won't always get the chance to complete due to pinch phase activating, being hit, etc.
+		mo.flags = $ & ~(MF_SHOOTABLE) -- Originally included MF_SPECIAL
+		
+		if mo.health <= mo.info.damage and mo.fuse and not (mo.fuse % TICRATE) then
+			A_BossScream(mo, 1, MT_BOSSEXPLODE)
+		end
+		
+		-- Don't move if we're still in pain!
+		if (mo.flags2 & MF2_FRET) then return true end
+		
+		if mo.state == mo.info.raisestate then
+		-- Charging energy
+			if mo.momx ~= 0 or mo.momy ~= 0 then -- Apply the air breaks
+				if abs(mo.momx) + abs(mo.momy) < FRACUNIT then
+					mo.momx = 0
+					mo.momy = 0
+				else
+					P_Thrust(mo, R_PointToAngle2(0, 0, mo.momx, mo.momy), -6*FRACUNIT/8)
+				end
+			end
+			return true
+		end
+		
+		if mo.fuse == 0 then
+			mo.flags2 = $ & ~MF2_INVERTAIMABLE -- Don't let Fang aim at 2.1 Metal Sonic
+			-- It's time to attack! What are we gonna do?!
+			if mo.movecount == 1 then
+				-- Okay, we're up? Good, time to gather energy...
+				if mo.health > mo.info.damage then
+				-- No more bubble if we're broken (pinch phase)
+					local shield = P_SpawnMobj(mo.x, mo.y, mo.z, MT_21MSSHIELD_FRONT)
+					mo.tracer = shield
+					shield.target = mo
+				else
+					local pinchtag = LE_PINCHPHASE
+					if udmf and mo.spawnpoint and mo.spawnpoint.valid then pinchtag = mo.spawnpoint.args[4] end
+					P_LinedefExecute(pinchtag, mo, nil)
+				end
+				mo.fuse = 4*TICRATE
+				mo.flags = $|MF_PAIN
+				if mo.info.attacksound then
+					S_StartSound(mo, mo.info.attacksound)
+				end
+				A_FaceTarget(mo)
+			elseif mo.movecount == 2 then
+				-- We're all charged and ready now! Unleash the fury!!
+				if mo.health > mo.info.damage then
+					local removemobj = mo.tracer
+					mo.tracer = mo.hnext
+					P_RemoveMobj(removemobj)
+				end
+				if mo.health <= mo.info.damage then
+					-- Attack 1: Pinball dash!
+					if mo.health == 1 then
+						mo.movedir = 0
+					else
+						mo.movedir = 2
+					end
+					if mo.info.seesound then
+						S_StartSound(mo, mo.info.seesound)
+					end
+					mo.state = mo.info.seestate
+					if mo.movedir == 2 then
+						mo.threshold = 16 -- bounce 16 times
+					else
+						mo.threshold = 32 -- bounce 32 times
+					end
+					mo.watertop = mo.target.floorz + 16*FRACUNIT
+					local pinchtag = LE_PINCHPHASE
+					if udmf and mo.spawnpoint and mo.spawnpoint.valid then pinchtag = mo.spawnpoint.args[4] end
+					P_LinedefExecute(pinchtag, mo, nil)
+				else
+					-- Attack 2: Energy shot!
+					 mo.movedir = 1
+					 
+					 if mo.health >= 8 then
+						mo.extravalue1 = 0
+					 elseif mo.health >= 5 then
+						mo.extravalue1 = 2
+					 elseif mo.health >= 4 then
+						mo.extravalue1 = 1
+					 else
+						mo.extravalue1 = 3
+					 end
+					 
+					 if mo.extravalue1 == 1 then -- shoot 3 times
+						mo.threshold = 3*2
+					 elseif mo.extravalue1 == 3 then -- shoot like a freakin' machinegun
+						mo.threshold = 8*2
+					else -- 0 = shoot once; 2 = spread-shot
+						mo.threshold = 2
+					end
+				end
+			
+			elseif mo.movecount == 3 then
+				-- return true to idle
+				mo.watertop = mo.target.floorz + 32*FRACUNIT
+				mo.state = mo.info.spawnstate
+				mo.flags = $ & ~MF_PAIN
+				mo.fuse = 10*TICRATE
+			else -- case 0/default:
+				-- Fly up and prepare for an attack!
+				-- We have to charge up first, so let's go up into the air
+				mo.state = mo.info.raisestate
+				if mo.floorz >= mo.target.floorz then
+					mo.watertop = mo.floorz + 256*FRACUNIT
+				else
+					mo.watertop = mo.target.floorz + 256*FRACUNIT
+				end
+			end
+			mo.movecount = $+1
+			mo.movecount = $%4
+			return true
+		end
+		
+		-- Idle AI
+		if mo.state == mo.info.spawnstate then
+			local dist
+			
+			-- Target the closest player
+			P_BossTargetPlayer(mo, true)
+			
+			-- Face your target
+			angle = R_PointToAngle2(mo.x, mo.y, mo.target.x, mo.target.y) -- absolute angle
+			angle = angle - mo.angle -- relative angle
+			if angle < ANGLE_180 then
+				mo.angle = $+(angle/8)
+			else
+				mo.angle = $-(InvAngle(angle)/8)
+			end
+			--A_FaceTarget(mo)
+			
+			-- Check if we're being attacked
+			if (mo.flags2 & MF2_CLASSICPUSH) then -- Missile fix borrowed from 2.2.10's code
+				mo.flags2 = $ & ~MF2_CLASSICPUSH
+			else
+				if not ((mo.target.player.pflags & (PF_JUMPED|PF_SPINNING))
+				or mo.target.player.powers[pw_tailsfly]
+				or mo.target.player.powers[pw_invulnerability]
+				or mo.target.player.powers[pw_super]) then
+					danger = false
+				end
+				if mo.target.x + mo.target.radius + abs(mo.target.momx*2) < mo.x - mo.radius then
+					danger = false
+				end
+				if mo.target.x - mo.target.radius - abs(mo.target.momx*2) > mo.x + mo.radius then
+					danger = false
+				end
+				if mo.target.y + mo.target.radius + abs(mo.target.momy*2) < mo.y - mo.radius then
+					danger = false
+				end
+				if mo.target.y - mo.target.radius - abs(mo.target.momy*2) > mo.y + mo.radius then
+					danger = false
+				end
+				if mo.target.z + mo.target.height + mo.target.momz*2 < mo.z then
+					danger = false
+				end
+				if mo.target.z + mo.target.momz*2 > mo.z + mo.height then
+					danger = false
+				end
+			end
+			if danger then
+				-- An incoming attack is detected! What should we do?!
+				-- Go into vector form!
+				mo.movedir = ANGLE_11hh - 
+								FixedAngle(
+									FixedMul(
+										AngleFixed(ANGLE_11hh),
+										FixedDiv(
+											LeftShift(mo.info.spawnhealth - mo.health, FRACBITS),
+											LeftShift(mo.info.spawnhealth - 1, FRACBITS)
+										)
+									)
+								)
+				if P_RandomChance(FRACUNIT/2) then
+					mo.movedir = InvAngle(mo.movedir)
+				end
+				mo.threshold = 6 + 
+								RightShift(
+									FixedMul(
+										LeftShift(24, FRACBITS),
+										FixedDiv(
+											LeftShift(mo.info.spawnhealth - mo.health, FRACBITS),
+											LeftShift(mo.info.spawnhealth - 1, FRACBITS)
+										)
+									),
+									FRACBITS
+								)
+				if mo.info.activesound then
+					S_StartSound(mo, mo.info.activesound)
+				end
+				if mo.info.painchance then
+					mo.state = mo.info.painchance
+				end
+				return true
+			end
+			
+			mo.flags2 = $|MF2_INVERTAIMABLE -- Let Fang aim at 2.1 Metal Sonic
+			
+			-- Move normally: Approach the player using normal thrust and simulated friction.
+			dist = FixedHypot(mo.x - mo.target.x, mo.y - mo.target.y)
+			P_Thrust(mo, R_PointToAngle2(0, 0, mo.momx, mo.momy), -3*FRACUNIT/8)
+			if dist < 64*FRACUNIT then
+				P_Thrust(mo, mo.angle, -4*FRACUNIT)
+			elseif dist > 180*FRACUNIT then
+				P_Thrust(mo, mo.angle, FRACUNIT)
+			end
+			mo.momz = $+FixedHypot(mo.momx, mo.momy)/12 -- Move up higher the faster you're going.
+		end
+	
+	return true
+end, MT_21METALSONIC_BATTLE)
+
+addHook("MobjFuse", function(mo)
+	if not (mo and mo.valid) then return end
+	return true
+end, MT_21METALSONIC_BATTLE)
+
+addHook("BossDeath", function(mo)
+	if not (mo and mo.valid) then return end
+	A_21BossDeath(mo)
+	return true
+end, MT_21METALSONIC_BATTLE)
+
+mobjinfo[MT_21METALSONIC_BATTLE] = {
+	--$Name 2.1 Metal Sonic
+	--$Sprite OMTSA1
+	--$Category Bosses
+	--$Flags4Text End level on death
+	--$Arg0 Boss ID
+	--$Arg1 End level on death?
+	--$Arg1Type 11
+	--$Arg1Enum noyes
+	--$Arg2 Death trigger tag
+	--$Arg2Type 15
+	--$Arg3 Victory trigger tag
+	--$Arg3Type 15
+	--$Arg4 Pinch trigger tag
+	--$Arg4Type 15
+	doomednum = 233,
+	spawnstate = S_21METALSONIC_FLOAT,
+	spawnhealth = 8,
+	seestate = S_21METALSONIC_DASH,
+	seesound = sfx_s3k54,
+	attacksound = sfx_trpowr,
+	painstate = S_21METALSONIC_PAIN,
+	painchance = S_21METALSONIC_VECTOR,
+	painsound = sfx_dmpain,
+	meleestate = S_21METALSONIC_BLOCK,
+	missilestate = S_21METALSONIC_SHOOT,
+	deathstate = S_21METALSONIC_DEATH,
+	xdeathstate = S_21METALSONIC_FLEE1,
+	deathsound = sfx_s3k6e,
+	speed = MT_OLDENERGYBALL,
+	radius = 16*FRACUNIT,
+	height = 48*FRACUNIT,
+	mass = 0, -- sfx_mspogo doesn't work here, because MF_PAIN results in it instantly killing the player
+	damage = 3,
+	activesound = sfx_mswarp, -- Replace with a 2.1 variant, if necessary
+	flags = MF_NOGRAVITY|MF_BOSS|MF_SLIDEME|MF_SPECIAL,
+	raisestate = S_21METALSONIC_RAISE
+}
+
+-- Some of these states differ from 2.1's code to prevent 2.1 Metal Sonic from potentially 
+-- disappearing when fighting him in a multiplayer game.
+states[S_21METALSONIC_FLOAT] =	{SPR_OMTS,	E,	-1,	nil,	0,	0,	S_21METALSONIC_FLOAT}
+states[S_21METALSONIC_VECTOR] =	{SPR_OMTS,	M,	-1,	nil,	0,	0,	S_21METALSONIC_STUN}
+states[S_21METALSONIC_STUN] =	{SPR_OMTS,	A,	-1,	nil,	0,	0,	S_21METALSONIC_FLOAT}
+states[S_21METALSONIC_BLOCK] =	{SPR_OMTS,	N,	-1,	nil,	0,	0,	S_21METALSONIC_FLOAT}
+states[S_21METALSONIC_RAISE] =	{SPR_OMTS,	N,	40,	nil,	0,	0,	S_21METALSONIC_GATHER}
+states[S_21METALSONIC_GATHER] =	{SPR_OMTS,	O,	-1,	nil,	0,	0,	S_21METALSONIC_FLOAT}
+states[S_21METALSONIC_DASH] =	{SPR_OMTS,	J,	-1,	nil,	0,	0,	S_21METALSONIC_BOUNCE}
+states[S_21METALSONIC_BOUNCE] =	{SPR_OMTS,	O,	-1,	nil,	0,	0,	S_21METALSONIC_FLOAT}
+states[S_21METALSONIC_SHOOT] =	{SPR_OMTS,	N,	-1,	nil,	0,	0,	S_21METALSONIC_GATHER}
+
+states[S_21METALSONIC_PAIN] =	{SPR_OMTS,	L,	40,	A_Pain,	0,	0,	S_21METALSONIC_FLOAT}
+
+states[S_21METALSONIC_DEATH] =	{SPR_OMTS,	A,	-1,	A_BossDeath,	0,	0,	S_NULL}
+
+states[S_21METALSONIC_FLEE1] =	{SPR_OMTS,	D,	4,	nil,			0,	0,				S_21METALSONIC_FLEE2}
+states[S_21METALSONIC_FLEE2] =	{SPR_OMTS,	E,	4,	A_BossScream,	0,	MT_BOSSEXPLODE,	S_21METALSONIC_FLEE3}
+states[S_21METALSONIC_FLEE3] =	{SPR_OMTS,	F,	4,	nil,			0,	0,				S_21METALSONIC_FLEE4}
+states[S_21METALSONIC_FLEE4] =	{SPR_OMTS,	E,	4,	nil,			0,	0,				S_21METALSONIC_FLEE1}
+
+-- 2.1 Metal Sonic Front Shield
+
+mobjinfo[MT_21MSSHIELD_FRONT] = {
+	doomednum = -1,
+	spawnstate = S_21MSSHIELD_F1,
+	spawnhealth = 1,
+	radius = 32*FRACUNIT,
+	height = 48*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOGRAVITY|MF_SCENERY
+}
+
+states[S_21MSSHIELD_F1] =	{SPR_OMTC,	FF_FULLBRIGHT|FF_TRANS30|A|FF_ANIMATE,	-1,	nil,	11,	1,	S_NULL}
+
+-- 2.1 Metal Sonic Gathering Orb
+
+mobjinfo[MT_21MSGATHER] = {
+	doomednum = -1,
+	spawnstate = S_OLDJETFUME1,
+	spawnhealth = 1,
+	speed = 24*FRACUNIT,
+	radius = 6*FRACUNIT,
+	height = 12*FRACUNIT,
+	flags = MF_NOBLOCKMAP|MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOGRAVITY|MF_SCENERY
+}
+
+-- 2.1 Metal Sonic Energy Ball
+
+mobjinfo[MT_OLDENERGYBALL] = {
+	doomednum = -1,
+	spawnstate = S_OLDENERGYBALL1,
+	spawnhealth = 1000,
+	seesound = sfx_s3k54,
+	reactiontime = 8,
+	speed = 40*FRACUNIT,
+	radius = 60*FRACUNIT,
+	height = 120*FRACUNIT,
+	mass = 100,
+	damage = 20,
+	flags = MF_PAIN|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+}
+
+states[S_OLDENERGYBALL1] =	{SPR_OENR,	A|FF_FULLBRIGHT|FF_TRANS30,	1,	nil,	0,	0,	S_OLDENERGYBALL2}
+states[S_OLDENERGYBALL2] =	{SPR_NULL,	0,							1,	nil,	0,	0,	S_OLDENERGYBALL1}
