@@ -189,6 +189,7 @@ dofile("EggHead/LUA_EHED") // Egg Head
 // Miscellanous
 // --------------------------------
 
+dofile("LUA_EMRG") // Emergency Holo-Springs
 dofile("LUA_HALO") // Pre-Final Demo water colormap emulation
 dofile("LUA_MACH") // Final Demo Ringslinger
 dofile("LUA_ADVE") // Final Demo Adventure Mode
