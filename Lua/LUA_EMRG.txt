@@ -1,0 +1,197 @@
+freeslot(
+	"MT_HOLOBLUSPRING", "S_HOLOBLUSPRING", "S_HOLOBLUSPRING2", "S_HOLOBLUSPRING3", "S_HOLOBLUSPRING4", "S_HOLOBLUSPRING5",
+	"MT_HOLOYLWSPRING", "S_HOLOYLWSPRING", "S_HOLOYLWSPRING2", "S_HOLOYLWSPRING3", "S_HOLOYLWSPRING4", "S_HOLOYLWSPRING5",
+	"MT_HOLOREDSPRING", "S_HOLOREDSPRING", "S_HOLOREDSPRING2", "S_HOLOREDSPRING3", "S_HOLOREDSPRING4", "S_HOLOREDSPRING5",
+	"MT_HBLUDIAG", 	"S_HBDIAG1", "S_HBDIAG2", "S_HBDIAG3", "S_HBDIAG4", "S_HBDIAG5", "S_HBDIAG6", "S_HBDIAG7", "S_HBDIAG8", 
+	"MT_HYLWDIAG", 	"S_HYDIAG1", "S_HYDIAG2", "S_HYDIAG3", "S_HYDIAG4", "S_HYDIAG5", "S_HYDIAG6", "S_HYDIAG7", "S_HYDIAG8", 
+	"MT_HREDDIAG", 	"S_HRDIAG1", "S_HRDIAG2", "S_HRDIAG3", "S_HRDIAG4", "S_HRDIAG5", "S_HRDIAG6", "S_HRDIAG7", "S_HRDIAG8"
+)
+
+states[S_HOLOBLUSPRING] = {SPR_SPRB, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|K, -1, nil, 1, 1, S_NULL}
+states[S_HOLOBLUSPRING2] = {SPR_SPRB, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 4, A_Pain, 1, 1, S_HOLOBLUSPRING3}
+states[S_HOLOBLUSPRING3] = {SPR_SPRB, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HOLOBLUSPRING4}
+states[S_HOLOBLUSPRING4] = {SPR_SPRB, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HOLOBLUSPRING5}
+states[S_HOLOBLUSPRING5] = {SPR_SPRB, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|M, 1, nil, 1, 1, S_HOLOBLUSPRING}
+
+states[S_HOLOYLWSPRING] = {SPR_SPRY, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|K, -1, nil, 1, 1, S_NULL}
+states[S_HOLOYLWSPRING2] = {SPR_SPRY, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 4, A_Pain, 1, 1, S_HOLOYLWSPRING3}
+states[S_HOLOYLWSPRING3] = {SPR_SPRY, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HOLOYLWSPRING4}
+states[S_HOLOYLWSPRING4] = {SPR_SPRY, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HOLOYLWSPRING5}
+states[S_HOLOYLWSPRING5] = {SPR_SPRY, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|M, 1, nil, 1, 1, S_HOLOYLWSPRING}
+
+states[S_HOLOREDSPRING] = {SPR_SPRR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|K, -1, nil, 1, 1, S_NULL}
+states[S_HOLOREDSPRING2] = {SPR_SPRR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 4, A_Pain, 1, 1, S_HOLOREDSPRING3}
+states[S_HOLOREDSPRING3] = {SPR_SPRR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HOLOREDSPRING4}
+states[S_HOLOREDSPRING4] = {SPR_SPRR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HOLOREDSPRING5}
+states[S_HOLOREDSPRING5] = {SPR_SPRR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|M, 1, nil, 1, 1, S_HOLOREDSPRING}
+
+states[S_HBDIAG1] = {SPR_BSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|K, -1, nil, 1, 1, S_NULL}
+states[S_HBDIAG2] = {SPR_BSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 1, A_Pain, 1, 1, S_HBDIAG3}
+states[S_HBDIAG3] = {SPR_BSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HBDIAG4}
+states[S_HBDIAG4] = {SPR_BSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HBDIAG5}
+states[S_HBDIAG5] = {SPR_BSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|M, 1, nil, 1, 1, S_HBDIAG6}
+states[S_HBDIAG6] = {SPR_BSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HBDIAG7}
+states[S_HBDIAG7] = {SPR_BSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HBDIAG8}
+states[S_HBDIAG8] = {SPR_BSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 1, nil, 1, 1, S_HBDIAG1}
+
+states[S_HYDIAG1] = {SPR_YSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|K, -1, nil, 1, 1, S_NULL}
+states[S_HYDIAG2] = {SPR_YSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 1, A_Pain, 1, 1, S_HYDIAG3}
+states[S_HYDIAG3] = {SPR_YSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HYDIAG4}
+states[S_HYDIAG4] = {SPR_YSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HYDIAG5}
+states[S_HYDIAG5] = {SPR_YSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|M, 1, nil, 1, 1, S_HYDIAG6}
+states[S_HYDIAG6] = {SPR_YSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HYDIAG7}
+states[S_HYDIAG7] = {SPR_YSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HYDIAG8}
+states[S_HYDIAG8] = {SPR_YSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 1, nil, 1, 1, S_HYDIAG1}
+
+states[S_HRDIAG1] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|K, -1, nil, 1, 1, S_NULL}
+states[S_HRDIAG2] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 1, A_Pain, 1, 1, S_HRDIAG3}
+states[S_HRDIAG3] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HRDIAG4}
+states[S_HRDIAG4] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HRDIAG5}
+states[S_HRDIAG5] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|M, 1, nil, 1, 1, S_HRDIAG6}
+states[S_HRDIAG6] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 1, nil, 1, 1, S_HRDIAG7}
+states[S_HRDIAG7] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HRDIAG8}
+states[S_HRDIAG8] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 1, nil, 1, 1, S_HRDIAG1}
+
+mobjinfo[MT_HOLOBLUSPRING] = {
+	//$Name Blue Holo-Spring
+	//$Sprite SPRBF0
+	//$Category Emergency/Warning Objects
+doomednum = 1141,
+spawnstate = S_HOLOBLUSPRING,
+seestate = S_HOLOBLUSPRING2,
+painsound = sfx_spring,
+raisestate = S_HOLOBLUSPRING2,
+radius = 20*FRACUNIT,
+height = 16*FRACUNIT,
+mass = 11*FRACUNIT,
+flags = MF_SOLID|MF_SPRING
+}
+
+mobjinfo[MT_HOLOYLWSPRING] = {
+	//$Name Yellow Holo-Spring
+	//$Sprite SPRYF0
+	//$Category Emergency/Warning Objects
+doomednum = 1142,
+spawnstate = S_HOLOYLWSPRING,
+seestate = S_HOLOYLWSPRING2,
+painsound = sfx_spring,
+raisestate = S_HOLOYLWSPRING2,
+radius = 20*FRACUNIT,
+height = 16*FRACUNIT,
+mass = 20*FRACUNIT,
+flags = MF_SOLID|MF_SPRING
+}
+
+mobjinfo[MT_HOLOREDSPRING] = {
+	//$Name Red Holo-Spring
+	//$Sprite SPRRF0
+	//$Category Emergency/Warning Objects
+doomednum = 1143,
+spawnstate = S_HOLOREDSPRING,
+seestate = S_HOLOREDSPRING2,
+painsound = sfx_spring,
+raisestate = S_HOLOREDSPRING2,
+radius = 20*FRACUNIT,
+height = 16*FRACUNIT,
+mass = 32*FRACUNIT,
+flags = MF_SOLID|MF_SPRING
+}
+
+mobjinfo[MT_HBLUDIAG] = {
+	//$Name Diagonal Blue Holo-Spring
+	//$Sprite SPRBF0
+	//$Category Emergency/Warning Objects
+doomednum = 1144,
+spawnstate = S_HBDIAG1,
+seestate = S_HBDIAG2,
+painsound = sfx_spring,
+raisestate = S_HBDIAG2,
+radius = 16*FRACUNIT,
+height = 16*FRACUNIT,
+mass = 11*FRACUNIT,
+damage = 11*FRACUNIT,
+flags = MF_SOLID|MF_SPRING
+}
+
+mobjinfo[MT_HYLWDIAG] = {
+	//$Name Diagonal Yellow Holo-Spring
+	//$Sprite SPRYF0
+	//$Category Emergency/Warning Objects
+doomednum = 1145,
+spawnstate = S_HYDIAG1,
+seestate = S_HYDIAG2,
+painsound = sfx_spring,
+raisestate = S_HYDIAG2,
+radius = 16*FRACUNIT,
+height = 16*FRACUNIT,
+mass = 20*FRACUNIT,
+damage = 20*FRACUNIT,
+flags = MF_SOLID|MF_SPRING
+}
+
+mobjinfo[MT_HREDDIAG] = {
+	//$Name Diagonal Red Holo-Spring
+	//$Sprite SPRRF0
+	//$Category Emergency/Warning Objects
+doomednum = 1146,
+spawnstate = S_HRDIAG1,
+seestate = S_HRDIAG2,
+painsound = sfx_spring,
+raisestate = S_HRDIAG2,
+radius = 16*FRACUNIT,
+height = 16*FRACUNIT,
+mass = 32*FRACUNIT,
+damage = 32*FRACUNIT,
+flags = MF_SOLID|MF_SPRING
+}
+
+
+local function HoloFlicker(m)
+	m.renderflags = RF_FULLBRIGHT
+	m.blendmode = AST_ADD
+	if leveltime & 2
+		m.frame = $ &~ FF_TRANS20
+	else
+		m.frame = $|FF_TRANS20
+	end
+end
+
+local function HoloSpring(m,mt)
+
+	HoloFlicker(m)
+
+	if multiplayer or splitscreen -- will Always spawn in multiplayer regardless.
+	or (FixedAngle(m.spawnpoint.angle)>>FRACBITS <= 0) -- Always spawn when there's 0 rotation loops.
+	then return end
+
+--Use rotation loops in binary to select characters that the spring spawns for.
+-- Only account for the 6 base characters in SRB2
+	if	(players[0].mo.skin == "sonic" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 1)		-- 1 - Sonic
+	or	(players[0].mo.skin == "tails" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 2)		-- 2 - Tails
+	or 	(players[0].mo.skin == "knuckles" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 4) 	-- 4 - Knuckles
+	or 	(players[0].mo.skin == "amy" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 8) 		-- 8 - Amy
+	or 	(players[0].mo.skin == "fang" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 16)		-- 16 - Fang
+	or 	(players[0].mo.skin == "metalsonic" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 32) -- 32 - Metal
+--  Characters beyond the default 6 will always have the springs spawn.
+-- If you were to want a spring to only spawn for Amy & Fang, you would set 24 Rotation loops on the Map Object using Middle Click.
+
+		m.flags = MF_SCENERY
+		m.flags2 = MF2_DONTDRAW
+	else
+		m.flags = mobjinfo[m.type].flags
+		m.flags2 = 0
+		HoloFlicker(m)	
+	end
+end
+
+
+addHook("MobjThinker", HoloSpring, MT_HOLOBLUSPRING)
+addHook("MobjThinker", HoloSpring, MT_HOLOYLWSPRING)
+addHook("MobjThinker", HoloSpring, MT_HOLOREDSPRING)
+
+
+addHook("MobjThinker", HoloSpring, MT_HBLUDIAG)
+addHook("MobjThinker", HoloSpring, MT_HYLWDIAG)
+addHook("MobjThinker", HoloSpring, MT_HREDDIAG)
+
+
