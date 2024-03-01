@@ -69,3 +69,4 @@ Texture	MDIFWRK3 	Range	MDIFWRK4 	Tics 4
 
 Flat	RROCK05 	Range	RROCK08 	Tics 4
 Flat	OWATER0 	Range	OWATER7 	Tics 8
+Flat	D1WATER1	Range	D1WATER4	Tics 8
