@@ -18,6 +18,7 @@ NoSSMusic = 1
 PrecutsceneNum = 40
 Weather = 0
 palette = 1032
+Lua.TPEra = XMAS
 Lua.TPHub = GZ:1
 
 
@@ -40,6 +41,7 @@ hidden = 1
 PrecutsceneNum = 8
 Weather = 0
 palette = 1032
+Lua.TPEra = DEMO1
 Lua.TPHub = GZ:2
 
 Level 318
@@ -57,6 +59,7 @@ hidden = 1
 PrecutsceneNum = 9
 Weather = 0
 palette = 1032
+Lua.TPEra = DEMO23
 Lua.TPHub = GZ:5
 
 Level 319
@@ -73,6 +76,7 @@ RecordAttack = 0
 PrecutsceneNum = 10
 hidden = 1
 palette = 1032
+Lua.TPEra = DEMO23
 Lua.TPHub = GZ:6
 
 Level 320
@@ -92,6 +96,7 @@ PrecutsceneNum = 11
 BonusType = Boss
 WarningTitle = true
 palette = 1032
+Lua.TPEra = DEMO4
 Lua.TPHub = GZ:7
 
 Level 321
@@ -109,6 +114,7 @@ RecordAttack = 0
 PrecutsceneNum = 12
 hidden = 1
 palette = 1032
+Lua.TPEra = DEMO4
 Lua.TPHub = GZ:8
 
 Level 322
@@ -126,6 +132,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 13
 palette = 1032
+Lua.TPEra = DEMO4
 Lua.TPHub = GZ:9
 
 
@@ -147,6 +154,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 14
+Lua.TPEra = 1.04
 Lua.TPHub = GZ:10
 
 Level G8
@@ -163,6 +171,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 15
+Lua.TPEra = 1.08
 Lua.TPHub = GZ:11
 
 Level 325
@@ -179,6 +188,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 16
+Lua.TPEra = 1.08
 Lua.TPHub = GZ:12
 
 Level 326
@@ -195,6 +205,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 18
+Lua.TPEra = 1.09.4
 Lua.TPHub = GZ:15
 
 Level GB
@@ -211,6 +222,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 19
+Lua.TPEra = 1.09.4
 Lua.TPHub = GZ:14
 
 Level GC
@@ -228,6 +240,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 45
+Lua.TPEra = 1.09.4
 Lua.TPHub = GZ:13
 
 
@@ -344,6 +357,7 @@ hidden = 1
 PrecutsceneNum = 48
 Weather = 0
 palette = 1032
+Lua.TPEra = DEMO1
 Lua.TPHub = GZ:3
 
 Level GH
@@ -361,6 +375,7 @@ hidden = 1
 PrecutsceneNum = 49
 Weather = 0
 palette = 1032
+Lua.TPEra = DEMO1
 Lua.TPHub = GZ:4
 
 
@@ -382,6 +397,7 @@ SkyNum = 17
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 18
+Lua.TPEra = 1.09.4
 Lua.TPHub = GZ:24
 
 Level GL
@@ -398,6 +414,7 @@ SkyNum = 17
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 19
+Lua.TPEra = 1.09.4
 Lua.TPHub = GZ:25
 
 Level GM
@@ -415,6 +432,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 45
+Lua.TPEra = 1.09.4
 Lua.TPHub = GZ:26
 
 
@@ -434,6 +452,7 @@ SkyNum = 2
 RecordAttack = false
 hidden = 1
 PrecutsceneNum = 101
+Lua.TPEra = 2.1
 Lua.TPHub = GZ:21
 
 Level GP
@@ -448,6 +467,7 @@ SkyNum = 2
 RecordAttack = false
 hidden = 1
 PrecutsceneNum = 102
+Lua.TPEra = 2.1
 Lua.TPHub = GZ:22
 
 Level GQ
@@ -463,6 +483,7 @@ RecordAttack = false
 hidden = 1
 BonusType = Boss
 PrecutsceneNum = 103
+Lua.TPEra = 2.1
 Lua.TPHub = GZ:23
 
 

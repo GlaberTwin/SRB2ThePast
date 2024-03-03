@@ -139,7 +139,11 @@ local function SetItemSkin(m,mt,list)
 		end
 	else
 		m.itemskin = 0
-		SRB2TP_UpdateObject(m)
+		if leveltime == 0 	-- Only update once at map load.
+			SRB2TP_UpdateObject(m)
+		else				-- If any are spawned after that update them.
+			SRB2TP_UpdateObject(m,true)
+		end
 		m.state = mobjinfo[m.type].spawnstate
 	end
 end
