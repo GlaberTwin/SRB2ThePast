@@ -589,39 +589,31 @@ rawset(_G, "SRB2TP_UpdateObject", function(mo, renew)
 		end
 		SRB2TPE_UniqueObjects[#SRB2TPE_UniqueObjects+1]=mo.type
 	end
-
 	local eraInfo = SRB2TP_GetEraInfo()
 	
-	--for motype, moinfo in pairs(SRB2TP_ERA_INFO["DEFAULT"].mobjs)
-		--if motype != mo.type then continue end
-		if not (eraInfo and eraInfo.mobjs and eraInfo.mobjs[mo.type]) then
-			--for index, newitem in pairs(moinfo) do
-			for index, newitem in pairs(SRB2TP_ERA_INFO["DEFAULT"].mobjs[mo.type]) do
-				local changeditem = newitem
-				if type(changeditem) == "string" then
-					if not CheckFreeslot(changeditem) then continue end
-					changeditem = _G[$]
-				end
-				mobjinfo[motype][index] = changeditem
-			end
-			--continue
-		end
-		
-		local newmoinfo = eraInfo.mobjs[mo.type]
-		
-		--for index, newitem in pairs(moinfo) do
+	if not (eraInfo and eraInfo.mobjs and eraInfo.mobjs[mo.type]) then
 		for index, newitem in pairs(SRB2TP_ERA_INFO["DEFAULT"].mobjs[mo.type]) do
+			local changeditem = newitem
+			if type(changeditem) == "string" then
+				if not CheckFreeslot(changeditem) then continue end
+				changeditem = _G[$]
+			end
+			mobjinfo[mo.type][index] = changeditem
+		end
+	else
+		local newmoinfo = eraInfo.mobjs[mo.type]
+		for index, newitem in pairs(newmoinfo) do
 			local changeditem = newitem
 			if newmoinfo[index] then changeditem = newmoinfo[index] end
 			if type(changeditem) == "string" then
 				if not CheckFreeslot(changeditem) then continue end
 				changeditem = _G[$]
 			end
--- 			print(motype)
---			print(changeditem)
+			--print(motype)
+			--print(changeditem)
 			mobjinfo[mo.type][index] = changeditem
 		end
-	--end
+	end
 end
 )
 

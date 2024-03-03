@@ -29,13 +29,19 @@ local function RingItemSkin(m,mt,list)
 --		m.itemskin = mt.args[2]	-- Uses 'Argument 3' to accuont for ringboxes as well.
 --	end
 
-	if m.itemskin
+	if m.itemskin != 0
 		m.skintable = list
 		if m.state != list[min(m.itemskin,#list)][1]
 			m.state = list[min(m.itemskin,#list)][1]
 		end
 	else
-		SRB2TP_UpdateObject(m)
+
+		if leveltime == 0 	-- Only update once at map load.
+			SRB2TP_UpdateObject(m)
+		else				-- If any are spawned after that update them.
+			SRB2TP_UpdateObject(m,true)
+		end
+
 		m.state = mobjinfo[m.type].spawnstate
 	end
 end
@@ -94,6 +100,9 @@ addHook("MobjThinker", function(m)
 		if m.itemskin
 			m.skintable = ringskins
 			m.state = ringskins[m.itemskin][1]
+		else
+			SRB2TP_UpdateObject(m, true)
+			m.state = mobjinfo[m.type].spawnstate
 		end
 		m.flung = true
 		table.remove(m.target.player.ringtable,1)
