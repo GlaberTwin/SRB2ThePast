@@ -2,7 +2,7 @@
 
 freeslot(
 	-- Sprites
-	"SPR_OJTF",
+-- 	"SPR_OJTF", -- This is already freeslotted by LUA_JETF
 	-- Objects
 	"MT_OLDJETFUME1",
 	-- States

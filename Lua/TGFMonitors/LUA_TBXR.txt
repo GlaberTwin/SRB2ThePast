@@ -55,7 +55,7 @@ mobjinfo[MT_TGFBOX_RING] = {
 	--$Arg1 Explosion Size
 	--$Arg1Type 11
 	--$Arg1Enum {0 = "Small"; 1 = "Large";}
-	doomednum = 510,
+	doomednum = 518,
 	spawnstate = S_TGFBOX_RING_IDLE1,
 	spawnhealth = 1,
 	reactiontime = 10,
