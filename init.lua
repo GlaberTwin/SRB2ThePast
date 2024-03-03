@@ -297,7 +297,17 @@ dofile("Dialogues/Museum/MuseumBadniks.lua")
 dofile("Dialogues/Museum/MuseumHidden.lua")
 dofile("Dialogues/Museum/TrueEnding.lua") -- It's... technically in the museum, I guess? It *takes place* there at least
 
-
+-- SRB2TP - TPEra init.lua
+-- Copy the below chunk of code into SRB2TP's init.lua
+-- Where exactly it should go, I'm still not sure of yet
+dofile("TPEra/TPEra.Defines.lua")
+--dofile("TPEra/TPEraWeaponRings.lua")
+--dofile("TPEra/TPEraShields.lua")
+dofile("TPEra/TPEra.Main.lua")
+dofile("TPEra/TPEra.Tweaks.lua")
+dofile("TPEra/TPEra.Rings.lua")
+dofile("TPEra/TPEra.Springs.lua")
+dofile("TPEra/TPEra.StarPosts.lua")
 
 
 
