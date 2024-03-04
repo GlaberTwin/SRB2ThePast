@@ -1337,7 +1337,7 @@ SelectHeading = 2.1 era
 Music = ORBHAN
 TypeOfLevel = Match,Tag
 NextLevel = JG
-SkyNum = 22
+SkyNum = 41
 
 Level JG
 LevelName = Frost Columns

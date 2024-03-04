@@ -592,10 +592,10 @@ SelectHeading = 2.1 era
 
 Level L7
 LevelName = Twisted Terminal
-Music = ERZ220
+Music = ERZ221
 TypeOfLevel = CTF
 NextLevel = L8
-SkyNum = 22
+SkyNum = 41
 Subtitle = 2.1-2.1.25
 SelectHeading = 2.1 era
 
