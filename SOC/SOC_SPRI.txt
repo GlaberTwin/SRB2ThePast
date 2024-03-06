@@ -1,4 +1,4 @@
-#Invisable spring
+//Invisable spring
 FREESLOT
 MT_INVSPRING
 S_INVSPRING

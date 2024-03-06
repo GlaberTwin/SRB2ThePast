@@ -403,9 +403,9 @@ addHook("MobjCollide", SpringItemSkin, MT_REDDIAG)
 addHook("MapThingSpawn", function(m,mt)
 if m.info.doomednum >= 546
 and m.info.doomednum <= 549
-m.colorized = true
-m.color = SKINCOLOR_CRIMSON
-m.renderflags = RF_FULLBRIGHT
+//m.colorized = true
+//m.color = SKINCOLOR_CRIMSON
+//m.renderflags = RF_FULLBRIGHT
 print("Thing #"..#mt.." is using a deprecated spring object ("..m.info.doomednum.."); replace with regular spring equivalent.")
 end
 end)
