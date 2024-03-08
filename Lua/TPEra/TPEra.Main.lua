@@ -598,7 +598,7 @@ rawset(_G, "SRB2TP_UpdateObject", function(mo, renew)
 				if not CheckFreeslot(changeditem) then continue end
 				changeditem = _G[$]
 			end
-			mobjinfo[mo.type][index] = changeditem
+			mo.info[index] = changeditem
 		end
 	else
 		local newmoinfo = eraInfo.mobjs[mo.type]
@@ -611,7 +611,7 @@ rawset(_G, "SRB2TP_UpdateObject", function(mo, renew)
 			end
 			--print(motype)
 			--print(changeditem)
-			mobjinfo[mo.type][index] = changeditem
+			mo.info[index] = changeditem
 		end
 	end
 end
