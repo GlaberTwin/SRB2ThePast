@@ -7,7 +7,8 @@
 --Skin # {Idle,Spin,Flashing} --
 --------------------------------
 local starpost = {
-{S_FD_STARPOST_IDLE,	S_FD_STARPOST_SPIN,		S_FD_STARPOST_FLASH} //1 - Old
+{S_STARPOST_IDLE,		S_STARPOST_SPIN,		S_STARPOST_FLASH},		//1 - 2.2
+{S_FD_STARPOST_IDLE,	S_FD_STARPOST_SPIN,		S_FD_STARPOST_FLASH} 	//2 - Final Demo
 }
 
 ----------------
@@ -25,7 +26,9 @@ addHook("MapLoad", function() --Starpost Skins Map Load
 	starposts = {} -- Clear Table on Map Load
 	for m in mobjs.iterate() 
 		if m.type == MT_STARPOST
-			if m.spawnpoint.options & MTF_EXTRA -- Enable Starpost skins if Extra is ticked. and rotations aren't negative.
+			if udmf
+				m.itemskin = m.spawnpoint.args[2]
+			elseif m.spawnpoint.options & MTF_EXTRA -- Enable Starpost skins if Extra is ticked. and rotations aren't negative.
 
 				if m.spawnpoint.options & MTF_AMBUSH -- If Ambush is ticked, use extrainfo for post order, and rotation for skins
 					m.itemskin = (FixedAngle(m.spawnpoint.angle)>>FRACBITS)

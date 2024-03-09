@@ -53,9 +53,6 @@ states[S_HRDIAG7] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 
 states[S_HRDIAG8] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 1, nil, 1, 1, S_HRDIAG1}
 
 mobjinfo[MT_HOLOBLUSPRING] = {
-	//$Name Blue Holo-Spring
-	//$Sprite SPRBF0
-	//$Category Emergency/Warning Objects
 doomednum = 1141,
 spawnstate = S_HOLOBLUSPRING,
 seestate = S_HOLOBLUSPRING2,
@@ -68,9 +65,6 @@ flags = MF_SOLID|MF_SPRING
 }
 
 mobjinfo[MT_HOLOYLWSPRING] = {
-	//$Name Yellow Holo-Spring
-	//$Sprite SPRYF0
-	//$Category Emergency/Warning Objects
 doomednum = 1142,
 spawnstate = S_HOLOYLWSPRING,
 seestate = S_HOLOYLWSPRING2,
@@ -83,9 +77,6 @@ flags = MF_SOLID|MF_SPRING
 }
 
 mobjinfo[MT_HOLOREDSPRING] = {
-	//$Name Red Holo-Spring
-	//$Sprite SPRRF0
-	//$Category Emergency/Warning Objects
 doomednum = 1143,
 spawnstate = S_HOLOREDSPRING,
 seestate = S_HOLOREDSPRING2,
@@ -98,9 +89,6 @@ flags = MF_SOLID|MF_SPRING
 }
 
 mobjinfo[MT_HBLUDIAG] = {
-	//$Name Diagonal Blue Holo-Spring
-	//$Sprite SPRBF0
-	//$Category Emergency/Warning Objects
 doomednum = 1144,
 spawnstate = S_HBDIAG1,
 seestate = S_HBDIAG2,
@@ -114,9 +102,6 @@ flags = MF_SOLID|MF_SPRING
 }
 
 mobjinfo[MT_HYLWDIAG] = {
-	//$Name Diagonal Yellow Holo-Spring
-	//$Sprite SPRYF0
-	//$Category Emergency/Warning Objects
 doomednum = 1145,
 spawnstate = S_HYDIAG1,
 seestate = S_HYDIAG2,
@@ -130,9 +115,6 @@ flags = MF_SOLID|MF_SPRING
 }
 
 mobjinfo[MT_HREDDIAG] = {
-	//$Name Diagonal Red Holo-Spring
-	//$Sprite SPRRF0
-	//$Category Emergency/Warning Objects
 doomednum = 1146,
 spawnstate = S_HRDIAG1,
 seestate = S_HRDIAG2,
@@ -156,22 +138,32 @@ local function HoloFlicker(m)
 	end
 end
 
-local function HoloSpring(m,mt)
+local function HoloSpring(m)
 
 	HoloFlicker(m)
 
-	if multiplayer or splitscreen -- will Always spawn in multiplayer regardless.
-	or (FixedAngle(m.spawnpoint.angle)>>FRACBITS <= 0) -- Always spawn when there's 0 rotation loops.
-	then return end
 
+	local skinCheck = FixedAngle(m.spawnpoint.angle)>>FRACBITS
+	if udmf
+		if m.info.doomednum < 1145
+			skinCheck = m.spawnpoint.args[0]
+		else
+			skinCheck = m.spawnpoint.args[1] //Diagonals have an Arg beforehand, so offset
+		end	
+	end
+
+	if multiplayer or splitscreen -- will Always spawn in multiplayer regardless.
+	or (skinCheck <= 0) -- Always spawn when there's 0 rotation loops.
+	then return end
+	
 --Use rotation loops in binary to select characters that the spring spawns for.
 -- Only account for the 6 base characters in SRB2
-	if	(players[0].mo.skin == "sonic" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 1)		-- 1 - Sonic
-	or	(players[0].mo.skin == "tails" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 2)		-- 2 - Tails
-	or 	(players[0].mo.skin == "knuckles" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 4) 	-- 4 - Knuckles
-	or 	(players[0].mo.skin == "amy" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 8) 		-- 8 - Amy
-	or 	(players[0].mo.skin == "fang" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 16)		-- 16 - Fang
-	or 	(players[0].mo.skin == "metalsonic" and !FixedAngle(m.spawnpoint.angle)>>FRACBITS & 32) -- 32 - Metal
+	if	(players[0].mo.skin == "sonic" and !skinCheck & 1)		-- 1 - Sonic
+	or	(players[0].mo.skin == "tails" and !skinCheck & 2)		-- 2 - Tails
+	or 	(players[0].mo.skin == "knuckles" and !skinCheck & 4) 	-- 4 - Knuckles
+	or 	(players[0].mo.skin == "amy" and !skinCheck & 8) 		-- 8 - Amy
+	or 	(players[0].mo.skin == "fang" and !skinCheck & 16)		-- 16 - Fang
+	or 	(players[0].mo.skin == "metalsonic" and !skinCheck & 32) -- 32 - Metal
 --  Characters beyond the default 6 will always have the springs spawn.
 -- If you were to want a spring to only spawn for Amy & Fang, you would set 24 Rotation loops on the Map Object using Middle Click.
 
@@ -184,6 +176,17 @@ local function HoloSpring(m,mt)
 	end
 end
 
+local function DiagSetup(m,mt) -- MapThing spawn setup for Regular Diagonal Springs recreated for Holo-Springs
+
+		m.angle = FixedAngle(mt.angle << FRACBITS)
+		if mt.args[0] & 1
+			m.flags = $|MF_NOGRAVITY
+		end
+
+		if mt.args[0] & 2
+			m.angle = $+ANGLE_22h
+		end
+end
 
 addHook("MobjThinker", HoloSpring, MT_HOLOBLUSPRING)
 addHook("MobjThinker", HoloSpring, MT_HOLOYLWSPRING)
@@ -194,4 +197,6 @@ addHook("MobjThinker", HoloSpring, MT_HBLUDIAG)
 addHook("MobjThinker", HoloSpring, MT_HYLWDIAG)
 addHook("MobjThinker", HoloSpring, MT_HREDDIAG)
 
-
+addHook("MapThingSpawn", DiagSetup, MT_HBLUDIAG)
+addHook("MapThingSpawn", DiagSetup, MT_HYLWDIAG)
+addHook("MapThingSpawn", DiagSetup, MT_HREDDIAG)
