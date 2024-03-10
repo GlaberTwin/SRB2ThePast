@@ -1,0 +1,237 @@
+#Zone Builder metadata for Lua stuff to include both Binary and UDMF arguments
+
+################
+###ITEM SKINS###
+################
+
+##RING##
+
+Thing MT_RING
+#$Name "Ring"
+#$Sprite RINGA0
+#$Category Rings and Weapon Panels
+#$Arrow
+#$ParameterText Skin
+#$Flags1Text "Count as Sphere"
+#$Flags8Text Float
+#$Arg1 "Skin"
+#$Arg1Tooltip "Affects how a Ring appears.\nThe default uses the map's defined Era or 2.2 otherwise."
+#$Arg1Type 11
+#$Arg1Enum {0="Default"; 1="2.2"; 2="Demo"; 3="Halloween"; 4="SD2 Health"; 5="SD2 Armor"; 6="TGF";}
+#$Arg2 "SS Sphere"
+#$Arg2Tooltip "Decrement the Sphere Counter in Special Stages as Rings were used instead of Spheres in older versions."
+#$Arg2Type 11
+#$Arg2Enum falsetrue
+MAPTHINGNUM = 300
+RADIUS = 16*FRACUNIT
+HEIGHT = 24*FRACUNIT
+
+
+##SPRINGS##
+
+Thing MT_YELLOWSPRING
+#$Name "Yellow Spring"
+#$Sprite SPRYA0
+#$Category Springs and Fans
+#$Arrow
+#$ParameterText Era
+#$Arg0 "Era"
+#$Arg0Tooltip "Affects how this Spring appears and behaves.\nThe default uses the map's defined Era or 2.2 otherwise."
+#$Arg0Type 11
+#$Arg0Enum {0="Default"; 1="2.2"; 2="Final Demo"; 3="Xmas";}
+MAPTHINGNUM = 550
+RADIUS = 20*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_REDSPRING
+#$Name "Red Spring"
+#$Sprite SPRRA0
+#$Category Springs and Fans
+#$Arrow
+#$ParameterText Era
+#$Arg0 "Era"
+#$Arg0Tooltip "Affects how this Spring appears and behaves.\nThe default uses the map's defined Era or 2.2 otherwise."
+#$Arg0Type 11
+#$Arg0Enum {0="Default"; 1="2.2"; 2="Final Demo"; 3="Xmas";}
+MAPTHINGNUM = 551
+RADIUS = 20*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_BLUESPRING
+#$Name "Blue Spring"
+#$Sprite SPRBA0
+#$Category Springs and Fans
+#$Arrow
+#$ParameterText Era
+#$Arg0 "Era"
+#$Arg0Tooltip "Affects how this Spring appears.\nThe default uses the map's defined Era or 2.2 otherwise."
+#$Arg0Type 11
+#$Arg0Enum {0="Default"; 1="2.2"; 2="Final Demo";}
+MAPTHINGNUM = 552
+RADIUS = 20*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_YELLOWDIAG
+#$Name "Diagonal Yellow Spring"
+#$Sprite YSPRD2
+#$Category Springs and Fans
+#$Arrow
+#$ParameterText Era
+#$Arg1 "Era"
+#$Arg1Tooltip "Affects how this Spring appears and behaves.\nThe default uses the map's defined Era or 2.2 otherwise."
+#$Arg1Type 11
+#$Arg1Enum {0="Default"; 1="2.2"; 2="Final Demo"; 3="Demo 4"; 4="Demo 1-3"; 5="Xmas";}
+MAPTHINGNUM = 555
+RADIUS = 16*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_REDDIAG
+#$Name "Diagonal Red Spring"
+#$Sprite RSPRD2
+#$Category Springs and Fans
+#$Arrow
+#$ParameterText Era
+#$Arg1 "Era"
+#$Arg1Tooltip "Affects how this Spring appears.\nThe default uses the map's defined Era or 2.2 otherwise."
+#$Arg1Type 11
+#$Arg1Enum {0="Default"; 1="2.2"; 2="Final Demo";}
+MAPTHINGNUM = 556
+RADIUS = 16*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_BLUEDIAG
+#$Name "Diagonal Blue Spring"
+#$Sprite BSPRD2
+#$Category Springs and Fans
+#$Arrow
+#$ParameterText Era
+#$Arg1 "Era"
+#$Arg1Tooltip "Affects how this Spring appears.\nThe default uses the map's defined Era or 2.2 otherwise."
+#$Arg1Type 11
+#$Arg1Enum {0="Default"; 1="2.2"; 2="Final Demo";}
+MAPTHINGNUM = 557
+RADIUS = 16*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+
+##STARPOST##
+
+Thing MT_STARPOST
+#$Name "Star Post"
+#$Sprite STPTA0M0
+#$Category Generic Items & Hazards
+#$Arrow
+#$Flags1Text ENABLE Skins
+#$Flags4Text Respawn at Center
+#$Flags8Text Use Parameter instead of Rotation for Skin
+#$Arg2 "Skin"
+#$Arg2Tooltip "Affects how this Starpost appears.\nThe default uses the map's defined Era or 2.2 otherwise."
+#$Arg2Type 11
+#$Arg2Enum {0="Default"; 1="2.2"; 2="Final Demo";}
+MAPTHINGNUM = 502
+RADIUS = 64*FRACUNIT
+HEIGHT = 80*FRACUNIT
+
+
+
+#######################
+###EMERGENCY OBJECTS###
+#######################
+Thing MT_HOLOYLWSPRING
+#$Name "Yellow Holo-Spring"
+#$Sprite SPRYK0
+#$Category Emergency/Anti-Softlock
+#$Color 12
+#$Arrow
+#$ParameterText Char(s)
+#$Arg0 "Characters"
+#$Arg0Tooltip "This Determines which of the default 6 characters can use this spring.\n If this value is 0, then it will function for every character."
+#$Arg0Type 12
+#$Arg0Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
+MAPTHINGNUM = 1142
+RADIUS = 20*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_HOLOREDSPRING
+#$Name "Red Holo-Spring"
+#$Sprite SPRRK0
+#$Category Emergency/Anti-Softlock
+#$Color 12
+#$Arrow
+#$ParameterText Char(s)
+#$Arg0 "Characters"
+#$Arg0Tooltip "This Determines which of the default 6 characters can use this spring.\n If this value is 0, then it will function for every character."
+#$Arg0Type 12
+#$Arg0Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
+MAPTHINGNUM = 1143
+RADIUS = 20*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_HOLOBLUSPRING
+#$Name "Blue Holo-Spring"
+#$Sprite SPRBK0
+#$Category Emergency/Anti-Softlock
+#$Color 12
+#$Arrow
+#$ParameterText Char(s)
+#$Arg0 "Characters"
+#$Arg0Tooltip "This Determines which of the default 6 characters can use this spring.\n If this value is 0, then it will function for every character."
+#$Arg0Type 12
+#$Arg0Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
+MAPTHINGNUM = 1141
+RADIUS = 20*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_HYLWDIAG
+#$Name "Diagonal Yellow Holo-Spring"
+#$Sprite YSPRK2
+#$Category Emergency/Anti-Softlock
+#$Color 12
+#$Arrow
+#$ParameterText Char(s)
+#$Arg0 "Flags"
+#$Arg0Type 12
+#$Arg0Enum {1="Ignore gravity"; 2="Rotate 22.5° CCW";}
+#$Arg1 "Characters"
+#$Arg1Tooltip "This Determines which of the default 6 characters can use this spring.\n If this value is 0, then it will function for every character."
+#$Arg1Type 12
+#$Arg1Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
+MAPTHINGNUM = 1145
+RADIUS = 16*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_HREDDIAG
+#$Name "Diagonal Red Holo-Spring"
+#$Sprite RSPRK2
+#$Category Emergency/Anti-Softlock
+#$Color 12
+#$Arrow
+#$ParameterText Char(s)
+#$Arg0 "Flags"
+#$Arg0Type 12
+#$Arg0Enum {1="Ignore gravity"; 2="Rotate 22.5° CCW";}
+#$Arg1 "Characters"
+#$Arg1Tooltip "This Determines which of the default 6 characters can use this spring.\n If this value is 0, then it will function for every character."
+#$Arg1Type 12
+#$Arg1Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
+MAPTHINGNUM = 1146
+RADIUS = 16*FRACUNIT
+HEIGHT = 16*FRACUNIT
+
+Thing MT_HBLUDIAG
+#$Name "Diagonal Blue Holo-Spring"
+#$Sprite BSPRK2
+#$Category Emergency/Anti-Softlock
+#$Color 12
+#$Arrow
+#$ParameterText Char(s)
+#$Arg0 "Flags"
+#$Arg0Type 12
+#$Arg0Enum {1="Ignore gravity"; 2="Rotate 22.5° CCW";}
+#$Arg1 "Characters"
+#$Arg1Tooltip "This Determines which of the default 6 characters can use this spring.\n If this value is 0, then it will function for every character."
+#$Arg1Type 12
+#$Arg1Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
+MAPTHINGNUM = 1144
+RADIUS = 16*FRACUNIT
+HEIGHT = 16*FRACUNIT

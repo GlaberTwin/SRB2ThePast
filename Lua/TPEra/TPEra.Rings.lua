@@ -7,11 +7,12 @@
 -- Skin # {Spawn,Death} --
 --------------------------
 local ringskins = { 
-{S_OLD_RING, 		S_OLD_SPARK1}, 	//1 - XMAS-2.1
-{S_HALLORING,		S_DOOMPICKUP}, 	//2 - Ween
-{S_SONICDOOM_RINGH, S_DOOMPICKUP}, 	//3 - SD2 Health
-{S_SONICDOOM_RINGA, S_DOOMPICKUP}, 	//4 - SD2 Armor
-{S_TGF_RING,		S_TGF_SPARK}	//5 - TGF
+{S_RING,			S_SPRK1},		//1 - 2.2
+{S_OLD_RING, 		S_OLD_SPARK1}, 	//2 - XMAS-2.1
+{S_HALLORING,		S_DOOMPICKUP}, 	//3 - Ween
+{S_SONICDOOM_RINGH, S_DOOMPICKUP}, 	//4 - SD2 Health
+{S_SONICDOOM_RINGA, S_DOOMPICKUP}, 	//5 - SD2 Armor
+{S_TGF_RING,		S_TGF_SPARK}	//6 - TGF
 }
 
 local teamringskins = { 
@@ -21,13 +22,17 @@ local teamringskins = {
 ----------------
 --Do The Stuff--
 ----------------
+
 local function RingItemSkin(m,mt,list)
-	if m.itemskin == nil or m.itemskin == 0
-		m.itemskin = mt.extrainfo
+	
+	local itemskin = mt.extrainfo
+	if udmf
+		itemskin = mt.args[1]
 	end
---	if udmf and not m.itemskin -- UDMF Support for those who prefer, but only if you aren't using the Binary rotation system.
---		m.itemskin = mt.args[2]	-- Uses 'Argument 3' to accuont for ringboxes as well.
---	end
+
+	if m.itemskin == nil or m.itemskin == 0
+		m.itemskin = itemskin
+	end
 
 	if m.itemskin != 0
 		m.skintable = list

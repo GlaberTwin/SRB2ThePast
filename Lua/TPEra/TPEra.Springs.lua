@@ -16,10 +16,10 @@ local DEMO4 = 4
 
 //BLUE
 local bluespring = {
-/*//2.2
+//2.2
 {S_BLUESPRING, S_BLUESPRING2,
 11*FRACUNIT, 0,
-sfx_spring, 0},*/
+sfx_spring, 0},
 
 //FINALDEMO-2.1
 {S_OLD_BLUESPRING, S_OLD_BLUESPRING2,
@@ -28,10 +28,10 @@ sfx_s24c, 0}
 }
 
 local bluediag = {
-/*//2.2
+//2.2
 {S_BDIAG1, S_BDIAG2,
 11*FRACUNIT, 11*FRACUNIT,
-sfx_spring, 0},*/
+sfx_spring, 0},
 
 //2.0-2.1
 {S_OLD_BDIAG1, S_OLD_BDIAG2,
@@ -44,10 +44,10 @@ sfx_s24c, 0}
 
 //YELLOW
 local yellowspring = {
-/*//2.2
+//2.2
 {S_YELLOWSPRING, S_YELLOWSPRING2, 
 20*FRACUNIT, 0,
-sfx_spring, 0},*/
+sfx_spring, 0},
 
 //FINALDEMO-2.1
 {S_OLD_YELLOWSPRING, S_OLD_YELLOWSPRING2, 
@@ -61,10 +61,10 @@ sfx_s24c, DEMO4},
 }
 
 local yellowdiag = {
-/*//2.2
+//2.2
 {S_YDIAG1, S_YDIAG2, 
 20*FRACUNIT, 20*FRACUNIT, 
-sfx_spring, 0},*/
+sfx_spring, 0},
 
 //FINALDEMO-2.1
 {S_OLD_YDIAG1, S_OLD_YDIAG2, 
@@ -92,10 +92,10 @@ sfx_s24c, XMAS}
 
 //RED
 local redspring = {
-/*//2.2
+//2.2
 {S_REDSPRING, S_REDSPRING2, 
 32*FRACUNIT, 0,
-sfx_spring, 0},*/
+sfx_spring, 0},
 
 //FINALDEMO-2.1
 {S_OLD_REDSPRING, S_OLD_REDSPRING2, 
@@ -109,10 +109,10 @@ sfx_s24c, DEMO4},
 }
 
 local reddiag = {
-/*//2.2
+//2.2
 {S_RDIAG1, S_RDIAG2, 
 32*FRACUNIT, 32*FRACUNIT, 
-sfx_spring, 0},*/
+sfx_spring, 0},
 
 //FINALDEMO-2.1
 {S_OLD_RDIAG1, S_OLD_RDIAG2, 
@@ -124,13 +124,19 @@ sfx_s24c, 0},
 --Do The Stuff--
 ----------------
 local function SetItemSkin(m,mt,list)
-	if m.itemskin == nil or m.itemskin == 0
-		m.itemskin = mt.extrainfo
+
+	local itemskin = mt.extrainfo
+	if udmf
+		if m.info.doomednum < 555
+			itemskin = mt.args[0]
+		else
+			itemskin = mt.args[1] //Diagonals have an Arg beforehand, so offset
+		end
 	end
 
---	if udmf and not m.itemskin -- UDMF Support for those who prefer, but only if you aren't using the Binary rotation system.
---		m.itemskin = mt.args[2]	-- Uses 'Argument 3' to accuont for ringboxes as well.
---	end
+	if m.itemskin == nil or m.itemskin == 0
+		m.itemskin = itemskin
+	end
 
 	if m.itemskin and m.itemskin <= #list
 		m.skintable = list
