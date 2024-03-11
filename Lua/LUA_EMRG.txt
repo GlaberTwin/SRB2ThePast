@@ -52,6 +52,8 @@ states[S_HRDIAG6] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|O, 
 states[S_HRDIAG7] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|Q, 1, nil, 1, 1, S_HRDIAG8}
 states[S_HRDIAG8] = {SPR_RSPR, FF_ADD|FF_FULLBRIGHT|FF_ANIMATE|FF_GLOBALANIM|S, 1, nil, 1, 1, S_HRDIAG1}
 
+-- The object definitions have been moved to SOC_ZBMD until Zone Builder is updated to properly handle ArgNTooltip
+/*
 mobjinfo[MT_HOLOBLUSPRING] = {
 doomednum = 1141,
 spawnstate = S_HOLOBLUSPRING,
@@ -126,6 +128,7 @@ mass = 32*FRACUNIT,
 damage = 32*FRACUNIT,
 flags = MF_SOLID|MF_SPRING
 }
+*/
 
 
 local function HoloFlicker(m)

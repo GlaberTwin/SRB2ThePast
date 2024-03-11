@@ -149,8 +149,14 @@ Thing MT_HOLOYLWSPRING
 #$Arg0Type 12
 #$Arg0Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
 MAPTHINGNUM = 1142
+SPAWNSTATE = S_HOLOYLWSPRING
+SEESTATE = S_HOLOYLWSPRING2
+PAINSOUND = sfx_spring
+RAISESTATE = S_HOLOYLWSPRING2
 RADIUS = 20*FRACUNIT
 HEIGHT = 16*FRACUNIT
+MASS = 20*FRACUNIT
+FLAGS = MF_SOLID|MF_SPRING
 
 Thing MT_HOLOREDSPRING
 #$Name "Red Holo-Spring"
@@ -164,8 +170,14 @@ Thing MT_HOLOREDSPRING
 #$Arg0Type 12
 #$Arg0Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
 MAPTHINGNUM = 1143
+SPAWNSTATE = S_HOLOREDSPRING
+SEESTATE = S_HOLOREDSPRING2
+PAINSOUND = sfx_spring
+RAISESTATE = S_HOLOREDSPRING2
 RADIUS = 20*FRACUNIT
 HEIGHT = 16*FRACUNIT
+MASS = 32*FRACUNIT
+FLAGS = MF_SOLID|MF_SPRING
 
 Thing MT_HOLOBLUSPRING
 #$Name "Blue Holo-Spring"
@@ -179,8 +191,14 @@ Thing MT_HOLOBLUSPRING
 #$Arg0Type 12
 #$Arg0Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
 MAPTHINGNUM = 1141
+SPAWNSTATE = S_HOLOBLUSPRING
+SEESTATE = S_HOLOBLUSPRING2
+PAINSOUND = sfx_spring
+RAISESTATE = S_HOLOBLUSPRING2
 RADIUS = 20*FRACUNIT
 HEIGHT = 16*FRACUNIT
+MASS = 11*FRACUNIT
+FLAGS = MF_SOLID|MF_SPRING
 
 Thing MT_HYLWDIAG
 #$Name "Diagonal Yellow Holo-Spring"
@@ -197,8 +215,15 @@ Thing MT_HYLWDIAG
 #$Arg1Type 12
 #$Arg1Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
 MAPTHINGNUM = 1145
+SPAWNSTATE = S_HYDIAG1
+SEESTATE = S_HYDIAG2
+PAINSOUND = sfx_spring
+RAISESTATE = S_HYDIAG2
 RADIUS = 16*FRACUNIT
 HEIGHT = 16*FRACUNIT
+MASS = 20*FRACUNIT
+damage = 20*FRACUNIT
+FLAGS = MF_SOLID|MF_SPRING
 
 Thing MT_HREDDIAG
 #$Name "Diagonal Red Holo-Spring"
@@ -215,8 +240,15 @@ Thing MT_HREDDIAG
 #$Arg1Type 12
 #$Arg1Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
 MAPTHINGNUM = 1146
+SPAWNSTATE = S_HRDIAG1
+SEESTATE = S_HRDIAG2
+PAINSOUND = sfx_spring
+RAISESTATE = S_HRDIAG2
 RADIUS = 16*FRACUNIT
 HEIGHT = 16*FRACUNIT
+MASS = 32*FRACUNIT
+damage = 32*FRACUNIT
+FLAGS = MF_SOLID|MF_SPRING
 
 Thing MT_HBLUDIAG
 #$Name "Diagonal Blue Holo-Spring"
@@ -233,5 +265,118 @@ Thing MT_HBLUDIAG
 #$Arg1Type 12
 #$Arg1Enum {1="Sonic"; 2="Tails"; 4="Knuckles"; 8="Amy"; 16="Fang"; 32="Metal Sonic";}
 MAPTHINGNUM = 1144
+SPAWNSTATE = S_HBDIAG1
+SEESTATE = S_HBDIAG2
+PAINSOUND = sfx_spring
+RAISESTATE = S_HBDIAG2
 RADIUS = 16*FRACUNIT
 HEIGHT = 16*FRACUNIT
+MASS = 11*FRACUNIT
+damage = 11*FRACUNIT
+FLAGS = MF_SOLID|MF_SPRING
+
+#################
+###RETRO MACES###
+#################
+
+Thing MT_OLDMACEPOINT
+#$Name Old Spinning Mace Spawnpoint
+#$Sprite 21MCD0
+#$Category 2.1 Castle Eggman
+#$Flags1Text 2.0 sprites
+#$Flags4Text No sounds
+#$Flags8Text Double size
+#$AngleText Tag
+#$Arg0 "Number of links"
+#$Arg1 "Maximum speed"
+#$Arg1Tooltip "In fracunits per 0.5 seconds (approximately)."
+#$Arg3 "Speed"
+#$Arg3Tooltip "In fracunits per tic."
+#$Arg4 "Pitch offset"
+#$Arg8 "Flags"
+#$Arg8Type 12
+#$Arg8Enum {1 = "Double size"; 2 = "No sounds"; 4 = "Player-turnable chain"; 8 = "2.0 sprites"; 128 = "No distance check";}
+MAPTHINGNUM = 3104
+SPAWNSTATE = S_INVISIBLE
+SPAWNHEALTH = 1000
+SPEED = 10*FRACUNIT
+RADIUS = 128*FRACUNIT
+HEIGHT = 1*FRACUNIT
+MASS = 10000
+FLAGS = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+
+Thing MT_OLDSWINGMACEPOINT
+#$Name Old Swinging Mace Spawnpoint
+#$Sprite 21MCD0
+#$Category 2.1 Castle Eggman
+#$Flags1Text 2.0 sprites and behavior
+#$Flags4Text No sounds
+#$Flags8Text Double size
+#$AngleText Tag
+#$Arg0 "Number of links"
+#$Arg1 "Maximum speed"
+#$Arg1Tooltip "In fracunits per 0.5 seconds (approximately)."
+#$Arg3 "Speed"
+#$Arg3Tooltip "In fracunits per tic."
+#$Arg4 "Pitch offset"
+#$Arg8 "Flags"
+#$Arg8Type 12
+#$Arg8Enum {1 = "Double size"; 2 = "No sounds"; 4 = "Player-turnable chain"; 8 = "2.0 sprites"; 128 = "No distance check";}
+MAPTHINGNUM = 3105
+SPAWNSTATE = S_INVISIBLE
+SPAWNHEALTH = 1000
+SPEED = 10*FRACUNIT
+RADIUS = 128*FRACUNIT
+HEIGHT = 1*FRACUNIT
+MASS = 10000
+FLAGS = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+
+Thing MT_OLDHANGMACEPOINT
+#$Name Old Hanging Chain Spawnpoint
+#$Sprite 21MCB0
+#$Category 2.1 Castle Eggman
+#$Flags1Text 2.0 sprites and behavior
+#$Flags8Text Double size
+#$AngleText Tag
+#$Arg0 "Number of links"
+#$Arg1 "Maximum speed"
+#$Arg1Tooltip "In fracunits per 0.5 seconds (approximately)."
+#$Arg3 "Speed"
+#$Arg3Tooltip "In fracunits per tic."
+#$Arg4 "Pitch offset"
+#$Arg8 "Flags"
+#$Arg8Type 12
+#$Arg8Enum {1 = "Double size"; 2 = "No sounds"; 4 = "Player-turnable chain"; 8 = "2.0 sprites"; 128 = "No distance check";}
+MAPTHINGNUM = 3106
+SPAWNSTATE = S_INVISIBLE
+SPAWNHEALTH = 1000
+SPEED = 10*FRACUNIT
+RADIUS = 128*FRACUNIT
+HEIGHT = 1*FRACUNIT
+MASS = 10000
+FLAGS = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
+
+Thing MT_OLDSPINMACEPOINT
+#$Name Old Spinning Chain Spawnpoint
+#$Sprite 21MCB0
+#$Category 2.1 Castle Eggman
+#$Flags1Text 2.0 sprites and behavior
+#$Flags8Text Double size
+#$AngleText Tag
+#$Arg0 "Number of links"
+#$Arg1 "Maximum speed"
+#$Arg1Tooltip "In fracunits per 0.5 seconds (approximately)."
+#$Arg3 "Speed"
+#$Arg3Tooltip "In fracunits per tic."
+#$Arg4 "Pitch offset"
+#$Arg8 "Flags"
+#$Arg8Type 12
+#$Arg8Enum {1 = "Double size"; 2 = "No sounds"; 4 = "Player-turnable chain"; 8 = "2.0 sprites"; 128 = "No distance check";}
+MAPTHINGNUM = 3107
+SPAWNSTATE = S_INVISIBLE
+SPAWNHEALTH = 1000
+SPEED = 10*FRACUNIT
+RADIUS = 128*FRACUNIT
+HEIGHT = 1*FRACUNIT
+MASS = 10000
+FLAGS = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
