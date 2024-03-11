@@ -467,7 +467,9 @@ addHook("MobjThinker", function(mo)
 	RB_MaceThink(mo)
 end, MT_OLDMACEPOINT)
 
+-- The object definitions have been moved to SOC_ZBMD until Zone Builder is updated to properly handle ArgNTooltip
 -- For anyone curious, the unit for maximum speed is actually closer to fracunits per 16 tics
+/*
 mobjinfo[MT_OLDMACEPOINT] = {
 	--$Name Old Spinning Mace Spawnpoint
 	--$Sprite 21MCD0
@@ -494,6 +496,7 @@ mobjinfo[MT_OLDMACEPOINT] = {
 	mass = 10000,
 	flags = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
 }
+*/
 
 addHook("MapThingSpawn", function(mo, mthing)
 	RB_Setup21Mace(mo, mthing)
@@ -504,6 +507,7 @@ addHook("MobjThinker", function(mo)
 	RB_MaceThink(mo)
 end, MT_OLDSWINGMACEPOINT)
 
+/*
 mobjinfo[MT_OLDSWINGMACEPOINT] = {
 	--$Name Old Swinging Mace Spawnpoint
 	--$Sprite 21MCD0
@@ -530,6 +534,7 @@ mobjinfo[MT_OLDSWINGMACEPOINT] = {
 	mass = 10000,
 	flags = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
 }
+*/
 
 addHook("MapThingSpawn", function(mo, mthing)
 	RB_Setup21Mace(mo, mthing)
@@ -540,6 +545,7 @@ addHook("MobjThinker", function(mo)
 	RB_MaceThink(mo)
 end, MT_OLDHANGMACEPOINT)
 
+/*
 mobjinfo[MT_OLDHANGMACEPOINT] = {
 	--$Name Old Hanging Chain Spawnpoint
 	--$Sprite 21MCB0
@@ -565,6 +571,7 @@ mobjinfo[MT_OLDHANGMACEPOINT] = {
 	mass = 10000,
 	flags = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
 }
+*/
 
 addHook("MapThingSpawn", function(mo, mthing)
 	RB_Setup21Mace(mo, mthing)
@@ -580,6 +587,7 @@ addHook("MobjThinker", function(mo)
 	end
 end, MT_OLDSPINMACEPOINT)
 
+/*
 mobjinfo[MT_OLDSPINMACEPOINT] = {
 	--$Name Old Spinning Chain Spawnpoint
 	--$Sprite 21MCB0
@@ -605,6 +613,7 @@ mobjinfo[MT_OLDSPINMACEPOINT] = {
 	mass = 10000,
 	flags = MF_NOBLOCKMAP|MF_NOSECTOR|MF_NOCLIP|MF_NOGRAVITY|MF_NOCLIPHEIGHT
 }
+*/
 
 function A_21SlingAppear(actor, var1, var2)
 	local firsttime = true
