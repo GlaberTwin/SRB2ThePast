@@ -187,11 +187,11 @@ SRB2TP_ERA_INFO["WEEN"] = {
 	era = "WEEN",
 	mobjs = {
 		[MT_RING] = {
-			spawnstate = "S_HALLORING",
+			spawnstate = "S_WEEN_RING",
 			deathstate = "S_DOOMPICKUP"
 		},
 		[MT_FLINGRING] = {
-			spawnstate = "S_HALLORING",
+			spawnstate = "S_WEEN_RING",
 			deathstate = "S_DOOMPICKUP"
 		}
 	},
