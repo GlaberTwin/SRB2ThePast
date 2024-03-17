@@ -188,6 +188,50 @@ local function L_ThrustEvenIn2D(mo, angle, move)
 	mo.momy = $ + FixedMul(move, sin(angle))
 end
 
+local function L_TwinSpinRejuvenate(player, type)
+
+	if (not player.mo or not type) then return end
+
+	local actionspd = FixedMul(player.actionspd, player.mo.scale);
+
+	local fa = (R_PointToAngle2(0, 0, player.mo.momz, FixedHypot(player.mo.momx, player.mo.momy)))
+	local movang = R_PointToAngle2(0, 0, player.mo.momx, player.mo.momy)
+	local ang = 0
+
+	local v = FixedMul(actionspd, sin(fa))
+	local h = actionspd - FixedMul(actionspd, cos(fa))
+
+	// hearticles
+	for i = 0,7 do
+	
+		local side = actionspd - FixedMul(h, abs(sin(ang)))
+		local xo = P_ReturnThrustX(nil, ang + movang, side)
+		local yo = P_ReturnThrustY(nil, ang + movang, side)
+		local zo = -FixedMul(cos(ang), v)
+		local missile = P_SpawnMobjFromMobj(player.mo,
+			xo,
+			yo,
+			player.mo.height/2 + zo,
+			type)
+
+		if (missile and missile.valid)
+			P_SetTarget(&missile.target, player.mo)
+			P_SetScale(missile, missile.destscale/2, true)
+			missile.angle = ang + movang
+			missile.fuse = TICRATE/2
+			missile.extravalue2 = (99*FRACUNIT)/100
+			missile.momx = xo
+			missile.momy = yo
+			missile.momz = zo
+		end
+
+		ang = $ + ANGLE_45
+	end
+
+	player.pflags = $ &~PF_THOKKED
+end
+
+
 // Stripped down version of current P_DoSpring with modifiers to make the spring work more like in Demo/XMAS
 local function P_RetroDoSpring(spring, object, mode) 
 	local vertispeed = spring.info.mass
@@ -366,8 +410,8 @@ local function P_RetroDoSpring(spring, object, mode)
 
 		if (strong)
 		
---			if (object.player.charability == CA_TWINSPIN or object.player.charability2 == CA2_MELEE)
---				P_TwinSpinRejuvenate(object.player, (object.player.charability == CA_TWINSPIN ? object.player.thokitem : object.player.revitem))
+			if (object.player.charability == CA_TWINSPIN or object.player.charability2 == CA2_MELEE)
+				L_TwinSpinRejuvenate(object.player, (object.player.charability == CA_TWINSPIN ? object.player.thokitem : object.player.revitem))
 			S_StartSound(object, sfx_sprong) // strong spring. sprong.
 		end
 
