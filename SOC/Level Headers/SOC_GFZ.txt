@@ -263,6 +263,7 @@ BonusType = Normal
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 20
+Lua.TPEra = 2.0
 Lua.TPHub = GZ:16
 
 Level GE
@@ -280,6 +281,7 @@ BonusType = Normal
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 21
+Lua.TPEra = 2.0
 Lua.TPHub = GZ:17
 
 
@@ -302,6 +304,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 22
+Lua.TPEra = 2.0
 Lua.TPHub = GZ:18
 
 
@@ -319,6 +322,7 @@ BonusType = Normal
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 23
+Lua.TPEra = 2.0
 Lua.TPHub = GZ:20
 
 Level GJ
@@ -335,6 +339,7 @@ BonusType = Normal
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 70
+Lua.TPEra = 2.0
 Lua.TPHub = GZ:19
 
 
