@@ -1,0 +1,52 @@
+#Invisible Speed Booster
+#Written by Glaber and MIDIMan
+
+FREESLOT
+MT_IBOOSTER
+S_IBOOST
+S_IBOOST_ACTIVE
+
+Object MT_IBOOSTER
+#$Name Demo 3 Invisible Speed Booster
+#$Category Springs and Fans
+MapThingNum = 755
+SpawnState = S_IBOOST
+SpawnHealth = 1
+SeeState = S_IBOOST_ACTIVE
+SeeSound = sfx_None
+ReactionTime = 0
+AttackSound = sfx_None
+PainState = S_NULL
+PainChance = S_NULL
+PainSound = sfx_None
+MeleeState = S_NULL
+MissileState = S_NULL
+DeathState = S_NULL
+DeathSound = sfx_None
+XDeathState = S_NULL
+Speed = 0
+Radius = 32*FRACUNIT
+Height = 0*FRACUNIT
+Mass = 0
+Damage = 60*FRACUNIT
+ActiveSound = sfx_None
+RaiseState = S_IBOOST_ACTIVE
+Flags = MF_SOLID|MF_SPRING
+
+State S_IBOOST
+SpriteName = SPR_NULL
+SpriteFrame = 0
+Duration = -1
+Next = S_IBOOST
+Action None
+Var1 = 0
+Var2 = 0
+
+State S_IBOOST_ACTIVE
+SpriteName = SPR_NULL
+SpriteFrame = 0
+Duration = 2
+Next = S_IBOOST
+Action = None
+Var1 = 0
+Var2 = 0
