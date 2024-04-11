@@ -155,6 +155,7 @@ addHook("MobjThinker", function(mobj)
 	
 	if mobj.state == S_DRONE_CHASE
 	or mobj.state == S_DRONE_HIT2
+	or mobj.state == S_DRONE_HIT3
 	or mobj.state == S_DRONE_DROP_ATTACK1
 	or mobj.state == S_DRONE_DROP_ATTACK2
 	or mobj.state == S_DRONE_ENERGY_ATTACK1 then
