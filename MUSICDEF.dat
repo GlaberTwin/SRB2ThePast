@@ -1629,3 +1629,8 @@ Alttitle = Green_Grove_Jazz
 Authors = Cyan_Helkaraxe
 Soundtestpage = 1
 Soundtestcond = ZW
+
+Lump WOOD
+Title = Wood Zone
+Authors = Information_Unknown
+Soundtestpage = 1
