@@ -1637,9 +1637,9 @@ Authors = Dreams_Come_True,_MIDI_Author_Unknown_(Edited_by_SSNTails)
 Soundtestpage = 1
 BPM = 120.05
 
-Lump ECZDEV
-Title = Emerald_Coast_(MIDI_only)
-Authors = Sonic_Team,_Marten_Bruggemann_(MIDI)
+Lump ECZTS
+Title = Emerald_Coast_Texture_showcase_(MIDI_only)
+Authors = Marten_Bruggemann
 Soundtestpage = 1
 Soundtestcond = 0
 BPM = 140

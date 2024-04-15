@@ -141,7 +141,7 @@ LevelName = Emerald Coast
 subtitle = Development 98
 MusicInter = LCLEAR
 Act = 0
-Music = ECZDEV
+Music = ECZTS
 NextLevel = YZ
 TypeOfLevel = Singleplayer,Co-op,Race,Competition
 SkyNum = 2
@@ -202,13 +202,5 @@ TYPEOFLEVEL = Solo,Co-op,Race,Competition
 RecordAttack = 0
 hidden = 1
 Lua.TPHub = YZ:12
-
-
-
-
-
-
-
-
 
 
