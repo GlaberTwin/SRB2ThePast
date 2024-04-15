@@ -1630,7 +1630,12 @@ Authors = Cyan_Helkaraxe
 Soundtestpage = 1
 Soundtestcond = ZW
 
-Lump WOOD
-Title = Wood Zone
+Lump ECZTS
+Title = Emerald Coast Texture showcase
 Authors = Marten Bruggemann
+Soundtestpage = 1
+
+Lump SHAWN3
+Title = Wood Zone
+Authors = Dreams Come True
 Soundtestpage = 1
