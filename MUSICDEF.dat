@@ -522,350 +522,350 @@ Soundtestcond = 0
 
 Lump TGFZ1
 Title = Greenflower_1
-Authors = TGF_(Midi_only)
+Authors = TGF_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump TGFZ2
 Title = Greenflower_2
-Authors = TGF_(Midi_only)
+Authors = TGF_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump VSTBOS
 Title = VS_Boss
-Authors = TGF_(Midi_only)
+Authors = TGF_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump THTGF1
 Title = Techno_Hill_1
-Authors = TGF_(Midi_only)
+Authors = TGF_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump THTGF2
 Title = Techno_Hill_2
-Authors = TGF_(Midi_only)
+Authors = TGF_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump DEEPSE
 Title = Deep_Sea_1
-Authors = TGF_(Midi_only)
+Authors = TGF_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump DEEPS2
 Title = Deep_Sea_2
-Authors = TGF_(Midi_only)
+Authors = TGF_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MINES
 Title = Mine_Maze_1
-Authors = TGF_(Midi_only)
+Authors = TGF_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump GFZX1
 Title = Snow_Flower_1
-Authors = TGF_Christmas_(Midi_only)
+Authors = TGF_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump GFZX2
 Title = Snow_Flower_2
-Authors = TGF_Christmas_(Midi_only)
+Authors = TGF_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump THZX
 Title = Snow_Factory
-Authors = TGF_Christmas_(Midi_only)
+Authors = TGF_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump DSZX1
 Title = Deep_Sea_1
-Authors = TGF_Christmas_(Midi_only)
+Authors = TGF_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump DSZX2
 Title = Deep_Sea_2
-Authors = TGF_Christmas_(Midi_only)
+Authors = TGF_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MMZX
 Title = Snow_Mine
-Authors = TGF_Christmas_(Midi_only)
+Authors = TGF_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump HTITLE
 Title = Halloween_Title
-Authors = Halloween_Tech_(Midi_only)
+Authors = Halloween_Tech_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump HTECH
 Title = Halloween_Level
-Authors = Halloween_Tech_(Midi_only)
+Authors = Halloween_Tech_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump XTITLE
 Title = Christmas_Title
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump SPNGAR
 Title = Springin'_Around
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump XMSCUT
 Title = Cutscene
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump BLUSTR
 Title = Blustery_Day
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump SNOMTN
 Title = Snow_Mountain
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump GLEEMI
 Title = Gleaming_Glacier
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump EGGB
 Title = Egg_Base
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump EGGA
 Title = Egg_Arena
 Alttitle = Havin'_Fun?
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump CLOCNR
 Title = Close_Corners
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump XMASFA
 Title = Christmas_Factory
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump SNOWVA
 Title = Snow_Valley
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump VSFBOS
 Title = Final_Boss
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ECZA1
 Title = Emerald_Coast
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump NGHTMR
 Title = Sonic's_Nightmare
-Authors = SRB2_Christmas_(Midi_only)
+Authors = SRB2_Christmas_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump OGFZ1
 Title = Greenflower_1
-Authors = Demo_1-Demo_4_(Midi_only)
+Authors = Demo_1-Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump OGFZ2
 Title = Greenflower_2
-Authors = Demo_1-Demo_4_(Midi_only)
+Authors = Demo_1-Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump VSTBOS
 Title = VS_Boss
-Authors = Demo_1-Demo_4_(Midi_only)
+Authors = Demo_1-Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump OTHZ1
 Title = Techno_Hill_1
-Authors = Demo_1-Demo_4_(Midi_only)
+Authors = Demo_1-Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump OTHZ2
 Title = Techno_Hill_2
-Authors = Demo_1-Demo_4_(Midi_only)
+Authors = Demo_1-Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ODSZ1
 Title = Deep_Sea_1
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ODSZ2
 Title = Deep_Sea_2
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump OMMZ1
 Title = Mine_Maze_1
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump OMMZ2
 Title = Mine_Maze_2
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ROCKYM
 Title = Rocky_Mountain_1
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ROCKY2
 Title = Rocky_Mountain_2
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ORVZ1
 Title = Red_Volcano_1
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ORVZ2
 Title = Red_Volcano_2
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ODCZ1
 Title = Dark_City_1
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ODCZ2
 Title = Dark_City_2
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ODOOMS
 Title = Doomship
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump RRZ
 Title = Egg_Rock
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump SPHZ
 Title = Speed_Highway_at_Dawn
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump HPZ
 Title = Hidden_Palace
-Authors = SRB2_Demo_Era_(Midi_only)
+Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump SS2D4
 Title = Special_Stage_2
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump SS3D4
 Title = Special_Stage_3
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump SS6D4
 Title = Special_Stage_6
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump SS7D4
 Title = Special_Stage_7
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump D4CEZ1
 Title = Castle_Eggman_1
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump D4CEZ2
 Title = Castle_Eggman_2
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump D4CEZ3
 Title = Castle_Eggman_3
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MP_1RI
 Title = Zero_Ring
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MARIO6
 Title = Mario_Goomba_Blast
-Authors = SRB2_Demo_4_(Midi_only)
+Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
@@ -1187,145 +1187,145 @@ Soundtestcond = 0
 
 Lump MAPAAM
 Title = Great_Forest
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPABM
 Title = Lake
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPACM
 Title = Ice_Palace_1
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPADM
 Title = Ice_Palace_2
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAEM
 Title = Volcano
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAFM
 Title = Echidnapolis
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAGM
 Title = Sky_Lab
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAHM
 Title = Mechanical_Madness
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAIM
 Title = Robotopolis
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAJM
 Title = Robo_Base
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAKM
 Title = Space_Chase_1
-Authors = SRB2_Version_2.0-2.1_(Midi_only/Unused)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only/Unused)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPALM
 Title = Space_Chase_2
-Authors = SRB2_Version_2.0-2.1_(Midi_only/Unused)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only/Unused)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAMM
 Title = RingSatellite_1
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPANM
 Title = RingSatellite_2
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAOM
 Title = Lift
-Authors = SRB2_Version_2.0-2.1_(Midi_only/Unused)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only/Unused)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAPM
 Title = Last_Land
-Authors = SRB2_Version_2.0-2.1_(Midi_only/Unused)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only/Unused)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAQM
 Title = Athenos
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPARM
 Title = Great_Unknown
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPASM
 Title = Void
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPATM
 Title = Woodland_Hill
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAUM
 Title = Rocky_Mountain_(SRB1)
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump MAPAVM
 Title = Hidden_Palace_(SRB1)
-Authors = SRB2_Version_2.0-2.1_(Midi_only)
+Authors = SRB2_Version_2.0-2.1_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
 Lump ERZ121
 Title = Egg_Rock_1
-Authors = SRB2_Version_2.0-2.1_(2.1_Midi)
+Authors = SRB2_Version_2.0-2.1_(2.1_MIDI)
 Soundtestpage = 1
 Soundtestcond = EA
 
 Lump ERZ221
 Title = Egg_Rock_2
-Authors = SRB2_Version_2.0-2.1_(2.1_Midi)
+Authors = SRB2_Version_2.0-2.1_(2.1_MIDI)
 Soundtestpage = 1
 Soundtestcond = EB
 
@@ -1425,7 +1425,7 @@ Soundtestcond = 0
 Lump ALMAG
 Title = History_Clash
 Alttitle = 2.1_Egg_Satellite_Remade
-Authors = ColbaltBW's_music_remade_Music_Pack
+Authors = clairebun's_music_remade_Music_Pack
 Soundtestpage = 1
 Soundtestcond = ZZ
 
@@ -1631,6 +1631,15 @@ Soundtestpage = 1
 Soundtestcond = ZW
 
 Lump WOOD
-Title = Wood Zone
-Authors = Marten Bruggemann
+Title = Wood_Zone_(MIDI_only)
+AltTitle = Kare_wa_Tomodachi
+Authors = Dreams_Come_True,_MIDI_Author_Unknown_(Edited_by_SSNTails)
 Soundtestpage = 1
+BPM = 120.05
+
+Lump ECZDEV
+Title = Emerald_Coast_(MIDI_only)
+Authors = Sonic_Team,_Marten_Bruggemann_(MIDI)
+Soundtestpage = 1
+Soundtestcond = 0
+BPM = 140
