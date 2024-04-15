@@ -1,7 +1,7 @@
 Maincfg Category
 IntroToPlay = 1
 Gamedata = SRB2past20.dat
-CustomVersion = v. 2.0.16 In-development
+CustomVersion = v. 2.0.16
 NumDemos = 9
 
 Clear Unlockables
