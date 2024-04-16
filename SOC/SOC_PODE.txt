@@ -75,7 +75,7 @@ PageText = Christmas Hunt: Demo 4 - v1.09.4
 Premiering in Demo 4, Christmas Hunt was the first of the Emerald Hunt levels. In Demo 4, completing it would reward you with the Snowball Shooter. In Final Demo it was just a standard emerald hunt stage.
 #
 PAGE 2
-Lines = 1
+Lines = 2
 PageText = The version included here is from Final Demo 1.09.4.
 #
 
