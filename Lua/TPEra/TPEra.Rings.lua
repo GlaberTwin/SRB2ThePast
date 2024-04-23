@@ -269,6 +269,8 @@ function A_AttractChase(actor)
 	if (actor.flags2 & MF2_NIGHTSPULL or actor.health == 0)
 		return
 	end
+	
+	actor.tpAttractable = true
 
 	-- spilled rings flicker before disappearing
 	if (leveltime & 1) and (actor.type == mobjinfo[actor.type].reactiontime) and (actor.fuse) and (actor.fuse < 2*TICRATE)
@@ -308,7 +310,7 @@ function A_AttractChase(actor)
 	end
 
 
-lua_LookForShield(actor) -- Go find 'em, boy!
+-- lua_LookForShield(actor) -- Go find 'em, boy!
 
 
 	if not actor.tracer
@@ -333,10 +335,48 @@ lua_LookForShield(actor) -- Go find 'em, boy!
 --	else
 
 		-- Demo Attraction
---		actor.flags = $ &~MF_NOCLIP	-- Demo attracted rings don't get Noclip
---		lua_AttractB(actor, actor.tracer)	
+-- 		actor.flags = $ &~MF_NOCLIP	-- Demo attracted rings don't get Noclip
+-- 		lua_AttractB(actor, actor.tracer)
 
 --	end		
 	
 end
+
+-- Move the ring attraction initialization code to a PlayerThink to reduce Lua interpreter overhead
+-- Based off of TehRealSalt's implementation in the "Pretty Shield" addon
+-- -MIDIMan
+addHook("PlayerThink", function(player)
+	if not (player and player.valid and player.mo and player.mo.valid and player.mo.health > 0) then return end
+	if not (player.powers[pw_shield] & SH_PROTECTELECTRIC) then return end
+	
+	local ringDist = FixedMul(RING_DIST + 64*FRACUNIT, player.mo.scale)
+	
+	searchBlockmap("objects", function(pmo, mo)
+		if not mo.tpAttractable then return end
+-- 		if pmo.health <= 0 then return end
+		
+		-- When in CTF, don't pull rings that you cannot pick up.
+		if ((mo.type == MT_REDTEAMRING and player.ctfteam != 1)
+		or (mo.type == MT_BLUETEAMRING and player.ctfteam != 2)) then
+			return
+		end
+		
+-- 		if (player.powers[pw_shield] & SH_PROTECTELECTRIC)
+			and (FixedHypot(FixedHypot(mo.x - player.mo.x, mo.y - player.mo.y), mo.z - player.mo.z) < FixedMul(RING_DIST, player.mo.scale))
+			mo.tracer = player.mo
+
+			if mo.hnext then
+				mo.hnext.hprev = mo.hprev
+			end
+			
+			if mo.hprev then
+				mo.hprev.next = mo.hnext
+			end
+			
+			return
+-- 		end
+		
+-- 		actor.lastlook = ((actor.lastlook + 1) & PLAYERSMASK)
+	end, player.mo, player.mo.x - ringDist, player.mo.x + ringDist, player.mo.y - ringDist, player.mo.y + ringDist)
+end)
 
