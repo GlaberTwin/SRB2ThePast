@@ -362,7 +362,7 @@ addHook("PlayerThink", function(player)
 		end
 		
 -- 		if (player.powers[pw_shield] & SH_PROTECTELECTRIC)
-			and (FixedHypot(FixedHypot(mo.x - player.mo.x, mo.y - player.mo.y), mo.z - player.mo.z) < FixedMul(RING_DIST, player.mo.scale))
+			if (FixedHypot(FixedHypot(mo.x - player.mo.x, mo.y - player.mo.y), mo.z - player.mo.z) < FixedMul(RING_DIST, player.mo.scale))
 			mo.tracer = player.mo
 
 			if mo.hnext then
@@ -374,7 +374,7 @@ addHook("PlayerThink", function(player)
 			end
 			
 			return
--- 		end
+ 			end
 		
 -- 		actor.lastlook = ((actor.lastlook + 1) & PLAYERSMASK)
 	end, player.mo, player.mo.x - ringDist, player.mo.x + ringDist, player.mo.y - ringDist, player.mo.y + ringDist)
