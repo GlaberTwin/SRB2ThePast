@@ -1,7 +1,7 @@
 Maincfg Category
 IntroToPlay = 1
-Gamedata = SRB2past20.dat
-CustomVersion = v. 2.0.16
+Gamedata = SRB2past21.dat
+CustomVersion = v. 2.1 alpha
 NumDemos = 9
 
 Clear Unlockables
@@ -106,7 +106,7 @@ Condition1 = MapBeaten U0
 
 Unlockable 9
 Name = Red Volcano 1.09.4
-Objective = leave the Volcano
+Objective = Leave the Volcano
 Type = None
 Height = 50
 ConditionSet = 10
