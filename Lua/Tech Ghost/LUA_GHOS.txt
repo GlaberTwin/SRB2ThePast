@@ -1,5 +1,5 @@
-// SPOOK (Halloween Ghost) - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
-// If you don't want the SPOOK to shoot, replace the meelee state with S_NULL
+// "Ghost" (Halloween Tech Ghost) - Ported by Glaber (original SOC) and MIDIMan (conversion to Lua)
+// If you don't want the ghost to shoot, replace the melee state with S_NULL
 // Use with DSMOAN and DSREDEA
 // some states are now outdated
 
@@ -75,3 +75,6 @@ states[S_SPOOK_SHOOT3] =	{SPR_GHOS,	D,	5,	Spook_Attack,	0,	0,	S_SPOOK_MOVE}
 
 // This state allows the deathsound to play in full instead of being cut-off
 states[S_SPOOK_DEAD] =	{SPR_NULL,	A,	114,	A_Scream,	0,	0,	S_NULL}
+
+sfxinfo[sfx_moan].caption = "Ghost moan"
+sfxinfo[sfx_redea].caption = "Ghost moan"

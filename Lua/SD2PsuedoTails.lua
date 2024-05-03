@@ -22,7 +22,7 @@ freeslot(
 	// No raise states, because they are only used in very rare instances
 )
 
-sfxinfo[sfx_sd2pse].caption = "Bye, Sonic!"
+sfxinfo[sfx_sd2pse].caption = "Die, Sonic!"
 sfxinfo[sfx_sd2ppn].caption = "Ow!"
 sfxinfo[sfx_sd2pdi].caption = "AHHHH!"
 

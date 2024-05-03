@@ -6,6 +6,8 @@ freeslot("MT_OLDSIGN", "S_OLDSIGNSTART", "S_OLDSIGN1", "S_OLDSIGN2", "S_OLDSIGN3
 // Lua made by Radicalicious
 // Edited and cleaned up by MIDIMan
 
+sfxinfo[sfx_s24f].caption = "Spinning signpost"
+
 freeslot("S_PLAY_OLDSIGN")
 
 local function A_OldSignPlayer(actor)
