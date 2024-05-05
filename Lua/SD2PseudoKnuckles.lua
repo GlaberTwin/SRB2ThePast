@@ -39,6 +39,7 @@ freeslot(
 )
 
 sfxinfo[sfx_sd2rse].caption = "Hey, blue doof ball!"
+sfxinfo[sfx_sd2rpc].caption = "Punch"
 sfxinfo[sfx_sd2rac].caption = "How about a knuckle sandwich?!"
 sfxinfo[sfx_sd2rdi].caption = "Grrrr!"
 

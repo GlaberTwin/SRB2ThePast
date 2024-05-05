@@ -24,15 +24,18 @@ states[S_SOUNDPLAYERLMN] = {SPR_NULL, 0, 35, nil, 0, 0, S_NULL}
 //lua help from Monster Iestyn, Golden, Inferno, Tatsuru, Nightwolf, and Midiman
 addHook("PlayerThink", function(player)
 	if not (player and player.valid
-	and player.mo and player.mo.valid)
+	and player.mo and player.mo.valid) then
 		return
 	end
+	
     if player.mo.skin == "megamand3" then
-        if not player.lastbuttons then player.lastbuttons = 0 end
+		-- lastbuttons is now part of vanilla SRB2, so we don't need to initialize new variables for it
         if ((player.cmd.buttons & BT_ATTACK) and not (player.lastbuttons & BT_ATTACK))
         or ((player.cmd.buttons & BT_FIRENORMAL) and not (player.lastbuttons & BT_FIRENORMAL)) then
             local ring = P_SpawnPlayerMissile(player.mo, MT_LEMON)
         end
-        player.lastbuttons = player.cmd.buttons
     end
 end)
+
+sfxinfo[sfx_plasma].caption = "Mega Buster shot"
+sfxinfo[sfx_firxpl].caption = "Fizzle"
