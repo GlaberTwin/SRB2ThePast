@@ -1,5 +1,16 @@
 #SRB2TP Cutscene Level Headers
 
+# Tutorial Technicly not a Cutscene
+
+Level Z0
+Levelname = Tutorial
+Act = 0
+Music = TUTORL
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+HideInStats = true
+SkyNum = 99
+
 #METAL SONIC'S CHALLENGE
 
 Level Z1
@@ -11,7 +22,6 @@ NoSSMusic = true
 SaveGame = true
 NextLevel = 1
 TypeOfLevel = Singleplayer,Co-op
-Weather = 0
 SkyNum = 41
 RecordAttack = 0
 hidden = 1
