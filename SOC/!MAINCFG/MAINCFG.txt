@@ -26,368 +26,523 @@ DefaultTimeLimit = 2
 Description = Nobody's in charge of balance this time around, knockout as many enemies as you can in a path of destruction, and don't look back. You could even go by yourself and earn new high scores!
 #
 
-Unlockable 1
-Name = Christmas Hunt at NiGHTS
-Objective = Collect 10 Emblems
-Type = None
-Height = 10
-ConditionSet = 1
+##CHARACTER UNLOCKS
+	#AMY
+		Unlockable 1
+		Name = Play as Amy
+		Objective = Free Amy
+		Type = Skin
+		Var = amy
+		NoChecklist = true
+		ConditionSet = 18
 
-ConditionSet 1
-Condition1 = TotalEmblems 10
-
-Unlockable 2
-Name = Play as Fang
-Objective = Defend a Train.
-Type = Skin
-Var = fang
-ConditionSet = 14
-
-ConditionSet 14
-Condition1 = MapBeaten AA
-
-Unlockable 3
-Name = Play as Metal
-Objective = Super Search for him. He's Starving!
-Type = Skin
-Var = metalsonic
-ConditionSet = 17
-
-ConditionSet 17
-Condition1 = Emblem 96
-Condition2 = MapBeaten EC
-
-Unlockable 4
-Name = Emblem Radar
-Objective = Locate the Emblem Radar
-ConditionSet = 4
-Type = ItemFinder
-
-ConditionSet 4
-Condition1 = Emblem 50
-
-Unlockable 5
-Name = Emblem hints
-Objective = Find your first emblem
-ConditionSet = 5
-Type = EmblemHints
-
-ConditionSet 5
-Condition1 = TotalEmblems 1
-
-Unlockable 6
-Name = Mario Goomba Blast
-Objective = Collect 15 Emblems
-Type = None
-ConditionSet = 6
-
-ConditionSet 6
-Condition1 = TotalEmblems 15
-
-Unlockable 7
-Name = Mario's Spring Hill Koopa Blast
-Objective = Collect 20 Emblems
-Type = None
-Height = 30
-ConditionSet = 7
-
-ConditionSet 7
-Condition1 = TotalEmblems 20
-
-Unlockable 8
-Name = Neo Aerial Garden
-Objective = Visit "Heaven"
-Type = None
-Height = 40
-ConditionSet = 9
-
-ConditionSet 9
-Condition1 = MapBeaten U0
-
-Unlockable 9
-Name = Red Volcano 1.09.4
-Objective = Leave the Volcano
-Type = None
-Height = 50
-ConditionSet = 10
-
-Unlockable 10
-Name = Hyperkin
-Objective = Find the 8th Emerald
-Type = None
-Height = 60
-ConditionSet = 11
-
-ConditionSet 11
-Condition1 = Trigger 1
-
-Unlockable 11
-Name = Pandora's box
-Objective = With 8 emeralds, jump into a castle's pool.
-Type = Pandora
-Height = 70
-ConditionSet = 12
-
-ConditionSet 12
-Condition1 = Trigger 2
-
-Unlockable 12
-Name = Rocked the Gauntlet
-Objective = Return from Space on a Gauntlet's Rocket.
-Type = None
-Height = 80
-ConditionSet = 35
-
-ConditionSet 35
-Condition1 = MapBeaten ZY
-
-Unlockable 13
-Name = Metal's Equal
-Objective = Finish Metal Sonic's Races
-Type = None
-ConditionSet = 36
-
-ConditionSet 36
-Condition1 = MapBeaten O0
-Condition1 = MapBeaten O1
-Condition1 = MapBeaten O2
-Condition1 = MapBeaten O3
-Condition1 = MapBeaten O4
-Condition1 = MapBeaten O5
-Condition1 = MapBeaten O6
-Condition1 = MapBeaten O7
-Condition1 = MapBeaten O8
-Condition1 = MapBeaten O9
-Condition1 = MapBeaten OA
-Condition1 = MapBeaten OB
-Condition1 = MapBeaten OC
-Condition1 = MapBeaten OD
-Condition1 = MapBeaten OE
-Condition1 = MapBeaten OF
-Condition1 = MapBeaten OG
-Condition1 = MapBeaten OH
-Condition1 = MapBeaten OI
-Condition1 = MapBeaten OJ
-
-Unlockable 14
-Name = Sonic into Dreams
-Objective = Beat a NiGHTS stage
-Type = NightsMode
-ConditionSet = 19
-
-ConditionSet 19
-Condition1 = MapBeaten 56
-Condition2 = MapBeaten N5
-Condition3 = MapBeaten N6
-Condition4 = MapBeaten N7
-Condition5 = MapBeaten N8
-Condition6 = MapBeaten N9
-Condition7 = MapBeaten NA
-Condition8 = MapBeaten NB
-Condition9 = MapBeaten N4
-Condition10 = MapBeaten N1
-Condition11 = MapBeaten N2
-Condition12 = MapBeaten N3
-Condition13 = MapBeaten N0
-Condition14 = MapBeaten ND
-
-Unlockable 15
-Name = Play as Placeholder Sonic
-Objective = Beat Halloween Tech and Xmas levels
-Type = Skin
-Var = XtremeSonic
-ConditionSet = 20
-
-ConditionSet 20
-Condition1 = MapBeaten H1
-Condition1 = MapBeaten X9
-
-Unlockable 16
-Name = Metal's Superior
-Objective = Prove to Metal why you are the best!
-Type = None
-ConditionSet = 37
-
-ConditionSet 37
-Condition1 = MapBeaten OK
-Condition1 = MapBeaten ZZ
-
-Unlockable 17
-Name = SRB1 Remake + Aerial Garden 2.1
-Objective = Beat Beta Quest w/ 7 emeralds
-Type = Warp
-Var = H2
-Height = 10
-ConditionSet = 21
-
-ConditionSet 21
-Condition1 = MapAllEmeralds 26
+		ConditionSet 18
+		Condition1 = MapBeaten U5
 
 
-Unlockable 18
-Name = Getting a P-p-p-p-promotion
-Objective = "Rock" the "eggs"
-Type = None
-ConditionSet = 22
+	#FANG
+		Unlockable 2
+		Name = Play as Fang
+		Objective = Defend a Train.
+		Type = Skin
+		Var = fang
+		ConditionSet = 14
 
-ConditionSet 22
-Condition1 = MapBeaten 26
-Condition1 = MapBeaten 56
-Condition1 = ExtraEmblem  8
-Condition2 = MapBeaten 26
-Condition2 = MapBeaten NB
-Condition2 = ExtraEmblem  8
-Condition3 = MapBeaten EY
+		ConditionSet 14
+		Condition1 = MapBeaten AA
 
-Unlockable 19
-Name = Azure Temple
-Objective = Beat Aerial Garden 2.1
-Type = None
-ConditionSet = 23
 
-ConditionSet 23
-Condition1 = MapBeaten U6
+	#METAL SONIC
+		Unlockable 3
+		Name = Play as Metal
+		Objective = Super Search for him. He's Starving!
+		Type = Skin
+		Var = metalsonic
+		ConditionSet = 17
 
-Unlockable 20
-Name = The Demo 3 Pack
-Objective = Complete all demo 3 levels
-Type = Skin
-Var = megamand3
-ConditionSet = 24
+		ConditionSet 17
+		Condition1 = Emblem 96
+		Condition2 = MapBeaten EC
 
-ConditionSet 24
-Condition1 = MapBeaten G2
-Condition1 = MapBeaten G3
-Condition1 = MapBeaten G4
-Condition1 = MapBeaten T3
 
-Unlockable 21
-Name = Easter Invasion
-Objective = Find the Final Demo Eggs
-Type = Skin
-Var = ZimFD
-ConditionSet = 25
+	#PLACEHOLDER SONIC
+		Unlockable 4
+		Name = Play as Placeholder Sonic
+		Objective = Beat Halloween Tech and Xmas levels
+		Type = Skin
+		Var = XtremeSonic
+		ConditionSet = 20
 
-ConditionSet 25
-Condition1 = Emblem 127
-Condition1 = Emblem 128
-Condition1 = Emblem 129
-Condition1 = Emblem 130
-Condition1 = Emblem 147
-Condition1 = Emblem 148
-Condition1 = Emblem 149
-Condition1 = Emblem 150
-Condition1 = Emblem 185
-Condition1 = Emblem 186
-Condition1 = Emblem 187
-Condition1 = Emblem 188
+		ConditionSet 20
+		Condition1 = MapBeaten H1
+		Condition1 = MapBeaten X9
 
-Unlockable 22
-Name = Christmas Time
-Objective = Beat the Christmas Demo
-Type = availability
-ConditionSet = 15
 
-Unlockable 23
-Name = Play as Amy
-Objective = Free Amy
-Type = Skin
-Var = amy
-NoChecklist = true
-ConditionSet = 18
+	#DEMO 3 PACK
+		Unlockable 5
+		Name = The Demo 3 Pack
+		Objective = Complete all demo 3 levels
+		Type = Skin
+		Var = megamand3
+		ConditionSet = 24
 
-ConditionSet 18
-Condition1 = MapBeaten U5
+		Unlockable 6
+		NoCecho = true
+		Type = Skin
+		Var = Chaod3
+		ConditionSet = 24
 
-Unlockable 24
-Name = Black Hole
-Objective = Get a perfect Report card
-Type = None
-ConditionSet = 26
+		Unlockable 7
+		NoCecho = true
+		Type = Skin
+		Var = Cinossu
+		ConditionSet = 24
 
-ConditionSet 26
-Condition1 = NightsGrade N5 0 GRADE_A
-Condition1 = NightsGrade N6 0 GRADE_A
-Condition1 = NightsGrade N7 0 GRADE_A
-Condition1 = NightsGrade N8 0 GRADE_A
-Condition1 = NightsGrade N9 0 GRADE_A
-Condition1 = NightsGrade NA 0 GRADE_A
-Condition1 = NightsGrade NB 0 GRADE_A
+		ConditionSet 24
+		Condition1 = MapBeaten G2
+		Condition1 = MapBeaten G3
+		Condition1 = MapBeaten G4
+		Condition1 = MapBeaten T3
 
-Unlockable 25
-Name = Techno Legacy + Spring Hill 2.1
-Objective = Still get 100 Emblems
-Type = None
-ConditionSet = 13
 
-ConditionSet 13
-Condition1 = TotalEmblems 100
+	#ZIM
+		Unlockable 8
+		Name = Easter Invasion
+		Objective = Find the Final Demo Eggs
+		Type = Skin
+		Var = ZimFD
+		ConditionSet = 25
 
-Unlockable 26
-Name = Forest Fortress
-Objective = 60 Emblems
-Type = None
-ConditionSet = 27
+		ConditionSet 25
+		Condition1 = Emblem 127
+		Condition1 = Emblem 128
+		Condition1 = Emblem 129
+		Condition1 = Emblem 130
+		Condition1 = Emblem 147
+		Condition1 = Emblem 148
+		Condition1 = Emblem 149
+		Condition1 = Emblem 150
+		Condition1 = Emblem 185
+		Condition1 = Emblem 186
+		Condition1 = Emblem 187
+		Condition1 = Emblem 188
 
-ConditionSet 27
-Condition1 = TotalEmblems 60
 
-Unlockable 27
-Name = Your DOOM.
-Objective = Defeat a long forgotten and unfinished foe.
-Type = None
-ConditionSet = 38
 
-ConditionSet 38
-Condition1 = MapBeaten PU
+#EMBLEM HINTS
+	Unlockable 9
+	Name = Emblem hints
+	Objective = Find your first emblem
+	ConditionSet = 5
+	Type = EmblemHints
 
-Unlockable 28
-Name = Adventure Example
-Objective = Beat Spring Hill (1.09.4)
-Type = None
-ConditionSet = 29
+	ConditionSet 5
+	Condition1 = TotalEmblems 1
 
-ConditionSet 29
-Condition1 = MapBeaten N2
 
-Unlockable 29
-Name = Boss GAUNTLET
-Objective = Beat all the Boss Rushes
-Type = None
-ConditionSet = 34
+#EMBLEM RADAR
+	Unlockable 10
+	Name = Emblem Radar
+	Objective = Locate the Emblem Radar
+	ConditionSet = 4
+	Type = ItemFinder
 
-ConditionSet 34
-Condition1 = Emblem 124
-Condition1 = Emblem 125
-Condition1 = Emblem 126
-Condition1 = Emblem 205
-Condition1 = ExtraEmblem 8
-Condition1 = ExtraEmblem 9
-Condition1 = ExtraEmblem 10
+	ConditionSet 4
+	Condition1 = Emblem 50
 
-Unlockable 30
-Name = The Demo 3 Pack
-Objective = Complete all demo 3 levels
-Type = Skin
-Var = Chaod3
-ConditionSet = 24
 
-Unlockable 31
-Name = The Demo 3 Pack
-Objective = Complete all demo 3 levels
-Type = Skin
-Var = Cinossu
-ConditionSet = 24
+##EMBLEM UNLOCKS
 
-Unlockable 32
-Name = Sound Test
-Objective = 90 Emblems
-Height = 20
-Type = SoundTest
-ConditionSet = 28
+	#CHRISTMAS HUNT & NIGHTS
+		Unlockable 11
+		Name = Christmas Hunt at NiGHTS
+		Objective = Collect 10 Emblems
+		Type = None
+		Height = 10
+		ConditionSet = 1
 
-ConditionSet 28
-Condition1 = TotalEmblems 90
+		ConditionSet 1
+		Condition1 = TotalEmblems 10
+
+
+	#MARIO GOOMBA BLAST
+		Unlockable 12
+		Name = Mario Goomba Blast
+		Objective = Collect 15 Emblems
+		Type = None
+		ConditionSet = 6
+
+		ConditionSet 6
+		Condition1 = TotalEmblems 15
+
+
+	#MARIO KOOPA BLAST & SPRING HILL
+		Unlockable 13
+		Name = Mario's Spring Hill Koopa Blast
+		Objective = Collect 20 Emblems
+		Type = None
+		Height = 30
+		ConditionSet = 7
+
+		ConditionSet 7
+		Condition1 = TotalEmblems 20
+
+
+	#FOREST FORTRESS
+		Unlockable 14
+		Name = Forest Fortress
+		Objective = 60 Emblems
+		Type = None
+		ConditionSet = 27
+
+		ConditionSet 27
+		Condition1 = TotalEmblems 60
+
+
+	#SOUNDTESTS
+		Unlockable 15
+		Name = Sound Test
+		Objective = 90 Emblems
+		Height = 50
+		Type = Header
+		ConditionSet = 28
+
+		ConditionSet 28
+		Condition1 = TotalEmblems 1
+
+		#SONIC DOOM 2
+			Unlockable 16
+			Name = Sonic Doom 2 (MIDI)
+			Hidden = true
+			NoCEcho = true
+			Height = 60
+			Type = SoundTest
+			Var = 2
+			SHOWCONDITIONSET = 44
+			ConditionSet = 44
+
+			ConditionSet 44
+			Condition1 = ConditionSet 28
+			Condition1 = MapVisited P0
+
+		#SRB1
+			Unlockable 17
+			Name = Sonic Robo Blast (MIDI)
+			Hidden = true
+			NoCEcho = true
+			Height = 70
+			Type = SoundTest
+			Var = 2
+			ConditionSet = 28
+
+		#TGF
+			Unlockable 18
+			Name = SRB2 TGF (MIDI)
+			Hidden = true
+			NoCEcho = true
+			Height = 80
+			Type = SoundTest
+			Var = 2
+			ConditionSet = 28
+
+		#HALLOWEEN & XMAS
+			Unlockable 19
+			Name = Halloween & XMAS (MIDI)
+			Hidden = true
+			NoCEcho = true
+			Height = 90
+			Type = SoundTest
+			Var = 2
+			ConditionSet = 28
+
+		#DEMO
+			Unlockable 20
+			Name = Demo (MIDI)
+			Hidden = true
+			NoCEcho = true
+			Height = 100
+			Type = SoundTest
+			Var = 2
+			ConditionSet = 28
+
+		#FINAL DEMO - 2.1
+			Unlockable 21
+			Name = Final Demo - 2.1
+			Hidden = true
+			NoCEcho = true
+			Height = 110
+			Type = SoundTest
+			Var = 2
+			ConditionSet = 28
+
+		#2.2
+			Unlockable 22
+			Name = Version 2.2
+			Hidden = true
+			NoCEcho = true
+			Height = 120
+			Type = SoundTest
+			Var = 1
+			ConditionSet = 28
+
+		#SRB2TP
+			Unlockable 23
+			Name = SRB2: The Past / Misc.
+			Hidden = true
+			NoCEcho = true
+			Height = 130
+			Type = SoundTest
+			Var = 1
+			ConditionSet = 28
+
+
+	#TECHNO LEGACY & SPRING HILL 2.1
+		Unlockable 24
+		Name = Techno Legacy + Spring Hill 2.1
+		Objective = Still get 100 Emblems
+		Type = None
+		ConditionSet = 13
+
+		ConditionSet 13
+		Condition1 = TotalEmblems 100
+
+
+##LEVEL CLEAR UNLOCKS
+
+	#FINAL DEMO XMAS
+		Unlockable 25
+		Name = Christmas Time
+		Objective = Beat the Christmas Demo
+		Type = None
+		ConditionSet = 15
+
+		ConditionSet 15
+		Condition1 = MapBeaten X9
+
+
+	#RED VOLCANO
+		Unlockable 26
+		Name = Red Volcano 1.09.4
+		Objective = Leave the Volcano
+		Type = None
+		ConditionSet = 10
+
+
+	#ADVENTURE EXAMPLE
+		Unlockable 27
+		Name = Adventure Example
+		Objective = Beat Spring Hill (1.09.4)
+		Type = None
+		ConditionSet = 29
+
+		ConditionSet 29
+		Condition1 = MapBeaten N2
+
+
+
+	#NEO AERIAL GARDEN
+		Unlockable 28
+		Name = Neo Aerial Garden
+		Objective = Visit "Heaven"
+		Type = None
+		Height = 40
+		ConditionSet = 9
+
+		ConditionSet 9
+		Condition1 = MapBeaten U0
+
+
+	#SRB1 & AGZ 2.1
+		Unlockable 29
+		Name = SRB1 Remake + Aerial Garden 2.1
+		Objective = Beat Beta Quest w/ 7 emeralds
+		Type = Warp
+		Var = H2
+		Height = 10
+		ConditionSet = 21
+
+		ConditionSet 21
+		Condition1 = MapAllEmeralds 26
+
+	#AZURE TEMPLE ZONE
+		Unlockable 30
+		Name = Azure Temple
+		Objective = Beat Aerial Garden 2.1
+		Type = None
+		ConditionSet = 23
+
+		ConditionSet 23
+		Condition1 = MapBeaten U6
+
+	#TBD
+		Unlockable 31
+		Name = To Be Replaced
+		Objective = Find a new unlockable.
+		Type = None
+		ConditionSet = 22
+
+		ConditionSet 22
+		Condition1 = MapBeaten 26
+		Condition1 = MapBeaten 56
+		Condition1 = ExtraEmblem  8
+		Condition2 = MapBeaten 26
+		Condition2 = MapBeaten NB
+		Condition2 = ExtraEmblem  8
+		Condition3 = MapBeaten EY
+
+
+	#NIGHTS ATTACK
+		Unlockable 32
+		Name = Sonic into Dreams
+		Objective = Beat a NiGHTS stage
+		Type = NightsMode
+		ConditionSet = 19
+
+		ConditionSet 19
+		Condition1 = MapBeaten 56
+		Condition2 = MapBeaten N5
+		Condition3 = MapBeaten N6
+		Condition4 = MapBeaten N7
+		Condition5 = MapBeaten N8
+		Condition6 = MapBeaten N9
+		Condition7 = MapBeaten NA
+		Condition8 = MapBeaten NB
+		Condition9 = MapBeaten N4
+		Condition10 = MapBeaten N1
+		Condition11 = MapBeaten N2
+		Condition12 = MapBeaten N3
+		Condition13 = MapBeaten N0
+		Condition14 = MapBeaten ND
+
+
+	#BLACK HOLE
+		Unlockable 33
+		Name = Black Hole
+		Objective = Get a perfect Report card
+		Type = None
+		ConditionSet = 26
+
+		ConditionSet 26
+		Condition1 = NightsGrade N5 0 GRADE_A
+		Condition1 = NightsGrade N6 0 GRADE_A
+		Condition1 = NightsGrade N7 0 GRADE_A
+		Condition1 = NightsGrade N8 0 GRADE_A
+		Condition1 = NightsGrade N9 0 GRADE_A
+		Condition1 = NightsGrade NA 0 GRADE_A
+		Condition1 = NightsGrade NB 0 GRADE_A
+
+
+##REDXVI
+
+	#BLACK EMERALD
+		Unlockable 34
+		Name = Hyperkin
+		Objective = Find the 8th Emerald
+		Type = None
+		Height = 60
+		ConditionSet = 11
+
+		ConditionSet 11
+		Condition1 = Trigger 1
+
+
+	#PANDORAS BOX
+		Unlockable 35
+		Name = Pandora's box
+		Objective = With 8 emeralds, jump into a castle's pool.
+		Type = Pandora
+		Height = 70
+		ConditionSet = 12
+
+		ConditionSet 12
+		Condition1 = Trigger 2
+
+
+##SRB2TP
+
+	#BOSS GAUNTLET
+		Unlockable 36
+		Name = Boss GAUNTLET
+		Objective = Beat all the Boss Rushes
+		Type = None
+		ConditionSet = 34
+
+		ConditionSet 34
+		Condition1 = Emblem 124
+		Condition1 = Emblem 125
+		Condition1 = Emblem 126
+		Condition1 = Emblem 205
+		Condition1 = ExtraEmblem 8
+		Condition1 = ExtraEmblem 9
+		Condition1 = ExtraEmblem 10
+
+
+	#GAUNTLET CLEARED
+		Unlockable 37
+		Name = Rocked the Gauntlet
+		Objective = Return from Space on a Gauntlet's Rocket.
+		Type = None
+		Height = 80
+		ConditionSet = 35
+
+		ConditionSet 35
+		Condition1 = MapBeaten ZY
+
+
+	#METAL'S CHALLENGE LEVELS CLEARED
+		Unlockable 38
+		Name = Metal's Equal
+		Objective = Finish Metal Sonic's Races
+		Type = None
+		ConditionSet = 36
+
+		ConditionSet 36
+		Condition1 = MapBeaten O0
+		Condition1 = MapBeaten O1
+		Condition1 = MapBeaten O2
+		Condition1 = MapBeaten O3
+		Condition1 = MapBeaten O4
+		Condition1 = MapBeaten O5
+		Condition1 = MapBeaten O6
+		Condition1 = MapBeaten O7
+		Condition1 = MapBeaten O8
+		Condition1 = MapBeaten O9
+		Condition1 = MapBeaten OA
+		Condition1 = MapBeaten OB
+		Condition1 = MapBeaten OC
+		Condition1 = MapBeaten OD
+		Condition1 = MapBeaten OE
+		Condition1 = MapBeaten OF
+		Condition1 = MapBeaten OG
+		Condition1 = MapBeaten OH
+		Condition1 = MapBeaten OI
+		Condition1 = MapBeaten OJ
+
+
+	#HISTORY CLASH CLEARED
+		Unlockable 39
+		Name = Metal's Superior
+		Objective = Prove to Metal why you are the best!
+		Type = None
+		ConditionSet = 37
+
+		ConditionSet 37
+		Condition1 = MapBeaten OK
+		Condition1 = MapBeaten ZZ
+
+
+	#SONIC DOOM 2 CLEARED
+		Unlockable 40
+		Name = Your DOOM.
+		Objective = Defeat a long forgotten and \n unfinished foe.
+		Type = None
+		ConditionSet = 38
+
+		ConditionSet 38
+		Condition1 = MapBeaten PU
+
+
+
 
 ExtraEmblem 1
 Name = Beta Quest
