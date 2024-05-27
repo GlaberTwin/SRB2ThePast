@@ -123,7 +123,7 @@ Thing MT_STARPOST
 #$Arrow
 #$Flags1Text ENABLE Skins
 #$Flags4Text Respawn at Center
-#$Flags8Text Use Parameter instead of Rotation for Skin
+#$Flags8Text Use Rotation instead of Parameter for Skin
 #$Arg2 "Skin"
 #$Arg2Tooltip "Affects how this Starpost appears.\nThe default uses the map's defined Era or 2.2 otherwise."
 #$Arg2Type 11
