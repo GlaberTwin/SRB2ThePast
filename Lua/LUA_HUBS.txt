@@ -1,0 +1,543 @@
+/*
+Open-Asset Warp to Hub by Barrels O' Fun
+Styled after the 'Hold to Retry' prompt in record attack
+Stats+Menu to begin process (Usually Tab+Escape)
+*/
+
+////////////////////
+//Script Variables//
+////////////////////
+
+local returningMap			-- Map to return to
+local nextReturnPoint = 0	-- Return point to go to when warping
+local initReturnPoint  = 0 	-- Map's set return point
+local curReturnPoint = 0	-- Return point to refer to when loading Hub
+
+local returnPoint			-- Return point Map Thing
+local returnX
+local returnY
+local returnZ
+local returnA
+
+local returnAnchor			-- Spawn Point Anchor Map Thing
+local anchorX
+local anchorY
+local anchorZ
+local anchorA
+
+local consPlayer = displayplayer -- Split Screen fix
+
+local returning = false 	-- Begin the sequence
+local returningPlayer 		-- Player who is returning
+
+local justWarped = false -- Suppress Escape key after warping
+
+local returnDelay = 0 -- Delay before finally returning
+
+
+
+/////////////////////
+//Get Returning Map//
+/////////////////////
+
+local function GetReturningMap()
+	returningMap = nil;
+	initReturnPoint = 0;
+
+	if mapheaderinfo[gamemap].tphub == nil then return end
+	local mapid
+	local retpt
+	
+	
+	if string.match(mapheaderinfo[gamemap].tphub, ":")
+		mapid = string.match(mapheaderinfo[gamemap].tphub, "(.-):")
+		retpt = string.match(mapheaderinfo[gamemap].tphub, ":(.+)")
+	else
+		mapid = mapheaderinfo[gamemap].tphub
+	end
+
+
+	if tonumber(mapid)						-- If mapid is a number
+		mapid = tonumber(mapid)					-- Use that number
+	else 									-- if it's a string
+		mapid = tonumber(M_MapNumber(mapid))	-- Check to see if it's an Extended Map Number
+	end
+
+
+	if mapid <= 0 or mapid > 1035 then return end -- Make sure it's a valid mapid
+
+
+	returningMap = mapid
+	if (not tonumber(retpt)) or tonumber(retpt) < 0  -- If it isnt or a number or is below 0
+		initReturnPoint = 0							-- Set to 0
+	else									
+		initReturnPoint = tonumber(retpt)			-- Return Point #
+	end
+	
+	nextReturnPoint = initReturnPoint
+end
+
+addHook("MapLoad", function()
+if returningMap == 0 or returningMap == nil -- If it gets set on Map Load through a linedef, don't bother
+GetReturningMap()
+end
+end)
+
+
+
+////////////////////
+//Map Change Reset//
+////////////////////
+
+addHook("MapChange", function() 
+returnDelay = 0
+returning = false
+returningMap = nil
+returningPlayer = nil
+returnPoint	= nil
+returnAnchor = nil
+curReturnPoint = nextReturnPoint
+nextReturnPoint = 0
+end)
+
+
+
+///////////////////////////////////////////////
+//Return Point and Spawn Point Anchor Objects//
+///////////////////////////////////////////////
+
+freeslot(
+	"MT_HUBRETURNPOINT",
+	"MT_HUBRETURNANCHOR"
+)
+
+
+--Return Point Object
+
+mobjinfo[MT_HUBRETURNPOINT] = {
+	//$Name Hub Return Point
+	//$Sprite NDRNA2A8
+	//$Category Hub Return Point
+	//$Flags1Text Use Rotation Loops to set Point #
+	//$Flags4Text In multiplayer, If no anchor is placed,
+	//$Flags8Text then all players will spawn on this point.
+	//$AngleText Point #
+	//$Arg0 "Point #"
+	//$Arg0Tooltip "Point is offset by -1 compared to map header. so Point #0 is 1, #1 is 2, etc."
+	height = 48*FRACUNIT,
+	radius = 16*FRACUNIT,
+	doomednum = 2400
+}
+
+addHook("MapThingSpawn", function(m,mt)
+if curReturnPoint == (FixedAngle(m.spawnpoint.angle)>>FRACBITS)+1 -- Rotation Loop 0 is Return Point 1, 1 is 2, etc...
+or (udmf and curReturnPoint == m.spawnpoint.args[0]+1)
+returnPoint = mt  -- Will only use the latest instance of Object with the same tag.
+returnX = m.x
+returnY = m.y
+returnZ = m.z
+returnA = FixedAngle(mt.angle*FRACUNIT)
+end
+end, MT_HUBRETURNPOINT)
+
+
+--Spawn Point Anchor Object
+
+mobjinfo[MT_HUBRETURNANCHOR] = {
+	//$Name Spawn Point Anchor
+	//$Sprite SMCHA0
+	//$Category Hub Return Point
+	//$Flags1Text Ideally place at the center of all player spawns.
+
+	//$Flags4Text Translates spawns to the Return Point instead
+	//$Flags8Text of all players spawning in the same spot.
+	height = 48*FRACUNIT,
+	radius = 16*FRACUNIT,
+	doomednum = 2401
+}
+
+addHook("MapThingSpawn", function(m,mt)
+returnAnchor = mt  -- Will only use the latest instance of Object.
+anchorX = m.x
+anchorY = m.y
+anchorZ = m.z
+anchorA = FixedAngle(mt.angle*FRACUNIT)
+end,MT_HUBRETURNANCHOR)
+
+
+
+///////////////////////////////
+// Handle Split Screen errors//
+///////////////////////////////
+
+addHook("PreThinkFrame", function()
+if splitscreen
+consPlayer = displayplayer
+else
+consPlayer = consoleplayer
+end
+end)
+
+
+
+////////////////////////
+//Set Players Position//
+////////////////////////
+
+addHook("PlayerSpawn", function(p)
+	if returnPoint and returnPoint.valid
+		local px = returnX
+		local py = returnY
+		local temp_pflags = p.pflags
+
+		if returnAnchor and returnAnchor.valid and multiplayer
+			local dist = -FixedHypot((p.mo.x - anchorX), (p.mo.y - anchorY)) --  Get the distance between player and anchor
+			local angle = R_PointToAngle2(p.mo.x,p.mo.y,anchorX,anchorY) + (returnA - anchorA) -- Get angle between player and anchor, then add the difference between the return point's and anchor's angle.
+			px = $ + FixedMul(dist,cos(angle))
+			py = $ + FixedMul(dist,sin(angle))
+			p.mo.angle = ($ - anchorA) + returnA
+
+		else
+			p.mo.angle = returnA
+		end
+
+
+		if CV_FindVar("directionchar").value == 1 -- When using Manual or Automatic, set player's angle.
+		or (splitscreen and p == displayplayer2 and CV_FindVar("directionchar2").value == 1)
+			p.drawangle = p.mo.angle
+		end
+
+
+		if (p == consPlayer and (CV_FindVar("configanalog").value == 1 
+		or CV_FindVar("sessionanalog").value == 1)-- Face toward the entrance if player is using Automatic
+		and CV_FindVar("chasecam").value == 1)
+		or (splitscreen and p == displayplayer2 and (CV_FindVar("configanalog2").value == 1 
+		or CV_FindVar("sessionanalog2").value == 1) and CV_FindVar("chasecam2").value == 1)
+			p.pflags = $ & PF_DIRECTIONCHAR|PF_ANALOGMODE
+			p.mo.angle = $-ANGLE_135
+		end
+		
+		local dz = p.mo.z
+		local camdist = -FixedHypot((p.mo.x - camera.x), (p.mo.y - camera.y))
+
+		P_SetOrigin(p.mo,px,py,returnZ)
+
+		local camheight = (p.mo.z - dz)
+		
+
+		--Gravity Flipped Return Points
+		if returnPoint.options & 2 and !p.mo.flags2 & MF2_OBJECTFLIP
+			p.mo.flags2 = $ | MF2_OBJECTFLIP
+			camheight = $ - (FRACUNIT*12) -- Weirdly specific value but it works.
+		elseif !returnPoint.options & 2 and p.mo.flags2 & MF2_OBJECTFLIP
+			p.mo.eflags = $ &~ MFE_VERTICALFLIP
+			p.mo.flags2 = $ &~ MF2_OBJECTFLIP
+			camheight = -$
+		end
+
+		if p == displayplayer
+			px = p.mo.x + FixedMul(camdist,cos(p.mo.angle))
+			py = p.mo.y + FixedMul(camdist,sin(p.mo.angle))
+			P_TeleportCameraMove(camera,px,py,camera.z + camheight )
+			camera.angle = p.mo.angle
+		end
+	end
+end)
+
+
+
+////////////////
+//Key Behavior//
+////////////////
+
+//A hacky method involving a console command, since key events are clientside only, and clients can send commands to communicate to the server. 
+COM_AddCommand("SRB2TP_ReturnToLobby", function(p, r) -- Player, Returning?
+if not (isserver and dedicated)	
+	if (returningPlayer == nil or returningPlayer == p) -- Don't intercept another player returning to lobby.
+	and (p == server or IsPlayerAdmin(p)) -- Make sure command is being used by an admin.
+	and (leveltime > 2) -- Vanilla uses this delay 
+	and returningMap !=nil -- Make sure the level has a corresponding hub map.
+	and not modeattacking -- Can't go to a hub while in record attack.
+	
+	and not (consPlayer != nil and consPlayer.exiting)-- If level is already ending, stop it.
+		if r == "true"
+			returning = true
+			returningPlayer = p
+		else
+			returning = false
+			returningPlayer = nil
+		end
+	else
+	r = "false" -- Unset non-admin players using this command.
+	end
+end
+end)
+
+
+--Key Down
+
+addHook("KeyDown", function(key)
+local esc1,esc2 = input.gameControlToKeyNum(GC_SYSTEMMENU)
+local score1,score2 = input.gameControlToKeyNum(GC_SCORES)
+	if key.name == "escape" or key.num == esc1 or key.num == esc2
+
+		if consPlayer == nil	-- So it doesn't error out on dedicated servers.
+			return false
+		end
+
+		consPlayer.EscDown = true
+
+		if justWarped or leveltime < 2 	-- Don't have escape flash the player after warping and still holding.
+			return true
+		end
+
+		if (isserver or IsPlayerAdmin(consPlayer)) and not modeattacking
+		and returningMap !=nil -- Make sure the level has a corresponding hub map.
+			if gamekeydown[score1] or gamekeydown[score2]
+				COM_BufInsertText(consPlayer,"SRB2TP_ReturnToLobby true")
+			return true
+			else
+				COM_BufInsertText(consPlayer,"SRB2TP_ReturnToLobby false")
+			end
+		end
+	end
+end)
+
+
+--Key Up
+
+addHook("KeyUp", function(key)
+local esc1,esc2 = input.gameControlToKeyNum(GC_SYSTEMMENU)
+	if key.name == "escape" or key.num == esc1 or key.num == esc2
+	and (isserver or IsPlayerAdmin(consPlayer)) and not modeattacking
+	
+		if consPlayer == nil	-- So it doesn't error out on dedicated servers.
+			return false
+		end
+
+		consPlayer.EscDown = nil
+		justWarped = false
+		COM_BufInsertText(consPlayer,"SRB2TP_ReturnToLobby false")
+	end
+end)
+
+
+
+/////////////////////
+//Returning Thinker//
+/////////////////////
+
+addHook("ThinkFrame", function()
+
+	if (returningPlayer and returningPlayer.valid and returningPlayer.exiting)  -- If returner is exiting or
+	or not (returningPlayer and returningPlayer.valid)  -- returner disconnects mid returning, cancel procedure
+	or players[0].lives == 0 and not multiplayer -- You're not warping if you GO'd in singleplayer.
+		returning = false
+	end
+
+	if returning
+		returnDelay = $ + 1
+
+		if returnDelay > 1+(TICRATE/2)+(TICRATE/3)
+			
+			if consPlayer != nil and !consPlayer.pflags & PF_FINISHED
+				stagefailed = true
+			end
+			
+			G_SetCustomExitVars(returningMap,1) -- Return to level's preferred hub.
+			token = 0 -- Don't smuggle tokens into the hubs.
+
+			if returningPlayer == consPlayer -- Unpress Scores button for the player so it doesn't appear when loading next level.
+				gamekeydown[input.gameControlToKeyNum(GC_SCORES)] = false
+			end
+
+			nextReturnPoint = initReturnPoint -- Override Return Point set by Linedef, go back to origin map.t
+			G_ExitLevel()
+		--	S_StartSound(nil, sfx_s3k73,0) -- maybe if sound effects could persist throughout transitions...
+			if consPlayer != nil and consPlayer.EscDown != nil 
+				justWarped = true
+			end
+			returning = false
+			returningPlayer = nil
+		end
+		
+	elseif returnDelay > 0
+		returnDelay = $ - 1
+	end
+
+end)
+
+
+
+///////
+//HUD//
+///////
+
+--Tab Menu Item
+
+local function ReturnCommand(v)
+	if (isserver and not dedicated) or IsPlayerAdmin(consPlayer) and not modeattacking -- Only Admins see this (Seen by default in Singleplayer)
+		local warping
+		local x = hudinfo[HUD_LIVES].x
+		local y = hudinfo[HUD_LIVES].y-8
+		if returning == true
+		
+			if leveltime & 4
+				warping =  V_SKYMAP
+			else
+				warping =  V_BLUEMAP
+			end
+		else
+			warping = V_GRAYMAP|V_20TRANS
+		end
+		
+		if (returningPlayer and returningPlayer.valid and returningPlayer != consPlayer) 
+		or consPlayer.exiting
+		or consPlayer.lives == 0 and not multiplayer -- You're not warping if you GO'd in singleplayer.
+			warping = V_REDMAP|V_20TRANS
+		end
+		
+		if multiplayer
+		x = 4
+		y = 18
+		elseif (consPlayer.powers[pw_carry] == CR_NIGHTSMODE)
+			y = $ - 16
+		end
+
+
+	v.drawString(x,y,"HOLD ESC/MENU TO RETURN TO HUB...",V_SNAPTOLEFT|V_SNAPTOBOTTOM|warping,"thin")
+	end
+end
+
+
+--Multiplayer Admin is Returning Item
+
+local function PlayerIsReturning(v)
+	if returning and returningPlayer and returningPlayer.valid and multiplayer and returningPlayer != consPlayer and !returningPlayer.exiting
+		local warping
+
+		if leveltime & 4
+			warping =  V_SKYMAP
+		else
+			warping =  V_BLUEMAP
+		end
+
+		v.drawString(160,hudinfo[HUD_LIVES].y-8,returningPlayer.name.." IS RETURNING TO HUB...",warping,"thin-center")
+	end
+end
+
+
+--Fade Effect
+
+local function WarpFade(v)
+local strength = ((returnDelay - 1 - TICRATE/2)*10)/(TICRATE/3)	
+if strength > 9
+v.drawFill()
+elseif strength > 0
+v.fadeScreen(31, strength)
+end
+end
+
+
+--Hud Functions
+
+hud.add(function(v)
+if returningMap !=nil -- Don't show if there's no hub
+WarpFade(v)
+ReturnCommand(v)
+PlayerIsReturning(v)
+end
+end, "scores")
+
+hud.add(function(v)
+if returningMap !=nil -- Don't show if there's no hub
+WarpFade(v)
+PlayerIsReturning(v)
+end
+end)
+
+
+
+////////////////
+//Netgame Sync//
+////////////////
+
+addHook("NetVars", function(network)
+	returnPoint = network(returnPoint)
+	returnX = network(returnX)
+    returnY = network(returnY)
+    returnZ = network(returnZ)
+    returnA = network(returnA)
+	returnAnchor = network(returnAnchor)
+	anchorX = network(anchorX)
+	anchorY = network(anchorY)
+	anchorZ = network(anchorZ)
+	anchorA = network(anchorA)
+	
+	returning = network(returning)
+	returningPlayer = network(returningPlayer)
+	
+	returningMap = network(returningMap)
+	initReturnPoint = network(initReturnPoint)
+	nextReturnPoint = network(nextReturnPoint)
+	
+	curReturnPoint = network(curReturnPoint)
+	
+	returnDelay = network(returnDelay)
+end)
+
+
+
+//////////////////////////////
+//Initialize on Title Screen//
+//////////////////////////////
+addHook("GameQuit", function()
+returningMap = nil	
+nextReturnPoint = 0	
+initReturnPoint  = 0
+curReturnPoint = 0	
+returnPoint	= nil		
+returnX = nil
+returnY = nil
+returnZ = nil
+returnA = nil
+returnAnchor = nil
+anchorX = nil
+anchorY = nil
+anchorZ = nil
+anchorA = nil
+consPlayer = displayplayer
+returning = false
+returningPlayer = nil
+justWarped = false
+returnDelay = 0
+end)
+
+
+
+///////////////////
+//Linedef Scripts//
+///////////////////
+
+-- Set Hub Exit
+addHook("LinedefExecute", function(l,m,s)
+	local retMap = max(1,min(l.frontsector.floorheight/FRACUNIT,1035))
+	local skipTally = l.flags & ML_NOCLIMB >> 6
+	local retPoint = max(0,l.frontside.textureoffset/FRACUNIT) -- If Regular Exit, X offset is used for return point.
+
+	if ((l.flags & ML_BLOCKMONSTERS) and (emeralds >= 127))
+		retMap = max(1,min(l.frontsector.ceilingheight/FRACUNIT,1035))
+		retPoint = max(0,l.frontside.rowoffset/FRACUNIT) -- If Emerald Exit, Y offset is used for return point.
+	end
+
+	nextReturnPoint = retPoint
+	G_SetCustomExitVars(retMap,skipTally) 
+end,"HUBEXIT")
+
+-- Change Map's Return Hub
+addHook("LinedefExecute", function(l,m,s)
+	returningMap = max(1,min(l.frontside.textureoffset/FRACUNIT,1035)) -- Returning Map uses X offset 1-1035
+	initReturnPoint = max(0,l.frontside.rowoffset/FRACUNIT)	-- Return Point uses Y offset.
+	nextReturnPoint = max(0,l.frontside.rowoffset/FRACUNIT)
+end,"SETHUB")
+
