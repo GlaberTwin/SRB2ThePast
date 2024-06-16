@@ -16,7 +16,21 @@ RecordAttack = 0
 hidden = 0
 SaveGame = true
 
-
+#Special Stage Challenge
+Level 2
+Levelname = Special Stage Hub
+Subtitle = Emerald Challenge
+SelectHeading = Museum
+ScriptName = SCRIPT01
+Act = 0
+Music = _INTER
+NextLevel = 1
+TypeOfLevel = Singleplayer,Co-op
+Weather = 0
+SkyNum = 1
+RecordAttack = 0
+hidden = 0
+SaveGame = true
 
 
 #GREENFLOWER
