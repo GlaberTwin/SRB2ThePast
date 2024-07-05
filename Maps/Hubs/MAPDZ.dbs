@@ -1,0 +1,55 @@
+type = "Doom Builder Map Settings Configuration";
+gameconfig = "SRB2-22.cfg";
+strictpatches = 0;
+
+maps
+{
+	
+	MAPDZ
+	{
+		defaultfloortexture = "LAKEFLR4";
+		overrideceilheight = false;
+		
+		resources
+		{
+			
+			resource0
+			{
+				type = 2;
+				location = "D:\\srb2\\SRB2 v2.2.13\\SRB2ThePastPK01\\2.1\\SRMFCL_SRB2ThePast_V2.1alpha.pk3";
+				option1 = 0;
+				option2 = 0;
+				notfortesting = 0;
+			}
+		}
+		defaulttoptexture = "DSZ6";
+		overridemiddletexture = false;
+		viewpositionx = 4288f;
+		viewpositiony = -320f;
+		viewscale = 0.1200927f;
+		overridefloortexture = false;
+		customceilheight = 128;
+		customfloorheight = 0;
+		
+		grid
+		{
+			background = "";
+			backoffsetx = 0;
+			backoffsety = 0;
+			backscalex = 100;
+			backscaley = 100;
+			backsource = 0;
+			gridsize = 32;
+		}
+		defaultceiltexture = "F_SKY1";
+		overridebrightness = false;
+		uselongtexturenames = false;
+		overridebottomtexture = false;
+		overridefloorheight = false;
+		overridetoptexture = false;
+		custombrightness = 196;
+		overrideceiltexture = false;
+		defaultwalltexture = "DSZ6";
+		defaultbottomtexture = "DSZ6";
+	}
+}
