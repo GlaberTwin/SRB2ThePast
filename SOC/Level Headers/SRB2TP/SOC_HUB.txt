@@ -27,10 +27,11 @@ Music = _INTER
 NextLevel = 1
 TypeOfLevel = Singleplayer,Co-op
 Weather = 0
-SkyNum = 1
+SkyNum = 58
 RecordAttack = 0
 hidden = 0
 SaveGame = true
+Lua.TPHub = 1:21
 
 
 #GREENFLOWER
@@ -316,3 +317,15 @@ RecordAttack = 0
 SaveGame = false
 NoVisitNeeded = true
 Lua.TPHub = 29:5
+
+# Tutorial Not a hub, but it needs to go somewhere
+
+Level Z0
+Levelname = Tutorial
+Act = 0
+Music = TUTORL
+NextLevel = 1
+TypeOfLevel = Singleplayer
+HideInStats = true
+SkyNum = 99
+Lua.TPHub = 1:20

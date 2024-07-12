@@ -1,0 +1,657 @@
+###################
+# AREA 1
+# MOVEMENT
+###################
+
+# Pre-text
+PROMPT 201
+NumPages 3
+PAGE 1
+Tag = TAMPre
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = Welcome to the SRB2 Tutorial! \baTo access the menu, \b6hit the \82Escape key\80. \baTo continue, \b6press the \82Space Bar\80.
+        #
+PAGE 2
+MetaPage = 1
+Icon = AMYRTALK
+HideHud = All
+NumberOfPics = 8
+PicMode = Loop
+Pic1Name = MVUPFPS
+Pic1Hires = True
+Pic1Duration = 26
+Pic1XCoord = 0
+Pic1YCoord = 48
+Pic2Name = MVNTFPS
+Pic2Hires = True
+Pic2Duration = 18
+Pic2XCoord = 0
+Pic2YCoord = 48
+Pic3Name = MVDNFPS
+Pic3Hires = True
+Pic3Duration = 26
+Pic3XCoord = 0
+Pic3YCoord = 48
+Pic4Name = MVNTFPS
+Pic4Hires = True
+Pic4Duration = 18
+Pic4XCoord = 0
+Pic4YCoord = 48
+Pic5Name = MVLFFPS
+Pic5Hires = True
+Pic5Duration = 26
+Pic5XCoord = 0
+Pic5YCoord = 48
+Pic6Name = MVNTFPS
+Pic6Hires = True
+Pic6Duration = 18
+Pic6XCoord = 0
+Pic6YCoord = 48
+Pic7Name = MVRGFPS
+Pic7Hires = True
+Pic7Duration = 26
+Pic7XCoord = 0
+Pic7YCoord = 48
+Pic8Name = MVNTFPS
+Pic8Hires = True
+Pic8Duration = 18
+Pic8XCoord = 0
+Pic8YCoord = 48
+PageText = To move around, \b6press the movement keys. \baThese default to \82WASD\80, \b6which are arranged like the arrow keys.
+        #
+PAGE 3
+MetaPage = 1
+Icon = AMYRTALK
+PageText = Use the movement keys to reach the exit.
+        #
+
+# HUD prompt
+PROMPT 202
+NumPages 3
+PAGE 1
+Tag = TAMHint
+Name = Move_Around
+Icon = STARORB
+Lines = 3
+TextSpeed = TICRATE/5
+TimeToNext = TICRATE*3
+PageText = Use \82WASD\80 to move.
+        #
+PAGE 2
+MetaPage = 1
+TimeToNext = TICRATE*4
+PageText = Automatic braking is on by default, \b6which causes you to slow down quickly
+        #
+PAGE 3
+MetaPage = 1
+NextPage = 1
+TimeToNext = TICRATE*3
+PageText = when you release the controls.
+        #
+
+# Post-text
+PROMPT 203
+NumPages 0 # DUMMIED OUT, is this prompt good for flow?
+PAGE 1
+Tag = TAMPost
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = Automatic braking is on by default, \b6which causes Sonic to quickly slow down when you release the controls.
+        #
+PAGE 2
+MetaPage = 1
+PageText = After you get used to the game, \b6try using manual braking, \b6which requires you to press
+        #
+PAGE 3
+MetaPage = 1
+PageText = the direction opposite to your momentum to slow down as quickly.
+        #
+
+###################
+# AREA 2
+# CAMERA ROTATION
+###################
+
+# Pre-text
+PROMPT 204
+NumPages 4
+PAGE 1
+Tag = TACPre
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = Unlike many 3D platformers, \b6SRB2's camera is controlled directly, \b6like a third-person shooter. 
+        #
+PAGE 2
+MetaPage = 1
+HideHud = All
+NumberOfPics = 4
+PicMode = Loop
+Pic1Name = CMLFFPS
+Pic1Hires = True
+Pic1Duration = 26
+Pic1XCoord = 0
+Pic1YCoord = 48
+Pic2Name = CMNTFPS
+Pic2Hires = True
+Pic2Duration = 18
+Pic2XCoord = 0
+Pic2YCoord = 48
+Pic3Name = CMRGFPS
+Pic3Hires = True
+Pic3Duration = 26
+Pic3XCoord = 0
+Pic3YCoord = 48
+Pic4Name = CMNTFPS
+Pic4Hires = True
+Pic4Duration = 18
+Pic4XCoord = 0
+Pic4YCoord = 48
+PageText = To control the camera, \b6use the \82Mouse\80. \baFor keyboard-only play, \b6the \82Arrow Keys\80 also control the camera,
+        #
+PAGE 3
+MetaPage = 1
+HideHud = All
+PicsMetaPage = 2
+PageText = but I highly recommend using the mouse.
+        #
+PAGE 4
+MetaPage = 1
+PageText = Use the camera controls to look in the direction you want to travel in, \b6and find the exit.
+        #
+
+# HUD prompt
+PROMPT 205
+NumPages 3
+PAGE 1
+Tag = TACHint
+Name = Camera_Control
+Icon = STARORB
+Lines = 3
+TextSpeed = TICRATE/5
+TimeToNext = TICRATE*4
+PageText = Use the \82Mouse\80 or \82Arrow Keys\80 to control the camera.
+        #
+PAGE 2
+MetaPage = 1
+TimeToNext = TICRATE*3
+PageText = If moving the camera with the mouse seems too fast or slow,
+        #
+PAGE 3
+MetaPage = 1
+NextPage = 1
+TimeToNext = TICRATE*4
+PageText = you can adjust the mouse sensitivity in the options.
+        #
+
+###################
+# AREA 3
+# MOVEMENT AND CAMERA
+###################
+
+# Pre-text
+PROMPT 206
+NumPages 3
+PAGE 1
+Tag = TADPre
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = Combining the movement and camera controls at the same time allows you to move in one direction
+        #
+PAGE 2
+MetaPage = 1
+PageText = and look in another direction. \baThis is especially useful when fighting enemies and bosses.
+        #
+PAGE 3
+MetaPage = 1
+PageText = To practice this tactic, \b6try to reach the goal here while always seeing the statue on the screen.
+        #
+
+# HUD prompt
+PROMPT 207
+NumPages 1
+PAGE 1
+Tag = TADHint
+Name = Move_&_Look
+Icon = STARORB
+Lines = 3
+PageText = Use the \82Movement\80 and \82Camera\80 controls to keep an eye on the statue!
+        #
+
+# Failure
+PROMPT 208
+NumPages 2
+PAGE 1
+Tag = TADFail
+Name = Amy_Rose
+Icon = AMYRCONC
+IconAlign = Left
+Lines = 4
+PageText = Oops, \b6you lost track of the statue. \baRemember to keep the statue on the screen while moving past.
+        #
+PAGE 2
+MetaPage = 1
+PageText = It might be easier to take it slowly.
+        #
+
+# Post-text
+PROMPT 209
+NumPages 3
+PAGE 1
+Tag = TADPost
+Name = Amy_Rose
+Icon = AMYRJOYS
+IconAlign = Left
+Lines = 4
+PageText = With some practice, \b6controlling the camera directly like this becomes second nature!
+        #
+PAGE 2
+MetaPage = 1
+Icon = AMYRTALK
+PageText = Note that the camera can't go through most walls, \b6so if you stand too close to a wall,
+        #
+PAGE 3
+MetaPage = 1
+Icon = AMYRTALK
+PageText = the camera will zoom in to avoid being pushed inside.
+        #
+
+###################
+# AREA 4
+# JUMPING
+###################
+
+# Pre-text
+PROMPT 210
+NumPages 3
+PAGE 1
+Tag = TAJPre
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = Obviously, \b6platformers revolve around jumping. \baThe default jump key is the \82Space Bar\80.
+        #
+PAGE 2
+MetaPage = 1
+PageText = Holding it down makes you jump higher than releasing it early.
+        #
+PAGE 3
+MetaPage = 1
+PageText = Jump up to the exit here.
+        #
+
+# HUD prompt
+PROMPT 211
+NumPages 1
+PAGE 1
+Tag = TAJHint
+Name = Jump
+Icon = STARORB
+Lines = 3
+PageText = Hit \82Space Bar\80 to jump.
+        #
+
+###################
+# AREA 5
+# SPINNING
+###################
+
+# Pre-text
+PROMPT 212
+NumPages 4
+PAGE 1
+Tag = TASPre
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = You can also spin dash and roll with the spin key, \b6defaulting to \82Left Shift\80.
+        #
+PAGE 2
+MetaPage = 1
+HideHud = All
+NumberOfPics = 4
+PicMode = Loop
+PicToLoop = 2
+Pic1Name = SDA1FPS
+Pic1Hires = True
+Pic1Duration = 34
+Pic1XCoord = 0
+Pic1YCoord = 48
+Pic2Name = SDA2FPS
+Pic2Hires = True
+Pic2Duration = 9
+Pic2XCoord = 0
+Pic2YCoord = 48
+Pic3Name = SDA3FPS
+Pic3Hires = True
+Pic3Duration = 9
+Pic3XCoord = 0
+Pic3YCoord = 48
+Pic4Name = SDA4FPS
+Pic4Hires = True
+Pic4Duration = 9
+Pic4XCoord = 0
+Pic4YCoord = 48
+Pic5Name = SDA5FPS
+Pic5Hires = True
+Pic5Duration = 5
+Pic5XCoord = 0
+Pic5YCoord = 48
+Pic6Name = SDA6FPS
+Pic6Hires = True
+Pic6Duration = 5
+Pic6XCoord = 0
+Pic6YCoord = 48
+Pic7Name = SDA7FPS
+Pic7Hires = True
+Pic7Duration = 5
+Pic7XCoord = 0
+Pic7YCoord = 48
+Pic8Name = SDA8FPS
+Pic8Hires = True
+Pic8Duration = 34
+Pic8XCoord = 0
+Pic8YCoord = 48
+PageText = Pressing and holding spin while standing still will charge the spin dash.
+        #
+PAGE 3
+MetaPage = 1
+HideHud = All
+NumberOfPics = 8
+PicMode = Loop
+Pic1Name = SDA5FPS
+Pic1Hires = True
+Pic1Duration = 5
+Pic1XCoord = 0
+Pic1YCoord = 48
+Pic2Name = SDA6FPS
+Pic2Hires = True
+Pic2Duration = 5
+Pic2XCoord = 0
+Pic2YCoord = 48
+Pic3Name = SDA7FPS
+Pic3Hires = True
+Pic3Duration = 5
+Pic3XCoord = 0
+Pic3YCoord = 48
+Pic4Name = SDA8FPS
+Pic4Hires = True
+Pic4Duration = 34
+Pic4XCoord = 0
+Pic4YCoord = 48
+Pic5Name = SDA1FPS
+Pic5Hires = True
+Pic5Duration = 34
+Pic5XCoord = 0
+Pic5YCoord = 48
+Pic6Name = SDA2FPS
+Pic6Hires = True
+Pic6Duration = 9
+Pic6XCoord = 0
+Pic6YCoord = 48
+Pic7Name = SDA3FPS
+Pic7Hires = True
+Pic7Duration = 9
+Pic7XCoord = 0
+Pic7YCoord = 48
+Pic8Name = SDA4FPS
+Pic8Hires = True
+Pic8Duration = 9
+Pic8XCoord = 0
+Pic8YCoord = 48
+PageText = When spin is released, \b6Sonic rolls forward, \b6with more speed the longer the spin dash was charged.
+        #
+PAGE 4
+MetaPage = 1
+HideHud = All
+NumberOfPics = 5
+PicMode = Loop
+Pic1Name = SPN1FPS
+Pic1Hires = True
+Pic1Duration = 17
+Pic1XCoord = 0
+Pic1YCoord = 48
+Pic2Name = SPN2FPS
+Pic2Hires = True
+Pic2Duration = 17
+Pic2XCoord = 0
+Pic2YCoord = 48
+Pic3Name = SPN3FPS
+Pic3Hires = True
+Pic3Duration = 17
+Pic3XCoord = 0
+Pic3YCoord = 48
+Pic4Name = SPN4FPS
+Pic4Hires = True
+Pic4Duration = 17
+Pic4XCoord = 0
+Pic4YCoord = 48
+Pic5Name = SPN5FPS
+Pic5Hires = True
+Pic5Duration = 17
+Pic5XCoord = 0
+Pic5YCoord = 48
+PageText = Pressing spin while moving causes Sonic to roll with the speed he already has.
+        #
+
+# HUD prompt
+PROMPT 213
+NumPages 1
+PAGE 1
+Tag = TASHint
+Name = Spin_Dash_and_Roll
+Icon = STARORB
+Lines = 3
+TextSpeed = TICRATE/5
+PageText = Hit \82Left Shift\80 to spin dash or roll under the obstacles.
+        #
+
+# Post-text
+PROMPT 214
+NumPages 2
+PAGE 1
+Tag = TASPost
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = While rolling, \b6sloped ground has a stronger influence.
+        #
+PAGE 2
+MetaPage = 1
+PageText = It's also far harder to control while rolling, \b6so plan ahead.
+        #
+
+###################
+# AREA 6
+# SPECIAL ABILITIES
+###################
+
+# Pre-text
+PROMPT 215
+NumPages 5
+PAGE 1
+Tag = TAAPre
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = Each character has a special ability that you can use by \82Jumping\80 then pressing \82Jump\80 again in midair.
+        #
+PAGE 2
+MetaPage = 1
+PageText = Sonic, your ability is called the \82speed thok\80, \b6named for the sound it makes. 
+        #
+PAGE 3
+MetaPage = 1
+PageText = It launches you very quickly forward in the direction the camera is facing.
+        #
+PAGE 4
+MetaPage = 1
+PageText = This can be useful for accelerating instantly and crossing large gaps.
+        #
+PAGE 5
+MetaPage = 1
+PageText = Use the jump and thok to reach the exit.
+        #
+
+# HUD prompt
+PROMPT 216
+NumPages 1
+PAGE 1
+Tag = TAAHint
+Name = Special_Ability
+Icon = STARORB
+Lines = 3
+TextSpeed = TICRATE/5
+PageText = Hit \82Jump twice\80 to thok.
+        #
+
+# Post-text
+PROMPT 217
+NumPages 4
+PAGE 1
+Tag = TAAPost
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = The thok is extremely powerful, \b6but stopping afterwards can be hard.
+        #
+PAGE 2
+MetaPage = 1
+PageText = Like the spin dash, \b6make sure to plan ahead or you'll soar off directly into hazards.
+        #
+PAGE 3
+MetaPage = 1
+PageText = Also, while this might take a bit to get used to, \b6the thok goes where the camera, \b6not Sonic, \b6is facing.
+        #
+PAGE 4
+MetaPage = 1
+PageText = It might sound weird, \b6but the advantage is that the thok always goes in a direction you can see in.
+        #
+
+###################
+# AREA 7
+# SHIELDS
+###################
+
+# Pre-text
+PROMPT 218
+NumPages 4
+PAGE 1
+Tag = TAWPre
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = Finally, \b6shields in this game all have a special ability you can activate.
+        #
+PAGE 2
+MetaPage = 1
+HideHud = All
+NumberOfPics = 5
+PicMode = Loop
+Pic1Name = SHL1FPS
+Pic1Hires = 1
+Pic1Duration = 17
+Pic1XCoord = 0
+Pic1YCoord = 48
+Pic2Name = SHL2FPS
+Pic2Hires = 1
+Pic2Duration = 17
+Pic2XCoord = 0
+Pic2YCoord = 48
+Pic3Name = SHL3FPS
+Pic3Hires = 1
+Pic3Duration = 34
+Pic3XCoord = 0
+Pic3YCoord = 48
+Pic4Name = SHL4FPS
+Pic4Hires = 1
+Pic4Duration = 17
+Pic4XCoord = 0
+Pic4YCoord = 48
+Pic5Name = SHL5FPS
+Pic5Hires = 1
+Pic5Duration = 34
+Pic5XCoord = 0
+Pic5YCoord = 48
+PageText = To use a shield's special ability, \b6\82Jump\80 and then press \82Spin\80 in midair. 
+        #
+PAGE 3
+MetaPage = 1
+HideHud = All
+PicsMetaPage = 2
+PageText = The whirlwind shield's special ability is a double jump.
+        #
+PAGE 4
+MetaPage = 1
+PageText = Use the whirlwind shield's double jump to finish the tutorial.
+        #
+
+# HUD prompt - Pre-shield
+PROMPT 219
+NumPages 1
+PAGE 1
+Tag = TAWHint
+Name = Get_the_Shield
+Icon = STARORB
+Lines = 3
+TextSpeed = TICRATE/5
+PageText = \82Jump\80 or \82Spin\80 into the whirlwind shield monitor.
+        #
+
+# HUD prompt - Post-shield
+PROMPT 220
+NumPages 1
+PAGE 1
+Tag = TAWHint2
+Name = Shield_Ability
+Icon = STARORB
+Lines = 3
+TextSpeed = TICRATE/5
+PageText = Hit \82Jump\80 followed by \82Spin\80 to double jump.
+        #
+
+###################
+# ENDING
+###################
+
+# Post-text
+PROMPT 221
+NumPages 2
+PAGE 1
+Tag = TAWPost
+Name = Amy_Rose
+Icon = AMYRTALK
+IconAlign = Left
+Lines = 4
+PageText = Each shield's special ability is different. \baTry them all out.
+        #
+PAGE 2
+MetaPage = 1
+Icon = AMYRJOYS
+TimeToNext = TICRATE*4
+PageText = This concludes the tutorial. \baI hope you enjoy this game as much as they did making it!
+        #
+
+#PAGE 3
+#Name = Tails
+#Icon = SSNTAILS
+#IconAlign = Right
+#IconFlip = False
+#Lines = 4
+#TimeToNext = TICRATE*3 + TICRATE/4 + TICRATE/4 + TICRATE/4
+#PageText = .\c1.\c1.\c1\a7wait. \baWe're in a \82game\80?
+#        #
