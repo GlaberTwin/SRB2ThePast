@@ -186,7 +186,7 @@ local theningtmare = {
 	}
 }
 
--- Summon the textbox with a linedef executor.
+-- Summon the textbox with a linedef executor. Use a combo of in map tag and "local" name until such time a better system is made.
 -- This is gonna suck.
 addHook("LinedefExecute", function(l, m, s)
 	if not m.player then return end

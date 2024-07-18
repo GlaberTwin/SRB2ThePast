@@ -1,6 +1,5 @@
--- SRB2 Museum template dialogues.
--- You should never be calling these in a map (good luck running them on
--- tags 1 and 2 anyway lmao.)
+-- SRB2 Museum Help Gallery dialogues.
+
 
 local TB = CFTextBoxes -- shortcut
 
@@ -231,7 +230,7 @@ local hidden15 = {
         name = "HELP: Demo 4", 
         text = "A sketch of Earthworm Jim telling players to check the readme.txt for help.", 
         sound = sfx_talk0, 
-        next = 2
+        next = 0
     }
 }
 
