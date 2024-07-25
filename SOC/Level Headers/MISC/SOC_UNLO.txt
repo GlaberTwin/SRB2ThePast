@@ -1,4 +1,5 @@
 #Unlockables Level Headers
+##Missing entried filled by SlainLBS
 
 #MARIO KOOPA BLAST
 
@@ -38,6 +39,7 @@ Level U4
 Levelname = Mario Koopa Blast
 Act = 2
 subtitle = Versions 1.01-2.0.7
+MusicInter = LCLEAR
 Interscreen = FDINTERP
 Music = MARIO4
 NextLevel = U5
@@ -53,6 +55,7 @@ Level U5
 Levelname = Mario Koopa Blast
 Act = 3
 Interscreen = FDINTERP
+MusicInter = LCLEAR
 subtitle = Versions 1.01-2.0.7
 Music = MARIO5
 NextLevel = UZ
