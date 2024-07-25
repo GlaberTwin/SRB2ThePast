@@ -185,3 +185,21 @@ RecordAttack = 0
 hidden = 1
 SpecialStageSpheres = 100
 SpecialStageTime = 90
+
+##Special Stage Challenge
+
+Level S0
+Levelname = Special Stage 1
+nozone = 1
+Subtitle = TGF Challenge
+Music = OSPEC2
+MusicInter = LCLEAR
+SkyNum = 2
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 50
+SpecialStageTime = 93
+NextLevel = 2
+Lua.OldSpecial = 1
+Lua.TPHub = 2:1
