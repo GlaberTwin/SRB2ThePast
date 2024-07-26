@@ -15,7 +15,7 @@ end
 
 addHook("MapThingSpawn", RM_TGFPowerUpSetup, MT_TGFBOX_INVIN_SPECIAL)
 addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_INVIN_SPECIAL)
-addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_INVIN_SPECIAL)
+addHook("MobjDeath", RM_TGFPowerUpDeath, MT_TGFBOX_INVIN_SPECIAL)
 
 mobjinfo[MT_TGFBOX_INVIN_SPECIAL] = {
 	//$Name TGF Invincibility (Power-Up)

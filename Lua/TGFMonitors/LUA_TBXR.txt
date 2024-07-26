@@ -99,7 +99,7 @@ addHook("TouchSpecial", function(special, toucher)
 	end
 end, MT_TGFBOX_RING_SPECIAL)
 
-addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_RING_SPECIAL)
+addHook("MobjDeath", RM_TGFPowerUpDeath, MT_TGFBOX_RING_SPECIAL)
 
 mobjinfo[MT_TGFBOX_RING_SPECIAL] = {
 	--$Name TGF Super Ring (5 Rings) (Power-Up)

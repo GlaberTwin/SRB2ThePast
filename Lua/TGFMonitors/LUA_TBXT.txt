@@ -27,9 +27,9 @@ function A_GiveTime(actor, var1, var2)
 		else
 			target.player.nightstime = $+(15*TICRATE)
 		end
+		
+		S_StartSound(target, sfx_tgfbng) -- Replace sfx_tgfbng if you decide to use something else
 	end
-	
-	S_StartSound(actor, sfx_tgfbng) -- Replace sfx_tgfbng if you decide to use something else
 end
 
 local function RM_TGFGiveTime(actor, var1, var2)
@@ -39,7 +39,7 @@ end
 
 addHook("MapThingSpawn", RM_TGFPowerUpSetup, MT_TGFBOX_TIME_SPECIAL)
 addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_TIME_SPECIAL)
-addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_TIME_SPECIAL)
+addHook("MobjDeath", RM_TGFPowerUpDeath, MT_TGFBOX_TIME_SPECIAL)
 
 mobjinfo[MT_TGFBOX_TIME_SPECIAL] = {
 	--$Name TGF Time Bonus (Power-Up)
