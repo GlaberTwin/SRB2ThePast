@@ -130,8 +130,8 @@ mobjinfo[MT_HUBRETURNPOINT] = {
 }
 
 addHook("MapThingSpawn", function(m,mt)
-if curReturnPoint == (FixedAngle(m.spawnpoint.angle)>>FRACBITS)+1 -- Rotation Loop 0 is Return Point 1, 1 is 2, etc...
-or (udmf and curReturnPoint == m.spawnpoint.args[0]+1)
+if (udmf and curReturnPoint == m.spawnpoint.args[0]+1) -- UDMF uses Argument #1.
+or (not udmf and curReturnPoint == (FixedAngle(m.spawnpoint.angle)>>FRACBITS)+1) -- Rotation Loop 0 is Return Point 1, 1 is 2, etc... 
 returnPoint = mt  -- Will only use the latest instance of Object with the same tag.
 returnX = m.x
 returnY = m.y
