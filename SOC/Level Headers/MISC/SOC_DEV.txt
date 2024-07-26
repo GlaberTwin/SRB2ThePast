@@ -14,7 +14,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:1
+Lua.TPHub = YZ:0
 
 Level Y1
 Levelname = Dark City
@@ -28,7 +28,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:2
+Lua.TPHub = YZ:1
 
 Level Y2
 Levelname = Dark City
@@ -44,7 +44,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 WarningTitle = true
-Lua.TPHub = YZ:3
+Lua.TPHub = YZ:2
 
 Level YA
 Levelname = Dark City
@@ -57,7 +57,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:4
+Lua.TPHub = YZ:3
 
 
 
@@ -76,7 +76,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:5
+Lua.TPHub = YZ:4
 
 Level Y4
 Levelname = Doom Ship
@@ -92,7 +92,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 WarningTitle = true
-Lua.TPHub = YZ:6
+Lua.TPHub = YZ:5
 
 
 
@@ -111,7 +111,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:7
+Lua.TPHub = YZ:6
 
 
 
@@ -129,7 +129,7 @@ TypeOfLevel = Singleplayer,Co-op,Race,Competition
 SkyNum = 64
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:8
+Lua.TPHub = YZ:7
 
 
 
@@ -148,7 +148,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = YZ:9
+Lua.TPHub = YZ:8
 
 
 
@@ -168,7 +168,7 @@ TypeOfLevel = Singleplayer,Co-op,Race,Competition,Mario
 SkyNum = 31
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:10
+Lua.TPHub = YZ:9
 
 
 
@@ -187,7 +187,7 @@ SKYNUM = 2
 TYPEOFLEVEL = Solo,Co-op,Race,Competition
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:11
+Lua.TPHub = YZ:10
 
 LEVEL Y8
 LEVELNAME = Knothole Base
@@ -201,6 +201,6 @@ SKYNUM = 2
 TYPEOFLEVEL = Solo,Co-op,Race,Competition
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = YZ:12
+Lua.TPHub = YZ:11
 
 

@@ -19,7 +19,7 @@ PrecutsceneNum = 40
 Weather = 0
 palette = 1032
 Lua.TPEra = XMAS
-Lua.TPHub = GZ:1
+Lua.TPHub = GZ:0
 
 
 
@@ -42,7 +42,7 @@ PrecutsceneNum = 8
 Weather = 0
 palette = 1032
 Lua.TPEra = DEMO1
-Lua.TPHub = GZ:2
+Lua.TPHub = GZ:1
 
 Level 318
 Levelname = Greenflower
@@ -60,7 +60,7 @@ PrecutsceneNum = 9
 Weather = 0
 palette = 1032
 Lua.TPEra = DEMO23
-Lua.TPHub = GZ:5
+Lua.TPHub = GZ:4
 
 Level 319
 Levelname = Greenflower
@@ -77,7 +77,7 @@ PrecutsceneNum = 10
 hidden = 1
 palette = 1032
 Lua.TPEra = DEMO23
-Lua.TPHub = GZ:6
+Lua.TPHub = GZ:5
 
 Level 320
 Levelname = Greenflower
@@ -97,7 +97,7 @@ BonusType = Boss
 WarningTitle = true
 palette = 1032
 Lua.TPEra = DEMO4
-Lua.TPHub = GZ:7
+Lua.TPHub = GZ:6
 
 Level 321
 Levelname = Greenflower
@@ -115,7 +115,7 @@ PrecutsceneNum = 12
 hidden = 1
 palette = 1032
 Lua.TPEra = DEMO4
-Lua.TPHub = GZ:8
+Lua.TPHub = GZ:7
 
 Level 322
 Levelname = Greenflower
@@ -133,7 +133,7 @@ hidden = 1
 PrecutsceneNum = 13
 palette = 1032
 Lua.TPEra = DEMO4
-Lua.TPHub = GZ:9
+Lua.TPHub = GZ:8
 
 
 
@@ -155,7 +155,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 14
 Lua.TPEra = 1.04
-Lua.TPHub = GZ:10
+Lua.TPHub = GZ:9
 
 Level G8
 Levelname = Greenflower
@@ -172,7 +172,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 15
 Lua.TPEra = 1.08
-Lua.TPHub = GZ:11
+Lua.TPHub = GZ:10
 
 Level 325
 Levelname = Greenflower
@@ -189,7 +189,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 16
 Lua.TPEra = 1.08
-Lua.TPHub = GZ:12
+Lua.TPHub = GZ:11
 
 Level 326
 Levelname = Greenflower
@@ -206,7 +206,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 18
 Lua.TPEra = 1.09.4
-Lua.TPHub = GZ:15
+Lua.TPHub = GZ:14
 
 Level GB
 Levelname = Greenflower
@@ -223,7 +223,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 19
 Lua.TPEra = 1.09.4
-Lua.TPHub = GZ:14
+Lua.TPHub = GZ:13
 
 Level GC
 Levelname = Greenflower
@@ -241,7 +241,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 45
 Lua.TPEra = 1.09.4
-Lua.TPHub = GZ:13
+Lua.TPHub = GZ:12
 
 
 
@@ -264,7 +264,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 20
 Lua.TPEra = 2.0
-Lua.TPHub = GZ:16
+Lua.TPHub = GZ:15
 
 Level GE
 Levelname = Greenflower
@@ -282,7 +282,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 21
 Lua.TPEra = 2.0
-Lua.TPHub = GZ:17
+Lua.TPHub = GZ:16
 
 
 
@@ -305,7 +305,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 22
 Lua.TPEra = 2.0
-Lua.TPHub = GZ:18
+Lua.TPHub = GZ:17
 
 
 Level GI
@@ -323,7 +323,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 23
 Lua.TPEra = 2.0
-Lua.TPHub = GZ:20
+Lua.TPHub = GZ:19
 
 Level GJ
 Levelname = Greenflower
@@ -340,7 +340,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 70
 Lua.TPEra = 2.0
-Lua.TPHub = GZ:19
+Lua.TPHub = GZ:18
 
 
 
@@ -363,7 +363,7 @@ PrecutsceneNum = 48
 Weather = 0
 palette = 1032
 Lua.TPEra = DEMO1
-Lua.TPHub = GZ:3
+Lua.TPHub = GZ:2
 
 Level GH
 Levelname = Greenflower
@@ -381,7 +381,7 @@ PrecutsceneNum = 49
 Weather = 0
 palette = 1032
 Lua.TPEra = DEMO1
-Lua.TPHub = GZ:4
+Lua.TPHub = GZ:3
 
 
 
@@ -403,7 +403,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 18
 Lua.TPEra = 1.09.4
-Lua.TPHub = GZ:24
+Lua.TPHub = GZ:23
 
 Level GL
 Levelname = Greenflower
@@ -420,7 +420,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 19
 Lua.TPEra = 1.09.4
-Lua.TPHub = GZ:25
+Lua.TPHub = GZ:24
 
 Level GM
 Levelname = Greenflower
@@ -438,7 +438,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 45
 Lua.TPEra = 1.09.4
-Lua.TPHub = GZ:26
+Lua.TPHub = GZ:25
 
 
 
@@ -458,7 +458,7 @@ RecordAttack = false
 hidden = 1
 PrecutsceneNum = 101
 Lua.TPEra = 2.1
-Lua.TPHub = GZ:21
+Lua.TPHub = GZ:20
 
 Level GP
 Levelname = Greenflower
@@ -473,7 +473,7 @@ RecordAttack = false
 hidden = 1
 PrecutsceneNum = 102
 Lua.TPEra = 2.1
-Lua.TPHub = GZ:22
+Lua.TPHub = GZ:21
 
 Level GQ
 Levelname = Greenflower
@@ -489,7 +489,7 @@ hidden = 1
 BonusType = Boss
 PrecutsceneNum = 103
 Lua.TPEra = 2.1
-Lua.TPHub = GZ:23
+Lua.TPHub = GZ:22
 
 
 
@@ -511,4 +511,4 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 104
-Lua.TPHub = GZ:27
+Lua.TPHub = GZ:26

@@ -18,7 +18,7 @@ SkyNum = 31
 RecordAttack = 0
 hidden = 1
 hidden = 1
-Lua.TPHub = UZ:1
+Lua.TPHub = UZ:0
 
 Level U3
 Levelname = Mario Koopa Blast
@@ -33,7 +33,7 @@ TypeOfLevel = Singleplayer,Co-op,Mario
 SkyNum = 31
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = UZ:2
+Lua.TPHub = UZ:1
 
 Level U4
 Levelname = Mario Koopa Blast
@@ -49,7 +49,7 @@ SkyNum = 31
 SaveGame = true
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = UZ:2
+Lua.TPHub = UZ:1
 
 Level U5
 Levelname = Mario Koopa Blast
@@ -65,7 +65,7 @@ SkyNum = 31
 SaveGame = true
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = UZ:2
+Lua.TPHub = UZ:1
 
 
 
@@ -86,7 +86,7 @@ Weather = 2
 SkyNum = 17
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = UZ:3
+Lua.TPHub = UZ:2
 
 
 
@@ -104,7 +104,7 @@ NextLevel = UZ
 TypeOfLevel = Singleplayer,Co-op,Race,FDAdventure
 SkyNum = 2
 hidden = 1
-Lua.TPHub = UZ:4
+Lua.TPHub = UZ:3
 
 
 
@@ -123,7 +123,7 @@ NextLevel = CZ
 TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
-Lua.TPHub = CZ:21
+Lua.TPHub = CZ:20
 
 Level U1
 Levelname = Neo Aerial Garden
@@ -136,7 +136,7 @@ NextLevel = UZ
 TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
-Lua.TPHub = UZ:5
+Lua.TPHub = UZ:4
 
 Level U6
 Levelname = Aerial Garden
@@ -148,7 +148,7 @@ NextLevel = UZ
 SkyNum = 40
 RecordAttack = false
 hidden = 1
-Lua.TPHub = UZ:6
+Lua.TPHub = UZ:5
 
 
 
@@ -165,4 +165,4 @@ NextLevel = UZ
 SkyNum = 35
 RecordAttack = false
 hidden = 1
-Lua.TPHub = UZ:7
+Lua.TPHub = UZ:6

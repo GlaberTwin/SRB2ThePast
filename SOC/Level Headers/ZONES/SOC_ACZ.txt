@@ -15,7 +15,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 5
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = AZ:1
+Lua.TPHub = AZ:0
 
 Level A1
 Levelname = Mine Maze
@@ -30,7 +30,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 5
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = AZ:2
+Lua.TPHub = AZ:1
 
 Level A2
 Levelname = Mine Maze
@@ -47,7 +47,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 WarningTitle = true
-Lua.TPHub = AZ:3
+Lua.TPHub = AZ:2
 
 Level A7
 Levelname = Mine Maze
@@ -62,7 +62,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 5
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = AZ:4
+Lua.TPHub = AZ:3
 
 
 
@@ -81,7 +81,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = AZ:5
+Lua.TPHub = AZ:4
 
 Level A4
 Levelname = Rocky Mountain
@@ -96,7 +96,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = AZ:6
+Lua.TPHub = AZ:5
 
 Level A5
 Levelname = Rocky Mountain
@@ -113,7 +113,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 WarningTitle = true
-Lua.TPHub = AZ:7
+Lua.TPHub = AZ:6
 
 Level A8
 Levelname = Hidden Palace
@@ -128,7 +128,7 @@ SkyNum = 132
 RecordAttack = 0
 hidden = 1
 PreCutsceneNum = 125
-Lua.TPHub = AZ:8
+Lua.TPHub = AZ:7
 
 
 
@@ -149,7 +149,7 @@ SkyNum = 28
 RecordAttack = 0
 hidden = 1
 FlickyList = Cow,Ram
-Lua.TPHub = AZ:9
+Lua.TPHub = AZ:8
 
 Level A9
 Levelname = Arid Canyon
@@ -165,7 +165,7 @@ RecordAttack = 0
 hidden = 1
 MusicInter = LCLEAR
 FlickyList = Cow,Ram
-Lua.TPHub = AZ:10
+Lua.TPHub = AZ:9
 
 
 
@@ -186,7 +186,7 @@ RecordAttack = 0
 hidden = 1
 MusicInter = LCLEAR
 FlickyList = Cow,Ram
-Lua.TPHub = AZ:11
+Lua.TPHub = AZ:10
 
 Level AC
 Levelname = Arid Canyon
@@ -202,7 +202,7 @@ RecordAttack = 0
 hidden = 1
 MusicInter = LCLEAR
 FlickyList = Cow,Ram
-Lua.TPHub = AZ:12
+Lua.TPHub = AZ:11
 
 
 
@@ -224,7 +224,7 @@ SaveGame = False
 SkyboxScale = 32
 hidden = 1
 FlickyList = Canary,Ram
-Lua.TPHub = AZ:13
+Lua.TPHub = AZ:12
 
 
 
@@ -245,4 +245,4 @@ FlickyList = Canary,Ram
 BonusType = Boss
 WarningTitle = true
 PreCutsceneNum = 42
-Lua.TPHub = AZ:14
+Lua.TPHub = AZ:13

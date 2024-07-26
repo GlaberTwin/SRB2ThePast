@@ -15,7 +15,7 @@ Weather = 0
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 4
 Levelname = Greenflower
@@ -30,7 +30,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 5
 Levelname = Greenflower
@@ -48,7 +48,7 @@ hidden = 1
 SkyNum = 2
 WarningTitle = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 6
 Levelname = Techno Hill
@@ -64,7 +64,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 7
 Levelname = Techno Hill
@@ -79,7 +79,7 @@ SkyNum = 5
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 8
 Levelname = Techno Hill
@@ -96,7 +96,7 @@ RecordAttack = 0
 hidden = 1
 WarningTitle = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 9
 Levelname = Deep Sea
@@ -112,7 +112,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 10
 Levelname = Deep Sea
@@ -128,7 +128,7 @@ RecordAttack = 0
 hidden = 1
 weather = 0
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 11
 Levelname = Deep Sea
@@ -146,7 +146,7 @@ RecordAttack = 0
 hidden = 1
 weather = 0
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 12
 Levelname = Mine Maze
@@ -162,7 +162,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 13
 Levelname = Mine Maze
@@ -177,7 +177,7 @@ SkyNum = 5
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 14
 Levelname = Mine Maze
@@ -195,7 +195,7 @@ RecordAttack = 0
 hidden = 1
 weather = 0
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 15
 Levelname = Rocky Mountain
@@ -211,7 +211,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 16
 Levelname = Rocky Mountain
@@ -226,7 +226,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 17
 Levelname = Rocky Mountain
@@ -244,7 +244,7 @@ RecordAttack = 0
 hidden = 1
 weather = 0
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 18
 Levelname = Red Volcano
@@ -260,7 +260,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 19
 Levelname = Red Volcano
@@ -275,7 +275,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 20
 Levelname = Red Volcano
@@ -292,7 +292,7 @@ RecordAttack = 0
 hidden = 1
 WarningTitle = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 21
 Levelname = Dark City
@@ -308,7 +308,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 22
 Levelname = Dark City
@@ -323,7 +323,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 23
 Levelname = Dark City
@@ -340,7 +340,7 @@ RecordAttack = 0
 hidden = 1
 WarningTitle = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 24
 Levelname = Doom Ship
@@ -356,7 +356,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 25
 Levelname = Doom Ship
@@ -373,7 +373,7 @@ RecordAttack = 0
 hidden = 1
 WarningTitle = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 26
 Levelname = Egg Rock
@@ -389,7 +389,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 27
 Levelname = Speed Highway
@@ -404,7 +404,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16
 
 Level 28
 Levelname = Hidden Palace
@@ -419,4 +419,4 @@ SkyNum = 132
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = 1:17
+Lua.TPHub = 1:16

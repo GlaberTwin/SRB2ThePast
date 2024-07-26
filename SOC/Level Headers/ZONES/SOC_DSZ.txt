@@ -16,7 +16,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 33
 palette = 1032
-Lua.TPHub = DZ:1
+Lua.TPHub = DZ:0
 
 Level D1
 Levelname = Deep Sea
@@ -33,7 +33,7 @@ hidden = 1
 weather = 0
 PrecutsceneNum = 34
 palette = 1032
-Lua.TPHub = DZ:2
+Lua.TPHub = DZ:1
 
 Level D2
 Levelname = Deep Sea
@@ -52,7 +52,7 @@ hidden = 1
 weather = 0
 PrecutsceneNum = 35
 palette = 1032
-Lua.TPHub = DZ:3
+Lua.TPHub = DZ:2
 
 Level D3
 Levelname = Speed Highway
@@ -68,7 +68,7 @@ RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 36
 palette = 1032
-Lua.TPHub = DZ:4
+Lua.TPHub = DZ:3
 
 
 
@@ -89,7 +89,7 @@ PrecutsceneNum = 37
 RecordAttack = 0
 hidden = 1
 palette = 1032
-Lua.TPHub = DZ:5
+Lua.TPHub = DZ:4
 
 Level D5
 LevelName =  Deep Sea
@@ -104,7 +104,7 @@ SkyNum = 1
 PrecutsceneNum = 38
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = DZ:6
+Lua.TPHub = DZ:5
 
 Level D6
 LevelName =  Deep Sea
@@ -119,7 +119,7 @@ SkyNum = 1
 PrecutsceneNum = 39
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = DZ:7
+Lua.TPHub = DZ:6
 
 
 
@@ -139,7 +139,7 @@ SkyNum = 7
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 84
-Lua.TPHub = DZ:8
+Lua.TPHub = DZ:7
 
 Level D8
 Levelname = Deep Sea
@@ -154,7 +154,7 @@ SkyNum = 7
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 85
-Lua.TPHub = DZ:9
+Lua.TPHub = DZ:8
 
 Level D9
 Levelname = Deep Sea
@@ -168,7 +168,7 @@ SkyNum = 1
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 86
-Lua.TPHub = DZ:10
+Lua.TPHub = DZ:9
 
 
 
@@ -188,7 +188,7 @@ SkyNum = 7
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 87
-Lua.TPHub = DZ:11
+Lua.TPHub = DZ:10
 
 Level DB
 Levelname = Deep Sea
@@ -203,7 +203,7 @@ SkyNum = 7
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 88
-Lua.TPHub = DZ:12
+Lua.TPHub = DZ:11
 
 Level DC
 Levelname = Deep Sea
@@ -218,7 +218,7 @@ SkyNum = 7
 RecordAttack = 0
 hidden = 1
 PrecutsceneNum = 89
-Lua.TPHub = DZ:13
+Lua.TPHub = DZ:12
 
 Level DD
 Levelname = Deep Sea
@@ -233,4 +233,4 @@ RecordAttack = 0
 hidden = 1
 ForceResetMusic = On
 PrecutsceneNum = 90
-Lua.TPHub = DZ:14
+Lua.TPHub = DZ:13

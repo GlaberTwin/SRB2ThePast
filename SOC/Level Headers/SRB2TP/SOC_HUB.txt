@@ -31,7 +31,7 @@ SkyNum = 58
 RecordAttack = 0
 hidden = 0
 SaveGame = true
-Lua.TPHub = 1:21
+Lua.TPHub = 1:20
 
 
 #GREENFLOWER
@@ -48,7 +48,7 @@ RecordAttack = 0
 LevelSelect = true
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:1
+Lua.TPHub = 1:0
 
 
 
@@ -67,7 +67,7 @@ RecordAttack = 0
 LevelSelect = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:2
+Lua.TPHub = 1:1
 
 
 
@@ -86,7 +86,7 @@ RecordAttack = 0
 LevelSelect = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:3
+Lua.TPHub = 1:2
 
 
 
@@ -105,7 +105,7 @@ RecordAttack = 0
 LevelSelect = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:4
+Lua.TPHub = 1:3
 
 
 
@@ -124,7 +124,7 @@ RecordAttack = 0
 LevelSelect = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:5
+Lua.TPHub = 1:4
 
 
 
@@ -144,7 +144,7 @@ LevelSelect = 1
 NoSSMusic = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:6
+Lua.TPHub = 1:5
 
 
 
@@ -163,7 +163,7 @@ RecordAttack = 0
 LevelSelect = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:7
+Lua.TPHub = 1:6
 
 
 
@@ -182,7 +182,7 @@ RecordAttack = 0
 LevelSelect = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:8
+Lua.TPHub = 1:7
 
 
 
@@ -202,7 +202,7 @@ hidden = 1
 NoSSMusic = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:9
+Lua.TPHub = 1:8
 
 
 
@@ -223,7 +223,7 @@ LevelSelect = 1
 NoSSMusic = 1
 Weather = 0
 SaveGame = true
-Lua.TPHub = 1:10
+Lua.TPHub = 1:9
 
 
 
@@ -241,7 +241,7 @@ Weather = 0
 SkyNum = 1
 RecordAttack = 0
 SaveGame = true
-Lua.TPHub = 1:19
+Lua.TPHub = 1:18
 
 Level 30
 Levelname = Boss Rush
@@ -256,7 +256,7 @@ SkyNum = 1
 RecordAttack = 0
 hidden = 1
 SaveGame = true
-Lua.TPHub = 29:1
+Lua.TPHub = 29:0
 
 Level 31
 Levelname = Metal's Challenge
@@ -271,7 +271,7 @@ SkyNum = 1
 RecordAttack = 0
 hidden = 1
 SaveGame = true
-Lua.TPHub = 29:2
+Lua.TPHub = 29:1
 
 Level 58
 Levelname = Match Locker Room
@@ -286,7 +286,7 @@ SkyNum = 1
 RecordAttack = 0
 SaveGame = false
 NoVisitNeeded = true
-Lua.TPHub = 29:3
+Lua.TPHub = 29:2
 
 Level 59
 Levelname = CTF Locker Room
@@ -301,7 +301,7 @@ SkyNum = 1
 RecordAttack = 0
 SaveGame = false
 NoVisitNeeded = true
-Lua.TPHub = 29:4
+Lua.TPHub = 29:3
 
 Level MZ
 Levelname = Circuit Locker Room
@@ -316,7 +316,7 @@ SkyNum = 1
 RecordAttack = 0
 SaveGame = false
 NoVisitNeeded = true
-Lua.TPHub = 29:5
+Lua.TPHub = 29:4
 
 # Tutorial Not a hub, but it needs to go somewhere
 
@@ -328,4 +328,4 @@ NextLevel = 1
 TypeOfLevel = Singleplayer
 HideInStats = true
 SkyNum = 99
-Lua.TPHub = 1:20
+Lua.TPHub = 1:19

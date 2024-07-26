@@ -15,7 +15,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 78
-Lua.TPHub = RZ:1
+Lua.TPHub = RZ:0
 
 Level R9
 Levelname = Red Volcano
@@ -30,7 +30,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 79
-Lua.TPHub = RZ:2
+Lua.TPHub = RZ:1
 
 Level RA
 Levelname = Red Volcano
@@ -47,7 +47,7 @@ RecordAttack = 0
 hidden = 1
 weather = 0
 Precutscenenum = 80
-Lua.TPHub = RZ:3
+Lua.TPHub = RZ:2
 
 
 
@@ -68,7 +68,7 @@ SkyNum = 1
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 17
-Lua.TPHub = GZ:15
+Lua.TPHub = GZ:14
 
 Level R2
 Levelname = Red Volcano
@@ -84,7 +84,7 @@ SkyNum = 1
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 17
-Lua.TPHub = RZ:4
+Lua.TPHub = RZ:3
 
 
 
@@ -105,7 +105,7 @@ RecordAttack = 0
 Hidden = 1
 hidden = 1
 Precutscenenum = 72
-Lua.TPHub = RZ:5
+Lua.TPHub = RZ:4
 
 
 
@@ -125,7 +125,7 @@ SkyNum = 1
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 73
-Lua.TPHub = RZ:6
+Lua.TPHub = RZ:5
 
 # kept in for now, may remove later. Can be nocliped into, but was not properly ported due to being too similar to the other 2 levels beside it.
 Level R4
@@ -140,7 +140,7 @@ SkyNum = 1
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 74
-Lua.TPHub = RZ:7
+Lua.TPHub = RZ:6
 
 Level R5
 Levelname = Red Volcano
@@ -155,7 +155,7 @@ SkyNum = 1
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 75
-Lua.TPHub = RZ:8
+Lua.TPHub = RZ:7
 
 
 
@@ -176,7 +176,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 76
-Lua.TPHub = RZ:9
+Lua.TPHub = RZ:8
 
 Level R7
 Levelname = Red Volcano
@@ -192,7 +192,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 77
-Lua.TPHub = RZ:10
+Lua.TPHub = RZ:9
 
 Level RB
 Levelname = Red Volcano
@@ -208,4 +208,4 @@ SkyNum = 20
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 118
-Lua.TPHub = RZ:11
+Lua.TPHub = RZ:10

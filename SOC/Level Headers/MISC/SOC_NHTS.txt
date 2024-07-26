@@ -18,7 +18,7 @@ NiGHTSAttack = false
 NoVisitNeeded = false
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:1
+Lua.TPHub = NZ:0
 
 
 
@@ -38,7 +38,7 @@ NiGHTSAttack = false
 NoVisitNeeded = false
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:2
+Lua.TPHub = NZ:1
 
 Level N1
 Levelname = Spring Hill
@@ -53,7 +53,7 @@ NiGHTSAttack = false
 NoVisitNeeded = false
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:3
+Lua.TPHub = NZ:2
 
 Level N2
 Levelname = Spring Hill
@@ -68,7 +68,7 @@ NiGHTSAttack = false
 NoVisitNeeded = false
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:4
+Lua.TPHub = NZ:3
 
 Level N3
 Levelname = Spring Hill
@@ -84,7 +84,7 @@ Grades1 = 20000,40000,60000,80000,100000,170000
 NextLevel = NZ
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:5
+Lua.TPHub = NZ:4
 
 
 
@@ -103,7 +103,7 @@ NiGHTSAttack = false
 NoVisitNeeded = false
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:6
+Lua.TPHub = NZ:5
 
 
 
@@ -123,7 +123,7 @@ NiGHTSAttack = false
 NoVisitNeeded = false
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:7
+Lua.TPHub = NZ:6
 
 
 
@@ -143,7 +143,7 @@ Grades1 = 45000,70000,90000,100000,125000,200000
 NextLevel = NZ
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:8
+Lua.TPHub = NZ:7
 
 Level N6
 LevelName = Toxic Plateau
@@ -158,7 +158,7 @@ Grades1 = 90000,100000,110000,125000,150000,225000
 NextLevel = NZ
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:9
+Lua.TPHub = NZ:8
 
 Level N7
 LevelName = Flooded Cove
@@ -173,7 +173,7 @@ Grades1 = 60000,70000,75000,85000,100000,210000
 NextLevel = NZ
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:10
+Lua.TPHub = NZ:9
 
 Level N8
 LevelName = Cavern Fortress
@@ -189,7 +189,7 @@ Grades1 = 50000,75000,90000,100000,125000,200000
 NextLevel = NZ
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:11
+Lua.TPHub = NZ:10
 
 Level N9
 LevelName = Dusty Wasteland
@@ -204,7 +204,7 @@ Grades1 = 25000,30000,32500,35000,45000,75000
 NextLevel = NZ
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:12
+Lua.TPHub = NZ:11
 
 Level NA
 LevelName = Magma Caves
@@ -219,7 +219,7 @@ Grades1 = 70000,75000,80000,90000,100000,125000
 NextLevel = NZ
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:13
+Lua.TPHub = NZ:12
 
 Level NB
 LevelName = Egg Satellite
@@ -234,7 +234,7 @@ Grades1 = 70000,75000,80000,85000,90000,160000
 NextLevel = NZ
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:14
+Lua.TPHub = NZ:13
 
 Level NC
 LevelName = Black Hole
@@ -251,4 +251,4 @@ NextLevel = NZ
 Unlockable = 21
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = NZ:15
+Lua.TPHub = NZ:14

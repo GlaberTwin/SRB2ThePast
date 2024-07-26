@@ -18,7 +18,7 @@ hidden = 1
 #PrecutsceneNum = 81
 hidden = 1
 palette = 1032
-Lua.TPHub = CZ:1
+Lua.TPHub = CZ:0
 
 Level CC
 Levelname = Castle Eggman
@@ -36,7 +36,7 @@ hidden = 1
 #PrecutsceneNum = 82
 hidden = 1
 palette = 1032
-Lua.TPHub = CZ:2
+Lua.TPHub = CZ:1
 
 
 
@@ -58,7 +58,7 @@ hidden = 1
 #PrecutsceneNum = 5
 hidden = 1
 palette = 1032
-Lua.TPHub = CZ:3
+Lua.TPHub = CZ:2
 
 Level 173
 Levelname = Castle Eggman
@@ -76,7 +76,7 @@ hidden = 1
 #PrecutsceneNum = 6
 hidden = 1
 palette = 1032
-Lua.TPHub = CZ:4
+Lua.TPHub = CZ:3
 
 Level 174
 Levelname = Castle Eggman
@@ -95,7 +95,7 @@ hidden = 1
 #PrecutsceneNum = 7
 WarningTitle = true
 palette = 1032
-Lua.TPHub = CZ:5
+Lua.TPHub = CZ:4
 
 
 
@@ -116,7 +116,7 @@ SkyNum = 20
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 2
-Lua.TPHub = CZ:6
+Lua.TPHub = CZ:5
 
 Level 176
 Levelname = Castle Eggman
@@ -132,7 +132,7 @@ SkyNum = 20
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 3
-Lua.TPHub = CZ:7
+Lua.TPHub = CZ:6
 
 Level 177
 Levelname = Castle Eggman
@@ -149,7 +149,7 @@ RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 4
 WarningTitle = true
-Lua.TPHub = CZ:8
+Lua.TPHub = CZ:7
 
 
 
@@ -170,7 +170,7 @@ SkyNum = 17
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 2
-Lua.TPHub = CZ:9
+Lua.TPHub = CZ:8
 
 Level CH
 Levelname = Castle Eggman
@@ -186,7 +186,7 @@ SkyNum = 17
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 3
-Lua.TPHub = CZ:10
+Lua.TPHub = CZ:9
 
 Level CI
 Levelname = Castle Eggman
@@ -203,7 +203,7 @@ RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 4
 WarningTitle = true
-Lua.TPHub = CZ:11
+Lua.TPHub = CZ:10
 
 
 
@@ -223,7 +223,7 @@ SkyNum = 27
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 43
-Lua.TPHub = CZ:12
+Lua.TPHub = CZ:11
 
 Level C7
 Levelname = Castle Eggman
@@ -238,7 +238,7 @@ SkyNum = 20
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 46
-Lua.TPHub = CZ:13
+Lua.TPHub = CZ:12
 
 Level C8
 Levelname = Castle Eggman
@@ -253,7 +253,7 @@ SkyNum = 20
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 44
-Lua.TPHub = CZ:14
+Lua.TPHub = CZ:13
 
 Level C9
 Levelname = Castle Eggman
@@ -268,7 +268,7 @@ SkyNum = 27
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 50
-Lua.TPHub = CZ:15
+Lua.TPHub = CZ:14
 
 Level CA
 Levelname = Castle Eggman
@@ -283,7 +283,7 @@ SkyNum = 20
 RecordAttack = 0
 hidden = 1
 #PrecutsceneNum = 51
-Lua.TPHub = CZ:16
+Lua.TPHub = CZ:15
 
 
 
@@ -302,7 +302,7 @@ SkyNum = 20
 RecordAttack = false
 #PrecutsceneNum = 114
 hidden = 1
-Lua.TPHub = CZ:17
+Lua.TPHub = CZ:16
 
 Level CE
 Levelname = Castle Eggman
@@ -316,7 +316,7 @@ SkyNum = 20
 #PrecutsceneNum = 115
 RecordAttack = false
 hidden = 1
-Lua.TPHub = CZ:18
+Lua.TPHub = CZ:17
 
 Level CF
 Levelname = Castle Eggman
@@ -332,7 +332,7 @@ RecordAttack = false
 #PrecutsceneNum = 116
 hidden = 1
 BonusType = Boss
-Lua.TPHub = CZ:19
+Lua.TPHub = CZ:18
 
 
 
@@ -352,4 +352,4 @@ skynum = 20
 hidden = 1
 weather = 3
 FlickyList = Rat,Bear
-Lua.TPHub = CZ:20
+Lua.TPHub = CZ:19

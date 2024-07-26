@@ -14,7 +14,7 @@ Weather = 0
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 Level 137
 Levelname = Greenflower
@@ -27,7 +27,7 @@ Weather = 0
 SkyNum = 2
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 Level 138
 Levelname = Greenflower
@@ -42,7 +42,7 @@ SkyNum = 2
 RecordAttack = 0
 hidden = 1
 WarningTitle = true
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 
 
@@ -61,7 +61,7 @@ SkyNum = 5
 RecordAttack = 0
 hidden = 1
 SaveGame = true
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 Level 140
 Levelname = Techno Hill
@@ -74,7 +74,7 @@ Weather = 0
 SkyNum = 5
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 Level 141
 Levelname = Techno Hill
@@ -89,7 +89,7 @@ SkyNum = 5
 RecordAttack = 0
 hidden = 1
 WarningTitle = true
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 Level 142
 Levelname = Deep Sea
@@ -103,7 +103,7 @@ SkyNum = 7
 RecordAttack = 0
 hidden = 1
 SaveGame = true
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 
 
@@ -121,7 +121,7 @@ Weather = 0
 SkyNum = 7
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 Level 144
 Levelname = Deep Sea
@@ -136,7 +136,7 @@ RecordAttack = 0
 hidden = 1
 BonusType = Boss
 WarningTitle = true
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 
 
@@ -155,7 +155,7 @@ SkyNum = 7
 RecordAttack = 0
 hidden = 1
 SaveGame = true
-Lua.TPHub = 1:11
+Lua.TPHub = 1:10
 
 
 
