@@ -13,7 +13,7 @@ SkyNum = 17
 hidden = 1
 Weather = 0
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 929
 levelname = Blustery Day
@@ -30,7 +30,7 @@ Weather = 0
 PRECUTSCENENUM = 27
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 
 Level 930
@@ -47,7 +47,7 @@ hidden = 1
 Weather = 0
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 931
 levelname = Gleaming Glacier
@@ -63,7 +63,7 @@ hidden = 1
 weather = 0
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 932
 levelname = Egg Base
@@ -79,7 +79,7 @@ hidden = 1
 weather = 0
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 933
 levelname = Egg Arena
@@ -97,7 +97,7 @@ PRECUTSCENENUM = 28
 BonusType = Boss
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 934
 levelname = Close Corners
@@ -114,7 +114,7 @@ Weather = 0
 PRECUTSCENENUM = 29
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 935
 levelname = Christmas Factory
@@ -130,7 +130,7 @@ hidden = 1
 Weather = 0
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 936
 levelname = Snow Valley
@@ -146,7 +146,7 @@ hidden = 1
 Weather = 0
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 937
 levelname = Final Boss
@@ -164,7 +164,7 @@ CutsceneNum = 32
 BonusType = Boss
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 938
 levelname = Emerald Coast
@@ -181,7 +181,7 @@ Hidden = 1
 PRECUTSCENENUM = 30
 SaveGame = true
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15
 
 Level 939
 levelname = Sonic's Nightmare
@@ -198,4 +198,4 @@ Weather = 0
 Hidden = 1
 PRECUTSCENENUM = 31
 palette = 1032
-Lua.TPHub = 1:16
+Lua.TPHub = 1:15

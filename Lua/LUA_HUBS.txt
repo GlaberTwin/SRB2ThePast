@@ -9,9 +9,9 @@ Stats+Menu to begin process (Usually Tab+Escape)
 ////////////////////
 
 local returningMap			-- Map to return to
-local nextReturnPoint = 0	-- Return point to go to when warping
-local initReturnPoint  = 0 	-- Map's set return point
-local curReturnPoint = 0	-- Return point to refer to when loading Hub
+local nextReturnPoint = -1	-- Return point to go to when warping
+local initReturnPoint  = -1 	-- Map's set return point
+local curReturnPoint = -1	-- Return point to refer to when loading Hub
 
 local returnPoint			-- Return point Map Thing
 local returnX
@@ -42,7 +42,7 @@ local returnDelay = 0 -- Delay before finally returning
 
 local function GetReturningMap()
 	returningMap = nil;
-	initReturnPoint = 0;
+	initReturnPoint = -1;
 
 	if mapheaderinfo[gamemap].tphub == nil then return end
 	local mapid
@@ -68,13 +68,13 @@ local function GetReturningMap()
 
 
 	returningMap = mapid
-	if (not tonumber(retpt)) or tonumber(retpt) < 0  -- If it isnt or a number or is below 0
-		initReturnPoint = 0							-- Set to 0
-	else									
+
+	if (tonumber(retpt) != nil and tonumber(retpt) >= 0)
 		initReturnPoint = tonumber(retpt)			-- Return Point #
 	end
 	
 	nextReturnPoint = initReturnPoint
+
 end
 
 addHook("MapLoad", function()
@@ -97,7 +97,7 @@ returningPlayer = nil
 returnPoint	= nil
 returnAnchor = nil
 curReturnPoint = nextReturnPoint
-nextReturnPoint = 0
+nextReturnPoint = -1
 end)
 
 
@@ -130,8 +130,8 @@ mobjinfo[MT_HUBRETURNPOINT] = {
 }
 
 addHook("MapThingSpawn", function(m,mt)
-if (udmf and curReturnPoint == m.spawnpoint.args[0]+1) -- UDMF uses Argument #1.
-or (not udmf and curReturnPoint == (FixedAngle(m.spawnpoint.angle)>>FRACBITS)+1) -- Rotation Loop 0 is Return Point 1, 1 is 2, etc... 
+if (udmf and curReturnPoint == m.spawnpoint.args[0]) -- UDMF uses Argument #1.
+or (not udmf and curReturnPoint == (FixedAngle(m.spawnpoint.angle)>>FRACBITS)) -- Rotation Loop used in Non-UDMF levels.
 returnPoint = mt  -- Will only use the latest instance of Object with the same tag.
 returnX = m.x
 returnY = m.y
@@ -351,7 +351,7 @@ addHook("ThinkFrame", function()
 				gamekeydown[input.gameControlToKeyNum(GC_SCORES)] = false
 			end
 
-			nextReturnPoint = initReturnPoint -- Override Return Point set by Linedef, go back to origin map.t
+			nextReturnPoint = initReturnPoint -- Override Return Point set by Linedef, go back to origin map.
 			G_ExitLevel()
 		--	S_StartSound(nil, sfx_s3k73,0) -- maybe if sound effects could persist throughout transitions...
 			if consPlayer != nil and consPlayer.EscDown != nil 
@@ -493,9 +493,9 @@ end)
 //////////////////////////////
 addHook("GameQuit", function()
 returningMap = nil	
-nextReturnPoint = 0	
-initReturnPoint  = 0
-curReturnPoint = 0	
+nextReturnPoint = -1	
+initReturnPoint  = -1
+curReturnPoint = -1	
 returnPoint	= nil		
 returnX = nil
 returnY = nil

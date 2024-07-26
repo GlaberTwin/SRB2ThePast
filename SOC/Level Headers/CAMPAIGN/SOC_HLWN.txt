@@ -16,7 +16,7 @@ SkyNum = 23
 RecordAttack = 0
 Hidden = 1
 PreCutsceneNum = 24
-Lua.TPHub = 1:15
+Lua.TPHub = 1:14
 
 #mapH1
 Level H1
@@ -37,4 +37,4 @@ hidden = 1
 PreCutsceneNum = 25
 CutsceneNum = 26
 SaveGame = true
-Lua.TPHub = 1:15
+Lua.TPHub = 1:14

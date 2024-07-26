@@ -13,7 +13,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = flase
 WarningTitle = true
-Lua.TPHub = 30:1
+Lua.TPHub = 30:0
 
 Level 35
 Levelname = Boss Rush
@@ -28,7 +28,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:2
+Lua.TPHub = 30:1
 
 Level 36
 Levelname = Boss Rush
@@ -43,7 +43,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:3
+Lua.TPHub = 30:2
 
 Level 37
 Levelname = Boss Rush
@@ -58,7 +58,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:4
+Lua.TPHub = 30:3
 
 Level 38
 Levelname = Boss Rush
@@ -73,7 +73,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:5
+Lua.TPHub = 30:4
 
 Level 39
 Levelname = Boss Rush
@@ -90,7 +90,7 @@ hidden = 1
 SaveGame = false
 WarningTitle = true
 StartRings = 10
-Lua.TPHub = 30:5
+Lua.TPHub = 30:4
 
 Level 40
 Levelname = Boss Rush
@@ -105,7 +105,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:6
+Lua.TPHub = 30:5
 
 Level 41
 Levelname = Boss Rush
@@ -121,7 +121,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:6
+Lua.TPHub = 30:5
 
 Level 42
 Levelname = Boss Rush
@@ -137,7 +137,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:7
+Lua.TPHub = 30:6
 
 Level 43
 Levelname = Boss Rush
@@ -153,7 +153,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:7
+Lua.TPHub = 30:6
 
 Level 44
 Levelname = Boss Gauntlet
@@ -169,7 +169,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = false
 WarningTitle = true
-Lua.TPHub = 30:8
+Lua.TPHub = 30:7
 
 Level 45
 Levelname = Boss Gauntlet
@@ -185,7 +185,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 WarningTitle = true
-Lua.TPHub = 30:8
+Lua.TPHub = 30:7
 
 
 Level 46
@@ -202,7 +202,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 WarningTitle = true
-Lua.TPHub = 30:8
+Lua.TPHub = 30:7
 
 
 Level 47
@@ -219,7 +219,7 @@ RecordAttack = 0
 hidden = 1
 SaveGame = true
 WarningTitle = true
-Lua.TPHub = 30:8
+Lua.TPHub = 30:7
 
 
 Level 48
@@ -237,5 +237,5 @@ hidden = 1
 SaveGame = true
 WarningTitle = true
 SkyboxScale = 64
-Lua.TPHub = 30:8
+Lua.TPHub = 30:7
 

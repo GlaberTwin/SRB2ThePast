@@ -406,7 +406,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL HV
 LEVELNAME = Knothole Base
@@ -420,7 +420,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL HW
 LEVELNAME = Great Forest
@@ -434,7 +434,7 @@ SKYNUM = 103
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL HX
 LEVELNAME = Great Forest
@@ -448,7 +448,7 @@ SKYNUM = 103
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL HY
 LEVELNAME = Lake
@@ -462,7 +462,7 @@ SKYNUM = 1
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL HZ
 LEVELNAME = Lake
@@ -476,7 +476,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I0
 LEVELNAME = Ice Palace
@@ -490,7 +490,7 @@ SKYNUM = 107
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I1
 LEVELNAME = Ice Palace
@@ -504,7 +504,7 @@ SKYNUM = 107
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I2
 LEVELNAME = Volcano
@@ -518,7 +518,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I3
 LEVELNAME = Volcano
@@ -532,7 +532,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I4
 LEVELNAME = Echidnapolis
@@ -546,7 +546,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I5
 LEVELNAME = Echidnapolis
@@ -560,7 +560,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I6
 LEVELNAME = Sky Lab
@@ -574,7 +574,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I7
 LEVELNAME = Sky Lab
@@ -588,7 +588,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I8
 LEVELNAME = Mechanical Madness
@@ -602,7 +602,7 @@ SKYNUM = 21
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL I9
 LEVELNAME = Mechanical Madness
@@ -616,7 +616,7 @@ SKYNUM = 1
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IA
 LEVELNAME = Robotopolis
@@ -630,7 +630,7 @@ SKYNUM = 117
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IB
 LEVELNAME = Robotopolis
@@ -644,7 +644,7 @@ SKYNUM = 117
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IC
 LEVELNAME = Robo Base
@@ -658,7 +658,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL ID
 LEVELNAME = Robo Base
@@ -672,7 +672,7 @@ SKYNUM = 2
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IE
 LEVELNAME = Ringsatellite
@@ -686,7 +686,7 @@ SKYNUM = 22
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IF
 LEVELNAME = Ringsatellite
@@ -700,7 +700,7 @@ SKYNUM = 22
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IG
 LEVELNAME = Athenos
@@ -714,7 +714,7 @@ SKYNUM = 127
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IH
 LEVELNAME = Great Unknown
@@ -728,7 +728,7 @@ SKYNUM = 13
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL II
 LEVELNAME = Void
@@ -742,7 +742,7 @@ SKYNUM = 66
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IJ
 LEVELNAME = Woodland Hill
@@ -756,7 +756,7 @@ SKYNUM = 103
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IK
 LEVELNAME = Rocky Mountain
@@ -770,7 +770,7 @@ SKYNUM = 29
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11
 
 LEVEL IL
 LEVELNAME = Hidden Palace
@@ -784,4 +784,4 @@ SKYNUM = 132
 hidden = 1
 TYPEOFLEVEL = Solo,2D,Co-op
 SaveGame = true
-Lua.TPHub = 1:12
+Lua.TPHub = 1:11

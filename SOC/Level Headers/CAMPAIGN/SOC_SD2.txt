@@ -53,7 +53,7 @@ RecordAttack = false
 hidden = false
 StartRings = 50
 SaveGame = true
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level PW
 Levelname = Ice Cap
@@ -71,7 +71,7 @@ SkyNum = 43
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -126,7 +126,7 @@ SkyNum = 32
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level PY
 Levelname = Flying Battery
@@ -144,7 +144,7 @@ SkyNum = 32
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -184,7 +184,7 @@ SkyNum = 32
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -224,7 +224,7 @@ SkyNum = 48
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -266,7 +266,7 @@ SkyNum = 49
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -322,7 +322,7 @@ SkyNum = 61
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level Q3
 Levelname = Carnival Night
@@ -340,7 +340,7 @@ SkyNum = 62
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -396,7 +396,7 @@ SkyNum = 62
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level Q5
 Levelname = HydroCity
@@ -414,7 +414,7 @@ SkyNum = 62
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -471,7 +471,7 @@ SkyNum = 63
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level Q7
 Levelname = Launch Base
@@ -490,7 +490,7 @@ SkyNum = 65
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -546,7 +546,7 @@ SkyNum = 67
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level Q9
 Levelname = Angel Island
@@ -564,7 +564,7 @@ SkyNum = 69
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -620,7 +620,7 @@ SkyNum = 70
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level QB
 Levelname = Toxic Caves
@@ -638,7 +638,7 @@ SkyNum = 70
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -678,7 +678,7 @@ SkyNum = 70
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -718,7 +718,7 @@ SkyNum = 70
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -775,7 +775,7 @@ SkyNum = 71
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level QF
 Levelname = Mushroom Hill
@@ -793,7 +793,7 @@ SkyNum = 71
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -849,7 +849,7 @@ SkyNum = 72
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level QH
 Levelname = Sandopolis
@@ -867,7 +867,7 @@ SkyNum = 72
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -923,7 +923,7 @@ SkyNum = 70
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 Level QJ
 Levelname = Lava Reef
@@ -941,7 +941,7 @@ SkyNum = 76
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -981,7 +981,7 @@ SkyNum = 76
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -1020,7 +1020,7 @@ SkyNum = 73
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -1060,7 +1060,7 @@ SkyNum = 74
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -1100,7 +1100,7 @@ SkyNum = 32
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -1139,7 +1139,7 @@ SkyNum = 32
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13
 
 
 
@@ -1179,4 +1179,4 @@ SkyNum = 74
 RecordAttack = false
 hidden = false
 StartRings = 50
-Lua.TPHub = 1:14
+Lua.TPHub = 1:13

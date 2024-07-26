@@ -13,7 +13,7 @@ Weather = 0
 SkyNum = 24
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = 1:18
+Lua.TPHub = 1:17
 
 Level W1
 Levelname = Sustenance Search
@@ -28,7 +28,7 @@ Weather = 0
 SkyNum = 75
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = 1:18
+Lua.TPHub = 1:17
 
 Level W2
 Levelname = Dashing Disco
@@ -43,4 +43,4 @@ Weather = 0
 SkyNum = 66
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = 1:18
+Lua.TPHub = 1:17

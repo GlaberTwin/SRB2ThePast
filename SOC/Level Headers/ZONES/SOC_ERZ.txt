@@ -14,7 +14,7 @@ TypeOfLevel = Singleplayer,Co-op,Race
 SkyNum = 21
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = EZ:1
+Lua.TPHub = EZ:0
 
 Level E1
 Levelname = Egg Rock
@@ -28,7 +28,7 @@ Weather = 0
 SkyNum = 37
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = EZ:2
+Lua.TPHub = EZ:1
 
 Level E2
 Levelname = Egg Rock
@@ -42,7 +42,7 @@ Weather = 0
 SkyNum = 37
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = EZ:3
+Lua.TPHub = EZ:2
 
 Level E3
 Levelname = Egg Rock
@@ -56,7 +56,7 @@ Weather = 0
 SkyNum = 37
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = EZ:4
+Lua.TPHub = EZ:3
 
 
 
@@ -75,7 +75,7 @@ Weather = 0
 SkyNum = 41
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = EZ:5
+Lua.TPHub = EZ:4
 
 Level E5
 Levelname = Egg Rock
@@ -89,7 +89,7 @@ Weather = 0
 SkyNum = 41
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = EZ:6
+Lua.TPHub = EZ:5
 
 Level E6
 Levelname = Egg Rock
@@ -104,7 +104,7 @@ SkyNum = 41
 BonusType = Boss
 WarningTitle = true
 hidden = 1
-Lua.TPHub = EZ:7
+Lua.TPHub = EZ:6
 
 Level E7
 Levelname = Egg Rock
@@ -118,7 +118,7 @@ Weather = 0
 SkyNum = 41
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = EZ:8
+Lua.TPHub = EZ:7
 
 Level E8
 Levelname = Egg Rock
@@ -132,7 +132,7 @@ Weather = 0
 SkyNum = 41
 RecordAttack = 0
 hidden = 1
-Lua.TPHub = EZ:9
+Lua.TPHub = EZ:8
 
 Level E9
 Levelname = Egg Rock
@@ -147,7 +147,7 @@ SkyNum = 41
 BonusType = Boss
 WarningTitle = true
 hidden = 1
-Lua.TPHub = EZ:10
+Lua.TPHub = EZ:9
 
 
 
@@ -164,7 +164,7 @@ NextLevel = EZ
 SkyNum = 41
 RecordAttack = false
 hidden = 1
-Lua.TPHub = EZ:11
+Lua.TPHub = EZ:10
 
 Level EB
 Levelname = Egg Rock
@@ -177,7 +177,7 @@ NextLevel = EZ
 SkyNum = 41
 RecordAttack = false
 hidden = 1
-Lua.TPHub = EZ:12
+Lua.TPHub = EZ:11
 
 Level EC
 Levelname = Egg Rock
@@ -191,7 +191,7 @@ SkyNum = 41
 RecordAttack = false
 hidden = 1
 BonusType = ERZ3
-Lua.TPHub = EZ:13
+Lua.TPHub = EZ:12
 
 Level ED
 Levelname = Egg Rock Core
@@ -205,7 +205,7 @@ RecordAttack = false
 hidden = 1
 BonusType = Boss
 SkyboxScale = 128
-Lua.TPHub = EZ:14
+Lua.TPHub = EZ:13
 
 
 
@@ -228,7 +228,7 @@ BonusType = Boss
 StartRings = 10
 WarningTitle = true
 hidden = 1
-Lua.TPHub = EZ:15
+Lua.TPHub = EZ:14
 
 
 
@@ -250,4 +250,4 @@ FlickyList = All
 ForceResetMusic = On
 WarningTitle = true
 SkyboxScale = 64
-Lua.TPHub = EZ:16
+Lua.TPHub = EZ:15

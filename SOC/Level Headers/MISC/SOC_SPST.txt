@@ -202,4 +202,4 @@ SpecialStageSpheres = 50
 SpecialStageTime = 93
 NextLevel = 2
 Lua.OldSpecial = 1
-Lua.TPHub = 2:1
+Lua.TPHub = 2:0

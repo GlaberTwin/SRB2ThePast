@@ -17,7 +17,7 @@ hidden = 1
 interscreen = KNUXPIC
 Precutscenenum = 52
 palette = 1032
-Lua.TPHub = TZ:3
+Lua.TPHub = TZ:2
 
 
 Level 785
@@ -34,7 +34,7 @@ RecordAttack = 0
 hidden = 1
 Precutscenenum = 53
 palette = 1032
-Lua.TPHub = TZ:2
+Lua.TPHub = TZ:1
 
 Level 786
 Levelname = Techno Hill
@@ -51,7 +51,7 @@ RecordAttack = 0
 hidden = 1
 Precutscenenum = 54
 palette = 1032
-Lua.TPHub = TZ:1
+Lua.TPHub = TZ:0
 
 Level 787
 Levelname = Techno Hill
@@ -68,7 +68,7 @@ hidden = 1
 interscreen = KNUXPIC
 Precutscenenum = 55
 palette = 1032
-Lua.TPHub = TZ:4
+Lua.TPHub = TZ:3
 
 Level 788
 Levelname = Techno Hill
@@ -85,7 +85,7 @@ hidden = 1
 interscreen = KNUXPIC
 Precutscenenum = 56
 palette = 1032
-Lua.TPHub = TZ:5
+Lua.TPHub = TZ:4
 
 Level 789
 Levelname = Techno Hill
@@ -102,7 +102,7 @@ hidden = 1
 interscreen = EGGPIC
 Precutscenenum = 57
 palette = 1032
-Lua.TPHub = TZ:6
+Lua.TPHub = TZ:5
 
 
 
@@ -124,7 +124,7 @@ hidden = 1
 interscreen = EGGPIC
 Precutscenenum = 112
 palette = 1032
-Lua.TPHub = TZ:7
+Lua.TPHub = TZ:6
 
 Level TQ
 Levelname = Techno Hill
@@ -141,7 +141,7 @@ RecordAttack = 0
 hidden = 1
 Precutscenenum = 113
 palette = 1032
-Lua.TPHub = TZ:8
+Lua.TPHub = TZ:7
 
 
 
@@ -162,7 +162,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = FDINTERP
 Precutscenenum = 107
-Lua.TPHub = TZ:9
+Lua.TPHub = TZ:8
 
 
 
@@ -183,7 +183,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = FDINTERP
 Precutscenenum = 58
-Lua.TPHub = TZ:10
+Lua.TPHub = TZ:9
 
 Level 791
 Levelname = Techno Hill
@@ -199,7 +199,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = FDINTERP
 Precutscenenum = 59
-Lua.TPHub = TZ:11
+Lua.TPHub = TZ:10
 
 Level 792
 Levelname = Techno Hill
@@ -215,7 +215,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 60
-Lua.TPHub = TZ:12
+Lua.TPHub = TZ:11
 
 Level 793
 Levelname = Techno Hill
@@ -231,7 +231,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = FDINTERP
 Precutscenenum = 61
-Lua.TPHub = TZ:13
+Lua.TPHub = TZ:12
 
 Level 794
 Levelname = Techno Hill
@@ -247,7 +247,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = FDINTERP
 Precutscenenum = 62
-Lua.TPHub = TZ:14
+Lua.TPHub = TZ:13
 
 Level 795
 Levelname = Techno Hill
@@ -263,7 +263,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 63
-Lua.TPHub = TZ:15
+Lua.TPHub = TZ:14
 
 
 
@@ -284,7 +284,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = INTERXMS
 Precutscenenum = 61
-Lua.TPHub = TZ:16
+Lua.TPHub = TZ:15
 
 Level TK
 Levelname = Techno Hill
@@ -300,7 +300,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = INTERXMS
 Precutscenenum = 62
-Lua.TPHub = TZ:17
+Lua.TPHub = TZ:16
 
 Level TL
 Levelname = Techno Hill
@@ -316,7 +316,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 63
-Lua.TPHub = TZ:18
+Lua.TPHub = TZ:17
 
 
 
@@ -336,7 +336,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = FDINTERP
 Precutscenenum = 64
-Lua.TPHub = TZ:19
+Lua.TPHub = TZ:18
 
 Level TD
 Levelname = Techno Hill
@@ -352,7 +352,7 @@ RecordAttack = 0
 hidden = 1
 interscreen = FDINTERP
 Precutscenenum = 65
-Lua.TPHub = TZ:20
+Lua.TPHub = TZ:19
 
 Level TE
 Levelname = Techno Hill
@@ -368,7 +368,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 66
-Lua.TPHub = TZ:21
+Lua.TPHub = TZ:20
 
 
 
@@ -387,7 +387,7 @@ SkyNum = 5
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 67
-Lua.TPHub = TZ:22
+Lua.TPHub = TZ:21
 
 Level TG
 Levelname = Techno Hill
@@ -401,7 +401,7 @@ SkyNum = 4
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 68
-Lua.TPHub = TZ:23
+Lua.TPHub = TZ:22
 
 Level TH
 Levelname = Techno Hill
@@ -416,7 +416,7 @@ BonusType = Boss
 RecordAttack = 0
 hidden = 1
 Precutscenenum = 69
-Lua.TPHub = TZ:24
+Lua.TPHub = TZ:23
 
 
 
@@ -435,7 +435,7 @@ RecordAttack = false
 skynum = 1
 hidden = 1
 weather = 0
-Lua.TPHub = TZ:25
+Lua.TPHub = TZ:24
 
 
 
@@ -454,7 +454,7 @@ SkyNum = 3
 RecordAttack = false
 hidden = 1
 Precutscenenum = 108
-Lua.TPHub = TZ:26
+Lua.TPHub = TZ:25
 
 Level TN
 Levelname = Techno Hill
@@ -469,7 +469,7 @@ RecordAttack = false
 hidden = 1
 SkyboxScale = 16
 Precutscenenum = 109
-Lua.TPHub = TZ:27
+Lua.TPHub = TZ:26
 
 Level TO
 Levelname = Techno Hill
@@ -484,4 +484,4 @@ RecordAttack = false
 hidden = 1
 BonusType = Boss
 Precutscenenum = 110
-Lua.TPHub = TZ:28
+Lua.TPHub = TZ:27
