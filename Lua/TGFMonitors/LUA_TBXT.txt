@@ -12,8 +12,8 @@ freeslot(
 function A_GiveTime(actor, var1, var2)
 	if not (actor and actor.valid) then return end
 	
-	-- Do not give the player more time if they are outside of a Special Stage
-	if not G_IsSpecialStage(gamemap) then
+	-- Do not give the player more time if they are outside of a Special Stage or NiGHTS stage
+	if not (G_IsSpecialStage(gamemap) or (mapheaderinfo[gamemap] and mapheaderinfo[gamemap].oldspecial) or (maptol & TOL_NIGHTS)) then
 		S_StopSound(actor)
 		S_StartSound(actor, sfx_lose)
 		return

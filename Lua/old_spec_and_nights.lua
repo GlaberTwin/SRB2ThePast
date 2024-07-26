@@ -3,7 +3,7 @@
 
 local changed_objs = false
 local loaded_hud = false
-local total_spheres = 0
+rawset(_G, "total_spheres", 0) -- Turned into a global variable so the TGF ring item can use it -- MIDIMan
 
 -- addHook("MapLoad", function(id)
 table.insert(preMapLoadHooks, function()
