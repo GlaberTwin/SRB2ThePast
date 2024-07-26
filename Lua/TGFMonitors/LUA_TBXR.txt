@@ -88,12 +88,18 @@ addHook("TouchSpecial", function(special, toucher)
 	if not (special and special.valid and toucher and toucher.valid) then return end
 	if not (toucher.player and toucher.player.valid) then return end
 	
-	if G_IsSpecialStage(gamemap) then
+	local isOldNights = mapheaderinfo[gamemap] and mapheaderinfo[gamemap].oldnights and not G_IsSpecialStage()
+	
+	if G_IsSpecialStage(gamemap) or isOldNights then
 		toucher.player.spheres = $+5
+	end
+	
+	if mapheaderinfo[gamemap].oldspecial or isOldNights then
+		total_spheres = $+5
 	end
 end, MT_TGFBOX_RING_SPECIAL)
 
-addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_RING_SPECIAL)
+addHook("MobjDeath", RM_TGFPowerUpDeath, MT_TGFBOX_RING_SPECIAL)
 
 mobjinfo[MT_TGFBOX_RING_SPECIAL] = {
 	--$Name TGF Super Ring (5 Rings) (Power-Up)

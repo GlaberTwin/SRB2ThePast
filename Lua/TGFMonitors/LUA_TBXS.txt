@@ -54,7 +54,7 @@ states[S_TGFBOX_SHOES_BREAK] =	{SPR_TBXX,	A,	0,	RM_TGFSuperSneakers,	0,	0,	S_TGF
 
 addHook("MapThingSpawn", RM_TGFPowerUpSetup, MT_TGFBOX_SHOES_SPECIAL)
 addHook("MobjFuse", RM_TGFMonitorFuseThink, MT_TGFBOX_SHOES_SPECIAL)
-addHook("MobjDeath", RM_TGFMonitorDeath, MT_TGFBOX_SHOES_SPECIAL)
+addHook("MobjDeath", RM_TGFPowerUpDeath, MT_TGFBOX_SHOES_SPECIAL)
 
 mobjinfo[MT_TGFBOX_SHOES_SPECIAL] = {
 	--$Name TGF Super Sneakers (Power-Up)
@@ -68,7 +68,6 @@ mobjinfo[MT_TGFBOX_SHOES_SPECIAL] = {
 	doomednum = 515,
 	spawnstate = S_TGFBOX_SHOES_SPECIAL_IDLE,
 	spawnhealth = 1,
-	reactiontime = 5,
 	painstate = S_TGFBOX_SHOES_SPECIAL_IDLE,
 	deathstate = S_TGFBOX_SHOES_SPECIAL_DEATH,
 	deathsound = sfx_tgfbng, -- Replace sfx_tgfbng if you decide to use something else
