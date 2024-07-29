@@ -1,5 +1,7 @@
--- SRB2 Old Special Stage System - Created by sdas, slightly reworked for SRB2TP by MIDIMan
--- TODO: Make this support 2.2's system too
+-- SRB2 Old Special Stage System - Created by sdas, edited for SRB2TP by MIDIMan
+-- TODO: Rework this to support TPEra instead of its own object/state replacement system
+-- Note to self: Pre-2.2 NiGHTS stages made players collect rings and emblems, instead of chips and stars,
+-- whereas NiGHTS Special Stages made players collect blue spheres and rings.
 
 --this script is done by @sdas813
 --it 'ports' old special stages and nights systems from 2.1
@@ -97,7 +99,8 @@ addHook("MapThingSpawn", function(mobj, thing)
 	if mapheaderinfo[gamemap].oldspecial or (mapheaderinfo[gamemap].oldnights and not G_IsSpecialStage(gamemap)) then
 		--replace bluespheres or nigths chips with rings
 		if mobj.type == MT_BLUESPHERE or mobj.type == MT_NIGHTSCHIP then
-			P_SpawnMobj(mobj.x, mobj.y, mobj.z, MT_RING)
+-- 			P_SpawnMobj(mobj.x, mobj.y, mobj.z, MT_RING)
+			P_SpawnMobjFromMobj(mobj, 0, 0, 0, MT_RING)
 			P_RemoveMobj(mobj)
 			return true
 			--if we are not allowing any other rings to be in the level then remove them
