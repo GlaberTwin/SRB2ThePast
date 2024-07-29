@@ -134,6 +134,7 @@ addHook("TouchSpecial", RingSpheres, MT_FLINGRING)
 ------------------
 --A_AttractChase--
 ------------------
+--[[
 local function lua_LookForShield(actor)	-- Lua Conversion
 
 	local c = 0
@@ -202,7 +203,7 @@ local function lua_LookForShield(actor)	-- Lua Conversion
 	end
 
 end	
-	
+]]--	
 	
 local function lua_AttractA(source, dest) -- Direct Pull ala Sonic Adventure, current SRB2
 
@@ -327,18 +328,15 @@ function A_AttractChase(actor)
 	--	Keep stuff from going down inside floors and junk
 	actor.flags = $&~MF_NOCLIPHEIGHT
 
---	if actor.tracer.player.powers[pw_shield] == SH_ATTRACT 
-
+	if actor.tracer.player.powers[pw_shield] == SH_ATTRACT and (actor.tracer.rmShieldEra == "DEMO" or actor.tracer.rmShieldEra == "XMAS")
+	-- XMAS & Demo Attraction
+ 		actor.flags = $ &~MF_NOCLIP	-- Demo attracted rings don't get Noclip
+		lua_AttractB(actor, actor.tracer)
+	else
+	-- Final Demo & Later Attraction
 		actor.flags = $|MF_NOCLIP	-- Let attracted rings move through walls and such.
 		lua_AttractA(actor, actor.tracer)
-		
---	else
-
-		-- Demo Attraction
--- 		actor.flags = $ &~MF_NOCLIP	-- Demo attracted rings don't get Noclip
--- 		lua_AttractB(actor, actor.tracer)
-
---	end		
+	end		
 	
 end
 
