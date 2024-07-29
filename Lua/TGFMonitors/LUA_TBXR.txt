@@ -88,15 +88,17 @@ addHook("TouchSpecial", function(special, toucher)
 	if not (special and special.valid and toucher and toucher.valid) then return end
 	if not (toucher.player and toucher.player.valid) then return end
 	
-	local isOldNights = mapheaderinfo[gamemap] and mapheaderinfo[gamemap].oldnights and not G_IsSpecialStage()
+	local levelInfo = mapheaderinfo[gamemap]
+	local isOldNights = levelInfo and levelInfo.oldnights and not G_IsSpecialStage()
+	local isOldSpecial = levelInfo and levelInfo.oldspecial
 	
-	if G_IsSpecialStage(gamemap) or isOldNights then
+	if G_IsSpecialStage(gamemap) or isOldSpecial or isOldNights then
 		toucher.player.spheres = $+5
 	end
 	
-	if mapheaderinfo[gamemap].oldspecial or isOldNights then
-		total_spheres = $+5
-	end
+-- 	if mapheaderinfo[gamemap].oldspecial or isOldNights then
+-- 		total_spheres = $+5
+-- 	end
 end, MT_TGFBOX_RING_SPECIAL)
 
 addHook("MobjDeath", RM_TGFPowerUpDeath, MT_TGFBOX_RING_SPECIAL)
