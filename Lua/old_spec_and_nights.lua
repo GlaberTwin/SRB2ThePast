@@ -1,3 +1,5 @@
+-- SRB2 Old Special Stage System - Created by sdas, slightly reworked for SRB2TP by MIDIMan
+
 --i fucking hate srb2's code
 --IT DOESN'T HAVE AN OPTION TO DISABLE THE: Get n spheres! TEXT IN OLD SPECIAL STAGES WTF
 
@@ -5,8 +7,8 @@ local changed_objs = false
 local loaded_hud = false
 rawset(_G, "total_spheres", 0) -- Turned into a global variable so the TGF ring item can use it -- MIDIMan
 
--- addHook("MapLoad", function(id)
-table.insert(preMapLoadHooks, function()
+addHook("MapLoad", function(id)
+-- table.insert(preMapLoadHooks, function()
 	total_spheres = 0;
 	if mapheaderinfo[gamemap].oldspecial then
 		if not loaded_hud then
