@@ -100,7 +100,7 @@ nozone = 1
 Subtitle = Version TGF
 Music = OSPEC
 MusicInter = LCLEAR
-SkyNum = 2
+SkyNum = 21
 TypeOfLevel = Singleplayer,Co-op,Race
 RecordAttack = 0
 hidden = 1
@@ -203,3 +203,186 @@ SpecialStageTime = 93
 NextLevel = 2
 Lua.OldSpecial = 1
 Lua.TPHub = 2:0
+
+Level S6
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version TGF
+Music = OSPEC
+MusicInter = LCLEAR
+SkyNum = 21
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 35
+SpecialStageTime = 123
+NextLevel = 2
+Lua.OldSpecial = 1
+Lua.TPHub = 2:6
+
+Level S8
+Levelname = Special Stage 2
+nozone = 1
+Music = SS2D4
+MusicInter = LCLEAR
+SkyNum = 2
+Subtitle = Demo 4.1
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+palette = 1032
+SpecialStageSpheres = 150
+SpecialStageTime = 90
+NextLevel = 2
+Lua.OldSpecial = 1
+Lua.TPHub = 2:9
+
+Level SD
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version Demo 4
+Music = SS7D4
+MusicInter = LCLEAR
+SkyNum = 2
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+palette = 1032
+SpecialStageSpheres = 100
+SpecialStageTime = 60
+Lua.TPHub = 2:14
+
+Level SG
+Levelname = Special Stage 3
+nozone = 1
+SkyNum = 2
+Subtitle = Demo 4.35
+MusicInter = LCLEAR
+Music = SS3D4
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+palette = 1032
+SpecialStageSpheres = 150
+SpecialStageTime = 80
+NextLevel = 2
+Lua.OldSpecial = 1
+Lua.TPHub = 2:17
+
+Level SK
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version Demo 4.35
+Music = SS7D4
+MusicInter = LCLEAR
+SkyNum = 2
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+palette = 1032
+SpecialStageSpheres = 110
+SpecialStageTime = 30
+Lua.TPHub = 2:21
+
+Level SV
+Levelname = Special Stage 4
+nozone = 1
+SkyNum = 2
+Subtitle = Version 1.01-1.08 HARD
+MusicInter = LCLEAR
+Music = SPC108
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 70
+SpecialStageTime = 100
+NextLevel = 2
+Lua.OldSpecial = 1
+Lua.TPHub = 2:32
+
+Level SY
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version 1.01-1.08 HARD
+Music = SPC108
+MusicInter = LCLEAR
+SkyNum = 60
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 375
+SpecialStageTime = 210
+Lua.TPHub = 2:35
+
+Level V4
+Levelname = Special Stage 5
+nozone = 1
+SkyNum = 58
+Subtitle = Version 1.09.4
+Music = SPC109
+MusicInter = LCLEAR
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 400
+SpecialStageTime = 210
+NextLevel = 2
+Lua.OldSpecial = 1
+Lua.TPHub = 2:40
+
+Level V6
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version 1.09.4
+Music = SPC109
+MusicInter = LCLEAR
+SkyNum = 60
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 100
+SpecialStageTime = 120
+Lua.TPHub = 2:42
+
+Level VC
+Levelname = Special Stage 6
+nozone = 1
+SkyNum = 55
+Subtitle = Version 2.0
+Music = SPC109
+MusicInter = LCLEAR
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 100
+SpecialStageTime = 120
+NextLevel = 2
+Lua.OldSpecial = 1
+Lua.TPHub = 2:48
+
+Level VD
+Levelname = Special Stage 7
+nozone = 1
+Subtitle = Version 2.0
+Music = SPC109
+MusicInter = LCLEAR
+SkyNum = 56
+TypeOfLevel = Singleplayer,Co-op,Race
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 100
+SpecialStageTime = 90
+Lua.TPHub = 2:49
+
+Level VL
+LevelName = MP Special Stage 7
+Subtitle = Version 2.2
+Music = SPEC7
+TypeOfLevel = Singleplayer,Co-op
+SelectHeading = MP Special Stages
+SkyNum = 22
+RecordAttack = 0
+hidden = 1
+SpecialStageSpheres = 100
+SpecialStageTime = 90
+Lua.TPHub = 2:57
