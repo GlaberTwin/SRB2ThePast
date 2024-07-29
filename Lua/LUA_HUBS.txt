@@ -521,7 +521,7 @@ end)
 
 -- Set Hub Exit
 addHook("LinedefExecute", function(l,m,s)
-	local retMap = max(1,min(l.frontsector.floorheight/FRACUNIT,1035))
+	local retMap = max(1,min(l.frontsector.floorheight/FRACUNIT,1035)) -- floor height sets target map
 	local skipTally = l.flags & ML_NOCLIMB >> 6
 	local retPoint = max(0,l.frontside.textureoffset/FRACUNIT) -- If Regular Exit, X offset is used for return point.
 
