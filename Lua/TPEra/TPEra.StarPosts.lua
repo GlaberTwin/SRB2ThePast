@@ -1,5 +1,5 @@
 ---------------------------------
---SRB2:TP Era Skins: Star Posts-- // Barrels O' Fun
+--SRB2:TP Era Skins: Star Posts-- // Barrels O' Fun (Edited by MIDIMan)
 ---------------------------------
 
 
