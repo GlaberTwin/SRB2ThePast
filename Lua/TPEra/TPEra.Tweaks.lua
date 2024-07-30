@@ -1,3 +1,5 @@
+-- SRB2TP - TPEra Tweaks
+-- Created by Barrels O' Fun and MIDIMan
 
 local TP_NODROWNING 	= 1		// Infinite Air (Ween)
 local TP_XMASWATER 		= 2		// Slow and Sloshy Water, Bloopy Sounds, No Jump Abilities, Green Water Fade
@@ -17,43 +19,47 @@ local TP_MATCHSUPER		= 256	// Power Stones allow you to go super instead of gran
 --Hacky Water Garbage-- // Barrels O' Fun
 -----------------------
 
-addHook("PreThinkFrame", do for p in players.iterate()
-	local eraInfo = SRB2TP_GetEraInfo()
-	if not eraInfo.tweaks then return end
-	if p and p.valid
-		p.dx = p.mo.x
-		p.dy = p.mo.y
-		p.dz = p.mo.z
-		p.dmomz = p.mo.momz
-		p.prevwatertop = p.mo.watertop
-		p.preveflags = p.mo.eflags
+addHook("PreThinkFrame", do
+	for p in players.iterate() do
+		local eraInfo = SRB2TP_GetEraInfo()
+		if not eraInfo.tweaks then return end
+		if p and p.valid then
+			p.dx = p.mo.x
+			p.dy = p.mo.y
+			p.dz = p.mo.z
+			p.dmomz = p.mo.momz
+			p.prevwatertop = p.mo.watertop
+			p.preveflags = p.mo.eflags
+		end
 	end
-end end)
+end)
 
 
 addHook("PlayerThink", function(p)
+	if not (p and p.valid and p.mo and p.mo.valid) then return end
+	
 	local eraInfo = SRB2TP_GetEraInfo()
 	if not eraInfo or not eraInfo.tweaks then return end
 
-	if eraInfo.tweaks & TP_NODROWNING
+	if eraInfo.tweaks & TP_NODROWNING then
 		p.powers[pw_underwater] = 0
 	end
 
 
 	if p.mo.eflags & MFE_SPRUNG then
-//Just throw stuff at the wall until it works.
+		//Just throw stuff at the wall until it works.
 		if eraInfo.tweaks & TP_SHALLOWSPRING
 		and ((p.prevwatertop != p.mo.watertop
 		and p.prevwatertop > p.mo.z-(900*FRACUNIT)
 		or (p.mo.momz == p.dmomz and (p.prevwatertop == p.mo.watertop
 		or (p.prevwatertop < p.mo.watertop) and p.mo.watertop > p.mo.z-(900*FRACUNIT))))
-		and !p.mo.eflags & MFE_UNDERWATER) 
-//Give the Boost if Demo 4 or Final Demo 1.01-1.08
-			if !eraInfo.tweaks & TP_DEMOWATER
+		and !p.mo.eflags & MFE_UNDERWATER) then 
+			//Give the Boost if Demo 4 or Final Demo 1.01-1.08
+			if !eraInfo.tweaks & TP_DEMOWATER then
 				p.mo.momz = FixedMul($,FixedDiv(780*FRACUNIT,457*FRACUNIT))
 			end
 
-//Spawn the Splish
+			//Spawn the Splish
 			local splish = P_SpawnMobj(p.dx,p.dy,p.prevwatertop,MT_SPLISH)
 			S_StartSound(p.mo,sfx_splish)
 			local bubblecount = min(FixedDiv(abs(p.dmomz), p.mo.scale)>>(FRACBITS-1),128)
@@ -72,17 +78,17 @@ addHook("PlayerThink", function(p)
 				prandom[3] = P_RandomByte()
 
 				local bubbletype = MT_SMALLBUBBLE
-				if (not (prandom[0] & 0x3)) // medium bubble chance up to 64 from 32
+				if (not (prandom[0] & 0x3)) then // medium bubble chance up to 64 from 32
 					bubbletype = MT_MEDIUMBUBBLE
 				end
 
 				local dirx = 1
 				local diry = 1
 
-				if (prandom[0]&0x80)
+				if (prandom[0]&0x80) then
 					dirx = -1
 				end
-				if (prandom[0]&0x40)
+				if (prandom[0]&0x40) then
 					diry = -1
 				end
 
@@ -91,9 +97,8 @@ addHook("PlayerThink", function(p)
 					p.dy + FixedMul((prandom[2]<<(FRACBITS-3)) * diry, p.mo.scale),
 					p.dz + FixedMul((prandom[3]<<(FRACBITS-2)), p.mo.scale), bubbletype)
 
-				if (bubble)
-				
-					if (P_MobjFlip(p.mo)*p.dmomz < 0)
+				if (bubble) then
+					if (P_MobjFlip(p.mo)*p.dmomz < 0) then
 						bubble.momz = p.dmomz >> 4
 					else
 						bubble.momz = 0
@@ -106,67 +111,74 @@ addHook("PlayerThink", function(p)
 		end
 	end
 
-//Restore Demo23 Water Gravity
-	if eraInfo.tweaks & TP_DEMOWATER
-
-		if p.mo.eflags & MFE_UNDERWATER
-			if p.mo.momz != 0
+	//Restore Demo23 Water Gravity
+	if eraInfo.tweaks & TP_DEMOWATER then
+		if p.mo.eflags & MFE_UNDERWATER then
+			if p.mo.momz != 0 then
 				p.mo.momz = $ - P_GetMobjGravity(p.mo) + (FixedMul(P_GetMobjGravity(p.mo),3*FRACUNIT))
 			end
-			if p.charability == CA_THOK // Restore fast thok underwater
+			if p.charability == CA_THOK then // Restore fast thok underwater
 				p.actionspd = skins[p.mo.skin].actionspd<<1
 			end
 		else
-			if p.charability == CA_THOK // Restore fast thok underwater
+			if p.charability == CA_THOK then // Restore fast thok underwater
 				p.actionspd = skins[p.mo.skin].actionspd
 			end
 		end
 		
 		if ((!p.mo.eflags & MFE_UNDERWATER and p.preveflags & MFE_UNDERWATER and p.mo.eflags & MFE_TOUCHWATER)
-			or (p.mo.eflags & MFE_UNDERWATER and !p.preveflags & MFE_UNDERWATER and !p.mo.eflags & MFE_TOUCHWATER)) and P_MobjFlip(p.mo)*p.mo.momz > 0
-				p.mo.momz = FixedDiv($,FixedDiv(780*FRACUNIT,457*FRACUNIT))//Negate Normal Boost
-				p.mo.momz = $+114688 //Pre Demo4 only added slightly less than 2 FRACUNITS to your momentum. (Had to Decomp to figure this out)
+		or (p.mo.eflags & MFE_UNDERWATER and !p.preveflags & MFE_UNDERWATER and !p.mo.eflags & MFE_TOUCHWATER)) and P_MobjFlip(p.mo)*p.mo.momz > 0 then
+			p.mo.momz = FixedDiv($,FixedDiv(780*FRACUNIT,457*FRACUNIT))//Negate Normal Boost
+			p.mo.momz = $+114688 //Pre Demo4 only added slightly less than 2 FRACUNITS to your momentum. (Had to Decomp to figure this out)
 		end
 	end
 end)
 
-addHook("MapLoad", do for p in players.iterate // Reset Thok speed when leaving a level.
-	local eraInfo = SRB2TP_GetEraInfo()
-	if (not eraInfo.tweaks or !eraInfo.tweaks & TP_DEMOWATER)
-	and p.charability == CA_THOK // Restore fast thok underwater
+addHook("MapLoad", do
+	for p in players.iterate do // Reset Thok speed when leaving a level.
+		if not (p and p.valid) then continue end
+		
+		local eraInfo = SRB2TP_GetEraInfo()
+		if (not eraInfo.tweaks or !eraInfo.tweaks & TP_DEMOWATER)
+		and p.charability == CA_THOK then // Restore fast thok underwater
 			p.actionspd = skins[p.mo.skin].actionspd
+		end
 	end
-end end)
+end)
 
 //Restore Jump Height 
 addHook("MobjThinker", function(m)
+	if not (m and m.valid) then return end
 	
 	local eraInfo = SRB2TP_GetEraInfo()
 	if not eraInfo.tweaks or !eraInfo.tweaks & TP_DEMOWATER then return end
 
 	local p = m.player
+	if not (p and p.valid) then return end
 
-if P_IsObjectOnGround(m)
-	p.jumped = nil
-end
-	if m.eflags & MFE_UNDERWATER and p.pflags & PF_STARTJUMP and not p.jumped
-		if p.climbing and not p.powers[pw_super]
+	if P_IsObjectOnGround(m)
+		p.jumped = nil
+	end
+	if m.eflags & MFE_UNDERWATER and p.pflags & PF_STARTJUMP and not p.jumped then
+		if p.climbing and not p.powers[pw_super] then
 			m.momz = 15*(FRACUNIT/4) - (FixedMul(P_GetMobjGravity(p.mo),3*FRACUNIT)) 
 		else
-		m.momz = FixedMul($,FixedDiv(780*FRACUNIT,457*FRACUNIT)) - (FixedMul(P_GetMobjGravity(p.mo),3*FRACUNIT))
-		p.jumped = true
+			m.momz = FixedMul($,FixedDiv(780*FRACUNIT,457*FRACUNIT)) - (FixedMul(P_GetMobjGravity(p.mo),3*FRACUNIT))
+			p.jumped = true
 		end
 	end
-
-end,MT_PLAYER)
+end, MT_PLAYER)
 
 
 
 //TP_BUBBLESOUNDS
 local function BubbleSounds(m)
+	if not (m and m.valid) then return end
+	
 	local eraInfo = SRB2TP_GetEraInfo()
 	if not eraInfo.tweaks or !eraInfo.tweaks & TP_BUBBLESOUNDS then return end
-	if (m.threshold != 42) // Don't make pop sound if threshold is 42.
+	
+	if (m.threshold != 42) then // Don't make pop sound if threshold is 42.
 		local bubblesounds = P_SpawnMobjFromMobj(m,0,0,0,MT_UNKNOWN)
 		bubblesounds.nullaudioplayer = true
 		S_StartSound(bubblesounds, sfx_bubbl1 + P_RandomKey(5))	
@@ -178,10 +190,12 @@ addHook("MobjRemoved", BubbleSounds, MT_SMALLBUBBLE)
 addHook("MobjRemoved", BubbleSounds, MT_MEDIUMBUBBLE)
 addHook("MobjRemoved", BubbleSounds, MT_EXTRALARGEBUBBLE)
 
-addHook("MobjThinker", function(m) 
-	if m.nullaudioplayer == true
+addHook("MobjThinker", function(m)
+	if not (m and m.valid) then return end
+	
+	if m.nullaudioplayer == true then
 		m.state = S_INVISIBLE
-		if not S_OriginPlaying(m)
+		if not S_OriginPlaying(m) then
 			P_RemoveMobj(m)
 		end
 	end
@@ -194,17 +208,17 @@ end, MT_UNKNOWN)	//Why waste a freeslot when we have a perfectly usable Mobj rig
 //TP_SPRINGCOLLIDE
 //Still collide with old springs even though the line said no.
 addHook("MobjLineCollide", function(m,l)
+	if not (m and m.valid) then return end
+	
 	local eraInfo = SRB2TP_GetEraInfo()
 	if not eraInfo.tweaks or !eraInfo.tweaks & TP_SPRINGCOLLIDE then return end
 	
 	local collide = nil
 
-
 	local mLEFT = m.x-m.radius+m.momx+m.momx
 	local mTOP = m.y+m.radius+m.momy+m.momy
 	local mRIGHT = m.x+m.radius+m.momx+m.momx
 	local mBOTTOM = m.y-m.radius+m.momy+m.momy
-
 
 	searchBlockmap("objects", function(m, obj)
 		local objLEFT = obj.x-obj.radius
@@ -222,7 +236,6 @@ addHook("MobjLineCollide", function(m,l)
     end, m, mLEFT-m.momx, mRIGHT-m.momx, mTOP-m.momy, mBOTTOM-m.momy)
 
 	return collide
-
 end, MT_PLAYER)
 
 
@@ -231,11 +244,15 @@ end, MT_PLAYER)
 -------------------------------------------------------------------------------
 function A_SuperSneakers(actor, var1, var2)
 	local eraInfo = SRB2TP_GetEraInfo()
-		if not eraInfo.tweaks or !eraInfo.tweaks & TP_NOSNEAKERMUSIC then
+	if not eraInfo.tweaks or !eraInfo.tweaks & TP_NOSNEAKERMUSIC then
 		super(actor, var1, var2)
 		return
 	end
 	
+	if not (actor and actor.valid) then
+		super(actor, var1, var2)
+		return
+	end
 	
 	local player
 	
@@ -249,9 +266,9 @@ function A_SuperSneakers(actor, var1, var2)
 end
 
 
-------------------------------------------
--- Conveyor Spin Bug Reimplementation-- // MIDIMan
-------------------------------------------
+----------------------------------------
+-- Conveyor Spin Bug Reimplementation -- // MIDIMan
+----------------------------------------
 
 -- Make sure this function isn't already initialized
 if not Valid then
