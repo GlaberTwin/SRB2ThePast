@@ -292,8 +292,8 @@ function A_AttractChase(actor, var1, var2)
 
 	-- Turn rings into flingrings if shield is lost or out of range
 	if (((actor.tracer and actor.tracer.player	-- If actor has tracer and is player,
-		and (!actor.tracer.player.powers[pw_shield] & SH_PROTECTELECTRIC))  -- and player no longer has attraction,
-		and actor.info.reactiontime and actor.type != mobjinfo[actor.type].reactiontime)) -- and actor has a Fling equivalent
+	and (!actor.tracer.player.powers[pw_shield] & SH_PROTECTELECTRIC))  -- and player no longer has attraction,
+	and actor.info.reactiontime and actor.type != mobjinfo[actor.type].reactiontime)) then -- and actor has a Fling equivalent
 
 		local newring = P_SpawnMobj(actor.x, actor.y, actor.z, actor.info.reactiontime)
 		newring.momx = actor.momx
