@@ -234,9 +234,9 @@ local function lua_AttractA(source, dest) -- Direct Pull ala Sonic Adventure, cu
 		speedmul = P_AproxDistance(dest.momx, dest.momy) + FixedMul(source.info.speed, source.scale)
 
 
-		ource.momx = FixedMul(FixedDiv(tx - source.x, dist), speedmul)
-		ource.momy = FixedMul(FixedDiv(ty - source.y, dist), speedmul)
-		ource.momz = FixedMul(FixedDiv(tz - source.z, dist), speedmul)
+		source.momx = FixedMul(FixedDiv(tx - source.x, dist), speedmul)
+		source.momy = FixedMul(FixedDiv(ty - source.y, dist), speedmul)
+		source.momz = FixedMul(FixedDiv(tz - source.z, dist), speedmul)
 
 		-- Instead of just unsetting NOCLIP like an idiot, let's check the distance to our target.	
 		ndist = P_AproxDistance(P_AproxDistance(tx - (source.x+source.momx), 
