@@ -189,7 +189,7 @@ dofile("EggHead/LUA_EHED") // Egg Head
 // Miscellanous
 // --------------------------------
 
-dofile("_lib.lua") //needed for object replacement aparently
+-- dofile("_lib.lua") //needed for object replacement aparently
 dofile("old_spec_and_nights.lua") //Old Special stages and Nights stuff. Allows for more special stages.
 dofile("LUA_EMRG") // Emergency Holo-Springs
 dofile("LUA_HUBS") // Exit system

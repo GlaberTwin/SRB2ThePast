@@ -1,13 +1,24 @@
---i fucking hate srb2's code
---IT DOESN'T HAVE AN OPTION TO DISABLE THE: Get n spheres! TEXT IN OLD SPECIAL STAGES WTF
+-- SRB2 Old Special Stage System - Created by sdas, edited for SRB2TP by MIDIMan
+-- TODO: Rework this to support TPEra instead of its own object/state replacement system
+-- Note to self: Pre-2.2 NiGHTS stages made players collect rings and emblems, instead of chips and stars,
+-- whereas NiGHTS Special Stages made players collect blue spheres and rings.
+
+--this script is done by @sdas813
+--it 'ports' old special stages and nights systems from 2.1
+--
+--it also adds some of the level header options:
+--Lua.OldSpecial = [0/1] - enable old special stage gameplay for this map
+--Lua.OldNights = [0/1] - enable old nights gameplay for this map
+--Lua.AllowRings = [0/1] - allow already placed ring things to be in level (so it won't remove them)
 
 local changed_objs = false
 local loaded_hud = false
-rawset(_G, "total_spheres", 0) -- Turned into a global variable so the TGF ring item can use it -- MIDIMan
 
--- addHook("MapLoad", function(id)
-table.insert(preMapLoadHooks, function()
-	total_spheres = 0;
+--pre map loading hook (runs before spawning the second map thing)
+-- TODO: Figure out why a pre-MapLoad hook is needed
+-- table.insert(preMapLoadHooks, function()
+addHook("MapLoad", function(id)
+	--change ui
 	if mapheaderinfo[gamemap].oldspecial then
 		if not loaded_hud then
 			hud.disable("rings")
@@ -18,9 +29,15 @@ table.insert(preMapLoadHooks, function()
 			hud.disable("nightstime")
 			--!2191 mr gonna fix that :/
 			--rn it completely useless
+			--05.02.24: yay they finally merged that mr and it will work in 2.2.14 :)
 			hud.disable("nightsrecords")
 			loaded_hud = true
 		end
+
+		--reset players
+		-- for p in players.iterate do
+		--
+		-- end
 	else
 		if loaded_hud then
 			hud.enable("rings")
@@ -38,42 +55,64 @@ end)
 hudinfo[HUD_SS_TOTALRINGS].x = 112
 hudinfo[HUD_SS_TOTALRINGS].y = 56
 
-addHook("NetVars", function(net)
-	total_spheres = net(total_spheres);
-end)
+local function giveaway_rings(self)
+	for p in players.iterate do
+		--if player alive and not self then giveaway them all rings that died player had
+		if p.valid and not p.spectator and p.playerstate == PST_LIVE and self ~= p then
+			p.spheres = p.spheres + self.spheres
+			self.spheres = 0;
+		end
+	end
+end
 
+local function stop_player(p)
+	p.exiting = (14 * TICRATE) / 5 + 1
+	p.nightstime = -32769
+	p.mo.momx = 0
+	p.mo.momy = 0
+	--i dindn't saw this line in srb2 fd code but i added it just for fix the accidental emerald pickuping
+	p.mo.momz = 0
+end
+
+--ring collecting
 addHook("TouchSpecial", function(ring, t)
-	if mapheaderinfo[gamemap].oldspecial or (mapheaderinfo[gamemap].oldnights and not G_IsSpecialStage()) then
-		if t.valid and t.player and t.player.valid then
-			if t.player.powers[pw_flashing] then
-				return true
-			end
-			if ring and t and ring.valid then
+	if not (mapheaderinfo[gamemap].oldspecial or (mapheaderinfo[gamemap].oldnights and not G_IsSpecialStage())) then
+		return
+	end
 
-				if G_IsSpecialStage() or mapheaderinfo[gamemap].oldnights then
-					t.player.spheres = t.player.spheres + 1
-				else
-					t.player.rings = 0
-				end
-				total_spheres = total_spheres + 1;
-			end
+	if t.valid and t.player and t.player.valid then
+		--don't run this if player cannot pickup the rings
+		if t.player.powers[pw_flashing] then
+			return true
+		end
+
+		--if we are picking up a ring then add sphere and reset rings
+		if ring and ring.valid then
+			t.player.spheres = t.player.spheres + 1
+			t.player.rings = 0
 		end
 	end
 end, MT_RING)
 
 addHook("MapThingSpawn", function(mobj, thing)
+	--replace bluespheres with rings when needed
 	if mapheaderinfo[gamemap].oldspecial or (mapheaderinfo[gamemap].oldnights and not G_IsSpecialStage(gamemap)) then
+		--replace bluespheres or nigths chips with rings
 		if mobj.type == MT_BLUESPHERE or mobj.type == MT_NIGHTSCHIP then
-			P_SpawnMobj(mobj.x, mobj.y, mobj.z, MT_RING)
+-- 			P_SpawnMobj(mobj.x, mobj.y, mobj.z, MT_RING)
+			P_SpawnMobjFromMobj(mobj, 0, 0, 0, MT_RING)
 			P_RemoveMobj(mobj)
 			return true
+			--if we are not allowing any other rings to be in the level then remove them
 		elseif mobj.type == MT_RING and not mapheaderinfo[gamemap].allowrings then
 			P_RemoveMobj(mobj)
+			--remove thing if we are allowing the other rings on the level
 		elseif mapheaderinfo[gamemap].allowrings then
 			thing.type = 0
 		end
 	end
 
+	--in nights, replace stars/rings into 'emblems'
 	if mapheaderinfo[gamemap].oldnights then
 		if not changed_objs then
 			states[S_NIGHTSSTAR] = {
@@ -119,15 +158,14 @@ addHook("MapThingSpawn", function(mobj, thing)
 	end
 end)
 
-local award = nil
 addHook("PlayerSpawn", function(p)
 	if not mapheaderinfo[gamemap].oldspecial or G_IsSpecialStage() or not p.valid then
 		return
 	end
 
 	p.nightstime = mapheaderinfo[gamemap].sstimer * TICRATE
+	p.deadtimer = 0
 
-	award = nil
 	if p.special_died == nil then
 		p.special_died = false
 	elseif p.special_died then
@@ -135,6 +173,7 @@ addHook("PlayerSpawn", function(p)
 	end
 end)
 
+--#region player quit/death
 addHook("MobjDeath", function(mo)
 	if not mapheaderinfo[gamemap].oldspecial or G_IsSpecialStage() then
 		return
@@ -142,16 +181,24 @@ addHook("MobjDeath", function(mo)
 
 	if mo.player then
 		mo.player.special_died = true
+		giveaway_rings(mo.player)
 		mo.player.deadtimer = 1
 	end
 end)
 
+addHook("PlayerQuit", function(plr, _)
+	giveaway_rings(plr)
+end)
+--#endregion
+
+--#region anti cheat
 local anti_cheat_kill = CV_RegisterVar({
 	name = "ss_anti_cheat_kill",
 	defaultvalue = "Off",
 	flags = CV_NETVAR,
 	PossibleValue = CV_OnOff,
 })
+
 addHook("ShieldSpawn", function(p)
 	if not mapheaderinfo[gamemap].oldspecial or G_IsSpecialStage() then
 		return
@@ -187,6 +234,7 @@ addHook("ShieldSpawn", function(p)
 		end
 	end
 end)
+--#endregion
 
 addHook("MobjDamage", function(mo, _, _, t)
 	if not mapheaderinfo[gamemap].oldspecial or G_IsSpecialStage() then
@@ -194,8 +242,9 @@ addHook("MobjDamage", function(mo, _, _, t)
 	end
 
 	if t < 128 and mo and mo.valid and mo.player and mo.player.valid then
+		--TODO: it's not really that behaviour which old special stages had... idk, i think it should be replaced tbh
 		P_DoPlayerPain(mo.player)
-		P_PlayRinglossSound(mo)
+		P_PlayRinglossSound(mo, mo.player)
 		return true
 	end
 end)
@@ -206,8 +255,26 @@ addHook("ThinkFrame", function()
 		return
 	end
 
+	--count the spheres
+	local total_spheres = 0
 	for p in players.iterate do
-		if p and p.valid and p.special_died and not p.deadtimer then
+		total_spheres = total_spheres + p.spheres
+	end
+
+	for p in players.iterate do
+		if not p and p.valid then
+			return
+		end
+		--reset player (three times cuz think frame are broken)
+		if leveltime == 0 then
+			p.spheres = 0
+			p.special_died = false
+			p.spectator = false
+			p.deadtimer = 0
+			return
+		end
+
+		if p.special_died and not p.deadtimer then
 			p.spectator = true
 			p.nightstime = -32769
 
@@ -220,17 +287,14 @@ addHook("ThinkFrame", function()
 		else
 			alive = alive + 1
 		end
-		if p.valid and p.mo and p.mo.valid then
+
+		if p.mo and p.mo.valid then
 			if p.nightstime <= 0 and p.nightstime > -32768 then
-				p.exiting = (14 * TICRATE) / 5 + 1
-				p.nightstime = -32769
-				p.mo.momx = 0
-				p.mo.momy = 0
-				--i dindn't saw this line in srb2 fd code but i added it just for fix the accidental emerald pickuping
-				p.mo.momz = 0
+				stop_player(p)
 			elseif p.nightstime > 0 then
 				local rmtic = 1
 
+				--if player is SOMEHOW in the water.. even if they just touching a little bit of it then speed up the timer
 				if
 					(p.mo.z < p.mo.watertop and p.mo.z + p.mo.height >= p.mo.watertop)
 					or (p.mo.z + p.mo.height > p.mo.waterbottom and p.mo.z <= p.mo.waterbottom)
@@ -242,36 +306,32 @@ addHook("ThinkFrame", function()
 
 				if total_spheres >= mapheaderinfo[gamemap].ssspheres then
 					--p.pflags = p.pflags|PF_FINISHED;
-					p.exiting = (14 * TICRATE) / 5 + 1
-					p.mo.momx = 0
-					p.mo.momy = 0
-					--i dindn't saw this line in srb2 fd code but i added it just for fix the accidental emerald pickuping
-					p.mo.momz = 0
-					if award == nil then
-						if not (emeralds & EMERALD1) then
-							--emeralds = emeralds|EMERALD1;
-							award = MT_CHAOS_GREEN
-						elseif not (emeralds & EMERALD2) then
-							--emeralds = emeralds|EMERALD2;
-							award = MT_CHAOS_ORANGE
-						elseif not (emeralds & EMERALD3) then
-							--emeralds = emeralds|EMERALD3;
-							award = MT_CHAOS_PINK
-						elseif not (emeralds & EMERALD4) then
-							--emeralds = emeralds|EMERALD4;
-							award = MT_CHAOS_BLUE
-						elseif not (emeralds & EMERALD5) then
-							--emeralds = emeralds|EMERALD5;
-							award = MT_CHAOS_RED
-						elseif not (emeralds & EMERALD6) then
-							--emeralds = emeralds|EMERALD6;
-							award = MT_CHAOS_CYAN
-						elseif not (emeralds & EMERALD7) then
-							--emeralds = emeralds|EMERALD7;
-							award = MT_CHAOS_GREY
-						else
-							award = MT_CHAOS_BLACK
-						end
+					stop_player(p)
+					local award
+
+					if not (emeralds & EMERALD1) then
+						--emeralds = emeralds|EMERALD1;
+						award = MT_CHAOS_GREEN
+					elseif not (emeralds & EMERALD2) then
+						--emeralds = emeralds|EMERALD2;
+						award = MT_CHAOS_ORANGE
+					elseif not (emeralds & EMERALD3) then
+						--emeralds = emeralds|EMERALD3;
+						award = MT_CHAOS_PINK
+					elseif not (emeralds & EMERALD4) then
+						--emeralds = emeralds|EMERALD4;
+						award = MT_CHAOS_BLUE
+					elseif not (emeralds & EMERALD5) then
+						--emeralds = emeralds|EMERALD5;
+						award = MT_CHAOS_RED
+					elseif not (emeralds & EMERALD6) then
+						--emeralds = emeralds|EMERALD6;
+						award = MT_CHAOS_CYAN
+					elseif not (emeralds & EMERALD7) then
+						--emeralds = emeralds|EMERALD7;
+						award = MT_CHAOS_GREY
+					else
+						award = MT_CHAOS_BLACK
 					end
 					P_SpawnMobj(p.realmo.x, p.realmo.y, p.realmo.z + (4 * FRACUNIT) + p.realmo.info.height, award)
 					S_StartSound(nil, sfx_cgot)
@@ -288,7 +348,7 @@ addHook("ThinkFrame", function()
 end)
 local cv_timetic = CV_FindVar("timerres")
 
-hud.add(function(v, p, cam)
+hud.add(function(v, p, _)
 	if mapheaderinfo[gamemap].oldspecial then
 		local sborings = v.cachePatch("STTRINGS")
 		if not p.spectator and G_IsSpecialStage() then
@@ -396,6 +456,13 @@ hud.add(function(v, p, cam)
 		end
 
 		v.draw(hudinfo[HUD_RINGS].x, hudinfo[HUD_RINGS].y, sborings, hudinfo[HUD_RINGS].f | V_HUDTRANS)
+
+		--TODO: remove code duplication
+		--count the spheres (again)
+		local total_spheres = 0
+		for p in players.iterate do
+			total_spheres = total_spheres + p.spheres
+		end
 		--draw spheres as rings!
 		v.drawNum(hudinfo[HUD_RINGSNUM].x, hudinfo[HUD_RINGSNUM].y, total_spheres, hudinfo[HUD_RINGSNUM].f | V_HUDTRANS)
 
@@ -405,7 +472,6 @@ hud.add(function(v, p, cam)
 		local getall = v.cachePatch("GETALL")
 		local timeup = v.cachePatch("TIMEUP")
 		local total = mapheaderinfo[gamemap].ssspheres
-
 
 		if total > 0 then
 			v.drawNum(
