@@ -1,4 +1,5 @@
 -- SRB2TP - TPEra Main
+-- Created by Barrels O' Fun and MIDIMan
 
 -- Just use NoSSMusic for maps from the XMAS and Demo eras
 
@@ -554,9 +555,9 @@ SRB2TP_ERA_INFO["2.1"] = {
 }	
 
 rawset(_G, "SRB2TP_GetEraInfo", function(nextmap)
-	if nextmap and mapheaderinfo[nextmap].tpera
+	if nextmap and mapheaderinfo[nextmap].tpera then
 		return SRB2TP_ERA_INFO[tostring(mapheaderinfo[nextmap].tpera):upper()]
-	elseif mapheaderinfo[gamemap].tpera and not nextmap
+	elseif mapheaderinfo[gamemap].tpera and not nextmap then
 		return SRB2TP_ERA_INFO[tostring(mapheaderinfo[gamemap].tpera):upper()]
 	else
 		return SRB2TP_ERA_INFO["DEFAULT"]
@@ -574,17 +575,19 @@ end
 
 local SRB2TPE_UniqueObjects = {}
 addHook("MapChange", function()
-SRB2TPE_UniqueObjects = {}
+	SRB2TPE_UniqueObjects = {}
 end)
 
 addHook("NetVars", function(network)
-SRB2TPE_UniqueObjects = network(SRB2TPE_UniqueObjects)
+	SRB2TPE_UniqueObjects = network(SRB2TPE_UniqueObjects)
 end)
 
 
 rawset(_G, "SRB2TP_UpdateObject", function(mo, renew)
-	if renew == nil and SRB2TPE_UniqueObjects
-		for i,uobj in ipairs(SRB2TPE_UniqueObjects)
+	if not (mo and mo.valid) then return end
+	
+	if renew == nil and SRB2TPE_UniqueObjects then
+		for i,uobj in ipairs(SRB2TPE_UniqueObjects) do
 			if mo.type == uobj then return end -- Don't come back unless renewing for a state change
 		end
 		SRB2TPE_UniqueObjects[#SRB2TPE_UniqueObjects+1]=mo.type

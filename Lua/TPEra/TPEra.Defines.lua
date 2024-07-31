@@ -1,4 +1,5 @@
 -- SRB2TP - TPEra Freeslots
+-- Created by Barrels O' Fun and MIDIMan
 
 freeslot(
 //RINGS
@@ -92,19 +93,24 @@ freeslot(
 
 //Doom Pickup for S_DOOMPICKUP
 function A_DoomPickup(m)
-	if m.target.valid and m.target.player
+	if not (m and m.valid) then return end
+	
+	if m.target and m.target.valid and m.target.player and m.target.player.valid then
 		m.target.player.bonuscount = $ + 6
 	end
 end
 
 addHook("PlayerSpawn", function(p)
+	if not (p and p.valid) then return end
+	
 	p.bonuscount = 0
 end)
 
 addHook("PlayerThink", function(p)
-    if p.bonuscount
-
-		if CV_FindVar("renderer").string != "OpenGL"
+	if not (p and p.valid) then return end
+	
+    if p.bonuscount then
+		if CV_FindVar("renderer").string != "OpenGL" then
 			P_FlashPal(p,7+min(4,(p.bonuscount+7)>>3),1)
 		end
 
@@ -113,7 +119,9 @@ addHook("PlayerThink", function(p)
 end)
 
 hud.add(function(v)
-    if displayplayer.bonuscount and CV_FindVar("renderer").string == "OpenGL"
+	if not (v and displayplayer and displayplayer.valid) then return end
+	
+    if displayplayer.bonuscount and CV_FindVar("renderer").string == "OpenGL" then
         v.fadeScreen(65, min(4,(displayplayer.bonuscount+7)>>3))
     end
 end)

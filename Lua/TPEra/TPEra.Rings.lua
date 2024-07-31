@@ -1,5 +1,5 @@
 ----------------------------
---SRB2:TP Era Skins: Rings-- // Barrels O' Fun
+--SRB2:TP Era Skins: Rings-- // Barrels O' Fun (Edited by MIDIMan)
 ----------------------------
 
 
@@ -7,16 +7,16 @@
 -- Skin # {Spawn,Death} --
 --------------------------
 local ringskins = { 
-{S_RING,			S_SPRK1},		//1 - 2.2
-{S_OLD_RING, 		S_OLD_SPARK1}, 	//2 - XMAS-2.1
-{S_HALLORING,		S_DOOMPICKUP}, 	//3 - Ween
-{S_SONICDOOM_RINGH, S_DOOMPICKUP}, 	//4 - SD2 Health
-{S_SONICDOOM_RINGA, S_DOOMPICKUP}, 	//5 - SD2 Armor
-{S_TGF_RING,		S_TGF_SPARK}	//6 - TGF
+	{S_RING,			S_SPRK1},		//1 - 2.2
+	{S_OLD_RING, 		S_OLD_SPARK1}, 	//2 - XMAS-2.1
+	{S_HALLORING,		S_DOOMPICKUP}, 	//3 - Ween
+	{S_SONICDOOM_RINGH, S_DOOMPICKUP}, 	//4 - SD2 Health
+	{S_SONICDOOM_RINGA, S_DOOMPICKUP}, 	//5 - SD2 Armor
+	{S_TGF_RING,		S_TGF_SPARK}	//6 - TGF
 }
 
 local teamringskins = { 
-{S_20_TEAMRING, 	S_OLD_SPARK1} 	//1 - Old
+	{S_20_TEAMRING, 	S_OLD_SPARK1} 	//1 - Old
 }
 
 ----------------
@@ -24,26 +24,26 @@ local teamringskins = {
 ----------------
 
 local function RingItemSkin(m,mt,list)
+	if not (m and m.valid and mt and mt.valid) then return end
 	
 	local itemskin = mt.extrainfo
-	if udmf
+	if udmf then
 		itemskin = mt.args[1]
 	end
 
-	if m.itemskin == nil or m.itemskin == 0
+	if m.itemskin == nil or m.itemskin == 0 then
 		m.itemskin = itemskin
 	end
 
-	if m.itemskin != 0
+	if m.itemskin != 0 then
 		m.skintable = list
-		if m.state != list[min(m.itemskin,#list)][1]
+		if m.state != list[min(m.itemskin,#list)][1] then
 			m.state = list[min(m.itemskin,#list)][1]
 		end
 	else
-
-		if leveltime == 0 	-- Only update once at map load.
+		if leveltime == 0 then	-- Only update once at map load.
 			SRB2TP_UpdateObject(m)
-		else				-- If any are spawned after that update them.
+		else					-- If any are spawned after that update them.
 			SRB2TP_UpdateObject(m,true)
 		end
 
@@ -52,31 +52,33 @@ local function RingItemSkin(m,mt,list)
 end
 
 addHook("MapThingSpawn", function(m,mt) 
-RingItemSkin(m,mt,ringskins)
+	RingItemSkin(m,mt,ringskins)
 end, MT_RING)
 
 addHook("MapThingSpawn", function(m,mt)
-RingItemSkin(m,mt,ringskins)
+	RingItemSkin(m,mt,ringskins)
 end, MT_FLINGRING)
 
 addHook("MapThingSpawn", function(m,mt) 
-RingItemSkin(m,mt,teamringskins) 
+	RingItemSkin(m,mt,teamringskins) 
 end, MT_REDTEAMRING)
 
 addHook("MapThingSpawn", function(m,mt) 
-RingItemSkin(m,mt,teamringskins) 
+	RingItemSkin(m,mt,teamringskins) 
 end, MT_BLUETEAMRING)
 
 --------------------
 --Ring Skin Pickup--
 --------------------
 local function RingSkinDeath(mo,n,toucher)
-	if toucher and toucher.player
-		if toucher.player.ringtable == nil -- Initialize
+	if not (mo and mo.valid) then return end
+	
+	if toucher and toucher.valid and toucher.player and toucher.player.valid then
+		if toucher.player.ringtable == nil then -- Initialize
 			toucher.player.ringtable = {}
 		end
 
-		if #toucher.player.ringtable > 31  -- Cap at 32
+		if #toucher.player.ringtable > 31 then  -- Cap at 32
 			table.remove(toucher.player.ringtable,1)
 		end
 
@@ -84,7 +86,7 @@ local function RingSkinDeath(mo,n,toucher)
 		mo.target = toucher
 	end
 
-	if mo.skintable
+	if mo.skintable then
 		mo.info.deathstate 	= mo.skintable[mo.itemskin][2]
 	else 
 		SRB2TP_UpdateObject(mo, true)
@@ -100,9 +102,11 @@ addHook("MobjDeath", RingSkinDeath, MT_BLUETEAMRING)
 
 
 addHook("MobjThinker", function(m)
-	if m.target and m.target.player and m.target.player.ringtable and #m.target.player.ringtable and not m.flung
+	if not (m and m.valid) then return end
+	
+	if m.target and m.target.valid and m.target.player and m.target.player.valid and m.target.player.ringtable and #m.target.player.ringtable and not m.flung then
 		m.itemskin = m.target.player.ringtable[1]
-		if m.itemskin
+		if m.itemskin then
 			m.skintable = ringskins
 			m.state = ringskins[m.itemskin][1]
 		else
@@ -114,18 +118,20 @@ addHook("MobjThinker", function(m)
 	end
 end, MT_FLINGRING)
 
-addHook("MapChange", do for p in players.iterate
-	p.ringtable = {}
-end end)
+addHook("MapChange", do
+	for p in players.iterate do
+		p.ringtable = {}
+	end
+end)
 
 
 ------------------------
 --Count Ring as Sphere--
 ------------------------
 local function RingSpheres(mo,toucher)	-- Special Stage misc.
-	if mo and mo.valid and toucher.player and toucher.valid
+	if mo and mo.valid and toucher and toucher.valid and toucher.player and toucher.player.valid
 	and ((mo.spawnpoint and mo.spawnpoint.valid and mo.spawnpoint.options & MTF_EXTRA) or mo.flungextra)
-	toucher.player.spheres = $ + 1
+		toucher.player.spheres = $ + 1
 	end
 end
 addHook("TouchSpecial", RingSpheres, MT_RING)
@@ -144,54 +150,53 @@ local function lua_LookForShield(actor)	-- Lua Conversion
 	local PLAYERSMASK = #players-1
 
 	-- BP: first time init, this allow minimum lastlook changes
-	if (actor.lastlook < 0)
+	if (actor.lastlook < 0) then
 		actor.lastlook = P_RandomByte()
 	end
 	
 	actor.lastlook = $ % MAXPLAYERS
 	stop = ((actor.lastlook - 1) & PLAYERSMASK)
 
-	while(true)
+	while(true) do
 	
 		-- done looking
-		if (actor.lastlook == stop)
-	
+		if (actor.lastlook == stop) then
 			return false
 		end
 
-		if (players[actor.lastlook] == nil)
-		actor.lastlook = ((actor.lastlook + 1) & PLAYERSMASK)
+		if (players[actor.lastlook] == nil) then
+			actor.lastlook = ((actor.lastlook + 1) & PLAYERSMASK)
 			continue
 		end
 		
 		c = c+1
-		if (c == 2)
+		if (c == 2) then
 			return false
 		end
 
 		player = players[actor.lastlook]
 
-		if (not player.mo) or (player.mo.health <= 0) 
-		actor.lastlook = ((actor.lastlook + 1) & PLAYERSMASK)
+		if (not player.mo) or (player.mo.health <= 0) then
+			actor.lastlook = ((actor.lastlook + 1) & PLAYERSMASK)
 			continue -- dead
 		end
 		
 		--When in CTF, don't pull rings that you cannot pick up.
-		if ((actor.type == MT_REDTEAMRING and player.ctfteam != 1) or
-			(actor.type == MT_BLUETEAMRING and player.ctfteam != 2))
+		if ((actor.type == MT_REDTEAMRING and player.ctfteam != 1)
+		or (actor.type == MT_BLUETEAMRING and player.ctfteam != 2)) then
 			continue
 		end
 		
-		if (player.powers[pw_shield] & SH_PROTECTELECTRIC)
-			and (FixedHypot(FixedHypot(actor.x-player.mo.x, actor.y-player.mo.y), actor.z-player.mo.z) < FixedMul(RING_DIST, player.mo.scale))
+		if (player.powers[pw_shield] & SH_PROTECTELECTRIC) then
+		and (FixedHypot(FixedHypot(actor.x-player.mo.x, actor.y-player.mo.y), actor.z-player.mo.z) < FixedMul(RING_DIST, player.mo.scale)) then
 			actor.tracer = player.mo
 
-			if (actor.hnext)
-			actor.hnext.hprev = actor.hprev
+			if (actor.hnext) then
+				actor.hnext.hprev = actor.hprev
 			end
 			
-			if (actor.hprev)
-			actor.hprev.next = actor.hnext
+			if (actor.hprev) then
+				actor.hprev.next = actor.hnext
 			end
 			
 			--actor.attracted = true
@@ -207,8 +212,8 @@ end
 	
 local function lua_AttractA(source, dest) -- Direct Pull ala Sonic Adventure, current SRB2
 
-	if dest and dest.health and dest.valid and dest.player -- make sure destination is valid
-
+	if dest and dest.health and dest.valid and dest.player then -- make sure destination is valid
+		
 		local dist,ndist,speedmul
 	--	local vangle -- No NiGHTs
 		local tx = dest.x
@@ -226,18 +231,18 @@ local function lua_AttractA(source, dest) -- Direct Pull ala Sonic Adventure, cu
 			dist = 1
 		end
 
-				speedmul = P_AproxDistance(dest.momx, dest.momy) + FixedMul(source.info.speed, source.scale)
+		speedmul = P_AproxDistance(dest.momx, dest.momy) + FixedMul(source.info.speed, source.scale)
 
 
-			source.momx = FixedMul(FixedDiv(tx - source.x, dist), speedmul)
-			source.momy = FixedMul(FixedDiv(ty - source.y, dist), speedmul)
-			source.momz = FixedMul(FixedDiv(tz - source.z, dist), speedmul)
+		ource.momx = FixedMul(FixedDiv(tx - source.x, dist), speedmul)
+		ource.momy = FixedMul(FixedDiv(ty - source.y, dist), speedmul)
+		ource.momz = FixedMul(FixedDiv(tz - source.z, dist), speedmul)
 
 		-- Instead of just unsetting NOCLIP like an idiot, let's check the distance to our target.	
 		ndist = P_AproxDistance(P_AproxDistance(tx - (source.x+source.momx), 
 												ty - (source.y+source.momy)), 
 												tz - (source.z+source.momz))
-		if (ndist > dist) -- gone past our target
+		if (ndist > dist) then -- gone past our target
 			// place us on top of them then.
 			source.momx,source.momy,source.momz = 0,0,0
 			P_MoveOrigin(source, tx, ty, tz)
@@ -246,15 +251,15 @@ local function lua_AttractA(source, dest) -- Direct Pull ala Sonic Adventure, cu
 end
 		
 local function lua_AttractB(source, dest) -- Demo Attract
-	if dest and dest.health and dest.valid and dest.player -- make sure destination is valid
+	if dest and dest.health and dest.valid and dest.player then -- make sure destination is valid
 
-		if(source.x != dest.x and source.y != dest.y)
+		if (source.x != dest.x and source.y != dest.y) then
 			P_Thrust(source, R_PointToAngle2(source.x, source.y, dest.x+dest.momx, dest.y+dest.momy), 5*FRACUNIT) -- Frankenstein some old Demo 4 code
 		end
 
-		if(source.z > dest.z)
+		if (source.z > dest.z) then
 			source.momz = $ - 5*FRACUNIT
-		elseif(source.z < dest.z)
+		elseif (source.z < dest.z) then
 			source.momz = $ + 5*FRACUNIT
 		end
 
@@ -265,9 +270,14 @@ local function lua_AttractB(source, dest) -- Demo Attract
 end	
 
 		
-function A_AttractChase(actor)
-
-	if (actor.flags2 & MF2_NIGHTSPULL or actor.health == 0)
+function A_AttractChase(actor, var1, var2)
+	if not (actor and actor.valid) then
+		super(actor, var1, var2)
+		return
+	end
+	
+	if (actor.flags2 & MF2_NIGHTSPULL or actor.health == 0) then
+		super(actor, var1, var2)
 		return
 	end
 	
@@ -282,31 +292,31 @@ function A_AttractChase(actor)
 
 	-- Turn rings into flingrings if shield is lost or out of range
 	if (((actor.tracer and actor.tracer.player	-- If actor has tracer and is player,
-		and (!actor.tracer.player.powers[pw_shield] & SH_PROTECTELECTRIC))  -- and player no longer has attraction,
-		and actor.info.reactiontime and actor.type != mobjinfo[actor.type].reactiontime)) -- and actor has a Fling equivalent
+	and (!actor.tracer.player.powers[pw_shield] & SH_PROTECTELECTRIC))  -- and player no longer has attraction,
+	and actor.info.reactiontime and actor.type != mobjinfo[actor.type].reactiontime)) then -- and actor has a Fling equivalent
 
-				local newring = P_SpawnMobj(actor.x, actor.y, actor.z, actor.info.reactiontime)
-					newring.momx = actor.momx
-					newring.momy = actor.momy
-					newring.momz = actor.momz
+		local newring = P_SpawnMobj(actor.x, actor.y, actor.z, actor.info.reactiontime)
+		newring.momx = actor.momx
+		newring.momy = actor.momy
+		newring.momz = actor.momz
+		
+		if actor.itemskin then
+			newring.itemskin = actor.itemskin
+			newring.state = actor.state
+		end
 
-					if actor.itemskin
-						newring.itemskin = actor.itemskin
-						newring.state = actor.state
-					end
+		if actor.spawnpoint and actor.spawnpoint.valid and (actor.spawnpoint.options & MTF_EXTRA) then
+			newring.flungextra = true
+		end
 
-					if actor.spawnpoint and actor.spawnpoint.valid and actor.spawnpoint.options & MTF_EXTRA
-						newring.flungextra = true
-					end
-
-					P_RemoveMobj(actor)
+		P_RemoveMobj(actor)
 
 		return
 	end
 
-	if (actor.type == mobjinfo[actor.type].reactiontime and actor.tracer) -- If a FlingRing gets attracted by a shield,
-		 actor.type = mobjinfo[actor.type].painchance -- Directly set actor instead of spawning a new one to prevent incrementing Perfect Bonus counter.
-		 actor.flags = mobjinfo[actor.type].flags
+	if (actor.type == mobjinfo[actor.type].reactiontime and actor.tracer) then -- If a FlingRing gets attracted by a shield,
+		actor.type = mobjinfo[actor.type].painchance -- Directly set actor instead of spawning a new one to prevent incrementing Perfect Bonus counter.
+		actor.flags = mobjinfo[actor.type].flags
 		return
 	end
 
@@ -315,9 +325,9 @@ function A_AttractChase(actor)
 
 
 	if not actor.tracer
-		or not actor.tracer.player
-		or not actor.tracer.health
-		or not P_CheckSight(actor, actor.tracer) -- You have to be able to SEE it...sorta
+	or not actor.tracer.player
+	or not actor.tracer.health
+	or not P_CheckSight(actor, actor.tracer) then -- You have to be able to SEE it...sorta
 	
 		-- Lost attracted rings don't through walls anymore.
 		actor.flags = $&~MF_NOCLIP
@@ -328,12 +338,12 @@ function A_AttractChase(actor)
 	--	Keep stuff from going down inside floors and junk
 	actor.flags = $&~MF_NOCLIPHEIGHT
 
-	if actor.tracer.player.powers[pw_shield] == SH_ATTRACT and (actor.tracer.rmShieldEra == "DEMO" or actor.tracer.rmShieldEra == "XMAS")
-	-- XMAS & Demo Attraction
+	if actor.tracer.player.powers[pw_shield] == SH_ATTRACT and (actor.tracer.rmShieldEra == "DEMO" or actor.tracer.rmShieldEra == "XMAS") then
+		-- XMAS & Demo Attraction
  		actor.flags = $ &~MF_NOCLIP	-- Demo attracted rings don't get Noclip
 		lua_AttractB(actor, actor.tracer)
 	else
-	-- Final Demo & Later Attraction
+		-- Final Demo & Later Attraction
 		actor.flags = $|MF_NOCLIP	-- Let attracted rings move through walls and such.
 		lua_AttractA(actor, actor.tracer)
 	end		
@@ -360,7 +370,7 @@ addHook("PlayerThink", function(player)
 		end
 		
 -- 		if (player.powers[pw_shield] & SH_PROTECTELECTRIC)
-			if (FixedHypot(FixedHypot(mo.x - player.mo.x, mo.y - player.mo.y), mo.z - player.mo.z) < FixedMul(RING_DIST, player.mo.scale))
+		if (FixedHypot(FixedHypot(mo.x - player.mo.x, mo.y - player.mo.y), mo.z - player.mo.z) < FixedMul(RING_DIST, player.mo.scale))
 			mo.tracer = player.mo
 
 			if mo.hnext then
@@ -372,7 +382,7 @@ addHook("PlayerThink", function(player)
 			end
 			
 			return
- 			end
+ 		end
 		
 -- 		actor.lastlook = ((actor.lastlook + 1) & PLAYERSMASK)
 	end, player.mo, player.mo.x - ringDist, player.mo.x + ringDist, player.mo.y - ringDist, player.mo.y + ringDist)

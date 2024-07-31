@@ -1,5 +1,5 @@
 ------------------------------
---SRB2:TP Era Skins: Springs-- // Barrels O' Fun
+--SRB2:TP Era Skins: Springs-- // Barrels O' Fun (Edited by MIDIMan)
 ------------------------------
 
 sfxinfo[sfx_s24c].caption = "Spring"
@@ -16,27 +16,27 @@ local DEMO4 = 4
 
 //BLUE
 local bluespring = {
-//2.2
-{S_BLUESPRING, S_BLUESPRING2,
-11*FRACUNIT, 0,
-sfx_spring, 0},
-
-//FINALDEMO-2.1
-{S_OLD_BLUESPRING, S_OLD_BLUESPRING2,
-11*FRACUNIT, 0,
-sfx_s24c, 0}
+	//2.2
+	{S_BLUESPRING, S_BLUESPRING2,
+	11*FRACUNIT, 0,
+	sfx_spring, 0},
+	
+	//FINALDEMO-2.1
+	{S_OLD_BLUESPRING, S_OLD_BLUESPRING2,
+	11*FRACUNIT, 0,
+	sfx_s24c, 0}
 }
 
 local bluediag = {
-//2.2
-{S_BDIAG1, S_BDIAG2,
-11*FRACUNIT, 11*FRACUNIT,
-sfx_spring, 0},
+	//2.2
+	{S_BDIAG1, S_BDIAG2,
+	11*FRACUNIT, 11*FRACUNIT,
+	sfx_spring, 0},
 
-//2.0-2.1
-{S_OLD_BDIAG1, S_OLD_BDIAG2,
-11*FRACUNIT, 11*FRACUNIT,
-sfx_s24c, 0}
+	//2.0-2.1
+	{S_OLD_BDIAG1, S_OLD_BDIAG2,
+	11*FRACUNIT, 11*FRACUNIT,
+	sfx_s24c, 0}
 }
 
 
@@ -44,47 +44,47 @@ sfx_s24c, 0}
 
 //YELLOW
 local yellowspring = {
-//2.2
-{S_YELLOWSPRING, S_YELLOWSPRING2, 
-20*FRACUNIT, 0,
-sfx_spring, 0},
-
-//FINALDEMO-2.1
-{S_OLD_YELLOWSPRING, S_OLD_YELLOWSPRING2, 
-20*FRACUNIT, 0,
-sfx_s24c, 0},
-
-//XMAS-DEMO
-{S_OLD_YELLOWSPRING, S_OLD_YELLOWSPRING2,
-18*FRACUNIT, 0,
-sfx_s24c, DEMO4},
+	//2.2
+	{S_YELLOWSPRING, S_YELLOWSPRING2, 
+	20*FRACUNIT, 0,
+	sfx_spring, 0},
+	
+	//FINALDEMO-2.1
+	{S_OLD_YELLOWSPRING, S_OLD_YELLOWSPRING2, 
+	20*FRACUNIT, 0,
+	sfx_s24c, 0},
+	
+	//XMAS-DEMO
+	{S_OLD_YELLOWSPRING, S_OLD_YELLOWSPRING2,
+	18*FRACUNIT, 0,
+	sfx_s24c, DEMO4},
 }
 
 local yellowdiag = {
-//2.2
-{S_YDIAG1, S_YDIAG2, 
-20*FRACUNIT, 20*FRACUNIT, 
-sfx_spring, 0},
-
-//FINALDEMO-2.1
-{S_OLD_YDIAG1, S_OLD_YDIAG2, 
-20*FRACUNIT, 20*FRACUNIT, 
-sfx_s24c, 0},
-
-//DEMO4 //Same as Demo123 except you face the direction you're sprung.
-{S_OLD_YDIAG1, S_OLD_YDIAG2, 
-18*FRACUNIT, 30*FRACUNIT,
-sfx_s24c, 0},
-
-//DEMO123
-{S_OLD_YDIAG1, S_OLD_YDIAG2, 
-18*FRACUNIT, 30*FRACUNIT,
-sfx_s24c, DEMO123},
-
-//XMAS 
-{S_OLD_YDIAG1, S_OLD_YDIAG2,
-18*FRACUNIT, 3*512000, 
-sfx_s24c, XMAS}
+	//2.2
+	{S_YDIAG1, S_YDIAG2, 
+	20*FRACUNIT, 20*FRACUNIT, 
+	sfx_spring, 0},
+	
+	//FINALDEMO-2.1
+	{S_OLD_YDIAG1, S_OLD_YDIAG2, 
+	20*FRACUNIT, 20*FRACUNIT, 
+	sfx_s24c, 0},
+	
+	//DEMO4 //Same as Demo123 except you face the direction you're sprung.
+	{S_OLD_YDIAG1, S_OLD_YDIAG2, 
+	18*FRACUNIT, 30*FRACUNIT,
+	sfx_s24c, 0},
+	
+	//DEMO123
+	{S_OLD_YDIAG1, S_OLD_YDIAG2, 
+	18*FRACUNIT, 30*FRACUNIT,
+	sfx_s24c, DEMO123},
+	
+	//XMAS 
+	{S_OLD_YDIAG1, S_OLD_YDIAG2,
+	18*FRACUNIT, 3*512000, 
+	sfx_s24c, XMAS}
 }
 
 
@@ -92,62 +92,63 @@ sfx_s24c, XMAS}
 
 //RED
 local redspring = {
-//2.2
-{S_REDSPRING, S_REDSPRING2, 
-32*FRACUNIT, 0,
-sfx_spring, 0},
-
-//FINALDEMO-2.1
-{S_OLD_REDSPRING, S_OLD_REDSPRING2, 
-32*FRACUNIT, 0,
-sfx_s24c, 0},
-
-//XMAS-DEMO
-{S_OLD_REDSPRING, S_OLD_REDSPRING2,
-30*FRACUNIT, 0,
-sfx_s24c, DEMO4},
+	//2.2
+	{S_REDSPRING, S_REDSPRING2, 
+	32*FRACUNIT, 0,
+	sfx_spring, 0},
+	
+	//FINALDEMO-2.1
+	{S_OLD_REDSPRING, S_OLD_REDSPRING2, 
+	32*FRACUNIT, 0,
+	sfx_s24c, 0},
+	
+	//XMAS-DEMO
+	{S_OLD_REDSPRING, S_OLD_REDSPRING2,
+	30*FRACUNIT, 0,
+	sfx_s24c, DEMO4},
 }
 
 local reddiag = {
-//2.2
-{S_RDIAG1, S_RDIAG2, 
-32*FRACUNIT, 32*FRACUNIT, 
-sfx_spring, 0},
-
-//FINALDEMO-2.1
-{S_OLD_RDIAG1, S_OLD_RDIAG2, 
-32*FRACUNIT, 32*FRACUNIT, 
-sfx_s24c, 0},
+	//2.2
+	{S_RDIAG1, S_RDIAG2, 
+	32*FRACUNIT, 32*FRACUNIT, 
+	sfx_spring, 0},
+	
+	//FINALDEMO-2.1
+	{S_OLD_RDIAG1, S_OLD_RDIAG2, 
+	32*FRACUNIT, 32*FRACUNIT, 
+	sfx_s24c, 0},
 }
 
 ----------------
 --Do The Stuff--
 ----------------
 local function SetItemSkin(m,mt,list)
+	if not (m and m.valid and mt and mt.valid) then return end
 
 	local itemskin = mt.extrainfo
-	if udmf
-		if m.info.doomednum < 555
+	if udmf then
+		if m.info.doomednum < 555 then
 			itemskin = mt.args[0]
 		else
 			itemskin = mt.args[1] //Diagonals have an Arg beforehand, so offset
 		end
 	end
 
-	if m.itemskin == nil or m.itemskin == 0
+	if m.itemskin == nil or m.itemskin == 0 then
 		m.itemskin = itemskin
 	end
 
-	if m.itemskin and m.itemskin <= #list
+	if m.itemskin and m.itemskin <= #list then
 		m.skintable = list
-		if m.state == mobjinfo[m.type].spawnstate
+		if m.state == mobjinfo[m.type].spawnstate then
 			m.state = list[min(m.itemskin,#list)][1]
 		end
 	else
 		m.itemskin = 0
-		if leveltime == 0 	-- Only update once at map load.
+		if leveltime == 0 then 	-- Only update once at map load.
 			SRB2TP_UpdateObject(m)
-		else				-- If any are spawned after that update them.
+		else					-- If any are spawned after that update them.
 			SRB2TP_UpdateObject(m,true)
 		end
 		m.state = mobjinfo[m.type].spawnstate
@@ -155,42 +156,47 @@ local function SetItemSkin(m,mt,list)
 end
 
 addHook("MapThingSpawn", function(m,mt) 
-SetItemSkin(m,mt,bluespring)
+	SetItemSkin(m,mt,bluespring)
 end, MT_BLUESPRING)
 
 addHook("MapThingSpawn", function(m,mt) 
-SetItemSkin(m,mt,bluediag)
+	SetItemSkin(m,mt,bluediag)
 end, MT_BLUEDIAG)
 
 addHook("MapThingSpawn", function(m,mt) 
-SetItemSkin(m,mt,yellowspring)
+	SetItemSkin(m,mt,yellowspring)
 end, MT_YELLOWSPRING)
 
 addHook("MapThingSpawn", function(m,mt) 
-SetItemSkin(m,mt,yellowdiag)
+	SetItemSkin(m,mt,yellowdiag)
 end, MT_YELLOWDIAG)
 
 addHook("MapThingSpawn", function(m,mt) 
-SetItemSkin(m,mt,redspring)
+	SetItemSkin(m,mt,redspring)
 end, MT_REDSPRING)
 
 addHook("MapThingSpawn", function(m,mt) 
-SetItemSkin(m,mt,reddiag)
+	SetItemSkin(m,mt,reddiag)
 end, MT_REDDIAG)
 
 local function L_InstaThrustEvenIn2D(mo, angle, move)//Why the hell hasn't this been exposed yet?
+	if not (mo and mo.valid) then return end
+	
 	mo.momx = FixedMul(move, cos(angle))
 	mo.momy = FixedMul(move, sin(angle))
 end
 
 local function L_ThrustEvenIn2D(mo, angle, move)
+	if not (mo and mo.valid) then return end
+	
 	mo.momx = $ + FixedMul(move, cos(angle))
 	mo.momy = $ + FixedMul(move, sin(angle))
 end
 
 local function L_TwinSpinRejuvenate(player, type)
+	if not (player and player.valid) then return end
 
-	if (not player.mo or not type) then return end
+	if (not (player.mo and player.mo.valid) or not type) then return end
 
 	local actionspd = FixedMul(player.actionspd, player.mo.scale);
 
@@ -214,7 +220,7 @@ local function L_TwinSpinRejuvenate(player, type)
 			player.mo.height/2 + zo,
 			type)
 
-		if (missile and missile.valid)
+		if (missile and missile.valid) then
 			missile.target = player.mo
 			P_SetScale(missile, missile.destscale/2, true)
 			missile.angle = ang + movang
@@ -234,44 +240,45 @@ end
 
 // Stripped down version of current P_DoSpring with modifiers to make the spring work more like in Demo/XMAS
 local function P_RetroDoSpring(spring, object, mode) 
+	if not (spring and spring.valid and object and object.valid) then return end
+	
 	local vertispeed = spring.info.mass
 	local horizspeed = spring.info.damage
 	local strong = 0
 
 	// Object was already sprung this tic
-	if (object.eflags & MFE_SPRUNG)
+	if (object.eflags & MFE_SPRUNG) then
 		return
 	end
 
 	// Spectators don't trigger springs.
-	if (object.player and object.player.spectator)
+	if (object.player and object.player.valid and object.player.spectator) then
 		return
 	end
 
 	// "Even in Death" is a song from Volume 8, not a command.
-	if (spring.health == 0 or object.health == 0)
+	if (spring.health == 0 or object.health == 0) then
 		return
 	end
 
 	// Does nothing?
-	if (vertispeed == 0 and horizspeed == 0)
+	if (vertispeed == 0 and horizspeed == 0) then
 		return
 	end
 	
-	if (object.player.powers[pw_strong] & STR_SPRING)
-			strong = 1
+	if (object.player.powers[pw_strong] & STR_SPRING) then
+		strong = 1
 	end
 
-	if (spring.eflags & MFE_VERTICALFLIP)
+	if (spring.eflags & MFE_VERTICALFLIP) then
 		vertispeed = $*-1
 	end
 
-	if strong
-	
-		if (horizspeed)
+	if strong then
+		if (horizspeed) then
 			horizspeed = FixedMul(horizspeed, (4*FRACUNIT)/3)
 		end
-		if (vertispeed)
+		if (vertispeed) then
 			vertispeed = FixedMul(vertispeed, (6*FRACUNIT)/5) // aprox square root of above
 		end
 	end
@@ -279,29 +286,29 @@ local function P_RetroDoSpring(spring, object, mode)
 	object.eflags = $ | MFE_SPRUNG
 	spring.flags = $ &~ (MF_SPRING|MF_SPECIAL) // De-solidify	
 
-	if (object.player)
+	if (object.player and object.player.valid) then
 		object.player.pflags = $ &~ PF_APPLYAUTOBRAKE
 
 		object.player.powers[pw_justsprung] = 15
-		if (horizspeed)
+		if (horizspeed) then
 			object.player.powers[pw_noautobrake] = ((horizspeed*TICRATE)>>(FRACBITS+3))/9 // TICRATE at 72*FRACUNIT
 		else
 			if (abs(object.player.rmomx) > object.scale 
-			or abs(object.player.rmomy) > object.scale)
+			or abs(object.player.rmomy) > object.scale) then
 				object.player.drawangle = R_PointToAngle2(0, 0, object.player.rmomx, object.player.rmomy)
 			end
 
-			if (P_MobjFlip(object) == P_MobjFlip(spring))
+			if (P_MobjFlip(object) == P_MobjFlip(spring)) then
 				object.player.powers[pw_justsprung] = $ | (1<<15)
 			end
 		end
 //#endif
 	end
 
-	if (horizspeed and vertispeed)
+	if (horizspeed and vertispeed) then
 		object.momx = 0
 		object.momy = 0
-		if !mode & 1 -- XMAS does not snap you to spring center.
+		if !mode & 1 then -- XMAS does not snap you to spring center.
 			local eraInfo = SRB2TP_GetEraInfo()
 			if eraInfo.tweaks & 32  then 
 				P_MoveOrigin(object, spring.x, spring.y, object.z) -- Pre-Final Demo automatically sets your position to a spring without checking
@@ -311,24 +318,24 @@ local function P_RetroDoSpring(spring, object, mode)
 		end
 	end
 
-	if !mode & 1 -- XMAS does not snap you to spring center.
+	if !mode & 1 then -- XMAS does not snap you to spring center.
 	
-		if (vertispeed > 0)
+		if (vertispeed > 0) then
 			object.z = spring.z + spring.height + 1
-		elseif (vertispeed < 0)
+		elseif (vertispeed < 0) then
 			object.z = spring.z - object.height - 1
 		end
 	end
 
-	if (vertispeed)
+	if (vertispeed) then
 		object.momz = FixedMul(vertispeed,FixedSqrt(FixedMul(object.scale, spring.scale)))
 	end
 
-	if (horizspeed)
-		if mode & 1 -- XMAS Uses Thrust not InstaThrust
-		L_ThrustEvenIn2D(object, spring.angle, FixedMul(horizspeed,FixedSqrt(FixedMul(object.scale, spring.scale))))
+	if (horizspeed) then
+		if mode & 1 then -- XMAS Uses Thrust not InstaThrust
+			L_ThrustEvenIn2D(object, spring.angle, FixedMul(horizspeed,FixedSqrt(FixedMul(object.scale, spring.scale))))
 		else
-		L_InstaThrustEvenIn2D(object, spring.angle, FixedMul(horizspeed,FixedSqrt(FixedMul(object.scale, spring.scale))))
+			L_InstaThrustEvenIn2D(object, spring.angle, FixedMul(horizspeed,FixedSqrt(FixedMul(object.scale, spring.scale))))
 		end
 	end
 
@@ -336,18 +343,17 @@ local function P_RetroDoSpring(spring, object, mode)
 	// Re-solidify
 	spring.flags = $|(spring.info.flags & (MF_SPRING|MF_SPECIAL))
 
-	if (object.player)
-
+	if (object.player and object.player.valid) then
 		local pflags
 		local secondjump
 		local washoming
 
-		if (horizspeed) and not (mode & 3) //XMAS and DEMO123 do not change your facing angle.
+		if (horizspeed) and not (mode & 3) then //XMAS and DEMO123 do not change your facing angle.
 			object.angle = spring.angle
 			object.player.drawangle = spring.angle
 		end
 
-		if (object.player.pflags & PF_GLIDING)
+		if (object.player.pflags & PF_GLIDING) then
 			object.state = S_PLAY_FALL
 		end
 
@@ -355,11 +361,11 @@ local function P_RetroDoSpring(spring, object, mode)
 
 		pflags = object.player.pflags & (PF_STARTJUMP | PF_JUMPED | PF_NOJUMPDAMAGE | PF_SPINNING | PF_THOKKED | PF_BOUNCING) // I still need these.
 
-		if (wasSpindashing) // Ensure we're in the rolling state, and not spindash.
+		if (wasSpindashing) then // Ensure we're in the rolling state, and not spindash.
 			object.state = S_PLAY_ROLL
 		end
 
-		if (object.player.charability == CA_GLIDEANDCLIMB and object.player.skidtime and (pflags & PF_JUMPED))
+		if (object.player.charability == CA_GLIDEANDCLIMB and object.player.skidtime and (pflags & PF_JUMPED)) then
 			object.player.skidtime = 0 // No skidding should be happening, either.
 			pflags = $ &~PF_JUMPED
 		end
@@ -368,34 +374,27 @@ local function P_RetroDoSpring(spring, object, mode)
 		washoming = object.player.homing
 		P_ResetPlayer(object.player)
 
-		if (vertispeed == 0)
-		
+		if (vertispeed == 0) then
 			if (pflags & (PF_JUMPED|PF_SPINNING))
-			
 				object.player.pflags = $ | pflags
 				object.player.secondjump = secondjump
-			
-			elseif (object.player.dashmode >= DASHMODE_THRESHOLD)
+			elseif (object.player.dashmode >= DASHMODE_THRESHOLD) then
 				object.state = S_PLAY_DASH
-			elseif (P_IsObjectOnGround(object))
-
-				if horizspeed >= FixedMul(object.player.runspeed, object.scale)
+			elseif (P_IsObjectOnGround(object)) then
+				if horizspeed >= FixedMul(object.player.runspeed, object.scale) then
 					object.state = S_PLAY_RUN
 				else
 					object.state = S_PLAY_WALK	
 				end
-
 			else
-
-				if object.momz > 0
+				if object.momz > 0 then
 					object.state = S_PLAY_SPRING
 				else
 					object.state = S_PLAY_FALL
 				end
-
 			end
 
-		elseif (P_MobjFlip(object)*vertispeed > 0)
+		elseif (P_MobjFlip(object)*vertispeed > 0) then
 			object.state = S_PLAY_SPRING
 		else
 			object.state = S_PLAY_FALL
@@ -403,31 +402,28 @@ local function P_RetroDoSpring(spring, object, mode)
 
 	end
 
-	if spring.state < spring.info.raisestate
-	
-		
+	if spring.state < spring.info.raisestate then
 		spring.state = spring.info.raisestate
 
-		if (strong)
-		
-			if (object.player.charability == CA_TWINSPIN or object.player.charability2 == CA2_MELEE)
-				if (object.player.charability == CA_TWINSPIN)
-				L_TwinSpinRejuvenate(object.player, object.player.thokitem)
+		if (strong) then
+			if (object.player.charability == CA_TWINSPIN or object.player.charability2 == CA2_MELEE) then
+				if (object.player.charability == CA_TWINSPIN) then
+					L_TwinSpinRejuvenate(object.player, object.player.thokitem)
 				else
-				L_TwinSpinRejuvenate(object.player, object.player.revitem)
+					L_TwinSpinRejuvenate(object.player, object.player.revitem)
 				end
 			end
 			S_StartSound(object, sfx_sprong) // strong spring. sprong.
 		end
-
 	end
-
 end
 
 local function SpringItemSkin(m,tm)
+	if not (m and m.valid and tm and tm.valid) then return end
+	
 	if (m.z <= tm.z+tm.height and m.z+m.height >= tm.z) -- Height Check
-	and ( (tm.player and tm.health) or tm.type == MT_ROLLOUTROCK or tm.flags & MF_PUSHABLE ) -- Only these things activate springs
-		if m.skintable
+	and ( (tm.player and tm.health) or tm.type == MT_ROLLOUTROCK or tm.flags & MF_PUSHABLE ) then -- Only these things activate springs
+		if m.skintable then
 			m.info.raisestate 	= m.skintable[m.itemskin][2]
 			m.info.mass			= m.skintable[m.itemskin][3]
 			m.info.damage		= m.skintable[m.itemskin][4]
@@ -437,8 +433,8 @@ local function SpringItemSkin(m,tm)
 			--SRB2TP_ChangeObjects(nil,m.type)
 			SRB2TP_UpdateObject(m,true)
 		end
-			if m.info.meleestate != 0
-				if (P_RetroDoSpring(m,tm,m.info.meleestate))
+			if m.info.meleestate != 0 then
+				if (P_RetroDoSpring(m,tm,m.info.meleestate)) then
 					return false
 				end
 				return true
@@ -456,13 +452,15 @@ addHook("MobjCollide", SpringItemSkin, MT_REDDIAG)
 
 
 addHook("MapThingSpawn", function(m,mt)
-if m.info.doomednum >= 546
-and m.info.doomednum <= 549
-//m.colorized = true
-//m.color = SKINCOLOR_CRIMSON
-//m.renderflags = RF_FULLBRIGHT
-print("Thing #"..#mt.." is using a deprecated spring object ("..m.info.doomednum.."); replace with regular spring equivalent.")
-end
+	if not (m and m.valid and mt and mt.valid) then return end
+	
+	if m.info.doomednum >= 546
+	and m.info.doomednum <= 549
+		//m.colorized = true
+		//m.color = SKINCOLOR_CRIMSON
+		//m.renderflags = RF_FULLBRIGHT
+		print("Thing #"..#mt.." is using a deprecated spring object ("..m.info.doomednum.."); replace with regular spring equivalent.")
+	end
 end)
 
 
