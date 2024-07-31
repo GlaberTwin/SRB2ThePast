@@ -584,6 +584,8 @@ end)
 
 
 rawset(_G, "SRB2TP_UpdateObject", function(mo, renew)
+	if not (mo and mo.valid) then return end
+	
 	if renew == nil and SRB2TPE_UniqueObjects then
 		for i,uobj in ipairs(SRB2TPE_UniqueObjects) do
 			if mo.type == uobj then return end -- Don't come back unless renewing for a state change

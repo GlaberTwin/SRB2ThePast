@@ -1,5 +1,5 @@
 ------------------------------
---SRB2:TP Era Skins: Springs-- // Barrels O' Fun
+--SRB2:TP Era Skins: Springs-- // Barrels O' Fun (Edited by MIDIMan)
 ------------------------------
 
 sfxinfo[sfx_s24c].caption = "Spring"
@@ -196,7 +196,7 @@ end
 local function L_TwinSpinRejuvenate(player, type)
 	if not (player and player.valid) then return end
 
-	if (not player.mo or not type) then return end
+	if (not (player.mo and player.mo.valid) or not type) then return end
 
 	local actionspd = FixedMul(player.actionspd, player.mo.scale);
 

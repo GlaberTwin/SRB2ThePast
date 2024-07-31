@@ -23,6 +23,7 @@ addHook("PreThinkFrame", do
 	for p in players.iterate() do
 		local eraInfo = SRB2TP_GetEraInfo()
 		if not eraInfo.tweaks then return end
+		
 		if p and p.valid then
 			p.dx = p.mo.x
 			p.dy = p.mo.y

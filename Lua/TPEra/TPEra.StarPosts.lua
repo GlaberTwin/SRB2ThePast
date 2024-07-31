@@ -58,7 +58,7 @@ end)
 
 addHook("PostThinkFrame", function() --Starpost Skins Animations
 	for _,m in ipairs(starposts) do -- Only iterate those in starposts list
-		if m and m.valid
+		if m and m.valid then
 			if m.state == m.info.spawnstate then
 				m.state = starpost[min(m.itemskin,#starpost)][1]
 			elseif m.state == m.info.painstate then

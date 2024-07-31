@@ -107,6 +107,8 @@ addHook("PlayerSpawn", function(p)
 end)
 
 addHook("PlayerThink", function(p)
+	if not (p and p.valid) then return end
+	
     if p.bonuscount then
 		if CV_FindVar("renderer").string != "OpenGL" then
 			P_FlashPal(p,7+min(4,(p.bonuscount+7)>>3),1)
