@@ -324,10 +324,10 @@ function A_AttractChase(actor, var1, var2)
 -- lua_LookForShield(actor) -- Go find 'em, boy!
 
 
-	if not actor.tracer then
-		or not actor.tracer.player
-		or not actor.tracer.health
-		or not P_CheckSight(actor, actor.tracer) -- You have to be able to SEE it...sorta
+	if not actor.tracer
+	or not actor.tracer.player
+	or not actor.tracer.health
+	or not P_CheckSight(actor, actor.tracer) then -- You have to be able to SEE it...sorta
 	
 		-- Lost attracted rings don't through walls anymore.
 		actor.flags = $&~MF_NOCLIP
