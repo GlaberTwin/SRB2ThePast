@@ -241,6 +241,7 @@ Level SD
 Levelname = Special Stage 7
 nozone = 1
 Subtitle = Version Demo 4
+NextLevel = 2
 Music = SS7D4
 MusicInter = LCLEAR
 SkyNum = 2
@@ -283,6 +284,7 @@ hidden = 1
 palette = 1032
 SpecialStageSpheres = 110
 SpecialStageTime = 30
+NextLevel = 2
 Lua.OldSpecial = 1
 Lua.TPHub = 2:20
 
@@ -314,6 +316,7 @@ RecordAttack = 0
 hidden = 1
 SpecialStageSpheres = 375
 SpecialStageTime = 210
+NextLevel = 2
 Lua.OldSpecial = 1
 Lua.TPHub = 2:34
 
@@ -345,6 +348,7 @@ RecordAttack = 0
 hidden = 1
 SpecialStageSpheres = 100
 SpecialStageTime = 120
+NextLevel = 2
 Lua.OldSpecial = 1
 Lua.TPHub = 2:41
 
@@ -376,12 +380,14 @@ RecordAttack = 0
 hidden = 1
 SpecialStageSpheres = 100
 SpecialStageTime = 90
+NextLevel = 2
 Lua.OldSpecial = 1
 Lua.TPHub = 2:48
 
 Level VL
 LevelName = MP Special Stage 7
 Subtitle = Version 2.2
+NextLevel = 2
 Music = SPEC7
 TypeOfLevel = Singleplayer,Co-op
 SelectHeading = MP Special Stages
