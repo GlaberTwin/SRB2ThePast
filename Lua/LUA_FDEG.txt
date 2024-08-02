@@ -1,4 +1,5 @@
 // Final Demo Eggman - Ported by Glaber (original SOC) and MIDIMan (accuracy fixes and Lua conversion)
+//Requires Common lump LUA_JETF
 
 // MISSILE
 
