@@ -10,8 +10,11 @@ Stats+Menu to begin process (Usually Tab+Escape)
 
 local returningMap			-- Map to return to
 local nextReturnPoint = -1	-- Return point to go to when warping
-local initReturnPoint  = -1 	-- Map's set return point
+local initReturnPoint  = -1 -- Map's set return point
 local curReturnPoint = -1	-- Return point to refer to when loading Hub
+
+local lastReturnMap			-- Last returned to map. Primarily used to return from Special Stages from the correct spot.
+local lastReturnPoint		-- Last returned to return point. Primarily used to return from Special Stages from the correct spot.
 
 local returnPoint			-- Return point Map Thing
 local returnX
@@ -34,7 +37,7 @@ local justWarped = false -- Suppress Escape key after warping
 
 local returnDelay = 0 -- Delay before finally returning
 
-
+local useReturnPoint = false -- Prevent funky business when using the 'map' command or server menus to change to maps with return points.
 
 /////////////////////
 //Get Returning Map//
@@ -78,6 +81,11 @@ local function GetReturningMap()
 end
 
 addHook("MapLoad", function()
+if G_IsSpecialStage() -- Return to correct hub location from special stage.
+returningMap = lastMap
+curReturnPoint = lastReturnPoint
+end
+
 if returningMap == 0 or returningMap == nil -- If it gets set on Map Load through a linedef, don't bother
 GetReturningMap()
 end
@@ -90,13 +98,23 @@ end)
 ////////////////////
 
 addHook("MapChange", function() 
+
+if useReturnPoint == true -- Don't go to return point if loading map through the 'map' command or menus.
+curReturnPoint = nextReturnPoint
+else
+curReturnPoint = -1
+end
+
+useReturnPoint = false
 returnDelay = 0
 returning = false
-returningMap = nil
 returningPlayer = nil
 returnPoint	= nil
 returnAnchor = nil
-curReturnPoint = nextReturnPoint
+
+lastReturnMap = returningMap
+lastReturnPoint = curReturnPoint
+returningMap = nil
 nextReturnPoint = -1
 end)
 
@@ -359,6 +377,7 @@ addHook("ThinkFrame", function()
 			end
 			returning = false
 			returningPlayer = nil
+			useReturnPoint = true
 		end
 		
 	elseif returnDelay > 0
@@ -367,6 +386,9 @@ addHook("ThinkFrame", function()
 
 end)
 
+addHook("IntermissionThinker", function()
+useReturnPoint = true
+end)
 
 
 ///////
@@ -477,6 +499,9 @@ addHook("NetVars", function(network)
 	returning = network(returning)
 	returningPlayer = network(returningPlayer)
 	
+	lastReturnMap = network(lastReturnMap)
+	lastReturnPoint = network(lastReturnPoint)
+	
 	returningMap = network(returningMap)
 	initReturnPoint = network(initReturnPoint)
 	nextReturnPoint = network(nextReturnPoint)
@@ -484,6 +509,8 @@ addHook("NetVars", function(network)
 	curReturnPoint = network(curReturnPoint)
 	
 	returnDelay = network(returnDelay)
+	
+	useReturnPoint = network(useReturnPoint)
 end)
 
 
