@@ -1,6 +1,6 @@
 Maincfg Category
 IntroToPlay = 1
-Gamedata = SRB2past21.dat
+Gamedata = SRB2past21A2.dat
 CustomVersion = v. 2.1 alpha
 NumDemos = 9
 
