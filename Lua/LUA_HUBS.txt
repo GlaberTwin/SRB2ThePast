@@ -99,11 +99,11 @@ end)
 
 addHook("MapChange", function() 
 
-if useReturnPoint == true -- Don't go to return point if loading map through the 'map' command or menus.
+//if useReturnPoint == true -- Don't go to return point if loading map through the 'map' command or menus.
 curReturnPoint = nextReturnPoint
-else
-curReturnPoint = -1
-end
+//else
+//curReturnPoint = -1
+//end
 
 useReturnPoint = false
 returnDelay = 0
