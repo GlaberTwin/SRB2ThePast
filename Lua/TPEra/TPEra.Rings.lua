@@ -327,8 +327,9 @@ function A_AttractChase(actor, var1, var2)
 	if not actor.tracer
 	or not actor.tracer.player
 	or not actor.tracer.health
-	or not P_CheckSight(actor, actor.tracer) then -- You have to be able to SEE it...sorta
-	
+	or not (P_CheckSight(actor, actor.tracer)	-- You have to be able to SEE it...sorta
+	-- Though... Rings will follow you to the ends of the Earth with the old attraction style. 
+		or (actor.tracer.player.powers[pw_shield] == SH_ATTRACT and (actor.tracer.rmShieldEra == "DEMO" or actor.tracer.rmShieldEra == "XMAS")))
 		-- Lost attracted rings don't through walls anymore.
 		actor.flags = $&~MF_NOCLIP
 		actor.tracer = nil
