@@ -9,8 +9,7 @@ Stats+Menu to begin process (Usually Tab+Escape)
 ////////////////////
 
 local returningMap			-- Map to return to
-local nextReturnPoint = -1	-- Return point to go to when warping
-local initReturnPoint  = -1 -- Map's set return point
+local returnPointNum = -1	-- Return point to go to when warping
 local curReturnPoint = -1	-- Return point to refer to when loading Hub
 
 local lastReturnMap			-- Last returned to map. Primarily used to return from Special Stages from the correct spot.
@@ -37,7 +36,8 @@ local justWarped = false -- Suppress Escape key after warping
 
 local returnDelay = 0 -- Delay before finally returning
 
-local useReturnPoint = false -- Prevent funky business when using the 'map' command or server menus to change to maps with return points.
+local customRetMap 		-- For the HUBEXIT Linedef Action
+local customRetPoint 	-- For the HUBEXIT Linedef Action
 
 /////////////////////
 //Get Returning Map//
@@ -45,7 +45,6 @@ local useReturnPoint = false -- Prevent funky business when using the 'map' comm
 
 local function GetReturningMap()
 	returningMap = nil;
-	initReturnPoint = -1;
 
 	if mapheaderinfo[gamemap].tphub == nil then return end
 	local mapid
@@ -73,22 +72,23 @@ local function GetReturningMap()
 	returningMap = mapid
 
 	if (tonumber(retpt) != nil and tonumber(retpt) >= 0)
-		initReturnPoint = tonumber(retpt)			-- Return Point #
+		returnPointNum = tonumber(retpt)			-- Return Point #
+	else
+		returnPointNum = -1
 	end
-	
-	nextReturnPoint = initReturnPoint
 
 end
 
 addHook("MapLoad", function()
 if G_IsSpecialStage() -- Return to correct hub location from special stage.
-returningMap = lastMap
-curReturnPoint = lastReturnPoint
+returningMap = lastReturnMap
+returnPointNum = lastReturnPoint
 end
 
 if returningMap == 0 or returningMap == nil -- If it gets set on Map Load through a linedef, don't bother
 GetReturningMap()
 end
+
 end)
 
 
@@ -97,25 +97,35 @@ end)
 //Map Change Reset//
 ////////////////////
 
-addHook("MapChange", function() 
+addHook("MapChange", function(mapNum) 
 
-//if useReturnPoint == true -- Don't go to return point if loading map through the 'map' command or menus.
-curReturnPoint = nextReturnPoint
-//else
-//curReturnPoint = -1
-//end
+	lastReturnMap = returningMap
+	lastReturnPoint = returnPointNum
+	
+	if customRetMap != nil
+		returningMap = customRetMap		
+	end
 
-useReturnPoint = false
-returnDelay = 0
-returning = false
-returningPlayer = nil
-returnPoint	= nil
-returnAnchor = nil
+	if returningMap == mapNum -- Only use return point if it's the correct map.
+		if customRetPoint != nil and customRetPoint >= 0
+		curReturnPoint = customRetPoint
+		else
+		curReturnPoint = returnPointNum
+		end
+	else
+		curReturnPoint = -1
+	end
+	
+	returnDelay = 0
+	returning = false
+	returningPlayer = nil
+	returnPoint	= nil
+	returnAnchor = nil
 
-lastReturnMap = returningMap
-lastReturnPoint = curReturnPoint
-returningMap = nil
-nextReturnPoint = -1
+	returningMap = nil
+	returnPointNum = -1
+	customRetMap = nil
+	customRetPoint = nil
 end)
 
 
@@ -208,7 +218,7 @@ addHook("PlayerSpawn", function(p)
 		local py = returnY
 		local temp_pflags = p.pflags
 
-		if returnAnchor and returnAnchor.valid and multiplayer
+		if returnAnchor and returnAnchor.valid and (multiplayer or splitscreen)
 			local dist = -FixedHypot((p.mo.x - anchorX), (p.mo.y - anchorY)) --  Get the distance between player and anchor
 			local angle = R_PointToAngle2(p.mo.x,p.mo.y,anchorX,anchorY) + (returnA - anchorA) -- Get angle between player and anchor, then add the difference between the return point's and anchor's angle.
 			px = $ + FixedMul(dist,cos(angle))
@@ -369,7 +379,8 @@ addHook("ThinkFrame", function()
 				gamekeydown[input.gameControlToKeyNum(GC_SCORES)] = false
 			end
 
-			nextReturnPoint = initReturnPoint -- Override Return Point set by Linedef, go back to origin map.
+			customRetMap = nil	-- Override Return Point set by Linedef, go back to origin map.
+			customRetPoint = nil
 			G_ExitLevel()
 		--	S_StartSound(nil, sfx_s3k73,0) -- maybe if sound effects could persist throughout transitions...
 			if consPlayer != nil and consPlayer.EscDown != nil 
@@ -377,7 +388,7 @@ addHook("ThinkFrame", function()
 			end
 			returning = false
 			returningPlayer = nil
-			useReturnPoint = true
+
 		end
 		
 	elseif returnDelay > 0
@@ -385,11 +396,6 @@ addHook("ThinkFrame", function()
 	end
 
 end)
-
-addHook("IntermissionThinker", function()
-useReturnPoint = true
-end)
-
 
 ///////
 //HUD//
@@ -503,14 +509,14 @@ addHook("NetVars", function(network)
 	lastReturnPoint = network(lastReturnPoint)
 	
 	returningMap = network(returningMap)
-	initReturnPoint = network(initReturnPoint)
-	nextReturnPoint = network(nextReturnPoint)
+	returnPointNum = network(returnPointNum)
 	
 	curReturnPoint = network(curReturnPoint)
 	
 	returnDelay = network(returnDelay)
 	
-	useReturnPoint = network(useReturnPoint)
+	customRetMap = network(customRetMap)
+	customRetPoint = network(customRetPoint)
 end)
 
 
@@ -520,8 +526,7 @@ end)
 //////////////////////////////
 addHook("GameQuit", function()
 returningMap = nil	
-nextReturnPoint = -1	
-initReturnPoint  = -1
+returnPointNum = -1	
 curReturnPoint = -1	
 returnPoint	= nil		
 returnX = nil
@@ -548,23 +553,21 @@ end)
 
 -- Set Hub Exit
 addHook("LinedefExecute", function(l,m,s)
-	local retMap = max(1,min(l.frontsector.floorheight/FRACUNIT,1035)) -- floor height sets target map
+	customRetMap = max(1,min(l.frontsector.floorheight/FRACUNIT,1035)) -- floor height sets target map
+	customRetPoint = max(0,l.frontside.textureoffset/FRACUNIT) -- If Regular Exit, X offset is used for return point.
 	local skipTally = l.flags & ML_NOCLIMB >> 6
-	local retPoint = max(0,l.frontside.textureoffset/FRACUNIT) -- If Regular Exit, X offset is used for return point.
 
 	if ((l.flags & ML_BLOCKMONSTERS) and (emeralds >= 127))
-		retMap = max(1,min(l.frontsector.ceilingheight/FRACUNIT,1035))
-		retPoint = max(0,l.frontside.rowoffset/FRACUNIT) -- If Emerald Exit, Y offset is used for return point.
+		customRetMap = max(1,min(l.frontsector.ceilingheight/FRACUNIT,1035))
+		customRetPoint = max(0,l.frontside.rowoffset/FRACUNIT) -- If Emerald Exit, Y offset is used for return point.
 	end
-
-	nextReturnPoint = retPoint
-	G_SetCustomExitVars(retMap,skipTally) 
+	
+	G_SetCustomExitVars(customRetMap,skipTally) 
 end,"HUBEXIT")
 
 -- Change Map's Return Hub
 addHook("LinedefExecute", function(l,m,s)
 	returningMap = max(1,min(l.frontside.textureoffset/FRACUNIT,1035)) -- Returning Map uses X offset 1-1035
-	initReturnPoint = max(0,l.frontside.rowoffset/FRACUNIT)	-- Return Point uses Y offset.
-	nextReturnPoint = max(0,l.frontside.rowoffset/FRACUNIT)
+	returnPointNum = max(0,l.frontside.rowoffset/FRACUNIT)
 end,"SETHUB")
 
