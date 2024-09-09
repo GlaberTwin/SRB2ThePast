@@ -1,2 +1,3 @@
-New Credits SlainLBS for level header work on the SRB1 unlockable levels
+New Credits SlainLBS for level header work on the SRB1 unlockable levels and bug reporting
 sdas8133 and survival46 for the bits from L_Legacy.pk3 we're using
+endlessonic for legacy flickies (programming section)
