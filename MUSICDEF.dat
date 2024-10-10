@@ -815,6 +815,12 @@ Authors = SRB2_Demo_Era_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
 
+Lump SS1D4
+Title = Special_Stage_1
+Authors = SRB2_Demo_4_(MIDI_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
 Lump SS2D4
 Title = Special_Stage_2
 Authors = SRB2_Demo_4_(MIDI_only)
@@ -823,6 +829,18 @@ Soundtestcond = 0
 
 Lump SS3D4
 Title = Special_Stage_3
+Authors = SRB2_Demo_4_(MIDI_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SS4D4
+Title = Special_Stage_4
+Authors = SRB2_Demo_4_(MIDI_only)
+Soundtestpage = 1
+Soundtestcond = 0
+
+Lump SS5D4
+Title = Special_Stage_5
 Authors = SRB2_Demo_4_(MIDI_only)
 Soundtestpage = 1
 Soundtestcond = 0
