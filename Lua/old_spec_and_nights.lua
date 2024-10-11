@@ -33,6 +33,7 @@ addHook("MapLoad", function(id)
 			hud.disable("nightsrecords")
 			loaded_hud = true
 		end
+		stagefailed = true -- Assume level is failed unless someone beats the Special Stage
 
 		--reset players
 		-- for p in players.iterate do
@@ -336,6 +337,7 @@ addHook("ThinkFrame", function()
 					P_SpawnMobj(p.realmo.x, p.realmo.y, p.realmo.z + (4 * FRACUNIT) + p.realmo.info.height, award)
 					S_StartSound(nil, sfx_cgot)
 					p.nightstime = -32770
+					stagefailed = false -- Stage has been beaten if enough rings have been collected
 				end
 			end
 		end
@@ -455,7 +457,7 @@ hud.add(function(v, p, _)
 			)
 		end
 
-		v.draw(hudinfo[HUD_RINGS].x, hudinfo[HUD_RINGS].y, sborings, hudinfo[HUD_RINGS].f | V_HUDTRANS)
+		v.draw(hudinfo[HUD_RINGS].x, hudinfo[HUD_RINGS].y, sborings, hudinfo[HUD_RINGS].f | V_HUDTRANS | V_PERPLAYER)
 
 		--TODO: remove code duplication
 		--count the spheres (again)
@@ -464,7 +466,7 @@ hud.add(function(v, p, _)
 			total_spheres = total_spheres + p.spheres
 		end
 		--draw spheres as rings!
-		v.drawNum(hudinfo[HUD_RINGSNUM].x, hudinfo[HUD_RINGSNUM].y, total_spheres, hudinfo[HUD_RINGSNUM].f | V_HUDTRANS)
+		v.drawNum(hudinfo[HUD_RINGSNUM].x, hudinfo[HUD_RINGSNUM].y, total_spheres, hudinfo[HUD_RINGSNUM].f | V_HUDTRANS | V_PERPLAYER)
 
 		--AND FINALLY!!!
 		--OLD SPECIAL STAGE HUD!!!!
@@ -478,17 +480,17 @@ hud.add(function(v, p, _)
 				hudinfo[HUD_SS_TOTALRINGS].x,
 				hudinfo[HUD_SS_TOTALRINGS].y,
 				total,
-				hudinfo[HUD_SS_TOTALRINGS].f | V_HUDTRANS
+				hudinfo[HUD_SS_TOTALRINGS].f | V_HUDTRANS | V_PERPLAYER
 			)
 		end
 
 		if leveltime < 5 * TICRATE and total > 0 and not p.special_died then
-			v.draw(hudinfo[HUD_GETRINGS].x, hudinfo[HUD_GETRINGS].y, getall, hudinfo[HUD_GETRINGS].f | V_HUDTRANS)
+			v.draw(hudinfo[HUD_GETRINGS].x, hudinfo[HUD_GETRINGS].y, getall, hudinfo[HUD_GETRINGS].f | V_HUDTRANS | V_PERPLAYER)
 			v.drawNum(
 				hudinfo[HUD_GETRINGSNUM].x,
 				hudinfo[HUD_GETRINGSNUM].y,
 				total,
-				hudinfo[HUD_GETRINGSNUM].f | V_HUDTRANS
+				hudinfo[HUD_GETRINGSNUM].f | V_HUDTRANS | V_PERPLAYER
 			)
 		end
 
@@ -498,16 +500,16 @@ hud.add(function(v, p, _)
 					hudinfo[HUD_TIMELEFT].x,
 					hudinfo[HUD_TIMELEFT].y,
 					"TIME LEFT",
-					hudinfo[HUD_TIMELEFT].f | V_HUDTRANS
+					hudinfo[HUD_TIMELEFT].f | V_HUDTRANS | V_PERPLAYER
 				)
 				v.drawNum(
 					hudinfo[HUD_TIMELEFTNUM].x,
 					hudinfo[HUD_TIMELEFTNUM].y,
 					sstimer / TICRATE,
-					hudinfo[HUD_TIMELEFT].f | V_HUDTRANS
+					hudinfo[HUD_TIMELEFT].f | V_HUDTRANS | V_PERPLAYER
 				)
 			else
-				v.draw(hudinfo[HUD_TIMEUP].x, hudinfo[HUD_TIMEUP].y, timeup, hudinfo[HUD_TIMEUP].f | V_HUDTRANS)
+				v.draw(hudinfo[HUD_TIMEUP].x, hudinfo[HUD_TIMEUP].y, timeup, hudinfo[HUD_TIMEUP].f | V_HUDTRANS | V_PERPLAYER)
 			end
 		end
 	end
