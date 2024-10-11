@@ -655,7 +655,7 @@ Condition1 = MapBeaten VJ
 Condition1 = MapBeaten VK
 Condition1 = MapBeaten VL
 
-#Hard limit: 
+#Hard limit: 48
 
 ExtraEmblem 1
 Name = Beta Quest
