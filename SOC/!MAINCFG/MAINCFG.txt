@@ -26,6 +26,7 @@ DefaultTimeLimit = 2
 Description = Nobody's in charge of balance this time around, knockout as many enemies as you can in a path of destruction, and don't look back. You could even go by yourself and earn new high scores!
 #
 
+#Unlockable Hard Limit: 80?
 ##CHARACTER UNLOCKS
 #	AMY
 Unlockable 1
@@ -541,8 +542,120 @@ ConditionSet = 38
 ConditionSet 38
 Condition1 = MapBeaten PU
 
+#	Chaos Emeralds
+Unlockable 41
+Name = Green Emerald
+Objective = Complete the TGF Special Stages
+Type = None
+ConditionSet = 45
 
+ConditionSet 45
+Condition1 = MapBeaten S0
+Condition1 = MapBeaten S1
+Condition1 = MapBeaten S2
+Condition1 = MapBeaten S3
+Condition1 = MapBeaten S4
+Condition1 = MapBeaten S5
+Condition1 = MapBeaten S6
 
+Unlockable 42
+Name = Pink Emerald
+Objective = Complete the Demo 4 Special Stages
+Type = None
+ConditionSet = 46
+
+ConditionSet 46
+Condition1 = MapBeaten S7
+Condition1 = MapBeaten S8
+Condition1 = MapBeaten S9
+Condition1 = MapBeaten SA
+Condition1 = MapBeaten SB
+Condition1 = MapBeaten SC
+Condition1 = MapBeaten SD
+
+Unlockable 43
+Name = Blue Emerald
+Objective = Complete the Demo 4.35 Special Stages
+Type = None
+ConditionSet = 47
+
+ConditionSet 47
+Condition1 = MapBeaten SE
+Condition1 = MapBeaten SF
+Condition1 = MapBeaten SG
+Condition1 = MapBeaten SH
+Condition1 = MapBeaten SI
+Condition1 = MapBeaten SJ
+Condition1 = MapBeaten SK
+
+Unlockable 44
+Name = Cyan Emerald
+Objective = Complete either difficulty of the 1.08 Special Stages
+Type = None
+ConditionSet = 48
+
+ConditionSet 48
+Condition1 = MapBeaten SL
+Condition1 = MapBeaten SM
+Condition1 = MapBeaten SN
+Condition1 = MapBeaten SO
+Condition1 = MapBeaten SP
+Condition1 = MapBeaten SQ
+Condition1 = MapBeaten SR
+Condition2 = MapBeaten SS
+Condition2 = MapBeaten ST
+Condition2 = MapBeaten SU
+Condition2 = MapBeaten SV
+Condition2 = MapBeaten SW
+Condition2 = MapBeaten SX
+Condition2 = MapBeaten SY
+
+Unlockable 45
+Name = Orange Emerald
+Objective = Complete the 1.09 Special Stages
+Type = None
+ConditionSet = 49
+
+ConditionSet 49
+Condition1 = MapBeaten V0
+Condition1 = MapBeaten V1
+Condition1 = MapBeaten V2
+Condition1 = MapBeaten V3
+Condition1 = MapBeaten V4
+Condition1 = MapBeaten V5
+Condition1 = MapBeaten V6
+
+Unlockable 46
+Name = Red Emerald Plus
+Objective = Complete the 2.0 Special Stages
+Type = None
+ConditionSet = 50
+
+ConditionSet 50
+Condition1 = MapBeaten V7
+Condition1 = MapBeaten V8
+Condition1 = MapBeaten V9
+Condition1 = MapBeaten VA
+Condition1 = MapBeaten VB
+Condition1 = MapBeaten VC
+Condition1 = MapBeaten VD
+
+Unlockable 47
+Name = Grey Emerald
+Objective = Complete the 2.2 MP Special Stages
+Type = None
+ConditionSet = 51
+
+ConditionSet 51
+Condition1 = MapBeaten VF
+Condition1 = MapBeaten VG
+Condition1 = MapBeaten VH
+Condition1 = MapBeaten VI
+Condition1 = MapBeaten VJ
+Condition1 = MapBeaten VK
+Condition1 = MapBeaten VL
+
+#Hard limit: 
 
 ExtraEmblem 1
 Name = Beta Quest
@@ -584,6 +697,7 @@ ExtraEmblem 5
 Name = Hyperkin
 Objective = disturb a picnic
 Sprite = F
+Color = SKINCOLOR_JET
 ConditionSet = 11
 
 ExtraEmblem 6
@@ -700,6 +814,55 @@ ConditionSet = 43
 
 ConditionSet 43
 Condition1 = Trigger 5
+
+ExtraEmblem 17
+Name = Green Emerald
+Objective = Beat the TGF Special Stages
+Sprite = F
+Color = SKINCOLOR_GREEN
+ConditionSet = 45
+
+ExtraEmblem 18
+Name = Pink Emerald
+Objective = Beat the Demo 4 Special Stages
+Sprite = F
+Color = SKINCOLOR_PINK
+ConditionSet = 46
+
+ExtraEmblem 19
+Name = Blue Emerald
+Objective = Beat the Demo 4.35 Special Stages
+Sprite = F
+Color = SKINCOLOR_BLUE
+ConditionSet = 47
+
+ExtraEmblem 20
+Name = Cyan Emerald
+Objective = Beat the Version 1.08 Special Stages
+Sprite = F
+Color = SKINCOLOR_CYAN
+ConditionSet = 48
+
+ExtraEmblem 21
+Name = Orange Emerald
+Objective = Beat the Version 1.09 Special Stages
+Sprite = F
+Color = SKINCOLOR_ORANGE
+ConditionSet = 49
+
+ExtraEmblem 22
+Name = Red Emerald
+Objective = Beat the Version 2.0 Special Stages
+Sprite = F
+Color = SKINCOLOR_RED
+ConditionSet = 50
+
+ExtraEmblem 23
+Name = Grey Emerald
+Objective = Beat the 2.2 Multiplayer Special Stages
+Sprite = F
+Color = SKINCOLOR_GREY
+ConditionSet = 51
 
 EMBLEM 1
 Type = Skin
