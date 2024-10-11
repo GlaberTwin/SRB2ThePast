@@ -330,7 +330,7 @@ SpecialStageTime = 100
 NextLevel = 2
 Lua.OldSpecial = 1
 Lua.TPEra = DEMO4
-Lua.TPHub = 2:2
+Lua.TPHub = 2:12
 
 Level SD
 Levelname = Special Stage 7
